@@ -6,7 +6,7 @@ local ReplicatedStorage = game:GetService("ReplicatedStorage")
 Players.PlayerAdded:Connect(function(player)
     player.CharacterAdded:Connect(function(character)
         if ReplicatedStorage.ESell then
-            local gui = game.ReplicatedStorage.ESell:Clone()
+            local gui = ReplicatedStorage.ESell:Clone()
             gui.Parent = player.Character:WaitForChild("HumanoidRootPart")
         else
             warn("ESell not found in ReplicatedStorage- selling may not function properly.")
