@@ -1,8 +1,10 @@
+-- THIS SCRIPT WAS CREATED WITH ROJO; ANY CHANGES MADE IN STUDIO WILL BE OVERWRITTEN
+
 local Players = game:GetService("Players")
 
 --- outdated context, needs to be redone
 function NameTag(p: Player)
-    print("tagging")
+    -- print("tagging")
     local GroupId = 4978642
     local gui = game.ReplicatedStorage.ESell:Clone()
     gui.Parent = p.Character:WaitForChild("HumanoidRootPart")
