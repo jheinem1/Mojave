@@ -59,21 +59,21 @@ function nametag(props)
 end
 
 function addNametag(player: Player)
-    local team = player.Team
-    assert(team, "No team assigned!")
-    local group
-    for _, ally in pairs(allies) do
-        if team.Name == ally.Name then
-            group = ally
-        end
-    end
-    local rank
-    if player:GetRankInGroup(mainGroup) >= 20 or not group then
-        rank = player:GetRoleInGroup(mainGroup)
-    else
-        rank = player:GetRoleInGroup(group.Id)
-    end
     player.CharacterAdded:Connect(function(character)
+        local team = player.Team
+        assert(team, "No team assigned!")
+        local group
+        for _, ally in pairs(allies:getAllies()) do
+            if team.Name == ally.Name then
+                group = ally
+            end
+        end
+        local rank
+        if player:GetRankInGroup(mainGroup) >= 20 or not group then
+            rank = player:GetRoleInGroup(mainGroup)
+        else
+            rank = player:GetRoleInGroup(group.Id)
+        end
         Roact.mount(nametag(
             {
                 name = player.DisplayName,

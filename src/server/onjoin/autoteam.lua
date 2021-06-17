@@ -4,38 +4,49 @@ local Players = game:GetService("Players")
 local Teams = game:GetService("Teams")
 local ServerScriptService = game:GetService("ServerScriptService")
 local teams = {}
-local wastelanders = Instance.new("Team")
+local wastelanders
 local allies = require(ServerScriptService.Server.allies)
 local usedColors = {}
 local current = 0
 local customColorPattern = "Color: '([%a ]+)'"
 
-wastelanders.Name = "Wastelanders"
-wastelanders.TeamColor = BrickColor.Gray()
-wastelanders.Parent = Teams
+function generateTeams()
+    wastelanders = Instance.new("Team")
+    wastelanders.Name = "Wastelanders"
+    wastelanders.TeamColor = BrickColor.Gray()
+    wastelanders.Parent = Teams
 
-for _, group in pairs(allies) do
-    local customColor = string.match(group.Description, customColorPattern)
-    local color
-    if customColor and not usedColors[BrickColor.new(customColor).Number] then
-        color = BrickColor.new(customColor)
-    else
-        while current < 1032 do
-            current += 1
-            color = BrickColor.new(current)
-            if not usedColors[color.Number] then
-                usedColors[color.Number] = true
-                break
+    allies:reload()
+    
+    for _, group in pairs(allies:getAllies()) do
+        local customColor = string.match(group.Description, customColorPattern)
+        local color
+        if customColor and not usedColors[BrickColor.new(customColor).Number] then
+            color = BrickColor.new(customColor)
+        else
+            while current < 1032 do
+                current += 1
+                color = BrickColor.new(current)
+                if not usedColors[color.Number] then
+                    usedColors[color.Number] = true
+                    break
+                end
             end
         end
-    end
-    assert(current < 1032, "Out of colors")
+        assert(current < 1032, "Out of colors")
 
-    local team = Instance.new("Team")
-    team.Name = group.Name
-    team.TeamColor = color
-    team.Parent = Teams
-    teams[group.Id] = team
+        local team = Instance.new("Team")
+        team.Name = group.Name
+        team.TeamColor = color
+        team.Parent = Teams
+        teams[group.Id] = team
+    end
+end
+
+function removeTeams()
+    for _, v in pairs(Teams:GetChildren()) do
+        v:Destroy()
+    end
 end
 
 function assignTeam(player)
@@ -48,4 +59,4 @@ function assignTeam(player)
     player.Team = wastelanders
 end
 
-return assignTeam
+return { assignTeam = assignTeam, removeTeams = removeTeams, generateTeams = generateTeams }

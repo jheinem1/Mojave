@@ -1,18 +1,22 @@
 local Players = game:GetService("Players")
--- local children = script:GetChildren()
--- local functions = {}
+local autoteam = require(script.autoteam)
+local nametag = require(script.nametag)
 
--- for _, child in pairs(children) do
---     table.insert(functions, require(child))
--- end
+function init()
+    autoteam.removeTeams()
+    autoteam.generateTeams()
+    for _, player in pairs(Players:GetPlayers()) do
+        onJoin(player)
+    end
+end
 
 function onJoin(player)
-    require(script.autoteam)(player)
-    require(script.nametag)(player)
+    autoteam.assignTeam(player)
+    nametag(player)
 end
 
 Players.PlayerAdded:Connect(onJoin)
 
-for _, player in pairs(Players:GetPlayers()) do
-    onJoin(player)
-end
+script.reloadteams.Event:Connect(init)
+
+init()
