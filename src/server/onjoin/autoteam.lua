@@ -48,8 +48,4 @@ function assignTeam(player)
     player.Team = wastelanders
 end
 
-Players.PlayerAdded:Connect(assignTeam)
-
-for _, player in pairs(Players:GetPlayers()) do
-    assignTeam(player)
-end
+return assignTeam
