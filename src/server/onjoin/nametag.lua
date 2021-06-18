@@ -13,8 +13,9 @@ function nametag(props)
             Name = "Nametag",
             Size = UDim2.fromScale(4, 1.5),
             StudsOffset = Vector3.new(0, 3.5, 0),
-            MaxDistance = 60,
-            LightInfluence = 0
+            MaxDistance = 150,
+            LightInfluence = 0,
+            Enabled = props.visible
         },
         {
             Roact.createElement("TextLabel",
@@ -58,31 +59,47 @@ function nametag(props)
     )
 end
 
+function onCharacter(player, character)
+    local team = player.Team
+    assert(team, "No team assigned!")
+    local group
+    for _, ally in pairs(allies:getAllies()) do
+        if team.Name == ally.Name then
+            group = ally
+        end
+    end
+    local rank
+    if player:GetRankInGroup(mainGroup) >= 20 or not group then
+        rank = player:GetRoleInGroup(mainGroup)
+    else
+        rank = player:GetRoleInGroup(group.Id)
+    end
+    local nametagProps = {
+        name = player.DisplayName,
+        team = team.Name,
+        rank = rank,
+        color = team.TeamColor.Color,
+        visible = true
+    }
+    local nametagHandle = Roact.mount(nametag(nametagProps), character.HumanoidRootPart)
+    character.Humanoid.Animator.AnimationPlayed:Connect(function(animation: AnimationTrack)
+        if tostring(animation.Animation.AnimationId) == "rbxassetid://6911830449" and nametagProps.visible then
+            nametagProps.visible = false
+            Roact.update(nametagHandle, nametag(nametagProps))
+        elseif not nametagProps.visible then
+            nametagProps.visible = true
+            Roact.update(nametagHandle, nametag(nametagProps))
+        end
+    end)
+    character.Humanoid.NameDisplayDistance = 0
+end
+
 function addNametag(player: Player)
+    if player.Character and player.Character:FindFirstChild("Head") and player.Character:FindFirstChild("Humanoid") and player.Character.Humanoid:FindFirstChild("Animator") then
+        onCharacter(player, player.Character)
+    end
     player.CharacterAdded:Connect(function(character)
-        local team = player.Team
-        assert(team, "No team assigned!")
-        local group
-        for _, ally in pairs(allies:getAllies()) do
-            if team.Name == ally.Name then
-                group = ally
-            end
-        end
-        local rank
-        if player:GetRankInGroup(mainGroup) >= 20 or not group then
-            rank = player:GetRoleInGroup(mainGroup)
-        else
-            rank = player:GetRoleInGroup(group.Id)
-        end
-        Roact.mount(nametag(
-            {
-                name = player.DisplayName,
-                team = team.Name,
-                rank = rank,
-                color = team.TeamColor.Color
-            }),
-            character.HumanoidRootPart
-        )
+        onCharacter(player, character)
     end)
 end
 
