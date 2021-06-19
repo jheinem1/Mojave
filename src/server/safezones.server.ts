@@ -14,7 +14,7 @@ safezoneFolder.Destroy();
 RunService.Heartbeat.Connect(() => {
     Players.GetPlayers().forEach((player) => {
         const rootPart = player.Character?.FindFirstChild("HumanoidRootPart");
-        const forceField = player.Character?.FindFirstChildWhichIsA("ForceField")
+        const forceField = player.Character?.FindFirstChildWhichIsA("ForceField");
         if (rootPart && !forceField && t.instanceOf("Part")(rootPart) && safezones.some((savezone) => savezone.CastPart(rootPart)))
             new Instance("ForceField", player.Character).Visible = false;
         else if (forceField && rootPart && t.instanceOf("Part")(rootPart) && !safezones.some((savezone) => savezone.CastPart(rootPart)))
