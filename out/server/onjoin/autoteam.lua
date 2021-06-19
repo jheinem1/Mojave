@@ -1,6 +1,5 @@
 -- THIS SCRIPT WAS CREATED WITH ROJO; ANY CHANGES MADE IN STUDIO WILL BE OVERWRITTEN
 
-local Players = game:GetService("Players")
 local Teams = game:GetService("Teams")
 local ServerScriptService = game:GetService("ServerScriptService")
 local teams = {}

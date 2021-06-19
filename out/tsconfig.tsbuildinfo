@@ -1,12 +1,40 @@
 {
   "program": {
     "fileInfos": {
+      "../node_modules/@rbxts/rotatedregion3/index.d.ts": {
+        "version": "03744245543c51dcc46c2f6376078cbddb01a5a7bb65768a3a3b7f78efa4f877",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/@rbxts/services/index.d.ts": {
+        "version": "7780f22ed46d445e7287d9cd3fba33e1aad88a6b3542673a78de90356bfc1109",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/@rbxts/t/lib/t.d.ts": {
+        "version": "b394e2aabde1e211d8def4d6cd31598b2385160bd16ab5c10f81eec19c94aba2",
+        "affectsGlobalScope": false
+      },
+      "../src/server/safezones.server.ts": {
+        "version": "676aecbffd2a3d2da7ee312bf45f4eb32914ff9b41b7b8ff913ef83d18a03c85",
+        "affectsGlobalScope": false
+      },
       "../node_modules/@rbxts/types/include/generated/enums.d.ts": {
         "version": "c4f0f2ba15edefe5b4e6d0465512c3310d6505c5b6eafbc5e05fcfe9c54e49fc",
         "affectsGlobalScope": true
       },
       "../node_modules/@rbxts/types/include/generated/none.d.ts": {
         "version": "1a742ca274e22d187e0eb8ed885c9e60486dba09d92dd57ce1f98aaec89e7d5d",
+        "affectsGlobalScope": true
+      },
+      "../node_modules/@rbxts/types/include/lua.d.ts": {
+        "version": "3ebd23266dbc74baf2e96cfd409f5a893634e286c14ee52e735766d3062ec9ac",
+        "affectsGlobalScope": true
+      },
+      "../node_modules/@rbxts/types/include/macro_math.d.ts": {
+        "version": "00ad66381fdf9553e4c1e28ba3c834cd7915b99de0f474be39943a8413ba4ad3",
+        "affectsGlobalScope": true
+      },
+      "../node_modules/@rbxts/types/include/roblox.d.ts": {
+        "version": "6a60aef9492d4b02aba647aad0322ab5fd543ecb1b629d3556a82d3782243b33",
         "affectsGlobalScope": true
       },
       "../node_modules/@rbxts/compiler-types/types/array.d.ts": {
@@ -55,18 +83,6 @@
       },
       "../node_modules/@rbxts/compiler-types/types/core.d.ts": {
         "version": "4592add6b2c2cc781e4c81184dab1fb951df91eb313d0766727790f254d06664",
-        "affectsGlobalScope": true
-      },
-      "../node_modules/@rbxts/types/include/lua.d.ts": {
-        "version": "3ebd23266dbc74baf2e96cfd409f5a893634e286c14ee52e735766d3062ec9ac",
-        "affectsGlobalScope": true
-      },
-      "../node_modules/@rbxts/types/include/macro_math.d.ts": {
-        "version": "00ad66381fdf9553e4c1e28ba3c834cd7915b99de0f474be39943a8413ba4ad3",
-        "affectsGlobalScope": true
-      },
-      "../node_modules/@rbxts/types/include/roblox.d.ts": {
-        "version": "6a60aef9492d4b02aba647aad0322ab5fd543ecb1b629d3556a82d3782243b33",
         "affectsGlobalScope": true
       },
       "../node_modules/@rbxts/roact/src/jsx.d.ts": {
@@ -123,14 +139,6 @@
       },
       "../node_modules/@rbxts/roact/src/index.d.ts": {
         "version": "4f5cf03494441e2b3664f8d61a545f984b01c3ea4aa224a27b0eb4eae24ec8e6",
-        "affectsGlobalScope": false
-      },
-      "../src/server/testing.ts": {
-        "version": "438f7a8f27477a0348b7ac235100800a1f91f28e6831a06f8af09ee3a50a3d6e",
-        "affectsGlobalScope": false
-      },
-      "../node_modules/@rbxts/services/index.d.ts": {
-        "version": "7780f22ed46d445e7287d9cd3fba33e1aad88a6b3542673a78de90356bfc1109",
         "affectsGlobalScope": false
       }
     },
@@ -268,12 +276,14 @@
         "../node_modules/@rbxts/types/include/lua.d.ts",
         "../node_modules/@rbxts/types/include/macro_math.d.ts"
       ],
-      "../src/server/testing.ts": [
-        "../node_modules/@rbxts/roact/src/index.d.ts"
+      "../src/server/safezones.server.ts": [
+        "../node_modules/@rbxts/rotatedregion3/index.d.ts",
+        "../node_modules/@rbxts/services/index.d.ts",
+        "../node_modules/@rbxts/t/lib/t.d.ts"
       ]
     },
     "exportedModulesMap": {},
     "semanticDiagnosticsPerFile": []
   },
-  "version": "1.0.0-beta.151.0.0-23ef8c0e8d7ad5b3182f93a2152d2d21e8d1dbcebc78e8b6dfb3b3d966d2efcd"
+  "version": "1.0.0-beta.151.0.0-940495aecb497dbbc4596ef1327284dbd90ee7fd08277b3fad32902a713178f9"
 }

@@ -1,9 +1,8 @@
 -- THIS SCRIPT WAS CREATED WITH ROJO; ANY CHANGES MADE IN STUDIO WILL BE OVERWRITTEN
 
-local ReplicatedStorage = game:GetService("ReplicatedStorage")
-local Players = game:GetService("Players")
 local ServerScriptService = game:GetService("ServerScriptService")
-local Roact = require(ReplicatedStorage.Vendor.Roact)
+local TS = require(game:GetService("ReplicatedStorage"):WaitForChild("rbxts_include"):WaitForChild("RuntimeLib"))
+local Roact: Roact = TS.import(script, TS.getModule(script, "roact").src)
 local allies = require(ServerScriptService.Server.allies)
 local mainGroup = 4978642
 
