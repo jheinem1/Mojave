@@ -14,7 +14,7 @@
         "affectsGlobalScope": false
       },
       "../src/server/safezones.server.ts": {
-        "version": "676aecbffd2a3d2da7ee312bf45f4eb32914ff9b41b7b8ff913ef83d18a03c85",
+        "version": "bed91c9f5b510c14b9652f504fe15fb66d383dee568d9cad10f53a748e317e8d",
         "affectsGlobalScope": false
       },
       "../node_modules/@rbxts/types/include/generated/enums.d.ts": {
