@@ -1,36 +1,12 @@
 {
   "program": {
     "fileInfos": {
-      "../src/shared/module.ts": {
-        "version": "5b26ad20c7e7ca213cb5924429c35a3716e2a19640a02e579b4ea55242c8cdfa",
-        "affectsGlobalScope": false
-      },
-      "../src/client/main.client.ts": {
-        "version": "8c875200e240dad46ccf5f7ac9d923d39c0919cc66f2cf920e4c13cdc3e88a87",
-        "affectsGlobalScope": false
-      },
-      "../src/server/main.server.ts": {
-        "version": "9be5a47297d8418b950cb4ea4f9c44422485454459d4e4a4e0194057977af566",
-        "affectsGlobalScope": false
-      },
       "../node_modules/@rbxts/types/include/generated/enums.d.ts": {
         "version": "c4f0f2ba15edefe5b4e6d0465512c3310d6505c5b6eafbc5e05fcfe9c54e49fc",
         "affectsGlobalScope": true
       },
       "../node_modules/@rbxts/types/include/generated/none.d.ts": {
         "version": "1a742ca274e22d187e0eb8ed885c9e60486dba09d92dd57ce1f98aaec89e7d5d",
-        "affectsGlobalScope": true
-      },
-      "../node_modules/@rbxts/types/include/lua.d.ts": {
-        "version": "3ebd23266dbc74baf2e96cfd409f5a893634e286c14ee52e735766d3062ec9ac",
-        "affectsGlobalScope": true
-      },
-      "../node_modules/@rbxts/types/include/macro_math.d.ts": {
-        "version": "00ad66381fdf9553e4c1e28ba3c834cd7915b99de0f474be39943a8413ba4ad3",
-        "affectsGlobalScope": true
-      },
-      "../node_modules/@rbxts/types/include/roblox.d.ts": {
-        "version": "6a60aef9492d4b02aba647aad0322ab5fd543ecb1b629d3556a82d3782243b33",
         "affectsGlobalScope": true
       },
       "../node_modules/@rbxts/compiler-types/types/array.d.ts": {
@@ -80,6 +56,82 @@
       "../node_modules/@rbxts/compiler-types/types/core.d.ts": {
         "version": "4592add6b2c2cc781e4c81184dab1fb951df91eb313d0766727790f254d06664",
         "affectsGlobalScope": true
+      },
+      "../node_modules/@rbxts/types/include/lua.d.ts": {
+        "version": "3ebd23266dbc74baf2e96cfd409f5a893634e286c14ee52e735766d3062ec9ac",
+        "affectsGlobalScope": true
+      },
+      "../node_modules/@rbxts/types/include/macro_math.d.ts": {
+        "version": "00ad66381fdf9553e4c1e28ba3c834cd7915b99de0f474be39943a8413ba4ad3",
+        "affectsGlobalScope": true
+      },
+      "../node_modules/@rbxts/types/include/roblox.d.ts": {
+        "version": "6a60aef9492d4b02aba647aad0322ab5fd543ecb1b629d3556a82d3782243b33",
+        "affectsGlobalScope": true
+      },
+      "../node_modules/@rbxts/roact/src/jsx.d.ts": {
+        "version": "4c453b86de2cf1399a971c07020bf6ce2112d9a7da8cd2ea831568d9da5b0149",
+        "affectsGlobalScope": true
+      },
+      "../node_modules/@rbxts/roact/src/component.d.ts": {
+        "version": "75f8b7608e3352ed507627e2da0799516c2b4c777d20ab2ceb1cba7e7f0f6039",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/@rbxts/roact/src/createcontext.d.ts": {
+        "version": "2bbddc5d2c6f4ac488c4c0073fdf72b020f9299e46a032d81b5730f7dda26918",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/@rbxts/roact/src/createelement.d.ts": {
+        "version": "e634d9e9d512a22c4409d66b3d75e1cc40b089b8c9c8f09e4506a91dff5a60f5",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/@rbxts/roact/src/createfragment.d.ts": {
+        "version": "a960ca4b0d3c2f24c071fc874fc0157aea015b457909662b82fcda3aa6f97378",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/@rbxts/roact/src/createref.d.ts": {
+        "version": "69d22ed88a35be30948ca7d5a6cf837a8140472853ce77d63054c95aa496a980",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/@rbxts/roact/src/none.d.ts": {
+        "version": "c04e97f13f9be5fc46bc816a207cfa784032e35ae7d8587911e38a02878a1266",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/@rbxts/roact/src/onechild.d.ts": {
+        "version": "d2b015723474a1981eaa581d835d53f2a6e59b3c33f28e2d5fe08459b4cf68fc",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/@rbxts/roact/src/propmarkers/change.d.ts": {
+        "version": "67b8be76b22a893d74da5f86a438ca85269708ca3a4495f246564f4cbde39f68",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/@rbxts/roact/src/propmarkers/children.d.ts": {
+        "version": "36d5513aa7ec41d9f7e41c0b7b93dd398b4a6cbda4f5917b3bcf5f5873291d42",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/@rbxts/roact/src/propmarkers/event.d.ts": {
+        "version": "03aec1234c69606d5bc57cc60d3b2b82e18489f8a5564398efc3013223222483",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/@rbxts/roact/src/propmarkers/ref.d.ts": {
+        "version": "2bbbfec331fb6d6e0e818afecbae1ec3e5c46912e6d0355b857549f0b4286771",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/@rbxts/roact/src/purecomponent.d.ts": {
+        "version": "e6969a02bc1cfaadf988797184526ca8337bddb03116f1f2f8767c67f7ba4db8",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/@rbxts/roact/src/index.d.ts": {
+        "version": "4f5cf03494441e2b3664f8d61a545f984b01c3ea4aa224a27b0eb4eae24ec8e6",
+        "affectsGlobalScope": false
+      },
+      "../src/server/testing.ts": {
+        "version": "438f7a8f27477a0348b7ac235100800a1f91f28e6831a06f8af09ee3a50a3d6e",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/@rbxts/services/index.d.ts": {
+        "version": "7780f22ed46d445e7287d9cd3fba33e1aad88a6b3542673a78de90356bfc1109",
+        "affectsGlobalScope": false
       }
     },
     "options": {
@@ -149,6 +201,55 @@
         "../node_modules/@rbxts/compiler-types/types/eslintignore.d.ts",
         "../node_modules/@rbxts/types/include/roblox.d.ts"
       ],
+      "../node_modules/@rbxts/roact/src/component.d.ts": [
+        "../node_modules/@rbxts/roact/src/index.d.ts"
+      ],
+      "../node_modules/@rbxts/roact/src/createcontext.d.ts": [
+        "../node_modules/@rbxts/roact/src/index.d.ts"
+      ],
+      "../node_modules/@rbxts/roact/src/createelement.d.ts": [
+        "../node_modules/@rbxts/roact/src/index.d.ts",
+        "../node_modules/@rbxts/types/include/roblox.d.ts"
+      ],
+      "../node_modules/@rbxts/roact/src/createfragment.d.ts": [
+        "../node_modules/@rbxts/roact/src/index.d.ts"
+      ],
+      "../node_modules/@rbxts/roact/src/createref.d.ts": [
+        "../node_modules/@rbxts/roact/src/index.d.ts",
+        "../node_modules/@rbxts/types/include/roblox.d.ts"
+      ],
+      "../node_modules/@rbxts/roact/src/index.d.ts": [
+        "../node_modules/@rbxts/roact/src/component.d.ts",
+        "../node_modules/@rbxts/roact/src/createcontext.d.ts",
+        "../node_modules/@rbxts/roact/src/createelement.d.ts",
+        "../node_modules/@rbxts/roact/src/createfragment.d.ts",
+        "../node_modules/@rbxts/roact/src/createref.d.ts",
+        "../node_modules/@rbxts/roact/src/jsx.d.ts",
+        "../node_modules/@rbxts/roact/src/none.d.ts",
+        "../node_modules/@rbxts/roact/src/onechild.d.ts",
+        "../node_modules/@rbxts/roact/src/propmarkers/change.d.ts",
+        "../node_modules/@rbxts/roact/src/propmarkers/children.d.ts",
+        "../node_modules/@rbxts/roact/src/propmarkers/event.d.ts",
+        "../node_modules/@rbxts/roact/src/propmarkers/ref.d.ts",
+        "../node_modules/@rbxts/roact/src/purecomponent.d.ts",
+        "../node_modules/@rbxts/types/include/roblox.d.ts"
+      ],
+      "../node_modules/@rbxts/roact/src/jsx.d.ts": [
+        "../node_modules/@rbxts/roact/src/index.d.ts",
+        "../node_modules/@rbxts/types/include/roblox.d.ts"
+      ],
+      "../node_modules/@rbxts/roact/src/onechild.d.ts": [
+        "../node_modules/@rbxts/roact/src/index.d.ts"
+      ],
+      "../node_modules/@rbxts/roact/src/propmarkers/children.d.ts": [
+        "../node_modules/@rbxts/roact/src/index.d.ts"
+      ],
+      "../node_modules/@rbxts/roact/src/propmarkers/ref.d.ts": [
+        "../node_modules/@rbxts/types/include/roblox.d.ts"
+      ],
+      "../node_modules/@rbxts/roact/src/purecomponent.d.ts": [
+        "../node_modules/@rbxts/roact/src/component.d.ts"
+      ],
       "../node_modules/@rbxts/types/include/generated/enums.d.ts": [
         "../node_modules/@rbxts/types/include/roblox.d.ts"
       ],
@@ -167,11 +268,8 @@
         "../node_modules/@rbxts/types/include/lua.d.ts",
         "../node_modules/@rbxts/types/include/macro_math.d.ts"
       ],
-      "../src/client/main.client.ts": [
-        "../src/shared/module.ts"
-      ],
-      "../src/server/main.server.ts": [
-        "../src/shared/module.ts"
+      "../src/server/testing.ts": [
+        "../node_modules/@rbxts/roact/src/index.d.ts"
       ]
     },
     "exportedModulesMap": {},
