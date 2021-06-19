@@ -14,6 +14,7 @@ function generateTeams()
     wastelanders.Name = "Wastelanders"
     wastelanders.TeamColor = BrickColor.Gray()
     wastelanders.Parent = Teams
+    usedColors[BrickColor.Gray().Number] = true
 
     allies:reload()
     
