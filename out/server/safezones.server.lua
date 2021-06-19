@@ -1,4 +1,4 @@
--- Compiled with roblox-ts v1.0.0-beta.15
+-- Compiled with roblox-ts v1.1.1
 local TS = require(game:GetService("ReplicatedStorage"):WaitForChild("rbxts_include"):WaitForChild("RuntimeLib"))
 local RotatedRegion3 = TS.import(script, TS.getModule(script, "rotatedregion3"))
 local _0 = TS.import(script, TS.getModule(script, "services"))
@@ -6,6 +6,8 @@ local Players = _0.Players
 local RunService = _0.RunService
 local Workspace = _0.Workspace
 local t = TS.import(script, TS.getModule(script, "t").lib.ts).t
+local Remotes = TS.import(script, game:GetService("ReplicatedStorage"), "Shared", "remotes").default
+local inSafezone = Remotes.Server:Create("InSafezone")
 local validSafezoneChildren = t.array(t.instanceIsA("BasePart"))
 local safezoneFolder = Workspace:FindFirstChild("Safezones")
 local _1 = safezoneFolder
@@ -35,10 +37,10 @@ RunService.Heartbeat:Connect(function()
 		local rootPart = _8
 		local _9 = player.Character
 		if _9 ~= nil then
-			_9 = _9:FindFirstChildWhichIsA("ForceField")
+			_9 = _9:FindFirstChild("Safezone")
 		end
-		local forceField = _9
-		local _10 = rootPart and not forceField and t.instanceOf("Part")(rootPart)
+		local existingForceField = _9
+		local _10 = rootPart and not existingForceField and t.instanceOf("Part")(rootPart)
 		if _10 then
 			local _11 = safezones
 			local _12 = function(savezone)
@@ -55,27 +57,34 @@ RunService.Heartbeat:Connect(function()
 			-- ▲ ReadonlyArray.some ▲
 			_10 = _13
 		end
-		local _11 = forceField and rootPart and t.instanceOf("Part")(rootPart)
-		if _11 then
-			local _12 = safezones
-			local _13 = function(savezone)
-				return savezone:CastPart(rootPart)
-			end
-			-- ▼ ReadonlyArray.some ▼
-			local _14 = false
-			for _15, _16 in ipairs(_12) do
-				if _13(_16, _15 - 1, _12) then
-					_14 = true
-					break
-				end
-			end
-			-- ▲ ReadonlyArray.some ▲
-			_11 = not _14
-		end
 		if _10 then
-			Instance.new("ForceField", player.Character).Visible = false
-		elseif _11 then
-			forceField:Destroy()
+			local forceField = Instance.new("ForceField")
+			forceField.Visible = false
+			forceField.Name = "Safezone"
+			forceField.Parent = player.Character
+			inSafezone:SendToPlayer(player, true)
+		else
+			local _11 = existingForceField and rootPart and t.instanceOf("Part")(rootPart)
+			if _11 then
+				local _12 = safezones
+				local _13 = function(savezone)
+					return savezone:CastPart(rootPart)
+				end
+				-- ▼ ReadonlyArray.some ▼
+				local _14 = false
+				for _15, _16 in ipairs(_12) do
+					if _13(_16, _15 - 1, _12) then
+						_14 = true
+						break
+					end
+				end
+				-- ▲ ReadonlyArray.some ▲
+				_11 = not _14
+			end
+			if _11 then
+				existingForceField:Destroy()
+				inSafezone:SendToPlayer(player, false)
+			end
 		end
 	end
 	-- ▼ ReadonlyArray.forEach ▼

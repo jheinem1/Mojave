@@ -4,7 +4,7 @@
 		"editor.formatOnSave": true
 	},
 	"[typescriptreact]": {
-		"editor.defaultFormatter": "dbaeumer.vscode-eslint",
+		"editor.defaultFormatter": "rvest.vs-code-prettier-eslint",
 		"editor.formatOnSave": true
 	},
 	"eslint.run": "onType",

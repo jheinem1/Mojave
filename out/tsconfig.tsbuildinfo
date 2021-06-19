@@ -1,22 +1,6 @@
 {
   "program": {
     "fileInfos": {
-      "../node_modules/@rbxts/rotatedregion3/index.d.ts": {
-        "version": "03744245543c51dcc46c2f6376078cbddb01a5a7bb65768a3a3b7f78efa4f877",
-        "affectsGlobalScope": false
-      },
-      "../node_modules/@rbxts/services/index.d.ts": {
-        "version": "7780f22ed46d445e7287d9cd3fba33e1aad88a6b3542673a78de90356bfc1109",
-        "affectsGlobalScope": false
-      },
-      "../node_modules/@rbxts/t/lib/t.d.ts": {
-        "version": "b394e2aabde1e211d8def4d6cd31598b2385160bd16ab5c10f81eec19c94aba2",
-        "affectsGlobalScope": false
-      },
-      "../src/server/safezones.server.ts": {
-        "version": "bed91c9f5b510c14b9652f504fe15fb66d383dee568d9cad10f53a748e317e8d",
-        "affectsGlobalScope": false
-      },
       "../node_modules/@rbxts/types/include/generated/enums.d.ts": {
         "version": "c4f0f2ba15edefe5b4e6d0465512c3310d6505c5b6eafbc5e05fcfe9c54e49fc",
         "affectsGlobalScope": true
@@ -25,20 +9,8 @@
         "version": "1a742ca274e22d187e0eb8ed885c9e60486dba09d92dd57ce1f98aaec89e7d5d",
         "affectsGlobalScope": true
       },
-      "../node_modules/@rbxts/types/include/lua.d.ts": {
-        "version": "3ebd23266dbc74baf2e96cfd409f5a893634e286c14ee52e735766d3062ec9ac",
-        "affectsGlobalScope": true
-      },
-      "../node_modules/@rbxts/types/include/macro_math.d.ts": {
-        "version": "00ad66381fdf9553e4c1e28ba3c834cd7915b99de0f474be39943a8413ba4ad3",
-        "affectsGlobalScope": true
-      },
-      "../node_modules/@rbxts/types/include/roblox.d.ts": {
-        "version": "6a60aef9492d4b02aba647aad0322ab5fd543ecb1b629d3556a82d3782243b33",
-        "affectsGlobalScope": true
-      },
       "../node_modules/@rbxts/compiler-types/types/array.d.ts": {
-        "version": "5cb6c39685d9c75351f5a2e676707ccb0bb5c77eeb88355b68f6687dc436d4bc",
+        "version": "58fc89da9c9d0b01f322a8cf0bb9da32f070d5c0f411df012597f7e45b4c1d41",
         "affectsGlobalScope": true
       },
       "../node_modules/@rbxts/compiler-types/types/callmacros.d.ts": {
@@ -54,7 +26,7 @@
         "affectsGlobalScope": true
       },
       "../node_modules/@rbxts/compiler-types/types/map.d.ts": {
-        "version": "7ec13c054d8cc5ac38291702ab726f73e2696064ee19b219e7a54a4dd3bbb5a5",
+        "version": "e66420fb1b9ac45acf74ff12c7deb786865ff6700f635fad71b6dc9fe5ca3613",
         "affectsGlobalScope": true
       },
       "../node_modules/@rbxts/compiler-types/types/promise.d.ts": {
@@ -62,7 +34,7 @@
         "affectsGlobalScope": true
       },
       "../node_modules/@rbxts/compiler-types/types/set.d.ts": {
-        "version": "8b9a5f8ac205434c904d3523e242d5e194452cb08d04c01a0ea5531d5c728e69",
+        "version": "11bb1fee0b30622b31921d08a73859b8fed36b282308abec5ed702dee1912358",
         "affectsGlobalScope": true
       },
       "../node_modules/@rbxts/compiler-types/types/string.d.ts": {
@@ -82,7 +54,19 @@
         "affectsGlobalScope": true
       },
       "../node_modules/@rbxts/compiler-types/types/core.d.ts": {
-        "version": "4592add6b2c2cc781e4c81184dab1fb951df91eb313d0766727790f254d06664",
+        "version": "cc7ff2512dcd3c7f4a2b588c873574412285caa3725d2d3a6d1569fe455c518a",
+        "affectsGlobalScope": true
+      },
+      "../node_modules/@rbxts/types/include/lua.d.ts": {
+        "version": "3ebd23266dbc74baf2e96cfd409f5a893634e286c14ee52e735766d3062ec9ac",
+        "affectsGlobalScope": true
+      },
+      "../node_modules/@rbxts/types/include/macro_math.d.ts": {
+        "version": "00ad66381fdf9553e4c1e28ba3c834cd7915b99de0f474be39943a8413ba4ad3",
+        "affectsGlobalScope": true
+      },
+      "../node_modules/@rbxts/types/include/roblox.d.ts": {
+        "version": "6a60aef9492d4b02aba647aad0322ab5fd543ecb1b629d3556a82d3782243b33",
         "affectsGlobalScope": true
       },
       "../node_modules/@rbxts/roact/src/jsx.d.ts": {
@@ -139,6 +123,138 @@
       },
       "../node_modules/@rbxts/roact/src/index.d.ts": {
         "version": "4f5cf03494441e2b3664f8d61a545f984b01c3ea4aa224a27b0eb4eae24ec8e6",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/@rbxts/services/index.d.ts": {
+        "version": "7780f22ed46d445e7287d9cd3fba33e1aad88a6b3542673a78de90356bfc1109",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/@rbxts/net/out/internal/index.d.ts": {
+        "version": "4c8501c8c9002f5189c87a720b51399a13cbf63b64537ff70c92c36c489e405a",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/@rbxts/net/out/middleware/ratelimitmiddleware/index.d.ts": {
+        "version": "527124057a9daaee3487b4751dd6ee9c84f1777f10e830e775a528526086a0dc",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/@rbxts/net/out/middleware/loggermiddleware/types.d.ts": {
+        "version": "c5c4fcab66673179bccf975b7ffbb0352587438b8ef958fe22fef4ad4b3537da",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/@rbxts/net/out/middleware/typecheckmiddleware/types.d.ts": {
+        "version": "d189f360ee25bb690aa815d554c4e846c0ee22aaf4341b8e5528bfed6a7dbe8d",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/@rbxts/net/out/middleware/index.d.ts": {
+        "version": "f71cfe6757ef99703a2a13347f4f5d5622de9212e7343e3f1581acd9929e4754",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/@rbxts/net/out/server/middlewareevent.d.ts": {
+        "version": "c4b7d147058b25423e7f313e7fae2efa30389bca7de771d1322ba9629d946d12",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/@rbxts/net/out/server/serverasyncfunction.d.ts": {
+        "version": "d1db7d5de7b8d297f249000906bcb0791e52d5f6e1d3d902d5f6f27b115a8db0",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/@rbxts/net/out/server/serverevent.d.ts": {
+        "version": "e7d6ca4967316e40158ebf99d751816c7435c533d0df207af49d793dbdb56116",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/@rbxts/net/out/messaging/messagingevent.d.ts": {
+        "version": "6d962f9a434bbfc64d1ebd9b7c4749fda3781c9d1fff2566ebfee736b0656271",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/@rbxts/net/out/server/servermessagingevent.d.ts": {
+        "version": "740b46204a3fe40bf691480004e60769581bcdaa864e5dec3c4640c0c7402b00",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/@rbxts/net/out/server/createserverlistener.d.ts": {
+        "version": "ec5a54c42ebe67b32cbe39c82a3b168aa4396b01f617bcc7a6e332d0848f5ba4",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/@rbxts/net/out/server/middlewarefunction.d.ts": {
+        "version": "f9beace2eb693d589ff7b6d9540568bdb13a762c85984aae3a07a327651389b7",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/@rbxts/net/out/server/serverfunction.d.ts": {
+        "version": "4c6388f008364511596afd7c375525e447432e40eb17fcfb182833f41765000e",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/@rbxts/net/out/configuration/index.d.ts": {
+        "version": "4a132c0e5d1c7ca5f83b02371a864fd2005e270c04633e3b1b9c5f72c9360a7e",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/@rbxts/net/out/server/index.d.ts": {
+        "version": "d2a21f7a84dc6a3dd521974b250daed1ab1d6e52aaf78aac0b8be4dd98a9a03d",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/@rbxts/net/out/client/clientasyncfunction.d.ts": {
+        "version": "ae53c420ddaf41ab20b4a77de258d51a00a54d3d5659f79dd1e9d1f66f869769",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/@rbxts/net/out/client/clientevent.d.ts": {
+        "version": "e2d65e336574dc2c9cc895a8f76552bb7d61692c1da316b88f46664191b1e51a",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/@rbxts/net/out/client/clientmessagingevent.d.ts": {
+        "version": "f430ab1a224b04a0c4be7fbf8cce4484c5c8630994d8d4bf040e6bde6a558244",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/@rbxts/net/out/client/clientfunction.d.ts": {
+        "version": "0517d57ba13f572d8a59e35fa76e0ba4a42d7c64b860bcd4faf9dd6b846459df",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/@rbxts/net/out/client/index.d.ts": {
+        "version": "6df2faed5ee4bad679286b726b35466eb9ad31f7014fc4a2d990eb85cff421b8",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/@rbxts/net/out/definitions/serverdefinitionbuilder.d.ts": {
+        "version": "c7224bc6923afc464d8462c70b60643efc230d6e97ecbb0d8c826b9dbd335247",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/@rbxts/net/out/definitions/namespacebuilder.d.ts": {
+        "version": "df0a76eb23c1c62e6a42dbe86bf5d38102e13d0fba6264a258576a77ab05072e",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/@rbxts/net/out/definitions/clientdefinitionbuilder.d.ts": {
+        "version": "af9aff3e8520c2e46638827ad3c17750f967390de9486260c08b7b5013f6a867",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/@rbxts/net/out/internal/validator.d.ts": {
+        "version": "870843134ebd450af5066b11e1b5f37571e233a0ede437f51bffc135bbab749e",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/@rbxts/net/out/definitions/types.d.ts": {
+        "version": "667238d6eb80777987462730c697d73c13bb7ecc56f4121d7b408aa50d712fc1",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/@rbxts/net/out/definitions/index.d.ts": {
+        "version": "b37e73455fa6434c995e515fee98de44f3844b000c5eca0f07c27ef21666956a",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/@rbxts/net/out/index.d.ts": {
+        "version": "edc8b811f7977aafa1c41f93711efc273e4b5056f299bd3d34b0e95a35797a97",
+        "affectsGlobalScope": false
+      },
+      "../src/shared/remotes.ts": {
+        "version": "c0ed6a520de04efccdce469b3cdbd4595354055dd5fe50df89793e73b9c2ccf4",
+        "affectsGlobalScope": false
+      },
+      "../src/client/safezonegui.client.tsx": {
+        "version": "3936ecfbd4ce3891c54eab8539df42426e2036cac0c39a717ef819a7435bb130",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/@rbxts/rotatedregion3/index.d.ts": {
+        "version": "03744245543c51dcc46c2f6376078cbddb01a5a7bb65768a3a3b7f78efa4f877",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/@rbxts/t/lib/t.d.ts": {
+        "version": "b394e2aabde1e211d8def4d6cd31598b2385160bd16ab5c10f81eec19c94aba2",
+        "affectsGlobalScope": false
+      },
+      "../src/server/safezones.server.ts": {
+        "version": "1ffc298181c37da0f3c03790122edc3458e67a3f724ac5f8cd8ff215bcb63129",
         "affectsGlobalScope": false
       }
     },
@@ -209,6 +325,138 @@
         "../node_modules/@rbxts/compiler-types/types/eslintignore.d.ts",
         "../node_modules/@rbxts/types/include/roblox.d.ts"
       ],
+      "../node_modules/@rbxts/net/out/client/clientasyncfunction.d.ts": [
+        "../node_modules/@rbxts/compiler-types/types/core.d.ts"
+      ],
+      "../node_modules/@rbxts/net/out/client/clientevent.d.ts": [
+        "../node_modules/@rbxts/compiler-types/types/core.d.ts",
+        "../node_modules/@rbxts/types/include/roblox.d.ts"
+      ],
+      "../node_modules/@rbxts/net/out/client/clientfunction.d.ts": [
+        "../node_modules/@rbxts/compiler-types/types/core.d.ts"
+      ],
+      "../node_modules/@rbxts/net/out/client/index.d.ts": [
+        "../node_modules/@rbxts/compiler-types/types/core.d.ts",
+        "../node_modules/@rbxts/net/out/client/clientasyncfunction.d.ts",
+        "../node_modules/@rbxts/net/out/client/clientevent.d.ts",
+        "../node_modules/@rbxts/net/out/client/clientfunction.d.ts",
+        "../node_modules/@rbxts/net/out/client/clientmessagingevent.d.ts",
+        "../node_modules/@rbxts/net/out/configuration/index.d.ts"
+      ],
+      "../node_modules/@rbxts/net/out/configuration/index.d.ts": [
+        "../node_modules/@rbxts/compiler-types/types/core.d.ts"
+      ],
+      "../node_modules/@rbxts/net/out/definitions/clientdefinitionbuilder.d.ts": [
+        "../node_modules/@rbxts/compiler-types/types/core.d.ts",
+        "../node_modules/@rbxts/net/out/definitions/namespacebuilder.d.ts",
+        "../node_modules/@rbxts/net/out/definitions/types.d.ts"
+      ],
+      "../node_modules/@rbxts/net/out/definitions/index.d.ts": [
+        "../node_modules/@rbxts/compiler-types/types/core.d.ts",
+        "../node_modules/@rbxts/net/out/definitions/types.d.ts",
+        "../node_modules/@rbxts/net/out/middleware/index.d.ts"
+      ],
+      "../node_modules/@rbxts/net/out/definitions/namespacebuilder.d.ts": [
+        "../node_modules/@rbxts/net/out/definitions/clientdefinitionbuilder.d.ts",
+        "../node_modules/@rbxts/net/out/definitions/serverdefinitionbuilder.d.ts",
+        "../node_modules/@rbxts/net/out/definitions/types.d.ts"
+      ],
+      "../node_modules/@rbxts/net/out/definitions/serverdefinitionbuilder.d.ts": [
+        "../node_modules/@rbxts/compiler-types/types/core.d.ts",
+        "../node_modules/@rbxts/net/out/definitions/namespacebuilder.d.ts",
+        "../node_modules/@rbxts/net/out/definitions/types.d.ts",
+        "../node_modules/@rbxts/net/out/middleware/index.d.ts"
+      ],
+      "../node_modules/@rbxts/net/out/definitions/types.d.ts": [
+        "../node_modules/@rbxts/compiler-types/types/core.d.ts",
+        "../node_modules/@rbxts/net/out/client/clientasyncfunction.d.ts",
+        "../node_modules/@rbxts/net/out/client/clientevent.d.ts",
+        "../node_modules/@rbxts/net/out/client/clientfunction.d.ts",
+        "../node_modules/@rbxts/net/out/definitions/clientdefinitionbuilder.d.ts",
+        "../node_modules/@rbxts/net/out/definitions/serverdefinitionbuilder.d.ts",
+        "../node_modules/@rbxts/net/out/internal/validator.d.ts",
+        "../node_modules/@rbxts/net/out/server/serverasyncfunction.d.ts",
+        "../node_modules/@rbxts/net/out/server/serverevent.d.ts",
+        "../node_modules/@rbxts/net/out/server/serverfunction.d.ts",
+        "../node_modules/@rbxts/types/include/roblox.d.ts"
+      ],
+      "../node_modules/@rbxts/net/out/index.d.ts": [
+        "../node_modules/@rbxts/net/out/client/index.d.ts",
+        "../node_modules/@rbxts/net/out/definitions/index.d.ts",
+        "../node_modules/@rbxts/net/out/middleware/index.d.ts",
+        "../node_modules/@rbxts/net/out/server/index.d.ts"
+      ],
+      "../node_modules/@rbxts/net/out/internal/index.d.ts": [
+        "../node_modules/@rbxts/compiler-types/types/core.d.ts",
+        "../node_modules/@rbxts/types/include/roblox.d.ts"
+      ],
+      "../node_modules/@rbxts/net/out/messaging/messagingevent.d.ts": [
+        "../node_modules/@rbxts/types/include/roblox.d.ts"
+      ],
+      "../node_modules/@rbxts/net/out/middleware/index.d.ts": [
+        "../node_modules/@rbxts/compiler-types/types/core.d.ts",
+        "../node_modules/@rbxts/net/out/internal/index.d.ts",
+        "../node_modules/@rbxts/net/out/middleware/loggermiddleware/types.d.ts",
+        "../node_modules/@rbxts/net/out/middleware/ratelimitmiddleware/index.d.ts",
+        "../node_modules/@rbxts/net/out/middleware/typecheckmiddleware/types.d.ts",
+        "../node_modules/@rbxts/types/include/roblox.d.ts"
+      ],
+      "../node_modules/@rbxts/net/out/middleware/ratelimitmiddleware/index.d.ts": [
+        "../node_modules/@rbxts/compiler-types/types/core.d.ts",
+        "../node_modules/@rbxts/net/out/middleware/index.d.ts"
+      ],
+      "../node_modules/@rbxts/net/out/middleware/typecheckmiddleware/types.d.ts": [
+        "../node_modules/@rbxts/net/out/internal/index.d.ts",
+        "../node_modules/@rbxts/net/out/middleware/index.d.ts"
+      ],
+      "../node_modules/@rbxts/net/out/server/createserverlistener.d.ts": [
+        "../node_modules/@rbxts/compiler-types/types/core.d.ts",
+        "../node_modules/@rbxts/net/out/middleware/index.d.ts",
+        "../node_modules/@rbxts/types/include/roblox.d.ts"
+      ],
+      "../node_modules/@rbxts/net/out/server/index.d.ts": [
+        "../node_modules/@rbxts/compiler-types/types/core.d.ts",
+        "../node_modules/@rbxts/net/out/configuration/index.d.ts",
+        "../node_modules/@rbxts/net/out/middleware/index.d.ts",
+        "../node_modules/@rbxts/net/out/server/createserverlistener.d.ts",
+        "../node_modules/@rbxts/net/out/server/serverasyncfunction.d.ts",
+        "../node_modules/@rbxts/net/out/server/serverevent.d.ts",
+        "../node_modules/@rbxts/net/out/server/serverfunction.d.ts",
+        "../node_modules/@rbxts/net/out/server/servermessagingevent.d.ts"
+      ],
+      "../node_modules/@rbxts/net/out/server/middlewareevent.d.ts": [
+        "../node_modules/@rbxts/compiler-types/types/core.d.ts",
+        "../node_modules/@rbxts/net/out/middleware/index.d.ts",
+        "../node_modules/@rbxts/types/include/roblox.d.ts"
+      ],
+      "../node_modules/@rbxts/net/out/server/middlewarefunction.d.ts": [
+        "../node_modules/@rbxts/compiler-types/types/core.d.ts",
+        "../node_modules/@rbxts/net/out/server/middlewareevent.d.ts",
+        "../node_modules/@rbxts/types/include/roblox.d.ts"
+      ],
+      "../node_modules/@rbxts/net/out/server/serverasyncfunction.d.ts": [
+        "../node_modules/@rbxts/compiler-types/types/core.d.ts",
+        "../node_modules/@rbxts/net/out/middleware/index.d.ts",
+        "../node_modules/@rbxts/net/out/server/middlewareevent.d.ts",
+        "../node_modules/@rbxts/types/include/roblox.d.ts"
+      ],
+      "../node_modules/@rbxts/net/out/server/serverevent.d.ts": [
+        "../node_modules/@rbxts/compiler-types/types/core.d.ts",
+        "../node_modules/@rbxts/net/out/internal/index.d.ts",
+        "../node_modules/@rbxts/net/out/middleware/index.d.ts",
+        "../node_modules/@rbxts/net/out/server/middlewareevent.d.ts",
+        "../node_modules/@rbxts/types/include/roblox.d.ts"
+      ],
+      "../node_modules/@rbxts/net/out/server/serverfunction.d.ts": [
+        "../node_modules/@rbxts/compiler-types/types/core.d.ts",
+        "../node_modules/@rbxts/net/out/middleware/index.d.ts",
+        "../node_modules/@rbxts/net/out/server/middlewarefunction.d.ts",
+        "../node_modules/@rbxts/types/include/roblox.d.ts"
+      ],
+      "../node_modules/@rbxts/net/out/server/servermessagingevent.d.ts": [
+        "../node_modules/@rbxts/compiler-types/types/core.d.ts",
+        "../node_modules/@rbxts/net/out/messaging/messagingevent.d.ts"
+      ],
       "../node_modules/@rbxts/roact/src/component.d.ts": [
         "../node_modules/@rbxts/roact/src/index.d.ts"
       ],
@@ -276,14 +524,23 @@
         "../node_modules/@rbxts/types/include/lua.d.ts",
         "../node_modules/@rbxts/types/include/macro_math.d.ts"
       ],
+      "../src/client/safezonegui.client.tsx": [
+        "../node_modules/@rbxts/roact/src/index.d.ts",
+        "../node_modules/@rbxts/services/index.d.ts",
+        "../src/shared/remotes.ts"
+      ],
       "../src/server/safezones.server.ts": [
         "../node_modules/@rbxts/rotatedregion3/index.d.ts",
         "../node_modules/@rbxts/services/index.d.ts",
-        "../node_modules/@rbxts/t/lib/t.d.ts"
+        "../node_modules/@rbxts/t/lib/t.d.ts",
+        "../src/shared/remotes.ts"
+      ],
+      "../src/shared/remotes.ts": [
+        "../node_modules/@rbxts/net/out/index.d.ts"
       ]
     },
     "exportedModulesMap": {},
     "semanticDiagnosticsPerFile": []
   },
-  "version": "1.0.0-beta.151.0.0-940495aecb497dbbc4596ef1327284dbd90ee7fd08277b3fad32902a713178f9"
+  "version": "1.1.11.0.0-940495aecb497dbbc4596ef1327284dbd90ee7fd08277b3fad32902a713178f9"
 }
