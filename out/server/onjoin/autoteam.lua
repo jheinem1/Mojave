@@ -23,6 +23,8 @@ function generateTeams()
         local color
         if customColor and not usedColors[BrickColor.new(customColor).Number] then
             color = BrickColor.new(customColor)
+        elseif customColor and tonumber(customColor) and not usedColors[BrickColor.new(tonumber(customColor)).Number] then
+            color = BrickColor.new(tonumber(customColor))
         else
             while current < 1032 do
                 current += 1

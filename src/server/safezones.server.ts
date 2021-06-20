@@ -56,7 +56,7 @@ RunService.Heartbeat.Connect(() => {
             forceField.Name = "Safezone";
             forceField.Parent = character;
             shielded.set(character, forceField);
-            const player = Players.GetPlayerFromCharacter(character)
+            const player = Players.GetPlayerFromCharacter(character);
             if (player)
                 inSafezoneRemote.SendToPlayer(player, true);
         }

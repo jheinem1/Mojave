@@ -11,8 +11,9 @@
 		"noLib": true,
 		"resolveJsonModule": true,
 		"strict": true,
-		"target": "ESNext",
+		"target": "es6",
 		"typeRoots": ["node_modules/@rbxts"],
+		"isolatedModules": true,
 
 		// configurable
 		"rootDir": "src",
