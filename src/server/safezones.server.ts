@@ -15,23 +15,6 @@ const shielded = new Map<Model, ForceField>();
 
 safezoneFolder.Destroy();
 
-// RunService.Heartbeat.Connect(() => {
-//     Players.GetPlayers().forEach((player) => {
-//         const rootPart = player.Character?.FindFirstChild("HumanoidRootPart");
-//         const existingForceField = player.Character?.FindFirstChild("Safezone");
-//         const isInSafezone = t.instanceOf("Part")(rootPart) ? safezones.some((savezone) => savezone.CastPart(rootPart)) : false;
-//         if (!existingForceField && rootPart && isInSafezone) {
-//             const forceField = new Instance("ForceField");
-//             forceField.Visible = false;
-//             forceField.Name = "Safezone";
-//             forceField.Parent = player.Character;
-//             inSafezone.SendToPlayer(player, true);
-//         } else if (existingForceField && rootPart && !isInSafezone) {
-//             existingForceField.Destroy();
-//             inSafezone.SendToPlayer(player, false);
-//         }
-//     });
-// });
 Players.PlayerAdded.Connect((player) => {
     player.CharacterAdded.Connect((character) => {
         const rootPart = character.FindFirstChild("HumanoidRootPart");
