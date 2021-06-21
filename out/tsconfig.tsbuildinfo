@@ -245,12 +245,20 @@
         "version": "3936ecfbd4ce3891c54eab8539df42426e2036cac0c39a717ef819a7435bb130",
         "affectsGlobalScope": false
       },
-      "../node_modules/@rbxts/rotatedregion3/index.d.ts": {
-        "version": "03744245543c51dcc46c2f6376078cbddb01a5a7bb65768a3a3b7f78efa4f877",
-        "affectsGlobalScope": false
-      },
       "../node_modules/@rbxts/t/lib/t.d.ts": {
         "version": "b394e2aabde1e211d8def4d6cd31598b2385160bd16ab5c10f81eec19c94aba2",
+        "affectsGlobalScope": false
+      },
+      "../src/shared/allies.ts": {
+        "version": "fdc6bfa2897c2eeff2a141a373149ace174a5136ac73938488727610712a8fb1",
+        "affectsGlobalScope": false
+      },
+      "../src/server/generate_factions.server.ts": {
+        "version": "932b27b3af369263fb767e9010bdc75626e1accae21d368c8d18ba7a443fa339",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/@rbxts/rotatedregion3/index.d.ts": {
+        "version": "03744245543c51dcc46c2f6376078cbddb01a5a7bb65768a3a3b7f78efa4f877",
         "affectsGlobalScope": false
       },
       "../src/server/safezones.server.ts": {
@@ -530,11 +538,19 @@
         "../node_modules/@rbxts/services/index.d.ts",
         "../src/shared/remotes.ts"
       ],
+      "../src/server/generate_factions.server.ts": [
+        "../node_modules/@rbxts/services/index.d.ts",
+        "../node_modules/@rbxts/t/lib/t.d.ts",
+        "../src/shared/allies.ts"
+      ],
       "../src/server/safezones.server.ts": [
         "../node_modules/@rbxts/rotatedregion3/index.d.ts",
         "../node_modules/@rbxts/services/index.d.ts",
         "../node_modules/@rbxts/t/lib/t.d.ts",
         "../src/shared/remotes.ts"
+      ],
+      "../src/shared/allies.ts": [
+        "../node_modules/@rbxts/services/index.d.ts"
       ],
       "../src/shared/remotes.ts": [
         "../node_modules/@rbxts/net/out/index.d.ts"
