@@ -79,6 +79,10 @@ RunService.Heartbeat:Connect(function()
 				-- ▼ Map.delete ▼
 				_14[_15] = nil
 				-- ▲ Map.delete ▲
+				local player = Players:GetPlayerFromCharacter(character)
+				if player then
+					inSafezoneRemote:SendToPlayer(player, false)
+				end
 			end
 		end
 	end
