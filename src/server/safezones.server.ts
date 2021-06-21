@@ -31,6 +31,9 @@ RunService.Heartbeat.Connect(() => {
         else if (shielded.get(character)) {
             shielded.get(character)?.Destroy()
             shielded.delete(character);
+            const player = Players.GetPlayerFromCharacter(character);
+            if (player)
+                inSafezoneRemote.SendToPlayer(player, false);
         }
     for (const character of inSafezone) {
         if (!shielded.get(character)) {
