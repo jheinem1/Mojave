@@ -1,10 +1,10 @@
 -- THIS SCRIPT WAS CREATED WITH ROJO; ANY CHANGES MADE IN STUDIO WILL BE OVERWRITTEN
 
 local Teams = game:GetService("Teams")
-local ServerScriptService = game:GetService("ServerScriptService")
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
 local teams = {}
 local wastelanders
-local allies = require(ServerScriptService.Server.allies)
+local Allies = require(ReplicatedStorage.Shared.allies).default
 local usedColors = {}
 local current = 0
 local customColorPattern = "Color: '([%a ]+)'"
@@ -16,9 +16,9 @@ function generateTeams()
     wastelanders.Parent = Teams
     usedColors[BrickColor.Gray().Number] = true
 
-    allies:reload()
+    Allies:refresh()
     
-    for _, group in pairs(allies:getAllies()) do
+    for _, group in pairs(Allies.allies) do
         local customColor = string.match(group.Description, customColorPattern)
         local color
         if customColor and not usedColors[BrickColor.new(customColor).Number] then

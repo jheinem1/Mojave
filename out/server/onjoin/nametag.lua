@@ -1,9 +1,9 @@
 -- THIS SCRIPT WAS CREATED WITH ROJO; ANY CHANGES MADE IN STUDIO WILL BE OVERWRITTEN
 
-local ServerScriptService = game:GetService("ServerScriptService")
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
 local TS = require(game:GetService("ReplicatedStorage"):WaitForChild("rbxts_include"):WaitForChild("RuntimeLib"))
 local Roact: Roact = TS.import(script, TS.getModule(script, "roact").src)
-local allies = require(ServerScriptService.Server.allies)
+local Allies = require(ReplicatedStorage.Shared.allies).default
 local mainGroup = 4978642
 
 function nametag(props)
@@ -62,7 +62,7 @@ function onCharacter(player, character)
     local team = player.Team
     assert(team, "No team assigned!")
     local group
-    for _, ally in pairs(allies:getAllies()) do
+    for _, ally in pairs(Allies.allies) do
         if team.Name == ally.Name then
             group = ally
         end
