@@ -87,9 +87,9 @@ do
 		-- ▲ ReadonlyArray.join ▲
 		local outStr = table.concat(outArray, _3)
 		print(outStr)
-		local _4 = tostring((string.match(outStr, "^%s*(%a+[%a%s]*%a+)%s*$")))
+		local _4 = (string.match(outStr, "^%s*(%a+[%a%s]*%a+)%s*$"))
 		if _4 == nil then
-			_4 = tostring((string.match(outStr, "^%s*(%a+)%s*$")))
+			_4 = (string.match(outStr, "^%s*(%a+)%s*$"))
 			if _4 == nil then
 				_4 = "Invalid Group Name!"
 			end

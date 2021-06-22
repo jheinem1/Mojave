@@ -250,7 +250,7 @@
         "affectsGlobalScope": false
       },
       "../src/shared/allies.ts": {
-        "version": "7418f15db7075068470d239918eb271d36c24097ab89504a6612eb78ee5feca1",
+        "version": "e475dfc85004a075649c98110945af3c282740755bca71fc23ff6b9565d442a7",
         "affectsGlobalScope": false
       },
       "../src/server/generate_factions.server.ts": {
