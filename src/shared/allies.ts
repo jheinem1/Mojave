@@ -26,12 +26,30 @@ class Allies {
         Allies.allies = new Array<GroupInfo>();
         const allyPages = GroupService.GetAlliesAsync(4978642);
         while (true) {
-            allyPages.GetCurrentPage().forEach((group) => Allies.allies.push(group));
+            allyPages.GetCurrentPage().forEach((group) => {
+                group.Name = this.cleanGroupName(group.Name);
+                Allies.allies.push(group);
+            });
             if (allyPages.IsFinished)
                 return Allies.allies;
             else
                 allyPages.AdvanceToNextPageAsync();
         }
+    }
+
+    static cleanGroupName(name: string) {
+        const outArray = new Array<string>();
+        let i = 1;
+        let char = name.sub(i, i);
+        while (char !== "") {
+            if (char === " " || char.match("%a")[0])
+                outArray.push(char);
+            i++;
+            char = name.sub(i, i);
+        }
+        const outStr = outArray.join("");
+        print(outStr)
+        return tostring(outStr.match("^%s*(%a+[%a%s]*%a+)%s*$")[0]) ?? tostring(outStr.match("^%s*(%a+)%s*$")[0]) ?? "Invalid Group Name!";
     }
 }
 Allies.refresh();
