@@ -24,7 +24,7 @@ local function generate()
 	if _1 ~= nil then
 		_1:ClearAllChildren()
 	end
-	for _, group in ipairs(Allies.allies) do
+	for _, group in ipairs(Allies:getAllies()) do
 		generateFactionFolder(group).Parent = location
 	end
 end

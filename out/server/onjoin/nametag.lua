@@ -62,7 +62,7 @@ function onCharacter(player, character)
     local team = player.Team
     assert(team, "No team assigned!")
     local group
-    for _, ally in pairs(Allies.allies) do
+    for _, ally in pairs(Allies:getAllies()) do
         if team.Name == ally.Name then
             group = ally
         end

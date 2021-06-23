@@ -250,11 +250,11 @@
         "affectsGlobalScope": false
       },
       "../src/shared/allies.ts": {
-        "version": "b1c0d0ea11784b8c45b4fac4c316aa79bfb5145abb422170fc1eb41db5db1bc0",
+        "version": "0cf2cbe13499e495d6a1175fa0191dc65d7eb2bad73b1763417d4cf202502e64",
         "affectsGlobalScope": false
       },
       "../src/server/generate_factions.server.ts": {
-        "version": "932b27b3af369263fb767e9010bdc75626e1accae21d368c8d18ba7a443fa339",
+        "version": "e3e6677ecd4556429de536bf1b350d5b63e2271b04bc02354b00edd5f6423b0d",
         "affectsGlobalScope": false
       },
       "../node_modules/@rbxts/rotatedregion3/index.d.ts": {
@@ -550,7 +550,8 @@
         "../src/shared/remotes.ts"
       ],
       "../src/shared/allies.ts": [
-        "../node_modules/@rbxts/services/index.d.ts"
+        "../node_modules/@rbxts/services/index.d.ts",
+        "../node_modules/@rbxts/t/lib/t.d.ts"
       ],
       "../src/shared/remotes.ts": [
         "../node_modules/@rbxts/net/out/index.d.ts"

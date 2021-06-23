@@ -24,7 +24,7 @@ function generateFactionFolder(group: GroupInfo) {
 
 function generate() {
     location?.ClearAllChildren();
-    for (const group of Allies.allies)
+    for (const group of Allies.getAllies())
         generateFactionFolder(group).Parent = location;
 }
 

@@ -17,10 +17,8 @@ function generateTeams()
     wastelanders.TeamColor = BrickColor.Gray()
     wastelanders.Parent = Teams
     usedColors[BrickColor.Gray().Number] = true
-
-    Allies:refresh()
     
-    for _, group in pairs(Allies.allies) do
+    for _, group in pairs(Allies:getAllies()) do
         local customColor = string.match(group.Description, customColorPattern)
         local color
         if customColor and not usedColors[BrickColor.new(customColor).Number] then
@@ -48,9 +46,7 @@ function generateTeams()
 end
 
 function removeTeams()
-    for _, v in pairs(Teams:GetChildren()) do
-        v:Destroy()
-    end
+    Teams:ClearAllChildren()
 end
 
 function assignTeam(player)

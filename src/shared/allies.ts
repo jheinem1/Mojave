@@ -1,38 +1,21 @@
-import { GroupService } from "@rbxts/services";
-
-// interface Group {
-//     Name: string;
-//     Id: number;
-//     Owner: User;
-//     EmblemUrl: string;
-//     Description: string;
-//     Roles: Role[];
-// }
-
-// interface Role {
-//     Name: string;
-//     Rank: number;
-// }
-
-// interface User {
-//     Name: string;
-//     Id: number;
-// }
+import { GroupService, ServerScriptService } from "@rbxts/services";
+import { t } from "@rbxts/t";
 
 class Allies {
-    static allies: GroupInfo[];
+    private static allies: GroupInfo[];
 
     static refresh() {
-        Allies.allies = new Array<GroupInfo>();
+        const newAllies = new Array<GroupInfo>();
         const allyPages = GroupService.GetAlliesAsync(4978642);
         while (true) {
             allyPages.GetCurrentPage().forEach((group) => {
                 group.Name = this.cleanGroupName(group.Name);
-                Allies.allies.push(group);
+                newAllies.push(group);
             });
-            if (allyPages.IsFinished)
-                return Allies.allies;
-            else
+            if (allyPages.IsFinished) {
+                this.allies = newAllies;
+                return;
+            } else
                 allyPages.AdvanceToNextPageAsync();
         }
     }
@@ -50,6 +33,16 @@ class Allies {
         const outStr = outArray.join("");
         return outStr.match("^%s*(%a+[%a%s]*%a+)%s*$")[0] as string | undefined ?? outStr.match("^%s*(%a+)%s*$")[0] as string | undefined ?? "Invalid Group Name!";
     }
+
+    static getAllies() {
+        if (!this.allies)
+            Allies.refresh();
+        return this.allies;
+    }
 }
-Allies.refresh();
+
+const refreshEvent = ServerScriptService.FindFirstChild("Server")?.FindFirstChild("onjoin")?.FindFirstChild("reloadteams");
+if (t.instanceOf("BindableEvent")(refreshEvent))
+    refreshEvent.Event.Connect(() => Allies.refresh());
+
 export default Allies;
