@@ -7,7 +7,7 @@ local RunService = _0.RunService
 local Workspace = _0.Workspace
 local t = TS.import(script, TS.getModule(script, "t").lib.ts).t
 local Remotes = TS.import(script, game:GetService("ReplicatedStorage"), "Shared", "remotes").default
-local inSafezoneRemote = Remotes.Server:Create("InSafezone")
+local inSafezone = Remotes.Server:Create("InSafezone")
 local validSafezoneChildren = t.array(t.instanceIsA("BasePart"))
 local safezoneFolder = Workspace:FindFirstChild("Safezones")
 local _1 = safezoneFolder
@@ -26,84 +26,54 @@ for _6, _7 in ipairs(_3) do
 end
 -- ▲ ReadonlyArray.map ▲
 local safezones = _5
-local rootParts = {}
-local shielded = {}
 safezoneFolder:Destroy()
-Players.PlayerAdded:Connect(function(player)
-	player.CharacterAdded:Connect(function(character)
-		local rootPart = character:FindFirstChild("HumanoidRootPart")
-		if t.instanceOf("Part")(rootPart) then
-			local _6 = rootParts
-			local _7 = character
-			local _8 = rootPart
-			-- ▼ Map.set ▼
-			_6[_7] = _8
-			-- ▲ Map.set ▲
-		end
-	end)
-end)
 RunService.Heartbeat:Connect(function()
-	local inSafezone = {}
-	for character, rootPart in pairs(rootParts) do
-		local _6 = safezones
-		local _7 = function(safezone)
-			return safezone:CastPart(rootPart)
+	local _6 = Players:GetPlayers()
+	local _7 = function(player)
+		local _8 = player.Character
+		if _8 ~= nil then
+			_8 = _8:FindFirstChild("HumanoidRootPart")
 		end
-		-- ▼ ReadonlyArray.some ▼
-		local _8 = false
-		for _9, _10 in ipairs(_6) do
-			if _7(_10, _9 - 1, _6) then
-				_8 = true
-				break
+		local rootPart = _8
+		local _9 = player.Character
+		if _9 ~= nil then
+			_9 = _9:FindFirstChild("Safezone")
+		end
+		local existingForceField = _9
+		local _10
+		if t.instanceOf("Part")(rootPart) then
+			local _11 = safezones
+			local _12 = function(savezone)
+				return savezone:CastPart(rootPart)
 			end
-		end
-		-- ▲ ReadonlyArray.some ▲
-		if _8 then
-			local _9 = inSafezone
-			local _10 = character
-			-- ▼ Array.push ▼
-			_9[#_9 + 1] = _10
-			-- ▲ Array.push ▲
+			-- ▼ ReadonlyArray.some ▼
+			local _13 = false
+			for _14, _15 in ipairs(_11) do
+				if _12(_15, _14 - 1, _11) then
+					_13 = true
+					break
+				end
+			end
+			-- ▲ ReadonlyArray.some ▲
+			_10 = _13
 		else
-			local _9 = shielded
-			local _10 = character
-			if _9[_10] then
-				local _11 = shielded
-				local _12 = character
-				local _13 = _11[_12]
-				if _13 ~= nil then
-					_13:Destroy()
-				end
-				local _14 = shielded
-				local _15 = character
-				-- ▼ Map.delete ▼
-				_14[_15] = nil
-				-- ▲ Map.delete ▲
-				local player = Players:GetPlayerFromCharacter(character)
-				if player then
-					inSafezoneRemote:SendToPlayer(player, false)
-				end
-			end
+			_10 = false
 		end
-	end
-	for _, character in ipairs(inSafezone) do
-		local _6 = shielded
-		local _7 = character
-		if not _6[_7] then
+		local isInSafezone = _10
+		if not existingForceField and rootPart and isInSafezone then
 			local forceField = Instance.new("ForceField")
 			forceField.Visible = false
 			forceField.Name = "Safezone"
-			forceField.Parent = character
-			local _8 = shielded
-			local _9 = character
-			local _10 = forceField
-			-- ▼ Map.set ▼
-			_8[_9] = _10
-			-- ▲ Map.set ▲
-			local player = Players:GetPlayerFromCharacter(character)
-			if player then
-				inSafezoneRemote:SendToPlayer(player, true)
-			end
+			forceField.Parent = player.Character
+			inSafezone:SendToPlayer(player, true)
+		elseif existingForceField and rootPart and not isInSafezone then
+			existingForceField:Destroy()
+			inSafezone:SendToPlayer(player, false)
 		end
 	end
+	-- ▼ ReadonlyArray.forEach ▼
+	for _8, _9 in ipairs(_6) do
+		_7(_9, _8 - 1, _6)
+	end
+	-- ▲ ReadonlyArray.forEach ▲
 end)

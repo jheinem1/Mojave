@@ -262,7 +262,7 @@
         "affectsGlobalScope": false
       },
       "../src/server/safezones.server.ts": {
-        "version": "5c861ebce42b01e8bcde5c9e97e96c04068547f326cefea27df67f706a548a59",
+        "version": "2d97ef7ffb7c17885e5ed9ab260c32ab45abe5741d6ed47cc0e532f7809ac9ae",
         "affectsGlobalScope": false
       }
     },
