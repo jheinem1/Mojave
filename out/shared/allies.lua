@@ -86,7 +86,6 @@ do
 		end
 		-- ▲ ReadonlyArray.join ▲
 		local outStr = table.concat(outArray, _3)
-		print(outStr)
 		local _4 = (string.match(outStr, "^%s*(%a+[%a%s]*%a+)%s*$"))
 		if _4 == nil then
 			_4 = (string.match(outStr, "^%s*(%a+)%s*$"))

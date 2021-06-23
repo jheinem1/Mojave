@@ -48,7 +48,6 @@ class Allies {
             char = name.sub(i, i);
         }
         const outStr = outArray.join("");
-        print(outStr)
         return outStr.match("^%s*(%a+[%a%s]*%a+)%s*$")[0] as string | undefined ?? outStr.match("^%s*(%a+)%s*$")[0] as string | undefined ?? "Invalid Group Name!";
     }
 }
