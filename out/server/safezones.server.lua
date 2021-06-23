@@ -4,62 +4,67 @@ local RotatedRegion3 = TS.import(script, TS.getModule(script, "rotatedregion3"))
 local _0 = TS.import(script, TS.getModule(script, "services"))
 local Players = _0.Players
 local RunService = _0.RunService
+local ServerStorage = _0.ServerStorage
 local Workspace = _0.Workspace
 local t = TS.import(script, TS.getModule(script, "t").lib.ts).t
 local Remotes = TS.import(script, game:GetService("ReplicatedStorage"), "Shared", "remotes").default
 local inSafezone = Remotes.Server:Create("InSafezone")
 local validSafezoneChildren = t.array(t.instanceIsA("BasePart"))
-local safezoneFolder = Workspace:FindFirstChild("Safezones")
-local _1 = safezoneFolder
-assert(_1, "Expected a folder named 'Safezones' in the workspace")
+local _1 = Workspace:FindFirstChild("Safezones")
+if _1 == nil then
+	_1 = ServerStorage:FindFirstChild("Safezones")
+end
+local safezoneFolder = _1
+local _2 = safezoneFolder
+assert(_2, "Expected a folder named 'Safezones' in the workspace or ServerStorage")
 local safezoneParts = safezoneFolder:GetChildren()
-local _2 = validSafezoneChildren(safezoneParts)
-assert(_2, "Expected children of 'Safezones' folder to be BaseParts")
-local _3 = safezoneParts
-local _4 = function(safezonePart)
+local _3 = validSafezoneChildren(safezoneParts)
+assert(_3, "Expected children of 'Safezones' folder to be BaseParts")
+local _4 = safezoneParts
+local _5 = function(safezonePart)
 	return RotatedRegion3.FromPart(safezonePart)
 end
 -- ▼ ReadonlyArray.map ▼
-local _5 = table.create(#_3)
-for _6, _7 in ipairs(_3) do
-	_5[_6] = _4(_7, _6 - 1, _3)
+local _6 = table.create(#_4)
+for _7, _8 in ipairs(_4) do
+	_6[_7] = _5(_8, _7 - 1, _4)
 end
 -- ▲ ReadonlyArray.map ▲
-local safezones = _5
-safezoneFolder:Destroy()
+local safezones = _6
+safezoneFolder.Parent = ServerStorage
 RunService.Heartbeat:Connect(function()
-	local _6 = Players:GetPlayers()
-	local _7 = function(player)
-		local _8 = player.Character
-		if _8 ~= nil then
-			_8 = _8:FindFirstChild("HumanoidRootPart")
-		end
-		local rootPart = _8
+	local _7 = Players:GetPlayers()
+	local _8 = function(player)
 		local _9 = player.Character
 		if _9 ~= nil then
-			_9 = _9:FindFirstChild("Safezone")
+			_9 = _9:FindFirstChild("HumanoidRootPart")
 		end
-		local existingForceField = _9
-		local _10
+		local rootPart = _9
+		local _10 = player.Character
+		if _10 ~= nil then
+			_10 = _10:FindFirstChild("Safezone")
+		end
+		local existingForceField = _10
+		local _11
 		if t.instanceOf("Part")(rootPart) then
-			local _11 = safezones
-			local _12 = function(savezone)
+			local _12 = safezones
+			local _13 = function(savezone)
 				return savezone:CastPart(rootPart)
 			end
 			-- ▼ ReadonlyArray.some ▼
-			local _13 = false
-			for _14, _15 in ipairs(_11) do
-				if _12(_15, _14 - 1, _11) then
-					_13 = true
+			local _14 = false
+			for _15, _16 in ipairs(_12) do
+				if _13(_16, _15 - 1, _12) then
+					_14 = true
 					break
 				end
 			end
 			-- ▲ ReadonlyArray.some ▲
-			_10 = _13
+			_11 = _14
 		else
-			_10 = false
+			_11 = false
 		end
-		local isInSafezone = _10
+		local isInSafezone = _11
 		if not existingForceField and rootPart and isInSafezone then
 			local forceField = Instance.new("ForceField")
 			forceField.Visible = false
@@ -72,8 +77,8 @@ RunService.Heartbeat:Connect(function()
 		end
 	end
 	-- ▼ ReadonlyArray.forEach ▼
-	for _8, _9 in ipairs(_6) do
-		_7(_9, _8 - 1, _6)
+	for _9, _10 in ipairs(_7) do
+		_8(_10, _9 - 1, _7)
 	end
 	-- ▲ ReadonlyArray.forEach ▲
 end)

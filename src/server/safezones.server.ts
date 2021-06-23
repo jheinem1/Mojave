@@ -1,17 +1,17 @@
 import RotatedRegion3 from "@rbxts/rotatedregion3";
-import { Players, RunService, Workspace } from "@rbxts/services";
+import { Players, RunService, ServerStorage, Workspace } from "@rbxts/services";
 import { t } from "@rbxts/t";
 import Remotes from "shared/remotes";
 
 const inSafezone = Remotes.Server.Create("InSafezone");
 const validSafezoneChildren = t.array(t.instanceIsA("BasePart"));
-const safezoneFolder = Workspace.FindFirstChild("Safezones");
-assert(safezoneFolder, "Expected a folder named 'Safezones' in the workspace");
+const safezoneFolder = Workspace.FindFirstChild("Safezones") ?? ServerStorage.FindFirstChild("Safezones");
+assert(safezoneFolder, "Expected a folder named 'Safezones' in the workspace or ServerStorage");
 const safezoneParts = safezoneFolder.GetChildren();
 assert(validSafezoneChildren(safezoneParts), "Expected children of 'Safezones' folder to be BaseParts");
 const safezones = safezoneParts.map((safezonePart) => RotatedRegion3.FromPart(safezonePart));
 
-safezoneFolder.Destroy();
+safezoneFolder.Parent = ServerStorage;
 
 RunService.Heartbeat.Connect(() => {
     Players.GetPlayers().forEach((player) => {
