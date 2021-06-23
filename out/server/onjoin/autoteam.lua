@@ -5,11 +5,13 @@ local ReplicatedStorage = game:GetService("ReplicatedStorage")
 local teams = {}
 local wastelanders
 local Allies = require(ReplicatedStorage.Shared.allies).default
-local usedColors = {}
+local usedColors
 local current = 0
 local customColorPattern = "Color: '([%a ]+)'"
 
 function generateTeams()
+    usedColors = {}
+
     wastelanders = Instance.new("Team")
     wastelanders.Name = "Wastelanders"
     wastelanders.TeamColor = BrickColor.Gray()

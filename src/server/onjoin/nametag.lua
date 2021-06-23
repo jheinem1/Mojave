@@ -80,6 +80,10 @@ function onCharacter(player, character)
         color = team.TeamColor.Color,
         visible = true
     }
+    local existingNametag = character.HumanoidRootPart:FindFirstChild("Nametag")
+    if existingNametag then
+        existingNametag:Destroy()
+    end
     local nametagHandle = Roact.mount(nametag(nametagProps), character.HumanoidRootPart)
     character.Humanoid.Animator.AnimationPlayed:Connect(function(animation: AnimationTrack)
         if tostring(animation.Animation.AnimationId) == "rbxassetid://6911830449" and nametagProps.visible then
