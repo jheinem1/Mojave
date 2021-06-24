@@ -146,7 +146,7 @@
         "affectsGlobalScope": false
       },
       "../src/client/hud/health.tsx": {
-        "version": "2afe91a283566b51829e06bb505e8b51af7886bef027ea98e59d40ebf1981cc8",
+        "version": "a628e6796e5b7a2fb1850c06b89adbbfeb8c8c1bb023a10c805a3a2cbd054227",
         "affectsGlobalScope": false
       },
       "../src/client/hud/compass.tsx": {

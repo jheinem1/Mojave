@@ -27,7 +27,6 @@ export class Health extends Roact.Component<{}, HealthState> {
     }
 
     render() {
-        print(math.clamp(math.abs(this.state.health - 100) / 100 * 4, 0, 4))
         return <frame
             Key="Health"
             BackgroundTransparency={1}

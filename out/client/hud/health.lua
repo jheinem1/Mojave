@@ -37,7 +37,6 @@ do
 		end
 	end
 	function Health:render()
-		print(math.clamp(math.abs(self.state.health - 100) / 100 * 4, 0, 4))
 		return Roact.createFragment({
 			Health = Roact.createElement("Frame", {
 				BackgroundTransparency = 1,
