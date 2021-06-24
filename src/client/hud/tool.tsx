@@ -1,28 +1,96 @@
 import Roact from "@rbxts/roact";
+import { Players } from "@rbxts/services";
+import { t } from "@rbxts/t";
 
-export class Tool extends Roact.Component {
+interface ToolState {
+    toolEquipped: boolean;
+    toolName: string;
+    hasGun: boolean;
+    ammo: string;
+    maxAmmo: string;
+}
+
+export class ToolComponent extends Roact.Component<{}, ToolState> {
+    state = {
+        toolEquipped: false,
+        toolName: "",
+        hasGun: false,
+        ammo: "",
+        maxAmmo: ""
+    }
+
+    constructor(props: {}) {
+        super(props);
+        Players.LocalPlayer.CharacterAdded.Connect(character => this.onCharacter(character));
+        if (Players.LocalPlayer.Character)
+            this.onCharacter(Players.LocalPlayer.Character);
+    }
+
+    private onCharacter(character: Model) {
+        character.ChildAdded.Connect(child => {
+            if (child.IsA("Tool"))
+                this.onToolChange(character, child);
+        })
+        const existingTool = character.FindFirstChildOfClass("Tool");
+        if (existingTool)
+            this.onToolChange(character, existingTool);
+    }
+
+    private onToolChange(character: Model, tool: Tool) {
+        if (tool.FindFirstChild("BlasterSettings")) {
+            const ammo = tool.FindFirstChild("ammo");
+            const maxAmmo = tool.FindFirstChild("BlasterSettings")?.FindFirstChild("Stats")?.FindFirstChild("MaxAmmo");
+            this.setState({
+                //@ts-ignore (idk it gets mad here even though it shouldn't)
+                toolEquipped: true,
+                toolName: tool.Name,
+                hasGun: true,
+                ammo: t.instanceOf("NumberValue")(ammo) ? tostring(ammo.Value) : "N/A",
+                maxAmmo: t.instanceOf("NumberValue")(maxAmmo) ? tostring(maxAmmo.Value) : "N/A",
+            });
+        } else {
+            this.setState({
+                toolEquipped: true,
+                toolName: tool.Name,
+                hasGun: false
+            })
+        }
+        tool.AncestryChanged.Connect(() => {
+            if (tool.Parent !== character) {
+                this.setState({
+                    toolEquipped: false
+                });
+                const newTool = character.FindFirstChildOfClass("Tool");
+                if (newTool)
+                    this.onToolChange(character, newTool);
+            }
+        });
+    }
+
     render() {
         return <frame
             Key="Ammo"
             BackgroundTransparency={1}
             Position={new UDim2(1, -106, 1, -136)}
             Size={new UDim2(0, 100, 0, 80)}
+            Visible={this.state.toolEquipped}
         >
             <textlabel
                 Key="MagAmmo"
                 BackgroundTransparency={1}
                 Size={new UDim2(1, 0, 0, 40)}
-                Text="100"
+                Text={this.state.ammo}
                 TextColor3={Color3.fromRGB(255, 170, 0)}
                 TextSize={24}
                 ZIndex={2}
+                Visible={this.state.hasGun}
             >
                 <textlabel
                     Key="Shadow"
                     BackgroundTransparency={1}
                     Position={new UDim2(0, 1, 0, 1)}
                     Size={new UDim2(1, 0, 0, 40)}
-                    Text="100"
+                    Text={this.state.ammo}
                     TextColor3={Color3.fromRGB(67, 67, 67)}
                     TextSize={24}
                 >
@@ -31,7 +99,7 @@ export class Tool extends Roact.Component {
                         BackgroundTransparency={1}
                         Position={new UDim2(0, 1, 0, 1)}
                         Size={new UDim2(1, 0, 0, 40)}
-                        Text="100"
+                        Text={this.state.ammo}
                         TextColor3={Color3.fromRGB(67, 67, 67)}
                         TextSize={24}
                     />
@@ -42,17 +110,18 @@ export class Tool extends Roact.Component {
                 BackgroundTransparency={1}
                 Position={new UDim2(0, 0, 0, 40)}
                 Size={new UDim2(1, 0, 0, 40)}
-                Text="100"
+                Text={this.state.maxAmmo}
                 TextColor3={Color3.fromRGB(255, 170, 0)}
                 TextSize={24}
                 ZIndex={2}
+                Visible={this.state.hasGun}
             >
                 <textlabel
                     Key="Shadow"
                     BackgroundTransparency={1}
                     Position={new UDim2(0, 1, 0, 1)}
                     Size={new UDim2(1, 0, 0, 40)}
-                    Text="100"
+                    Text={this.state.maxAmmo}
                     TextColor3={Color3.fromRGB(67, 67, 67)}
                     TextSize={24}
                 >
@@ -61,7 +130,7 @@ export class Tool extends Roact.Component {
                         BackgroundTransparency={1}
                         Position={new UDim2(0, 1, 0, 1)}
                         Size={new UDim2(1, 0, 0, 40)}
-                        Text="100"
+                        Text={this.state.maxAmmo}
                         TextColor3={Color3.fromRGB(67, 67, 67)}
                         TextSize={24}
                     />
@@ -74,6 +143,7 @@ export class Tool extends Roact.Component {
                 Position={new UDim2(0.5, -34, 0.5, -1)}
                 Size={new UDim2(0, 70, 0, 2)}
                 ZIndex={3}
+                Visible={this.state.hasGun}
             >
                 <frame
                     Key="Bar"
@@ -97,7 +167,7 @@ export class Tool extends Roact.Component {
                 Font={Enum.Font.ArialBold}
                 Position={new UDim2(0, -10, 1, 0)}
                 Size={new UDim2(0, 100, 0, 10)}
-                Text="Assault Rifle"
+                Text={this.state.toolName}
                 TextColor3={Color3.fromRGB(255, 170, 0)}
                 TextSize={18}
                 TextXAlignment={Enum.TextXAlignment.Right}
@@ -109,7 +179,7 @@ export class Tool extends Roact.Component {
                     Font={Enum.Font.ArialBold}
                     Position={new UDim2(0, 1, 0, 1)}
                     Size={new UDim2(1, 0, 1, 0)}
-                    Text="Assault Rifle"
+                    Text={this.state.toolName}
                     TextColor3={Color3.fromRGB(67, 67, 67)}
                     TextSize={18}
                     TextXAlignment={Enum.TextXAlignment.Right}
@@ -120,7 +190,7 @@ export class Tool extends Roact.Component {
                         Font={Enum.Font.ArialBold}
                         Position={new UDim2(0, 1, 0, 1)}
                         Size={new UDim2(1, 0, 1, 0)}
-                        Text="Assault Rifle"
+                        Text={this.state.toolName}
                         TextColor3={Color3.fromRGB(67, 67, 67)}
                         TextSize={18}
                         TextXAlignment={Enum.TextXAlignment.Right}
@@ -137,6 +207,7 @@ export class Tool extends Roact.Component {
                 Position={new UDim2(0, -10, 0.5, -10)}
                 Size={new UDim2(0, 20, 0, 20)}
                 ZIndex={2}
+                Visible={this.state.hasGun}
             >
                 <imagelabel
                     Key="Shadow"

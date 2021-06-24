@@ -6,13 +6,13 @@ import { Health } from "./health";
 import { Scope } from "./scope";
 import { Settings } from "./settings";
 import { State } from "./state";
-import { Tool } from "./tool";
+import { ToolComponent } from "./tool";
 
 export class HudComponent extends Roact.Component {
     render() {
         return <screengui Key="HUD" ResetOnSpawn={false}>
             <Health />
-            <Tool />
+            <ToolComponent />
             <ActionPoints />
             <State />
             <Compass />

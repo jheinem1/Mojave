@@ -278,11 +278,11 @@
         "affectsGlobalScope": false
       },
       "../src/client/hud/tool.tsx": {
-        "version": "d8b8c017a7b3ae6a6aea5e572033b9ac36353d7f4a73c1647297b2454e241c08",
+        "version": "b52fbc9659176348ee4d2e112eddcff8ac62d8676f6e2b29017e7e28f4087e8e",
         "affectsGlobalScope": false
       },
       "../src/client/hud/hud_component.tsx": {
-        "version": "3c36d7eb49c58005553c2e2aad79894c4b1917b1aad084ef9171f6d22479df0f",
+        "version": "5a9de7b12038a3fde60a186a802db37a3db2785da00c41537a56021b52955275",
         "affectsGlobalScope": false
       },
       "../src/shared/allies.ts": {
@@ -616,7 +616,9 @@
         "../src/shared/remotes.ts"
       ],
       "../src/client/hud/tool.tsx": [
-        "../node_modules/@rbxts/roact/src/index.d.ts"
+        "../node_modules/@rbxts/roact/src/index.d.ts",
+        "../node_modules/@rbxts/services/index.d.ts",
+        "../node_modules/@rbxts/t/lib/t.d.ts"
       ],
       "../src/client/hud/username.tsx": [
         "../node_modules/@rbxts/roact/src/index.d.ts"

@@ -8,7 +8,7 @@ local Health = TS.import(script, script.Parent, "health").Health
 local Scope = TS.import(script, script.Parent, "scope").Scope
 local Settings = TS.import(script, script.Parent, "settings").Settings
 local State = TS.import(script, script.Parent, "state").State
-local Tool = TS.import(script, script.Parent, "tool").Tool
+local ToolComponent = TS.import(script, script.Parent, "tool").ToolComponent
 local HudComponent
 do
 	HudComponent = Roact.Component:extend("HudComponent")
@@ -20,7 +20,7 @@ do
 				ResetOnSpawn = false,
 			}, {
 				Roact.createElement(Health),
-				Roact.createElement(Tool),
+				Roact.createElement(ToolComponent),
 				Roact.createElement(ActionPoints),
 				Roact.createElement(State),
 				Roact.createElement(Compass),
