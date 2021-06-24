@@ -12,10 +12,10 @@ export class Settings extends Roact.Component {
                 BackgroundTransparency={1}
                 Image="http://www.roblox.com/asset/?id=4677859281"
                 ImageColor3={Color3.fromRGB(255, 170, 0)}
-                Position={new UDim2(0.001, 0, 0.805, 0)}
+                Position={new UDim2(0, 0, 1, -100)}
+                Size={new UDim2(0, 30, 0, 30)}
                 Selectable={false}
-                Size={new UDim2(0.03, 0, 0.054, 0)}
-                ZIndex={50}
+                ZIndex={2}
                 Event={{
                     MouseButton1Click: () => {
                         if (this.settings?.IsA("ScreenGui"))
@@ -24,7 +24,18 @@ export class Settings extends Roact.Component {
                             throw "Settings not found!";
                     }
                 }}
-            />
+            >
+                <imagebutton
+                    Key="Shadow"
+                    Active={false}
+                    BackgroundTransparency={1}
+                    Image="http://www.roblox.com/asset/?id=4677859281"
+                    ImageColor3={new Color3(0, 0, 0)}
+                    Position={new UDim2(0, 1, 0, 1)}
+                    Size={new UDim2(1, 0, 1, 0)}
+                    Selectable={false}
+                />
+            </imagebutton>
         </frame>
     }
 }

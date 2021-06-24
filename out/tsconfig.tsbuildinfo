@@ -138,7 +138,7 @@
         "affectsGlobalScope": false
       },
       "../src/client/hud/caps.tsx": {
-        "version": "15d20ddee511bb0b9669558d86d9e83afa53fd07481329e448cfd02d827d3e3f",
+        "version": "cf5c54d189d6caeb85b7e876d8d25e5be438e5789c352713ad7a605048150185",
         "affectsGlobalScope": false
       },
       "../src/client/hud/username.tsx": {
@@ -150,7 +150,7 @@
         "affectsGlobalScope": false
       },
       "../src/client/hud/compass.tsx": {
-        "version": "74143c567cd55f13af07fd2e245bf94e2f0ed3bcb647e6959b7d512992603614",
+        "version": "17a473e9124f148c76f0f7715049468203f18ecbec1b481cc3889b89104d693f",
         "affectsGlobalScope": false
       },
       "../src/client/hud/scope.tsx": {
@@ -158,7 +158,7 @@
         "affectsGlobalScope": false
       },
       "../src/client/hud/settings.tsx": {
-        "version": "65cadda55d8b2daa95ba6581b1eb2c576f025d7d82f632914ba4cf2163ccbfb0",
+        "version": "c99b65a8b521893fc9aa3d131082d2fd54c6478fb47ef7d911387f1c40006850",
         "affectsGlobalScope": false
       },
       "../node_modules/@rbxts/net/out/internal/index.d.ts": {

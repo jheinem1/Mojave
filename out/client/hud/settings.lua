@@ -23,10 +23,10 @@ do
 					BackgroundTransparency = 1,
 					Image = "http://www.roblox.com/asset/?id=4677859281",
 					ImageColor3 = Color3.fromRGB(255, 170, 0),
-					Position = UDim2.new(0.001, 0, 0.805, 0),
+					Position = UDim2.new(0, 0, 1, -100),
+					Size = UDim2.new(0, 30, 0, 30),
 					Selectable = false,
-					Size = UDim2.new(0.03, 0, 0.054, 0),
-					ZIndex = 50,
+					ZIndex = 2,
 					[Roact.Event.MouseButton1Click] = function()
 						local _0 = self.settings
 						if _0 ~= nil then
@@ -38,6 +38,16 @@ do
 							error("Settings not found!")
 						end
 					end,
+				}, {
+					Shadow = Roact.createElement("ImageButton", {
+						Active = false,
+						BackgroundTransparency = 1,
+						Image = "http://www.roblox.com/asset/?id=4677859281",
+						ImageColor3 = Color3.new(0, 0, 0),
+						Position = UDim2.new(0, 1, 0, 1),
+						Size = UDim2.new(1, 0, 1, 0),
+						Selectable = false,
+					}),
 				}),
 			}),
 		})

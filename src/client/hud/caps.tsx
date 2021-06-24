@@ -24,8 +24,8 @@ export class Caps extends Roact.Component<{}, CapsState> {
                 BackgroundTransparency={1}
                 Image="rbxassetid://73202079"
                 ImageColor3={Color3.fromRGB(255, 170, 0)}
-                Position={new UDim2(0.017, 0, 0.872, 0)}
-                Size={new UDim2(0.027, 0, 0.048, 0)}
+                Position={new UDim2(0, 13, 1, -130)}
+                Size={new UDim2(0, 25, 0, 25)}
                 ZIndex={2}
             >
                 <imagelabel
@@ -36,20 +36,31 @@ export class Caps extends Roact.Component<{}, CapsState> {
                     Position={new UDim2(0, 1, 0, 1)}
                     Size={new UDim2(1, 0, 1, 0)}
                 />
+                <textlabel
+                    Key="Caps"
+                    BackgroundTransparency={1}
+                    Font={Enum.Font.ArialBold}
+                    Position={new UDim2(1, 5, 0, 0)}
+                    Size={new UDim2(1, 0, 1, 0)}
+                    Text={this.state.caps}
+                    TextColor3={Color3.fromRGB(255, 170, 0)}
+                    TextSize={20}
+                    TextXAlignment={Enum.TextXAlignment.Left}
+                    ZIndex={2}
+                >
+                    <textlabel
+                        Key="Caps"
+                        BackgroundTransparency={1}
+                        Font={Enum.Font.ArialBold}
+                        Position={new UDim2(0, 1, 0, 1)}
+                        Size={new UDim2(1, 0, 1, 0)}
+                        Text={this.state.caps}
+                        TextColor3={new Color3(0, 0, 0)}
+                        TextSize={20}
+                        TextXAlignment={Enum.TextXAlignment.Left}
+                    />
+                </textlabel>
             </imagelabel>
-            <textlabel
-                Key="Caps"
-                BackgroundTransparency={1}
-                Font={Enum.Font.ArialBold}
-                Position={new UDim2(0.038, 0, 0.891, 0)}
-                Size={new UDim2(0.052, 0, 0.02, 0)}
-                Text={this.state.caps}
-                TextColor3={Color3.fromRGB(255, 170, 0)}
-                TextSize={20}
-                TextStrokeTransparency={0.5}
-                TextXAlignment={Enum.TextXAlignment.Left}
-                ZIndex={2}
-            />
         </frame>
     }
 }
