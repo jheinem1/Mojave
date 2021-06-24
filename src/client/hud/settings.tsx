@@ -1,6 +1,9 @@
 import Roact from "@rbxts/roact";
+import { Players } from "@rbxts/services";
 
 export class Settings extends Roact.Component {
+    private settings = Players.LocalPlayer.FindFirstChildOfClass("PlayerGui")?.FindFirstChild("Settings");
+
     render() {
         return <frame Key="Settings" BackgroundTransparency={1} Size={new UDim2(1, 0, 1, 0)}>
             <imagebutton
@@ -13,6 +16,14 @@ export class Settings extends Roact.Component {
                 Selectable={false}
                 Size={new UDim2(0.03, 0, 0.054, 0)}
                 ZIndex={50}
+                Event={{
+                    MouseButton1Click: () => {
+                        if (this.settings?.IsA("ScreenGui"))
+                            this.settings.Enabled = !this.settings.Enabled;
+                        else
+                            throw "Settings not found!";
+                    }
+                }}
             />
         </frame>
     }

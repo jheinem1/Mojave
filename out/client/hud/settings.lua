@@ -1,10 +1,16 @@
 -- Compiled with roblox-ts v1.1.1
 local TS = require(game:GetService("ReplicatedStorage"):WaitForChild("rbxts_include"):WaitForChild("RuntimeLib"))
 local Roact = TS.import(script, TS.getModule(script, "roact").src)
+local Players = TS.import(script, TS.getModule(script, "services")).Players
 local Settings
 do
 	Settings = Roact.Component:extend("Settings")
 	function Settings:init()
+		local _0 = Players.LocalPlayer:FindFirstChildOfClass("PlayerGui")
+		if _0 ~= nil then
+			_0 = _0:FindFirstChild("Settings")
+		end
+		self.settings = _0
 	end
 	function Settings:render()
 		return Roact.createFragment({
@@ -21,6 +27,17 @@ do
 					Selectable = false,
 					Size = UDim2.new(0.03, 0, 0.054, 0),
 					ZIndex = 50,
+					[Roact.Event.MouseButton1Click] = function()
+						local _0 = self.settings
+						if _0 ~= nil then
+							_0 = _0:IsA("ScreenGui")
+						end
+						if _0 then
+							self.settings.Enabled = not self.settings.Enabled
+						else
+							error("Settings not found!")
+						end
+					end,
 				}),
 			}),
 		})
