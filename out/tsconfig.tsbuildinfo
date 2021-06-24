@@ -142,7 +142,7 @@
         "affectsGlobalScope": false
       },
       "../src/client/hud/username.tsx": {
-        "version": "2a5f29a3437a9650a853f6cecd34946cdf20c1756c713169c72f4e8678acdf15",
+        "version": "11155bad12e0646c7afb9c142979f6bf21d4f4b577954c1b97470b90e6af57cf",
         "affectsGlobalScope": false
       },
       "../src/client/hud/health.tsx": {
@@ -621,7 +621,8 @@
         "../node_modules/@rbxts/t/lib/t.d.ts"
       ],
       "../src/client/hud/username.tsx": [
-        "../node_modules/@rbxts/roact/src/index.d.ts"
+        "../node_modules/@rbxts/roact/src/index.d.ts",
+        "../node_modules/@rbxts/services/index.d.ts"
       ],
       "../src/server/generate_factions.server.ts": [
         "../node_modules/@rbxts/services/index.d.ts",

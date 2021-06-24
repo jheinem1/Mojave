@@ -1,7 +1,20 @@
 import Roact from "@rbxts/roact";
+import { Players } from "@rbxts/services";
 
-export class Username extends Roact.Component {
+interface UsernameState {
+    displayName: string;
+}
+
+export class Username extends Roact.Component<{}, UsernameState> {
+    state = { displayName: Players.LocalPlayer.DisplayName };
+
+    constructor(props: {}) {
+        super(props);
+        Players.LocalPlayer.GetPropertyChangedSignal("DisplayName").Connect(() => this.setState({ displayName: Players.LocalPlayer.DisplayName }));
+    }
+
     render() {
+        const displayName = this.state.displayName;
         return <textlabel
             Key="Username"
             BackgroundTransparency={1}
@@ -9,7 +22,7 @@ export class Username extends Roact.Component {
             Font={Enum.Font.SourceSansBold}
             Position={new UDim2(0, 0, 0, -14)}
             Size={new UDim2(0, 140, 0, 20)}
-            Text="ghoulbait"
+            Text={displayName}
             TextColor3={Color3.fromRGB(255, 170, 0)}
             TextScaled={true}
             TextSize={14}
@@ -24,7 +37,7 @@ export class Username extends Roact.Component {
                 Font={Enum.Font.SourceSansBold}
                 Position={new UDim2(0, 1, 0, 1)}
                 Size={new UDim2(1, 0, 1, 0)}
-                Text="ghoulbait"
+                Text={displayName}
                 TextColor3={Color3.fromRGB(67, 67, 67)}
                 TextScaled={true}
                 TextSize={14}
@@ -38,7 +51,7 @@ export class Username extends Roact.Component {
                     Font={Enum.Font.SourceSansBold}
                     Position={new UDim2(0, 1, 0, 1)}
                     Size={new UDim2(1, 0, 1, 0)}
-                    Text="ghoulbait"
+                    Text={displayName}
                     TextColor3={Color3.fromRGB(67, 67, 67)}
                     TextScaled={true}
                     TextSize={14}
