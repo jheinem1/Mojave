@@ -300,6 +300,10 @@
       "../src/server/safezones.server.ts": {
         "version": "45be0651c340d8af6865e88a326273fbf1a27fe68b29a972a8e44515e6a53922",
         "affectsGlobalScope": false
+      },
+      "../src/client/hud/init.client.tsx": {
+        "version": "bd956f905a7af4fb0d14834432985bf8adc22a4098883a2e89aa3c1c32f28e8f",
+        "affectsGlobalScope": false
       }
     },
     "options": {
@@ -591,6 +595,11 @@
         "../src/client/hud/settings.tsx",
         "../src/client/hud/state.tsx",
         "../src/client/hud/tool.tsx"
+      ],
+      "../src/client/hud/init.client.tsx": [
+        "../node_modules/@rbxts/roact/src/index.d.ts",
+        "../node_modules/@rbxts/services/index.d.ts",
+        "../src/client/hud/hud_component.tsx"
       ],
       "../src/client/hud/scope.tsx": [
         "../node_modules/@rbxts/roact/src/index.d.ts"
