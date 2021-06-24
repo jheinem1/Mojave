@@ -1,10 +1,27 @@
 -- Compiled with roblox-ts v1.1.1
 local TS = require(game:GetService("ReplicatedStorage"):WaitForChild("rbxts_include"):WaitForChild("RuntimeLib"))
 local Roact = TS.import(script, TS.getModule(script, "roact").src)
+local Players = TS.import(script, TS.getModule(script, "services")).Players
+local t = TS.import(script, TS.getModule(script, "t").lib.ts).t
 local Caps
 do
 	Caps = Roact.Component:extend("Caps")
-	function Caps:init()
+	function Caps:init(props)
+		local _0 = Players.LocalPlayer:FindFirstChild("Data")
+		if _0 ~= nil then
+			_0 = _0:FindFirstChild("Caps")
+		end
+		self.capsValue = _0
+		self.state = {
+			caps = (t.instanceIsA("NumberValue")(self.capsValue) and tostring(self.capsValue.Value) or "N/A"),
+		}
+		if t.instanceIsA("NumberValue")(self.capsValue) then
+			self.capsValue.Changed:Connect(function(caps)
+				return self:setState({
+					caps = tostring(caps),
+				})
+			end)
+		end
 	end
 	function Caps:render()
 		return Roact.createFragment({
@@ -34,7 +51,7 @@ do
 					Font = Enum.Font.ArialBold,
 					Position = UDim2.new(0.038, 0, 0.891, 0),
 					Size = UDim2.new(0.052, 0, 0.02, 0),
-					Text = "0",
+					Text = self.state.caps,
 					TextColor3 = Color3.fromRGB(255, 170, 0),
 					TextSize = 20,
 					TextStrokeTransparency = 0.5,

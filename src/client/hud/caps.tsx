@@ -1,6 +1,21 @@
 import Roact from "@rbxts/roact";
+import { Players } from "@rbxts/services";
+import { t } from "@rbxts/t";
 
-export class Caps extends Roact.Component {
+interface CapsState {
+    caps: string
+}
+
+export class Caps extends Roact.Component<{}, CapsState> {
+    capsValue = Players.LocalPlayer.FindFirstChild("Data")?.FindFirstChild("Caps");
+    state = { caps: (t.instanceIsA("NumberValue")(this.capsValue) ? tostring(this.capsValue.Value) : "N/A") };
+
+    constructor(props: {}) {
+        super(props);
+        if (t.instanceIsA("NumberValue")(this.capsValue))
+            this.capsValue.Changed.Connect(caps => this.setState({ caps: tostring(caps) }));
+    }
+
     render() {
         return <frame Key="Caps" BackgroundTransparency={1} Size={new UDim2(1, 0, 1, 0)}>
             <imagelabel
@@ -28,7 +43,7 @@ export class Caps extends Roact.Component {
                 Font={Enum.Font.ArialBold}
                 Position={new UDim2(0.038, 0, 0.891, 0)}
                 Size={new UDim2(0.052, 0, 0.02, 0)}
-                Text="0"
+                Text={this.state.caps}
                 TextColor3={Color3.fromRGB(255, 170, 0)}
                 TextSize={20}
                 TextStrokeTransparency={0.5}
