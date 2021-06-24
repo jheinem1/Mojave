@@ -150,7 +150,7 @@
         "affectsGlobalScope": false
       },
       "../src/client/hud/compass.tsx": {
-        "version": "17a473e9124f148c76f0f7715049468203f18ecbec1b481cc3889b89104d693f",
+        "version": "74143c567cd55f13af07fd2e245bf94e2f0ed3bcb647e6959b7d512992603614",
         "affectsGlobalScope": false
       },
       "../src/client/hud/scope.tsx": {

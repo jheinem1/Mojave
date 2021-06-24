@@ -8,6 +8,7 @@ export class Compass extends Roact.Component {
             ClipsDescendants={true}
             Position={new UDim2(0.5, -135, 1, -54)}
             Size={new UDim2(0, 270, 0, 50)}
+            Visible={false}
         >
             <frame
                 Key="Bars"

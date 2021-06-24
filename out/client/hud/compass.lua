@@ -13,6 +13,7 @@ do
 				ClipsDescendants = true,
 				Position = UDim2.new(0.5, -135, 1, -54),
 				Size = UDim2.new(0, 270, 0, 50),
+				Visible = false,
 			}, {
 				Bars = Roact.createElement("Frame", {
 					BackgroundTransparency = 1,
