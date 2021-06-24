@@ -133,8 +133,12 @@
         "version": "5e364278610e2bed501a10408313cf61148bae21f8b72e40a82823d22b3bc7a3",
         "affectsGlobalScope": false
       },
+      "../src/client/hud/username.tsx": {
+        "version": "2a5f29a3437a9650a853f6cecd34946cdf20c1756c713169c72f4e8678acdf15",
+        "affectsGlobalScope": false
+      },
       "../src/client/hud/health.tsx": {
-        "version": "e85cb368db54786d310584c755a51b8a9270c9c07d0fcfe892f4814bf856fd81",
+        "version": "dc99ee51b2e7330a18add04d66df3ca334b833fa0e766bce0ad27030f0ba1472",
         "affectsGlobalScope": false
       },
       "../src/client/hud/compass.tsx": {
@@ -579,7 +583,8 @@
         "../node_modules/@rbxts/roact/src/index.d.ts"
       ],
       "../src/client/hud/health.tsx": [
-        "../node_modules/@rbxts/roact/src/index.d.ts"
+        "../node_modules/@rbxts/roact/src/index.d.ts",
+        "../src/client/hud/username.tsx"
       ],
       "../src/client/hud/hud_component.tsx": [
         "../node_modules/@rbxts/roact/src/index.d.ts",
@@ -609,6 +614,9 @@
         "../src/shared/remotes.ts"
       ],
       "../src/client/hud/tool.tsx": [
+        "../node_modules/@rbxts/roact/src/index.d.ts"
+      ],
+      "../src/client/hud/username.tsx": [
         "../node_modules/@rbxts/roact/src/index.d.ts"
       ],
       "../src/server/generate_factions.server.ts": [
