@@ -274,7 +274,7 @@
         "affectsGlobalScope": false
       },
       "../src/client/hud/state.tsx": {
-        "version": "5dacca4c22993c2b4fe7e5aa11d43db0b8c05a8f528316bf8d27b9a1a6ab5a35",
+        "version": "034b4089b09249a242a4932af3c65cb0d1b5b59d6b20216da24b3139fbfc7472",
         "affectsGlobalScope": false
       },
       "../src/client/hud/tool.tsx": {

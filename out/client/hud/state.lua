@@ -5,12 +5,10 @@ local Remotes = TS.import(script, game:GetService("ReplicatedStorage"), "Shared"
 local State
 do
 	State = Roact.Component:extend("State")
-	function State:init()
+	function State:init(props)
 		self.state = {
 			safe = false,
 		}
-	end
-	function State:init()
 		Remotes.Client:Get("InSafezone"):Connect(function(safe)
 			return self:setState({
 				safe = safe,

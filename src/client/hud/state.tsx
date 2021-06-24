@@ -7,7 +7,8 @@ interface StateState {
 export class State extends Roact.Component<{}, StateState> {
     state = { safe: false };
 
-    init() {
+    constructor(props: {}) {
+        super(props);
         Remotes.Client.Get("InSafezone").Connect(safe => this.setState({ safe: safe }));
     }
 
