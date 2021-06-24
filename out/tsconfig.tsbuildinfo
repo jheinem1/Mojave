@@ -245,6 +245,42 @@
         "version": "3936ecfbd4ce3891c54eab8539df42426e2036cac0c39a717ef819a7435bb130",
         "affectsGlobalScope": false
       },
+      "../src/client/hud/ap.tsx": {
+        "version": "c4e951b712df31ef74a153e042c0810203b863aa2ce686be8f15508e39656eb1",
+        "affectsGlobalScope": false
+      },
+      "../src/client/hud/caps.tsx": {
+        "version": "5e364278610e2bed501a10408313cf61148bae21f8b72e40a82823d22b3bc7a3",
+        "affectsGlobalScope": false
+      },
+      "../src/client/hud/health.tsx": {
+        "version": "e85cb368db54786d310584c755a51b8a9270c9c07d0fcfe892f4814bf856fd81",
+        "affectsGlobalScope": false
+      },
+      "../src/client/hud/compass.tsx": {
+        "version": "17a473e9124f148c76f0f7715049468203f18ecbec1b481cc3889b89104d693f",
+        "affectsGlobalScope": false
+      },
+      "../src/client/hud/scope.tsx": {
+        "version": "eb61b22aa459f303df1e29a01f899147fd14941509be71cf422061a8289cdec3",
+        "affectsGlobalScope": false
+      },
+      "../src/client/hud/settings.tsx": {
+        "version": "75554cfcd181b4cf3d8328c4eeb1275d86c55bf6fce5bea22c3752e2c2ca6044",
+        "affectsGlobalScope": false
+      },
+      "../src/client/hud/state.tsx": {
+        "version": "560332c1c7940ae689feab02fb1526b8ae538c6fd9a3508ffe48317da24c6096",
+        "affectsGlobalScope": false
+      },
+      "../src/client/hud/tool.tsx": {
+        "version": "d8b8c017a7b3ae6a6aea5e572033b9ac36353d7f4a73c1647297b2454e241c08",
+        "affectsGlobalScope": false
+      },
+      "../src/client/hud/hud_component.tsx": {
+        "version": "3c36d7eb49c58005553c2e2aad79894c4b1917b1aad084ef9171f6d22479df0f",
+        "affectsGlobalScope": false
+      },
       "../node_modules/@rbxts/t/lib/t.d.ts": {
         "version": "b394e2aabde1e211d8def4d6cd31598b2385160bd16ab5c10f81eec19c94aba2",
         "affectsGlobalScope": false
@@ -532,6 +568,41 @@
         "../node_modules/@rbxts/types/include/generated/none.d.ts",
         "../node_modules/@rbxts/types/include/lua.d.ts",
         "../node_modules/@rbxts/types/include/macro_math.d.ts"
+      ],
+      "../src/client/hud/ap.tsx": [
+        "../node_modules/@rbxts/roact/src/index.d.ts"
+      ],
+      "../src/client/hud/caps.tsx": [
+        "../node_modules/@rbxts/roact/src/index.d.ts"
+      ],
+      "../src/client/hud/compass.tsx": [
+        "../node_modules/@rbxts/roact/src/index.d.ts"
+      ],
+      "../src/client/hud/health.tsx": [
+        "../node_modules/@rbxts/roact/src/index.d.ts"
+      ],
+      "../src/client/hud/hud_component.tsx": [
+        "../node_modules/@rbxts/roact/src/index.d.ts",
+        "../src/client/hud/ap.tsx",
+        "../src/client/hud/caps.tsx",
+        "../src/client/hud/compass.tsx",
+        "../src/client/hud/health.tsx",
+        "../src/client/hud/scope.tsx",
+        "../src/client/hud/settings.tsx",
+        "../src/client/hud/state.tsx",
+        "../src/client/hud/tool.tsx"
+      ],
+      "../src/client/hud/scope.tsx": [
+        "../node_modules/@rbxts/roact/src/index.d.ts"
+      ],
+      "../src/client/hud/settings.tsx": [
+        "../node_modules/@rbxts/roact/src/index.d.ts"
+      ],
+      "../src/client/hud/state.tsx": [
+        "../node_modules/@rbxts/roact/src/index.d.ts"
+      ],
+      "../src/client/hud/tool.tsx": [
+        "../node_modules/@rbxts/roact/src/index.d.ts"
       ],
       "../src/client/safezonegui.client.tsx": [
         "../node_modules/@rbxts/roact/src/index.d.ts",
