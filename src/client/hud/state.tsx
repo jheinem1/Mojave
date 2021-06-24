@@ -1,6 +1,16 @@
 import Roact from "@rbxts/roact";
+import Remotes from "shared/remotes";
 
-export class State extends Roact.Component {
+interface StateState {
+    safe: boolean;
+}
+export class State extends Roact.Component<{}, StateState> {
+    state = { safe: false };
+
+    init() {
+        Remotes.Client.Get("InSafezone").Connect(safe => this.setState({ safe: safe }));
+    }
+
     render() {
         return <frame
             Key="Safezone"
@@ -8,6 +18,7 @@ export class State extends Roact.Component {
             ClipsDescendants={true}
             Position={new UDim2(0, 4, 0, 4)}
             Size={new UDim2(0, 230, 0, 35)}
+            Visible={this.state.safe}
         >
             <frame
                 Key="Bottom_Bars"

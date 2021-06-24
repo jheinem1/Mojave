@@ -1,10 +1,21 @@
 -- Compiled with roblox-ts v1.1.1
 local TS = require(game:GetService("ReplicatedStorage"):WaitForChild("rbxts_include"):WaitForChild("RuntimeLib"))
 local Roact = TS.import(script, TS.getModule(script, "roact").src)
+local Remotes = TS.import(script, game:GetService("ReplicatedStorage"), "Shared", "remotes").default
 local State
 do
 	State = Roact.Component:extend("State")
 	function State:init()
+		self.state = {
+			safe = false,
+		}
+	end
+	function State:init()
+		Remotes.Client:Get("InSafezone"):Connect(function(safe)
+			return self:setState({
+				safe = safe,
+			})
+		end)
 	end
 	function State:render()
 		return Roact.createFragment({
@@ -13,6 +24,7 @@ do
 				ClipsDescendants = true,
 				Position = UDim2.new(0, 4, 0, 4),
 				Size = UDim2.new(0, 230, 0, 35),
+				Visible = self.state.safe,
 			}, {
 				Bottom_Bars = Roact.createElement("Frame", {
 					BackgroundTransparency = 1,

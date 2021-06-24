@@ -125,8 +125,32 @@
         "version": "4f5cf03494441e2b3664f8d61a545f984b01c3ea4aa224a27b0eb4eae24ec8e6",
         "affectsGlobalScope": false
       },
+      "../src/client/hud/ap.tsx": {
+        "version": "c4e951b712df31ef74a153e042c0810203b863aa2ce686be8f15508e39656eb1",
+        "affectsGlobalScope": false
+      },
+      "../src/client/hud/caps.tsx": {
+        "version": "5e364278610e2bed501a10408313cf61148bae21f8b72e40a82823d22b3bc7a3",
+        "affectsGlobalScope": false
+      },
+      "../src/client/hud/health.tsx": {
+        "version": "e85cb368db54786d310584c755a51b8a9270c9c07d0fcfe892f4814bf856fd81",
+        "affectsGlobalScope": false
+      },
+      "../src/client/hud/compass.tsx": {
+        "version": "17a473e9124f148c76f0f7715049468203f18ecbec1b481cc3889b89104d693f",
+        "affectsGlobalScope": false
+      },
+      "../src/client/hud/scope.tsx": {
+        "version": "eb61b22aa459f303df1e29a01f899147fd14941509be71cf422061a8289cdec3",
+        "affectsGlobalScope": false
+      },
       "../node_modules/@rbxts/services/index.d.ts": {
         "version": "7780f22ed46d445e7287d9cd3fba33e1aad88a6b3542673a78de90356bfc1109",
+        "affectsGlobalScope": false
+      },
+      "../src/client/hud/settings.tsx": {
+        "version": "65cadda55d8b2daa95ba6581b1eb2c576f025d7d82f632914ba4cf2163ccbfb0",
         "affectsGlobalScope": false
       },
       "../node_modules/@rbxts/net/out/internal/index.d.ts": {
@@ -241,36 +265,8 @@
         "version": "c0ed6a520de04efccdce469b3cdbd4595354055dd5fe50df89793e73b9c2ccf4",
         "affectsGlobalScope": false
       },
-      "../src/client/safezonegui.client.tsx": {
-        "version": "3936ecfbd4ce3891c54eab8539df42426e2036cac0c39a717ef819a7435bb130",
-        "affectsGlobalScope": false
-      },
-      "../src/client/hud/ap.tsx": {
-        "version": "c4e951b712df31ef74a153e042c0810203b863aa2ce686be8f15508e39656eb1",
-        "affectsGlobalScope": false
-      },
-      "../src/client/hud/caps.tsx": {
-        "version": "5e364278610e2bed501a10408313cf61148bae21f8b72e40a82823d22b3bc7a3",
-        "affectsGlobalScope": false
-      },
-      "../src/client/hud/health.tsx": {
-        "version": "e85cb368db54786d310584c755a51b8a9270c9c07d0fcfe892f4814bf856fd81",
-        "affectsGlobalScope": false
-      },
-      "../src/client/hud/compass.tsx": {
-        "version": "17a473e9124f148c76f0f7715049468203f18ecbec1b481cc3889b89104d693f",
-        "affectsGlobalScope": false
-      },
-      "../src/client/hud/scope.tsx": {
-        "version": "eb61b22aa459f303df1e29a01f899147fd14941509be71cf422061a8289cdec3",
-        "affectsGlobalScope": false
-      },
-      "../src/client/hud/settings.tsx": {
-        "version": "65cadda55d8b2daa95ba6581b1eb2c576f025d7d82f632914ba4cf2163ccbfb0",
-        "affectsGlobalScope": false
-      },
       "../src/client/hud/state.tsx": {
-        "version": "560332c1c7940ae689feab02fb1526b8ae538c6fd9a3508ffe48317da24c6096",
+        "version": "5dacca4c22993c2b4fe7e5aa11d43db0b8c05a8f528316bf8d27b9a1a6ab5a35",
         "affectsGlobalScope": false
       },
       "../src/client/hud/tool.tsx": {
@@ -609,15 +605,11 @@
         "../node_modules/@rbxts/services/index.d.ts"
       ],
       "../src/client/hud/state.tsx": [
-        "../node_modules/@rbxts/roact/src/index.d.ts"
+        "../node_modules/@rbxts/roact/src/index.d.ts",
+        "../src/shared/remotes.ts"
       ],
       "../src/client/hud/tool.tsx": [
         "../node_modules/@rbxts/roact/src/index.d.ts"
-      ],
-      "../src/client/safezonegui.client.tsx": [
-        "../node_modules/@rbxts/roact/src/index.d.ts",
-        "../node_modules/@rbxts/services/index.d.ts",
-        "../src/shared/remotes.ts"
       ],
       "../src/server/generate_factions.server.ts": [
         "../node_modules/@rbxts/services/index.d.ts",
