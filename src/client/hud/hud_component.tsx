@@ -13,9 +13,9 @@ export class HudComponent extends Roact.Component {
         return <screengui Key="HUD" ResetOnSpawn={false}>
             <Health />
             <ToolComponent />
-            <ActionPoints />
+            {/* <ActionPoints /> */}
             <State />
-            <Compass />
+            {/* <Compass /> */}
             <Scope />
             <Settings />
             <Caps />

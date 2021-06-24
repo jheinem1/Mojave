@@ -282,7 +282,7 @@
         "affectsGlobalScope": false
       },
       "../src/client/hud/hud_component.tsx": {
-        "version": "5a9de7b12038a3fde60a186a802db37a3db2785da00c41537a56021b52955275",
+        "version": "aba9812df929a9cebbb17d4724733b70b2c5d61a9733bf32cad12e1bf3ee6955",
         "affectsGlobalScope": false
       },
       "../src/shared/allies.ts": {
