@@ -146,7 +146,7 @@
         "affectsGlobalScope": false
       },
       "../src/client/hud/health.tsx": {
-        "version": "dc99ee51b2e7330a18add04d66df3ca334b833fa0e766bce0ad27030f0ba1472",
+        "version": "2afe91a283566b51829e06bb505e8b51af7886bef027ea98e59d40ebf1981cc8",
         "affectsGlobalScope": false
       },
       "../src/client/hud/compass.tsx": {
@@ -586,6 +586,8 @@
       ],
       "../src/client/hud/health.tsx": [
         "../node_modules/@rbxts/roact/src/index.d.ts",
+        "../node_modules/@rbxts/services/index.d.ts",
+        "../node_modules/@rbxts/t/lib/t.d.ts",
         "../src/client/hud/username.tsx"
       ],
       "../src/client/hud/hud_component.tsx": [
