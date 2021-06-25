@@ -35,12 +35,6 @@ do
 		-- ▲ ReadonlyArray.forEach ▲
 		self:regionCheck()
 	end
-	function BaseRegion:disable()
-		self.disabled = true
-	end
-	function BaseRegion:reEnable()
-		self.disabled = false
-	end
 end
 local GlobalRegions
 do
@@ -64,10 +58,16 @@ do
 		})
 	end
 	GlobalRegions.regionCheck = TS.async(function(self)
-		RunService.Heartbeat:Connect(function()
-			local _1 = Players:GetPlayers()
-			local _2 = function(player)
-				if not self.disabled then
+		local connection
+		local weakRef = setmetatable({
+			this = self,
+		}, {
+			__mode = "k",
+		})
+		connection = RunService.Heartbeat:Connect(function()
+			if weakRef.this then
+				local _1 = Players:GetPlayers()
+				local _2 = function(player)
 					local _3 = player.Character
 					if _3 ~= nil then
 						_3 = _3:FindFirstChild("HumanoidRootPart")
@@ -91,35 +91,37 @@ do
 						_4 = _7
 					end
 					if _4 then
-						local _5 = self.inRegion
+						local _5 = weakRef.this.inRegion
 						local _6 = player
 						if not _5[_6] then
-							local _7 = self.inRegion
+							local _7 = weakRef.this.inRegion
 							local _8 = player
 							-- ▼ Map.set ▼
 							_7[_8] = true
 							-- ▲ Map.set ▲
-							self.enteredRegion:Fire(player)
+							weakRef.this.enteredRegion:Fire(player)
 						end
 					else
-						local _5 = self.inRegion
+						local _5 = weakRef.this.inRegion
 						local _6 = player
 						if _5[_6] then
-							local _7 = self.inRegion
+							local _7 = weakRef.this.inRegion
 							local _8 = player
 							-- ▼ Map.delete ▼
 							_7[_8] = nil
 							-- ▲ Map.delete ▲
-							self.leftRegion:Fire(player)
+							weakRef.this.leftRegion:Fire(player)
 						end
 					end
 				end
+				-- ▼ ReadonlyArray.forEach ▼
+				for _3, _4 in ipairs(_1) do
+					_2(_4, _3 - 1, _1)
+				end
+				-- ▲ ReadonlyArray.forEach ▲
+			else
+				connection:Disconnect()
 			end
-			-- ▼ ReadonlyArray.forEach ▼
-			for _3, _4 in ipairs(_1) do
-				_2(_4, _3 - 1, _1)
-			end
-			-- ▲ ReadonlyArray.forEach ▲
 		end)
 	end)
 	function GlobalRegions:isInRegion(player)
@@ -152,8 +154,14 @@ do
 		self.inRegion = false
 	end
 	ClientRegions.regionCheck = TS.async(function(self)
-		RunService.Heartbeat:Connect(function()
-			if not self.disabled then
+		local connection
+		local weakRef = setmetatable({
+			this = self,
+		}, {
+			__mode = "k",
+		})
+		connection = RunService.Heartbeat:Connect(function()
+			if weakRef.this then
 				local _1 = Players.LocalPlayer.Character
 				if _1 ~= nil then
 					_1 = _1:FindFirstChild("HumanoidRootPart")
@@ -161,7 +169,7 @@ do
 				local rootPart = _1
 				local _2 = t.instanceIsA("BasePart")(rootPart)
 				if _2 then
-					local _3 = super.regions
+					local _3 = weakRef.this.regions
 					local _4 = function(region)
 						return region:CastPart(rootPart)
 					end
@@ -177,14 +185,16 @@ do
 					_2 = _5
 				end
 				if _2 then
-					if not self.inRegion then
-						self.inRegion = true
-						super.enteredRegion:Fire(Players.LocalPlayer)
+					if not weakRef.this.inRegion then
+						weakRef.this.inRegion = true
+						weakRef.this.enteredRegion:Fire(Players.LocalPlayer)
 					end
 				elseif self.inRegion then
-					self.inRegion = false
-					super.leftRegion:Fire(Players.LocalPlayer)
+					weakRef.this.inRegion = false
+					weakRef.this.leftRegion:Fire(Players.LocalPlayer)
 				end
+			else
+				connection:Disconnect()
 			end
 		end)
 	end)

@@ -18,7 +18,7 @@
         "affectsGlobalScope": false
       },
       "../src/shared/regions.ts": {
-        "version": "74cebf445c64552e5fda6d6e25a069b47cc9670c8b0355ff2caebe785e77d6c4",
+        "version": "684d9b227029846126a79880e8763fa578489f709cc8fcfc3868b71c3125bab0",
         "affectsGlobalScope": false
       },
       "../node_modules/@rbxts/types/include/generated/enums.d.ts": {
