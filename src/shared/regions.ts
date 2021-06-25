@@ -4,19 +4,18 @@ import { Players, RunService } from "@rbxts/services";
 import { t } from "@rbxts/t";
 
 abstract class BaseRegion {
-    // protected parts = new Array<BasePart>();
+    protected parts = new Array<BasePart>();
     protected regions: RotatedRegion3[];// = new Array<RotatedRegion3>();
     protected disabled = false;
-    enteredRegion = new ObjectEvent<[Player]>();
-    leftRegion = new ObjectEvent<[Player]>();
+    enteredRegion = new ObjectEvent<[Player, BasePart | undefined]>();
+    leftRegion = new ObjectEvent<[Player, BasePart | undefined]>();
 
     constructor(regions: BasePart[] | RotatedRegion3[]) {
-        // parts.forEach(part => {
-        //     parts.push(part);
-        //     this.regions.push(RotatedRegion3.FromPart(part));
-        // });
         if (t.instanceIsA("BasePart")(regions[0]))
-            this.regions = regions.map((part: BasePart | RotatedRegion3) => RotatedRegion3.FromPart(part as BasePart));
+            this.regions = regions.map((part: BasePart | RotatedRegion3) => {
+                this.parts.push(part as BasePart);
+                return RotatedRegion3.FromPart(part as BasePart);
+            });
         else
             this.regions = regions as RotatedRegion3[];
     }
@@ -37,21 +36,25 @@ export class GlobalRegions extends BaseRegion {
         this.regionCheck(this.enteredRegion, this.leftRegion, this.regions);
     }
 
-    protected async regionCheck(enteredRegion: ObjectEvent<[Player]>, leftRegion: ObjectEvent<[Player]>, regions: RotatedRegion3[]) {
+    protected async regionCheck(enteredRegion: ObjectEvent<[Player, BasePart | undefined]>, leftRegion: ObjectEvent<[Player, BasePart | undefined]>, regions: RotatedRegion3[]) {
         let connection: RBXScriptConnection;
         let inRegion = new WeakMap<Player, boolean>();
         const check = () => {
             if (!this.disabled) {
                 Players.GetPlayers().forEach(player => {
                     const rootPart = player.Character?.FindFirstChild("HumanoidRootPart");
-                    if (t.instanceIsA("BasePart")(rootPart) && regions.some((region) => region.CastPart(rootPart))) {
+                    let index = -1;
+                    if (t.instanceIsA("BasePart")(rootPart) && regions.some((region, i) => {
+                        index = i;
+                        return region.CastPart(rootPart);
+                    })) {
                         if (!inRegion.get(player)) {
                             inRegion.set(player, true);
-                            enteredRegion.Fire(player);
+                            enteredRegion.Fire(player, this.parts[index]);
                         }
                     } else if (inRegion.get(player)) {
                         inRegion.delete(player);
-                        leftRegion.Fire(player);
+                        leftRegion.Fire(player, this.parts[index]);
                     }
                 });
             } else
@@ -79,21 +82,25 @@ export class ClientRegions extends BaseRegion {
         this.regionCheck(this.enteredRegion, this.leftRegion, this.regions, client);
     }
 
-    protected async regionCheck(enteredRegion: ObjectEvent<[Player]>, leftRegion: ObjectEvent<[Player]>, regions: RotatedRegion3[], client: Player) {
+    protected async regionCheck(enteredRegion: ObjectEvent<[Player, BasePart | undefined]>, leftRegion: ObjectEvent<[Player, BasePart | undefined]>, regions: RotatedRegion3[], client: Player) {
         let connection: RBXScriptConnection;
         let inRegion = false;
         const weakRef = setmetatable({ this: this }, { __mode: "k" });
         const check = () => {
             if (!this.disabled) {
                 const rootPart = client.Character?.FindFirstChild("HumanoidRootPart");
-                if (t.instanceIsA("BasePart")(rootPart) && regions.some((region) => region.CastPart(rootPart))) {
+                let index = -1;
+                if (t.instanceIsA("BasePart")(rootPart) && regions.some((region, i) => {
+                    index = i;
+                    return region.CastPart(rootPart);
+                })) {
                     if (!inRegion) {
                         inRegion = true;
-                        enteredRegion.Fire(Players.LocalPlayer);
+                        enteredRegion.Fire(client, this.parts[index]);
                     }
                 } else if (inRegion) {
                     inRegion = false;
-                    leftRegion.Fire(Players.LocalPlayer);
+                    leftRegion.Fire(client, this.parts[index]);
                 }
             } else
                 connection.Disconnect();
