@@ -7,7 +7,7 @@ local t = TS.import(script, TS.getModule(script, "t").lib.ts).t
 local ClientRegions = TS.import(script, game:GetService("ReplicatedStorage"), "Shared", "regions").ClientRegions
 local lightingRegions = ReplicatedStorage:WaitForChild("LightRegions", 5)
 local _1 = lightingRegions
-assert(_1, "A folder in the workspace/Replicated name 'LightRegions' is required")
+assert(_1, "A folder in the workspace/Replicated named 'LightRegions' is required")
 local lightingRegionsParts = lightingRegions:GetChildren()
 local _2 = t.array(t.instanceIsA("BasePart"))(lightingRegionsParts)
 assert(_2, "Children of 'LightRegions' must be BaseParts")

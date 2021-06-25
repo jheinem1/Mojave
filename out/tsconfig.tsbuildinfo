@@ -22,7 +22,7 @@
         "affectsGlobalScope": false
       },
       "../src/client/lighting_regions.client.ts": {
-        "version": "d456a7582edcc18819a7f382ca88c477579e5e6cd67d8daaabbc62ff2307b9b4",
+        "version": "c5699b52c1dd41a329e90e46dac0c146b7b3788bef6cd0504ed87bd311711cea",
         "affectsGlobalScope": false
       },
       "../node_modules/@rbxts/types/include/generated/enums.d.ts": {
@@ -318,7 +318,7 @@
         "affectsGlobalScope": false
       },
       "../src/server/lighting_regions_handler.server.ts": {
-        "version": "b9ebbaac6130e0da64dc7edf8867621012efcf6d894641e8452e600b12ed12dd",
+        "version": "dc5be052e60f9387fb1f72339708e10495d98e33b68fbca53ce22e14ac851959",
         "affectsGlobalScope": false
       },
       "../src/server/safezones.server.ts": {

@@ -11,7 +11,7 @@ if _1 == nil then
 end
 local lightingRegions = _1
 local _2 = lightingRegions
-assert(_2, "A folder in the workspace/Replicated name 'LightRegions' is required")
+assert(_2, "A folder in the workspace/Replicated named 'LightRegions' is required")
 local lightingRegionsParts = lightingRegions:GetChildren()
 local _3 = t.array(t.instanceIsA("BasePart"))(lightingRegionsParts)
 assert(_3, "Children of 'LightRegions' must be BaseParts")
