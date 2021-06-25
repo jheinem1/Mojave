@@ -31,9 +31,11 @@ inSafezone.Connect((player, _) => {
         forceField.Parent = character;
         shielded.set(character, forceField);
         inSafezone.SendToPlayer(player, true);
-        new ClientRegions(safezones, player).leftRegion.Connect(() => {
+        const clientRegions = new ClientRegions(safezones, player)
+        clientRegions.leftRegion.Connect(() => {
             forceField.Destroy();
             inSafezone.SendToPlayer(player, false);
+            clientRegions.kill();
         });
     } else {
         inSafezone.SendToPlayer(player, false);

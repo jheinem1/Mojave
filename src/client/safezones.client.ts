@@ -18,6 +18,11 @@ inSafezone.Connect((isInSafezone) => {
         shielded = true;
     } else {
         shielded = false;
+        if (safezoneRegions.isInRegion()) {
+            wait(0.5);
+            shielded = true;
+            inSafezone.SendToServer(true);
+        }
     }
 });
 
@@ -27,3 +32,5 @@ safezoneRegions.enteredRegion.Connect(() => {
         inSafezone.SendToServer(true);
     }
 })
+
+game.BindToClose(() => safezoneRegions.kill());

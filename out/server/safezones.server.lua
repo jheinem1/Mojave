@@ -72,9 +72,11 @@ inSafezone:Connect(function(player, _)
 		_7[_8] = _9
 		-- ▲ Map.set ▲
 		inSafezone:SendToPlayer(player, true)
-		ClientRegions.new(safezones, player).leftRegion:Connect(function()
+		local clientRegions = ClientRegions.new(safezones, player)
+		clientRegions.leftRegion:Connect(function()
 			forceField:Destroy()
 			inSafezone:SendToPlayer(player, false)
+			clientRegions:kill()
 		end)
 	else
 		inSafezone:SendToPlayer(player, false)

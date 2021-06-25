@@ -25,6 +25,11 @@ inSafezone:Connect(function(isInSafezone)
 		shielded = true
 	else
 		shielded = false
+		if safezoneRegions:isInRegion() then
+			wait(0.5)
+			shielded = true
+			inSafezone:SendToServer(true)
+		end
 	end
 end)
 safezoneRegions.enteredRegion:Connect(function()
@@ -32,4 +37,7 @@ safezoneRegions.enteredRegion:Connect(function()
 		shielded = true
 		inSafezone:SendToServer(true)
 	end
+end)
+game:BindToClose(function()
+	return safezoneRegions:kill()
 end)

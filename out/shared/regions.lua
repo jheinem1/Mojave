@@ -10,6 +10,7 @@ local BaseRegion
 do
 	BaseRegion = {}
 	function BaseRegion:constructor(regions)
+		self.disabled = false
 		self.enteredRegion = ObjectEvent.new()
 		self.leftRegion = ObjectEvent.new()
 		-- parts.forEach(part => {
@@ -31,6 +32,9 @@ do
 		else
 			self.regions = regions
 		end
+	end
+	function BaseRegion:kill()
+		self.disabled = true
 	end
 end
 local GlobalRegions
@@ -57,13 +61,8 @@ do
 		local inRegion = setmetatable({}, {
 			__mode = "k",
 		})
-		local weakRef = setmetatable({
-			this = self,
-		}, {
-			__mode = "k",
-		})
-		local check = function(weakRef)
-			if weakRef.this then
+		local check = function()
+			if not self.disabled then
 				local _1 = Players:GetPlayers()
 				local _2 = function(player)
 					local _3 = player.Character
@@ -122,9 +121,9 @@ do
 			end
 		end
 		connection = RunService.Heartbeat:Connect(function()
-			return check(weakRef)
+			return check()
 		end)
-		check(weakRef)
+		check()
 	end)
 	function GlobalRegions:isInRegion(player)
 		local _1 = player.Character
@@ -188,8 +187,8 @@ do
 		}, {
 			__mode = "k",
 		})
-		local check = function(weakRef)
-			if weakRef.this then
+		local check = function()
+			if not self.disabled then
 				local _1 = client.Character
 				if _1 ~= nil then
 					_1 = _1:FindFirstChild("HumanoidRootPart")
@@ -223,13 +222,12 @@ do
 				end
 			else
 				connection:Disconnect()
-				print("Garbage collected")
 			end
 		end
 		connection = RunService.Heartbeat:Connect(function()
-			return check(weakRef)
+			return check()
 		end)
-		check(weakRef)
+		check()
 	end)
 	function ClientRegions:isInRegion()
 		local _1 = self.client.Character

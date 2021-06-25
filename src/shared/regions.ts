@@ -6,7 +6,7 @@ import { t } from "@rbxts/t";
 abstract class BaseRegion {
     // protected parts = new Array<BasePart>();
     protected regions: RotatedRegion3[];// = new Array<RotatedRegion3>();
-    // protected disabled = false;
+    protected disabled = false;
     enteredRegion = new ObjectEvent<[Player]>();
     leftRegion = new ObjectEvent<[Player]>();
 
@@ -21,6 +21,13 @@ abstract class BaseRegion {
             this.regions = regions as RotatedRegion3[];
     }
 
+    /**
+     * Must call this method before garbage collection to prevent memory leaks
+     */
+    kill() {
+        this.disabled = true;
+    }
+
     abstract isInRegion(player: Player): boolean;
 }
 
@@ -33,9 +40,8 @@ export class GlobalRegions extends BaseRegion {
     protected async regionCheck(enteredRegion: ObjectEvent<[Player]>, leftRegion: ObjectEvent<[Player]>, regions: RotatedRegion3[]) {
         let connection: RBXScriptConnection;
         let inRegion = new WeakMap<Player, boolean>();
-        const weakRef = setmetatable({ this: this }, { __mode: "k" });
-        const check = (weakRef: { this: GlobalRegions }) => {
-            if (weakRef.this) {
+        const check = () => {
+            if (!this.disabled) {
                 Players.GetPlayers().forEach(player => {
                     const rootPart = player.Character?.FindFirstChild("HumanoidRootPart");
                     if (t.instanceIsA("BasePart")(rootPart) && regions.some((region) => region.CastPart(rootPart))) {
@@ -51,10 +57,9 @@ export class GlobalRegions extends BaseRegion {
             } else
                 connection.Disconnect();
         }
-        connection = RunService.Heartbeat.Connect(() => check(weakRef));
-        check(weakRef);
+        connection = RunService.Heartbeat.Connect(() => check());
+        check();
     }
-
 
     isInRegion(player: Player) {
         const rootPart = player.Character?.FindFirstChild("HumanoidRootPart");
@@ -78,8 +83,8 @@ export class ClientRegions extends BaseRegion {
         let connection: RBXScriptConnection;
         let inRegion = false;
         const weakRef = setmetatable({ this: this }, { __mode: "k" });
-        const check = (weakRef: { this: ClientRegions }) => {
-            if (weakRef.this) {
+        const check = () => {
+            if (!this.disabled) {
                 const rootPart = client.Character?.FindFirstChild("HumanoidRootPart");
                 if (t.instanceIsA("BasePart")(rootPart) && regions.some((region) => region.CastPart(rootPart))) {
                     if (!inRegion) {
@@ -90,13 +95,11 @@ export class ClientRegions extends BaseRegion {
                     inRegion = false;
                     leftRegion.Fire(Players.LocalPlayer);
                 }
-            } else {
+            } else
                 connection.Disconnect();
-                print("Garbage collected");
-            }
         }
-        connection = RunService.Heartbeat.Connect(() => check(weakRef));
-        check(weakRef);
+        connection = RunService.Heartbeat.Connect(() => check());
+        check();
     }
 
     isInRegion() {

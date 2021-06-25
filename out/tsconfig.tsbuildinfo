@@ -18,7 +18,7 @@
         "affectsGlobalScope": false
       },
       "../src/shared/regions.ts": {
-        "version": "5449212da431e50067fbc99ce9539eb0068d290ad728cc6d1c8efa6b6a235a65",
+        "version": "96860c015d5743241c4423b0104661dea49d485710ff3c7953b4efb6482ae396",
         "affectsGlobalScope": false
       },
       "../node_modules/@rbxts/types/include/generated/enums.d.ts": {
@@ -202,7 +202,7 @@
         "affectsGlobalScope": false
       },
       "../src/client/safezones.client.ts": {
-        "version": "fddedf9fe683c4149cf69ac2bf9633a51bb7aafa60fb1b1f634f7942622c083d",
+        "version": "69e386c80a73620a23b1f828a2e9a6b92bc7ec06f8cbf3efdf4463a196fff236",
         "affectsGlobalScope": false
       },
       "../node_modules/@rbxts/roact/src/jsx.d.ts": {
@@ -314,7 +314,7 @@
         "affectsGlobalScope": false
       },
       "../src/server/safezones.server.ts": {
-        "version": "5bd7bf8898ccea4f482b19696ae21f8fb4173d1fe96cf0382350e5c4fcfeb671",
+        "version": "8fef6c02bbb8b80ae95b4a1189df9868b1800bb6b98b315c786491409c01c607",
         "affectsGlobalScope": false
       }
     },
