@@ -9,31 +9,28 @@ local t = TS.import(script, TS.getModule(script, "t").lib.ts).t
 local BaseRegion
 do
 	BaseRegion = {}
-	function BaseRegion:constructor(parts)
-		self.parts = {}
-		self.regions = {}
-		self.disabled = false
+	function BaseRegion:constructor(regions)
 		self.enteredRegion = ObjectEvent.new()
 		self.leftRegion = ObjectEvent.new()
-		local _1 = parts
-		local _2 = function(part)
-			local _3 = parts
-			local _4 = part
-			-- ▼ Array.push ▼
-			_3[#_3 + 1] = _4
-			-- ▲ Array.push ▲
-			local _5 = self.regions
-			local _6 = RotatedRegion3.FromPart(part)
-			-- ▼ Array.push ▼
-			_5[#_5 + 1] = _6
-			-- ▲ Array.push ▲
+		-- parts.forEach(part => {
+		-- parts.push(part);
+		-- this.regions.push(RotatedRegion3.FromPart(part));
+		-- });
+		if t.instanceIsA("BasePart")(regions[1]) then
+			local _1 = regions
+			local _2 = function(part)
+				return RotatedRegion3.FromPart(part)
+			end
+			-- ▼ ReadonlyArray.map ▼
+			local _3 = table.create(#_1)
+			for _4, _5 in ipairs(_1) do
+				_3[_4] = _2(_5, _4 - 1, _1)
+			end
+			-- ▲ ReadonlyArray.map ▲
+			self.regions = _3
+		else
+			self.regions = regions
 		end
-		-- ▼ ReadonlyArray.forEach ▼
-		for _3, _4 in ipairs(_1) do
-			_2(_4, _3 - 1, _1)
-		end
-		-- ▲ ReadonlyArray.forEach ▲
-		self:regionCheck()
 	end
 end
 local GlobalRegions
@@ -51,20 +48,21 @@ do
 		self:constructor(...)
 		return self
 	end
-	function GlobalRegions:constructor(...)
-		super.constructor(self, ...)
-		self.inRegion = setmetatable({}, {
+	function GlobalRegions:constructor(parts)
+		super.constructor(self, parts)
+		self:regionCheck(self.enteredRegion, self.leftRegion, self.regions)
+	end
+	GlobalRegions.regionCheck = TS.async(function(self, enteredRegion, leftRegion, regions)
+		local connection
+		local inRegion = setmetatable({}, {
 			__mode = "k",
 		})
-	end
-	GlobalRegions.regionCheck = TS.async(function(self)
-		local connection
 		local weakRef = setmetatable({
 			this = self,
 		}, {
 			__mode = "k",
 		})
-		connection = RunService.Heartbeat:Connect(function()
+		local check = function(weakRef)
 			if weakRef.this then
 				local _1 = Players:GetPlayers()
 				local _2 = function(player)
@@ -75,7 +73,7 @@ do
 					local rootPart = _3
 					local _4 = t.instanceIsA("BasePart")(rootPart)
 					if _4 then
-						local _5 = super.regions
+						local _5 = regions
 						local _6 = function(region)
 							return region:CastPart(rootPart)
 						end
@@ -91,26 +89,26 @@ do
 						_4 = _7
 					end
 					if _4 then
-						local _5 = weakRef.this.inRegion
+						local _5 = inRegion
 						local _6 = player
 						if not _5[_6] then
-							local _7 = weakRef.this.inRegion
+							local _7 = inRegion
 							local _8 = player
 							-- ▼ Map.set ▼
 							_7[_8] = true
 							-- ▲ Map.set ▲
-							weakRef.this.enteredRegion:Fire(player)
+							enteredRegion:Fire(player)
 						end
 					else
-						local _5 = weakRef.this.inRegion
+						local _5 = inRegion
 						local _6 = player
 						if _5[_6] then
-							local _7 = weakRef.this.inRegion
+							local _7 = inRegion
 							local _8 = player
 							-- ▼ Map.delete ▼
 							_7[_8] = nil
 							-- ▲ Map.delete ▲
-							weakRef.this.leftRegion:Fire(player)
+							leftRegion:Fire(player)
 						end
 					end
 				end
@@ -122,16 +120,39 @@ do
 			else
 				connection:Disconnect()
 			end
+		end
+		connection = RunService.Heartbeat:Connect(function()
+			return check(weakRef)
 		end)
+		check(weakRef)
 	end)
 	function GlobalRegions:isInRegion(player)
-		local _1 = self.inRegion
-		local _2 = player
-		local _3 = _1[_2]
-		if _3 == nil then
-			_3 = false
+		local _1 = player.Character
+		if _1 ~= nil then
+			_1 = _1:FindFirstChild("HumanoidRootPart")
 		end
-		return _3
+		local rootPart = _1
+		local _2 = t.instanceIsA("BasePart")(rootPart)
+		if _2 then
+			local _3 = super.regions
+			local _4 = function(region)
+				return region:CastPart(rootPart)
+			end
+			-- ▼ ReadonlyArray.some ▼
+			local _5 = false
+			for _6, _7 in ipairs(_3) do
+				if _4(_7, _6 - 1, _3) then
+					_5 = true
+					break
+				end
+			end
+			-- ▲ ReadonlyArray.some ▲
+			_2 = _5
+		end
+		if _2 then
+			return true
+		end
+		return false
 	end
 end
 local ClientRegions
@@ -154,26 +175,29 @@ do
 			client = Players.LocalPlayer
 		end
 		super.constructor(self, parts)
-		self.inRegion = false
+		local _1 = client
+		assert(_1, "Client argument must be provided on the server")
 		self.client = client
+		self:regionCheck(self.enteredRegion, self.leftRegion, self.regions, client)
 	end
-	ClientRegions.regionCheck = TS.async(function(self)
+	ClientRegions.regionCheck = TS.async(function(self, enteredRegion, leftRegion, regions, client)
 		local connection
+		local inRegion = false
 		local weakRef = setmetatable({
 			this = self,
 		}, {
 			__mode = "k",
 		})
-		connection = RunService.Heartbeat:Connect(function()
+		local check = function(weakRef)
 			if weakRef.this then
-				local _1 = weakRef.this.client.Character
+				local _1 = client.Character
 				if _1 ~= nil then
 					_1 = _1:FindFirstChild("HumanoidRootPart")
 				end
 				local rootPart = _1
 				local _2 = t.instanceIsA("BasePart")(rootPart)
 				if _2 then
-					local _3 = weakRef.this.regions
+					local _3 = regions
 					local _4 = function(region)
 						return region:CastPart(rootPart)
 					end
@@ -189,21 +213,51 @@ do
 					_2 = _5
 				end
 				if _2 then
-					if not weakRef.this.inRegion then
-						weakRef.this.inRegion = true
-						weakRef.this.enteredRegion:Fire(Players.LocalPlayer)
+					if not inRegion then
+						inRegion = true
+						enteredRegion:Fire(Players.LocalPlayer)
 					end
-				elseif self.inRegion then
-					weakRef.this.inRegion = false
-					weakRef.this.leftRegion:Fire(Players.LocalPlayer)
+				elseif inRegion then
+					inRegion = false
+					leftRegion:Fire(Players.LocalPlayer)
 				end
 			else
 				connection:Disconnect()
+				print("Garbage collected")
 			end
+		end
+		connection = RunService.Heartbeat:Connect(function()
+			return check(weakRef)
 		end)
+		check(weakRef)
 	end)
 	function ClientRegions:isInRegion()
-		return self.inRegion
+		local _1 = self.client.Character
+		if _1 ~= nil then
+			_1 = _1:FindFirstChild("HumanoidRootPart")
+		end
+		local rootPart = _1
+		local _2 = t.instanceIsA("BasePart")(rootPart)
+		if _2 then
+			local _3 = self.regions
+			local _4 = function(region)
+				return region:CastPart(rootPart)
+			end
+			-- ▼ ReadonlyArray.some ▼
+			local _5 = false
+			for _6, _7 in ipairs(_3) do
+				if _4(_7, _6 - 1, _3) then
+					_5 = true
+					break
+				end
+			end
+			-- ▲ ReadonlyArray.some ▲
+			_2 = _5
+		end
+		if _2 then
+			return true
+		end
+		return false
 	end
 end
 return {

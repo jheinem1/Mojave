@@ -1,6 +1,7 @@
 import RotatedRegion3 from "@rbxts/rotatedregion3";
 import { Players, ReplicatedStorage, RunService, Workspace } from "@rbxts/services";
 import { t } from "@rbxts/t";
+import { ClientRegions } from "shared/regions";
 import Remotes from "shared/remotes";
 
 const inSafezone = Remotes.Server.Create("InSafezone");
@@ -30,22 +31,16 @@ inSafezone.Connect((player, _) => {
         forceField.Parent = character;
         shielded.set(character, forceField);
         inSafezone.SendToPlayer(player, true);
+        new ClientRegions(safezones, player).leftRegion.Connect(() => {
+            forceField.Destroy();
+            inSafezone.SendToPlayer(player, false);
+        });
     } else {
         inSafezone.SendToPlayer(player, false);
     }
 });
 
-RunService.Heartbeat.Connect(() => {
-    shielded.forEach((forceField, character) => {
-        if (!isInSafezone(character)) {
-            forceField.Destroy();
-            shielded.delete(character);
-            const player = Players.GetPlayerFromCharacter(character);
-            if (player)
-                inSafezone.SendToPlayer(player, false);
-        }
-    });
-});
+
 
 // RunService.Heartbeat.Connect(() => {
 //     Players.GetPlayers().forEach((player) => {

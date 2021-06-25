@@ -2,11 +2,10 @@
 local TS = require(game:GetService("ReplicatedStorage"):WaitForChild("rbxts_include"):WaitForChild("RuntimeLib"))
 local RotatedRegion3 = TS.import(script, TS.getModule(script, "rotatedregion3"))
 local _0 = TS.import(script, TS.getModule(script, "services"))
-local Players = _0.Players
 local ReplicatedStorage = _0.ReplicatedStorage
-local RunService = _0.RunService
 local Workspace = _0.Workspace
 local t = TS.import(script, TS.getModule(script, "t").lib.ts).t
+local ClientRegions = TS.import(script, game:GetService("ReplicatedStorage"), "Shared", "regions").ClientRegions
 local Remotes = TS.import(script, game:GetService("ReplicatedStorage"), "Shared", "remotes").default
 local inSafezone = Remotes.Server:Create("InSafezone")
 local validSafezoneChildren = t.array(t.instanceIsA("BasePart"))
@@ -73,31 +72,13 @@ inSafezone:Connect(function(player, _)
 		_7[_8] = _9
 		-- ▲ Map.set ▲
 		inSafezone:SendToPlayer(player, true)
+		ClientRegions.new(safezones, player).leftRegion:Connect(function()
+			forceField:Destroy()
+			inSafezone:SendToPlayer(player, false)
+		end)
 	else
 		inSafezone:SendToPlayer(player, false)
 	end
-end)
-RunService.Heartbeat:Connect(function()
-	local _7 = shielded
-	local _8 = function(forceField, character)
-		if not isInSafezone(character) then
-			forceField:Destroy()
-			local _9 = shielded
-			local _10 = character
-			-- ▼ Map.delete ▼
-			_9[_10] = nil
-			-- ▲ Map.delete ▲
-			local player = Players:GetPlayerFromCharacter(character)
-			if player then
-				inSafezone:SendToPlayer(player, false)
-			end
-		end
-	end
-	-- ▼ ReadonlyMap.forEach ▼
-	for _9, _10 in pairs(_7) do
-		_8(_10, _9, _7)
-	end
-	-- ▲ ReadonlyMap.forEach ▲
 end)
 -- RunService.Heartbeat.Connect(() => {
 -- Players.GetPlayers().forEach((player) => {

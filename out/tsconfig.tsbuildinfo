@@ -18,7 +18,7 @@
         "affectsGlobalScope": false
       },
       "../src/shared/regions.ts": {
-        "version": "23199f63865192b35b3717ec98a72c18582b2ff965063b77275653553e3d36c1",
+        "version": "5449212da431e50067fbc99ce9539eb0068d290ad728cc6d1c8efa6b6a235a65",
         "affectsGlobalScope": false
       },
       "../node_modules/@rbxts/types/include/generated/enums.d.ts": {
@@ -314,7 +314,7 @@
         "affectsGlobalScope": false
       },
       "../src/server/safezones.server.ts": {
-        "version": "1c80a1ffca78bb4c1f52202018fff759e59ec82285573586663661e72e8aeaca",
+        "version": "5bd7bf8898ccea4f482b19696ae21f8fb4173d1fe96cf0382350e5c4fcfeb671",
         "affectsGlobalScope": false
       }
     },
@@ -655,6 +655,7 @@
         "../node_modules/@rbxts/rotatedregion3/index.d.ts",
         "../node_modules/@rbxts/services/index.d.ts",
         "../node_modules/@rbxts/t/lib/t.d.ts",
+        "../src/shared/regions.ts",
         "../src/shared/remotes.ts"
       ],
       "../src/shared/allies.ts": [
