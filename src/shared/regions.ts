@@ -53,6 +53,10 @@ export class GlobalRegions extends BaseRegion {
             });
         });
     }
+
+    isInRegion(object: BasePart | Model | Player): boolean {
+        throw "Method not implemented.";
+    }
 }
 
 export class ClientRegions extends BaseRegion {
