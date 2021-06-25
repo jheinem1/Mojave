@@ -18,11 +18,11 @@
         "affectsGlobalScope": false
       },
       "../src/shared/regions.ts": {
-        "version": "36c4c61779a1ea5541a25dbfcba47ad15433fd527c56c90f9248b6e4f95cdbe6",
+        "version": "4542804645552dda859ef3119da85887be9e729960a77f701c2fe7b279f30f4d",
         "affectsGlobalScope": false
       },
       "../src/client/lighting_regions.client.ts": {
-        "version": "abd1a976c092a83b080a9e72e118ef0f40c66c860b44c7c0e898614fde872303",
+        "version": "f0908c61438e7ca381183e19c924db678f57515d0bb9a6f1dae3f433f2524d8d",
         "affectsGlobalScope": false
       },
       "../node_modules/@rbxts/types/include/generated/enums.d.ts": {

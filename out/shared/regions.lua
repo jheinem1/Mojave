@@ -94,11 +94,12 @@ do
 					if _4 then
 						local _5 = inRegion
 						local _6 = player
-						if not _5[_6] then
+						if _5[_6] ~= regions[index + 1] then
 							local _7 = inRegion
 							local _8 = player
+							local _9 = regions[index + 1]
 							-- ▼ Map.set ▼
-							_7[_8] = true
+							_7[_8] = _9
 							-- ▲ Map.set ▲
 							enteredRegion:Fire(player, self.parts[index + 1])
 						end
@@ -110,6 +111,11 @@ do
 							local _8 = player
 							-- ▼ Map.delete ▼
 							_7[_8] = nil
+							-- ▲ Map.delete ▲
+							local _9 = inRegion
+							local _10 = player
+							-- ▼ Map.delete ▼
+							_9[_10] = nil
 							-- ▲ Map.delete ▲
 							leftRegion:Fire(player, self.parts[index + 1])
 						end
@@ -218,12 +224,14 @@ do
 					_2 = _5
 				end
 				if _2 then
-					if not inRegion then
+					if self.currentRegion ~= regions[index + 1] then
 						inRegion = true
+						self.currentRegion = regions[index + 1]
 						enteredRegion:Fire(client, self.parts[index + 1])
 					end
 				elseif inRegion then
 					inRegion = false
+					self.currentRegion = nil
 					leftRegion:Fire(client, self.parts[index + 1])
 				end
 			else

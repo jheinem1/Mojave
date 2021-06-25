@@ -18,6 +18,7 @@ local _3 = t.array(t.instanceIsA("BasePart"))(lightingRegionsParts)
 assert(_3, "Children of 'LightRegions' must be BaseParts")
 local regions = ClientRegions.new(lightingRegionsParts)
 regions.enteredRegion:Connect(function(_, part)
+	print("entered region " .. tostring(part))
 	local _4 = part
 	if _4 ~= nil then
 		_4 = _4:FindFirstChild("Effects")
@@ -36,6 +37,7 @@ regions.enteredRegion:Connect(function(_, part)
 	local properties = _5
 	if effects then
 		Lighting:ClearAllChildren()
+		print(effects)
 		local _6 = effects
 		local _7 = function(v)
 			local _8 = v:Clone()
@@ -57,6 +59,7 @@ regions.enteredRegion:Connect(function(_, part)
 					Lighting[prop.Name] = prop.Value
 				end, function()
 					prop:Destroy()
+					print("bad")
 				end)
 			end
 		end
