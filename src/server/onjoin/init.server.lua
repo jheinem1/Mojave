@@ -1,3 +1,5 @@
+-- THIS SCRIPT WAS CREATED WITH ROJO; ANY CHANGES MADE IN STUDIO WILL BE OVERWRITTEN
+
 local Players = game:GetService("Players")
 local autoteam = require(script.autoteam)
 local nametag = require(script.nametag)
