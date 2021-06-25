@@ -33,8 +33,9 @@ do
 		end
 	end
 	function ToolComponent:onToolChange(character, tool)
+		local ammoConnection
 		if tool:FindFirstChild("BlasterSettings") then
-			local ammo = tool:FindFirstChild("ammo")
+			local ammo = tool:FindFirstChild("Ammo")
 			local _0 = tool:FindFirstChild("BlasterSettings")
 			if _0 ~= nil then
 				_0 = _0:FindFirstChild("Stats")
@@ -43,6 +44,11 @@ do
 				end
 			end
 			local maxAmmo = _0
+			ammoConnection = t.instanceOf("IntValue")(ammo) and ammo.Changed:Connect(function(num)
+				return self:setState({
+					ammo = tostring(num),
+				})
+			end) or nil
 			self:setState({
 				toolEquipped = true,
 				toolName = tool.Name,
@@ -65,6 +71,9 @@ do
 				local newTool = character:FindFirstChildOfClass("Tool")
 				if newTool then
 					self:onToolChange(character, newTool)
+				end
+				if ammoConnection then
+					ammoConnection:Disconnect()
 				end
 			end
 		end)

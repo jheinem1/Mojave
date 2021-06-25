@@ -37,9 +37,11 @@ export class ToolComponent extends Roact.Component<{}, ToolState> {
     }
 
     private onToolChange(character: Model, tool: Tool) {
+        let ammoConnection: RBXScriptConnection | undefined;
         if (tool.FindFirstChild("BlasterSettings")) {
-            const ammo = tool.FindFirstChild("ammo");
+            const ammo = tool.FindFirstChild("Ammo");
             const maxAmmo = tool.FindFirstChild("BlasterSettings")?.FindFirstChild("Stats")?.FindFirstChild("MaxAmmo");
+            ammoConnection = t.instanceOf("IntValue")(ammo) ? ammo.Changed.Connect(num => this.setState({ ammo: tostring(num) })) : undefined;
             this.setState({
                 //@ts-ignore (idk it gets mad here even though it shouldn't)
                 toolEquipped: true,
@@ -63,6 +65,8 @@ export class ToolComponent extends Roact.Component<{}, ToolState> {
                 const newTool = character.FindFirstChildOfClass("Tool");
                 if (newTool)
                     this.onToolChange(character, newTool);
+                if (ammoConnection)
+                    ammoConnection.Disconnect();
             }
         });
     }
