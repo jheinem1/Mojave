@@ -122,8 +122,14 @@ do
 			-- ▲ ReadonlyArray.forEach ▲
 		end)
 	end)
-	function GlobalRegions:isInRegion(object)
-		error("Method not implemented.")
+	function GlobalRegions:isInRegion(player)
+		local _1 = self.inRegion
+		local _2 = player
+		local _3 = _1[_2]
+		if _3 == nil then
+			_3 = false
+		end
+		return _3
 	end
 end
 local ClientRegions

@@ -29,7 +29,7 @@ abstract class BaseRegion {
 
     protected abstract regionCheck(): void;
 
-    abstract isInRegion(object: Player | Model | BasePart): boolean;
+    abstract isInRegion(player: Player): boolean;
 }
 
 export class GlobalRegions extends BaseRegion {
@@ -54,8 +54,8 @@ export class GlobalRegions extends BaseRegion {
         });
     }
 
-    isInRegion(object: BasePart | Model | Player): boolean {
-        throw "Method not implemented.";
+    isInRegion(player: Player): boolean {
+        return this.inRegion.get(player) ?? false;
     }
 }
 
