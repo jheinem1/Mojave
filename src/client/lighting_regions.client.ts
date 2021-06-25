@@ -9,12 +9,10 @@ assert(t.array(t.instanceIsA("BasePart"))(lightingRegionsParts), "Children of 'L
 const regions = new ClientRegions(lightingRegionsParts);
 
 regions.enteredRegion.Connect((_, part) => {
-    print(`entered region ${tostring(part)}`)
     const effects = part?.FindFirstChild("Effects")?.GetChildren();
     const properties = part?.FindFirstChild("Properties")?.GetChildren();
     if (effects) {
         Lighting.ClearAllChildren();
-        print(effects)
         effects.forEach(v => v.Clone().Parent = Lighting);
     }
     if (properties) {
@@ -25,7 +23,6 @@ regions.enteredRegion.Connect((_, part) => {
                     Lighting[prop.Name] = prop.Value;
                 } catch {
                     prop.Destroy();
-                    print("bad")
                 }
             }
         });

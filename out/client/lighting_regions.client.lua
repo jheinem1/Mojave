@@ -57,6 +57,7 @@ regions.enteredRegion:Connect(function(_, part)
 					Lighting[prop.Name] = prop.Value
 				end, function()
 					prop:Destroy()
+					print("bad")
 				end)
 			end
 		end

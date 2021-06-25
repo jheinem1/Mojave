@@ -22,7 +22,7 @@
         "affectsGlobalScope": false
       },
       "../src/client/lighting_regions.client.ts": {
-        "version": "f0908c61438e7ca381183e19c924db678f57515d0bb9a6f1dae3f433f2524d8d",
+        "version": "abd1a976c092a83b080a9e72e118ef0f40c66c860b44c7c0e898614fde872303",
         "affectsGlobalScope": false
       },
       "../node_modules/@rbxts/types/include/generated/enums.d.ts": {
