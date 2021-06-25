@@ -7,13 +7,16 @@ interface CapsState {
 }
 
 export class Caps extends Roact.Component<{}, CapsState> {
-    capsValue = Players.LocalPlayer.FindFirstChild("Data")?.FindFirstChild("Caps");
-    state = { caps: (t.instanceIsA("NumberValue")(this.capsValue) ? tostring(this.capsValue.Value) : "N/A") };
+    capsValue = Players.LocalPlayer.FindFirstChild("Data")?.FindFirstChild("Caps") ?? Players.LocalPlayer.WaitForChild("Data", 5)?.WaitForChild("Caps", 5);
+    state = { caps: "N/A" };
 
     constructor(props: {}) {
         super(props);
-        if (t.instanceIsA("NumberValue")(this.capsValue))
-            this.capsValue.Changed.Connect(caps => this.setState({ caps: tostring(caps) }));
+        const capsValue = this.capsValue
+        if (t.instanceIsA("IntValue")(capsValue)) {
+            capsValue.Changed.Connect(caps => this.setState({ caps: tostring(caps) }));
+            this.setState({ caps: tostring(capsValue.Value) });
+        }
     }
 
     render() {

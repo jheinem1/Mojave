@@ -45,8 +45,8 @@ export class ToolComponent extends Roact.Component<{}, ToolState> {
                 toolEquipped: true,
                 toolName: tool.Name,
                 hasGun: true,
-                ammo: t.instanceOf("NumberValue")(ammo) ? tostring(ammo.Value) : "N/A",
-                maxAmmo: t.instanceOf("NumberValue")(maxAmmo) ? tostring(maxAmmo.Value) : "N/A",
+                ammo: t.instanceOf("IntValue")(ammo) ? tostring(ammo.Value) : "N/A",
+                maxAmmo: t.instanceOf("IntValue")(maxAmmo) ? tostring(maxAmmo.Value) : "N/A",
             });
         } else {
             this.setState({

@@ -138,7 +138,7 @@
         "affectsGlobalScope": false
       },
       "../src/client/hud/caps.tsx": {
-        "version": "cf5c54d189d6caeb85b7e876d8d25e5be438e5789c352713ad7a605048150185",
+        "version": "22c9d51a97a4308593659b7428c6e27b4b82327c5c917b6e3cead89694a0d21c",
         "affectsGlobalScope": false
       },
       "../src/client/hud/username.tsx": {
@@ -146,7 +146,7 @@
         "affectsGlobalScope": false
       },
       "../src/client/hud/health.tsx": {
-        "version": "a628e6796e5b7a2fb1850c06b89adbbfeb8c8c1bb023a10c805a3a2cbd054227",
+        "version": "94fd71aeaaf590f0d766f04ed2d93c3f03df6f1762f1a064c4c7da91dad1d297",
         "affectsGlobalScope": false
       },
       "../src/client/hud/compass.tsx": {
@@ -278,7 +278,7 @@
         "affectsGlobalScope": false
       },
       "../src/client/hud/tool.tsx": {
-        "version": "b52fbc9659176348ee4d2e112eddcff8ac62d8676f6e2b29017e7e28f4087e8e",
+        "version": "e5744622a2dc402375507a1c335bf3eb3c75a90fe90b4385f560edf05c7902d0",
         "affectsGlobalScope": false
       },
       "../src/client/hud/hud_component.tsx": {

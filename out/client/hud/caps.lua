@@ -11,16 +11,28 @@ do
 		if _0 ~= nil then
 			_0 = _0:FindFirstChild("Caps")
 		end
-		self.capsValue = _0
+		local _1 = _0
+		if _1 == nil then
+			local _2 = Players.LocalPlayer:WaitForChild("Data", 5)
+			if _2 ~= nil then
+				_2 = _2:WaitForChild("Caps", 5)
+			end
+			_1 = _2
+		end
+		self.capsValue = _1
 		self.state = {
-			caps = (t.instanceIsA("NumberValue")(self.capsValue) and tostring(self.capsValue.Value) or "N/A"),
+			caps = "N/A",
 		}
-		if t.instanceIsA("NumberValue")(self.capsValue) then
-			self.capsValue.Changed:Connect(function(caps)
+		local capsValue = self.capsValue
+		if t.instanceIsA("IntValue")(capsValue) then
+			capsValue.Changed:Connect(function(caps)
 				return self:setState({
 					caps = tostring(caps),
 				})
 			end)
+			self:setState({
+				caps = tostring(capsValue.Value),
+			})
 		end
 	end
 	function Caps:render()

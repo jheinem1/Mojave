@@ -22,7 +22,7 @@ do
 	function Health:onCharacter(character)
 		local _0 = character:FindFirstChildOfClass("Humanoid")
 		if _0 == nil then
-			_0 = character:WaitForChild("Humanoid")
+			_0 = character:WaitForChild("Humanoid", 5)
 		end
 		local humanoid = _0
 		if t.instanceOf("Humanoid")(humanoid) then

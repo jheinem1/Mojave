@@ -47,8 +47,8 @@ do
 				toolEquipped = true,
 				toolName = tool.Name,
 				hasGun = true,
-				ammo = t.instanceOf("NumberValue")(ammo) and tostring(ammo.Value) or "N/A",
-				maxAmmo = t.instanceOf("NumberValue")(maxAmmo) and tostring(maxAmmo.Value) or "N/A",
+				ammo = t.instanceOf("IntValue")(ammo) and tostring(ammo.Value) or "N/A",
+				maxAmmo = t.instanceOf("IntValue")(maxAmmo) and tostring(maxAmmo.Value) or "N/A",
 			})
 		else
 			self:setState({

@@ -19,7 +19,7 @@ export class Health extends Roact.Component<{}, HealthState> {
     }
 
     onCharacter(character: Model) {
-        const humanoid = character.FindFirstChildOfClass("Humanoid") ?? character.WaitForChild("Humanoid");
+        const humanoid = character.FindFirstChildOfClass("Humanoid") ?? character.WaitForChild("Humanoid", 5);
         if (t.instanceOf("Humanoid")(humanoid)) {
             humanoid.GetPropertyChangedSignal("Health").Connect(() => this.setState({ health: humanoid.Health }));
             this.setState({ health: humanoid.Health });
