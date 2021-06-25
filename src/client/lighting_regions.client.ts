@@ -3,7 +3,7 @@ import { t } from "@rbxts/t";
 import { ClientRegions } from "shared/regions";
 
 const lightingRegions = ReplicatedStorage.WaitForChild("LightRegions", 5);
-assert(lightingRegions, "A folder in the workspace/Replicated name 'LightRegions' is required");
+assert(lightingRegions, "A folder in the workspace/Replicated named 'LightRegions' is required");
 const lightingRegionsParts = lightingRegions.GetChildren();
 assert(t.array(t.instanceIsA("BasePart"))(lightingRegionsParts), "Children of 'LightRegions' must be BaseParts");
 const regions = new ClientRegions(lightingRegionsParts);
