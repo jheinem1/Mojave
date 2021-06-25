@@ -2,7 +2,7 @@ import { Workspace, ReplicatedStorage, Lighting } from "@rbxts/services";
 import { t } from "@rbxts/t";
 import { ClientRegions } from "shared/regions";
 
-const lightingRegions = Workspace.FindFirstChild("LightRegions") ?? ReplicatedStorage.FindFirstChild("LightRegions");
+const lightingRegions = ReplicatedStorage.WaitForChild("LightRegions", 5);
 assert(lightingRegions, "A folder in the workspace/Replicated name 'LightRegions' is required");
 const lightingRegionsParts = lightingRegions.GetChildren();
 assert(t.array(t.instanceIsA("BasePart"))(lightingRegionsParts), "Children of 'LightRegions' must be BaseParts");
