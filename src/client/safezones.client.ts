@@ -10,7 +10,7 @@ const safezoneFolder = Workspace.FindFirstChild("Safezones") ?? ReplicatedStorag
 assert(safezoneFolder, "Expected a folder named 'Safezones' in the workspace or ReplicatedStorage");
 const safezoneParts = safezoneFolder.GetChildren();
 assert(validSafezoneChildren(safezoneParts), "Expected children of 'Safezones' folder to be BaseParts");
-const SafezoneRegions = new ClientRegions(safezoneParts);
+const safezoneRegions = new ClientRegions(safezoneParts);
 let shielded = false;
 
 inSafezone.Connect((isInSafezone) => {
@@ -21,7 +21,7 @@ inSafezone.Connect((isInSafezone) => {
     }
 });
 
-SafezoneRegions.enteredRegion.Connect(() => {
+safezoneRegions.enteredRegion.Connect(() => {
     if (!shielded) {
         shielded = true;
         inSafezone.SendToServer(true);

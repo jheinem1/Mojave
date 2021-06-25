@@ -18,7 +18,7 @@ assert(_2, "Expected a folder named 'Safezones' in the workspace or ReplicatedSt
 local safezoneParts = safezoneFolder:GetChildren()
 local _3 = validSafezoneChildren(safezoneParts)
 assert(_3, "Expected children of 'Safezones' folder to be BaseParts")
-local SafezoneRegions = ClientRegions.new(safezoneParts)
+local safezoneRegions = ClientRegions.new(safezoneParts)
 local shielded = false
 inSafezone:Connect(function(isInSafezone)
 	if isInSafezone then
@@ -27,7 +27,7 @@ inSafezone:Connect(function(isInSafezone)
 		shielded = false
 	end
 end)
-SafezoneRegions.enteredRegion:Connect(function()
+safezoneRegions.enteredRegion:Connect(function()
 	if not shielded then
 		shielded = true
 		inSafezone:SendToServer(true)

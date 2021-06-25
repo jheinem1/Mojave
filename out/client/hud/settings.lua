@@ -2,15 +2,27 @@
 local TS = require(game:GetService("ReplicatedStorage"):WaitForChild("rbxts_include"):WaitForChild("RuntimeLib"))
 local Roact = TS.import(script, TS.getModule(script, "roact").src)
 local Players = TS.import(script, TS.getModule(script, "services")).Players
+local t = TS.import(script, TS.getModule(script, "t").lib.ts).t
 local Settings
 do
 	Settings = Roact.Component:extend("Settings")
-	function Settings:init()
-		local _0 = Players.LocalPlayer:FindFirstChildOfClass("PlayerGui")
+	function Settings:init(props)
+		local _0 = Players.LocalPlayer:FindFirstChild("PlayerGui")
 		if _0 ~= nil then
 			_0 = _0:FindFirstChild("Settings")
 		end
-		self.settings = _0
+		local _1 = _0
+		if _1 == nil then
+			local _2 = Players.LocalPlayer:WaitForChild("PlayerGui", 5)
+			if _2 ~= nil then
+				_2 = _2:WaitForChild("Settings", 5)
+			end
+			_1 = _2
+		end
+		self.settings = _1
+		if t.instanceIsA("ScreenGui")(self.settings) then
+			self.settings.ResetOnSpawn = false
+		end
 	end
 	function Settings:render()
 		return Roact.createFragment({
