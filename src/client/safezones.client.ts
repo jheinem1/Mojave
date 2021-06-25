@@ -33,5 +33,3 @@ safezoneRegions.enteredRegion.Connect(() => {
         inSafezone.SendToServer(true);
     }
 })
-
-game.BindToClose(() => safezoneRegions.kill());

@@ -10,16 +10,18 @@ local BaseRegion
 do
 	BaseRegion = {}
 	function BaseRegion:constructor(regions)
+		self.parts = {}
 		self.disabled = false
 		self.enteredRegion = ObjectEvent.new()
 		self.leftRegion = ObjectEvent.new()
-		-- parts.forEach(part => {
-		-- parts.push(part);
-		-- this.regions.push(RotatedRegion3.FromPart(part));
-		-- });
 		if t.instanceIsA("BasePart")(regions[1]) then
 			local _1 = regions
 			local _2 = function(part)
+				local _3 = self.parts
+				local _4 = part
+				-- ▼ Array.push ▼
+				_3[#_3 + 1] = _4
+				-- ▲ Array.push ▲
 				return RotatedRegion3.FromPart(part)
 			end
 			-- ▼ ReadonlyArray.map ▼
@@ -70,10 +72,12 @@ do
 						_3 = _3:FindFirstChild("HumanoidRootPart")
 					end
 					local rootPart = _3
+					local index = -1
 					local _4 = t.instanceIsA("BasePart")(rootPart)
 					if _4 then
 						local _5 = regions
-						local _6 = function(region)
+						local _6 = function(region, i)
+							index = i
 							return region:CastPart(rootPart)
 						end
 						-- ▼ ReadonlyArray.some ▼
@@ -96,7 +100,7 @@ do
 							-- ▼ Map.set ▼
 							_7[_8] = true
 							-- ▲ Map.set ▲
-							enteredRegion:Fire(player)
+							enteredRegion:Fire(player, self.parts[index + 1])
 						end
 					else
 						local _5 = inRegion
@@ -107,7 +111,7 @@ do
 							-- ▼ Map.delete ▼
 							_7[_8] = nil
 							-- ▲ Map.delete ▲
-							leftRegion:Fire(player)
+							leftRegion:Fire(player, self.parts[index + 1])
 						end
 					end
 				end
@@ -194,10 +198,12 @@ do
 					_1 = _1:FindFirstChild("HumanoidRootPart")
 				end
 				local rootPart = _1
+				local index = -1
 				local _2 = t.instanceIsA("BasePart")(rootPart)
 				if _2 then
 					local _3 = regions
-					local _4 = function(region)
+					local _4 = function(region, i)
+						index = i
 						return region:CastPart(rootPart)
 					end
 					-- ▼ ReadonlyArray.some ▼
@@ -214,11 +220,11 @@ do
 				if _2 then
 					if not inRegion then
 						inRegion = true
-						enteredRegion:Fire(Players.LocalPlayer)
+						enteredRegion:Fire(client, self.parts[index + 1])
 					end
 				elseif inRegion then
 					inRegion = false
-					leftRegion:Fire(Players.LocalPlayer)
+					leftRegion:Fire(client, self.parts[index + 1])
 				end
 			else
 				connection:Disconnect()

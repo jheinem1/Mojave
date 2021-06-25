@@ -39,6 +39,3 @@ safezoneRegions.enteredRegion:Connect(function()
 		inSafezone:SendToServer(true)
 	end
 end)
-game:BindToClose(function()
-	return safezoneRegions:kill()
-end)
