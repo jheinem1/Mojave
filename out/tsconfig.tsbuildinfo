@@ -306,7 +306,7 @@
         "affectsGlobalScope": false
       },
       "../src/client/hud/init.client.tsx": {
-        "version": "cf9fa3d252916ec469b6214231b46b2830ede811a33b17e31259e61b00625741",
+        "version": "191ba8b1ec3750507011c7c16f727f4c42597519254585d59ab321029bfcea9b",
         "affectsGlobalScope": false
       },
       "../src/shared/allies.ts": {
