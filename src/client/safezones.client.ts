@@ -29,6 +29,7 @@ inSafezone.Connect((isInSafezone) => {
 safezoneRegions.enteredRegion.Connect(() => {
     if (!shielded) {
         shielded = true;
+        wait();
         inSafezone.SendToServer(true);
     }
 })

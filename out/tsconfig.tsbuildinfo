@@ -202,7 +202,7 @@
         "affectsGlobalScope": false
       },
       "../src/client/safezones.client.ts": {
-        "version": "69e386c80a73620a23b1f828a2e9a6b92bc7ec06f8cbf3efdf4463a196fff236",
+        "version": "d0a3085f60dab24ccb3e9bdb53bf6f6cdd902e3fc35abe520b51938613a3aa5a",
         "affectsGlobalScope": false
       },
       "../node_modules/@rbxts/roact/src/jsx.d.ts": {

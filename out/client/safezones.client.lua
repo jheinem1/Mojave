@@ -35,6 +35,7 @@ end)
 safezoneRegions.enteredRegion:Connect(function()
 	if not shielded then
 		shielded = true
+		wait()
 		inSafezone:SendToServer(true)
 	end
 end)
