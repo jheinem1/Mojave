@@ -1,8 +1,15 @@
 import Roact from "@rbxts/roact";
 import { Players } from "@rbxts/services";
+import { t } from "@rbxts/t";
 
 export class Settings extends Roact.Component {
-    private settings = Players.LocalPlayer.FindFirstChildOfClass("PlayerGui")?.FindFirstChild("Settings");
+    private settings = Players.LocalPlayer.FindFirstChild("PlayerGui")?.FindFirstChild("Settings") ?? Players.LocalPlayer.WaitForChild("PlayerGui", 5)?.WaitForChild("Settings", 5);
+
+    constructor(props: {}) {
+        super(props);
+        if (t.instanceIsA("ScreenGui")(this.settings))
+            this.settings.ResetOnSpawn = false
+    }
 
     render() {
         return <frame Key="Settings" BackgroundTransparency={1} Size={new UDim2(1, 0, 1, 0)}>
