@@ -322,7 +322,7 @@
         "affectsGlobalScope": false
       },
       "../src/server/safezones.server.ts": {
-        "version": "8fef6c02bbb8b80ae95b4a1189df9868b1800bb6b98b315c786491409c01c607",
+        "version": "901ee3a22ee5640882fd36426f7a2eacba82cb44eac44fc18c6e6e96f5328203",
         "affectsGlobalScope": false
       }
     },

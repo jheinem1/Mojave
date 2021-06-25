@@ -42,6 +42,24 @@ inSafezone.Connect((player, _) => {
     }
 });
 
+Players.PlayerAdded.Connect(player => {
+    player.CharacterAdded.Connect(character => {
+        if (isInSafezone(character)) {
+            const forceField = new Instance("ForceField");
+            forceField.Visible = false;
+            forceField.Name = "Safezone";
+            forceField.Parent = character;
+            shielded.set(character, forceField);
+            inSafezone.SendToPlayer(player, true);
+            const clientRegions = new ClientRegions(safezones, player)
+            clientRegions.leftRegion.Connect(() => {
+                forceField.Destroy();
+                inSafezone.SendToPlayer(player, false);
+                clientRegions.kill();
+            });
+        }
+    })
+})
 
 
 // RunService.Heartbeat.Connect(() => {

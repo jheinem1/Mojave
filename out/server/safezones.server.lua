@@ -2,6 +2,7 @@
 local TS = require(game:GetService("ReplicatedStorage"):WaitForChild("rbxts_include"):WaitForChild("RuntimeLib"))
 local RotatedRegion3 = TS.import(script, TS.getModule(script, "rotatedregion3"))
 local _0 = TS.import(script, TS.getModule(script, "services"))
+local Players = _0.Players
 local ReplicatedStorage = _0.ReplicatedStorage
 local Workspace = _0.Workspace
 local t = TS.import(script, TS.getModule(script, "t").lib.ts).t
@@ -81,6 +82,29 @@ inSafezone:Connect(function(player, _)
 	else
 		inSafezone:SendToPlayer(player, false)
 	end
+end)
+Players.PlayerAdded:Connect(function(player)
+	player.CharacterAdded:Connect(function(character)
+		if isInSafezone(character) then
+			local forceField = Instance.new("ForceField")
+			forceField.Visible = false
+			forceField.Name = "Safezone"
+			forceField.Parent = character
+			local _7 = shielded
+			local _8 = character
+			local _9 = forceField
+			-- ▼ Map.set ▼
+			_7[_8] = _9
+			-- ▲ Map.set ▲
+			inSafezone:SendToPlayer(player, true)
+			local clientRegions = ClientRegions.new(safezones, player)
+			clientRegions.leftRegion:Connect(function()
+				forceField:Destroy()
+				inSafezone:SendToPlayer(player, false)
+				clientRegions:kill()
+			end)
+		end
+	end)
 end)
 -- RunService.Heartbeat.Connect(() => {
 -- Players.GetPlayers().forEach((player) => {
