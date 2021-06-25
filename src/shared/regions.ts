@@ -55,14 +55,20 @@ export class GlobalRegions extends BaseRegion {
 }
 
 export class ClientRegions extends BaseRegion {
+    protected client: Player;
     protected inRegion = false;
+
+    constructor(parts: BasePart[], client = Players.LocalPlayer) {
+        super(parts);
+        this.client = client;
+    }
 
     protected async regionCheck() {
         let connection: RBXScriptConnection;
         const weakRef = setmetatable({ this: this }, { __mode: "k" })
         connection = RunService.Heartbeat.Connect(() => {
             if (weakRef.this) {
-                const rootPart = Players.LocalPlayer.Character?.FindFirstChild("HumanoidRootPart");
+                const rootPart = weakRef.this.client.Character?.FindFirstChild("HumanoidRootPart");
                 if (t.instanceIsA("BasePart")(rootPart) && weakRef.this.regions.some((region) => region.CastPart(rootPart))) {
                     if (!weakRef.this.inRegion) {
                         weakRef.this.inRegion = true;

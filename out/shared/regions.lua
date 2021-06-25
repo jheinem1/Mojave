@@ -149,9 +149,13 @@ do
 		self:constructor(...)
 		return self
 	end
-	function ClientRegions:constructor(...)
-		super.constructor(self, ...)
+	function ClientRegions:constructor(parts, client)
+		if client == nil then
+			client = Players.LocalPlayer
+		end
+		super.constructor(self, parts)
 		self.inRegion = false
+		self.client = client
 	end
 	ClientRegions.regionCheck = TS.async(function(self)
 		local connection
@@ -162,7 +166,7 @@ do
 		})
 		connection = RunService.Heartbeat:Connect(function()
 			if weakRef.this then
-				local _1 = Players.LocalPlayer.Character
+				local _1 = weakRef.this.client.Character
 				if _1 ~= nil then
 					_1 = _1:FindFirstChild("HumanoidRootPart")
 				end
