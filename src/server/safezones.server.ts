@@ -31,7 +31,7 @@ inSafezone.Connect((player, _) => {
         forceField.Parent = character;
         shielded.set(character, forceField);
         inSafezone.SendToPlayer(player, true);
-        const clientRegions = new ClientRegions(safezones, player)
+        const clientRegions = new ClientRegions(safezones, player);
         clientRegions.leftRegion.Connect(() => {
             forceField.Destroy();
             inSafezone.SendToPlayer(player, false);
@@ -51,15 +51,15 @@ Players.PlayerAdded.Connect(player => {
             forceField.Parent = character;
             shielded.set(character, forceField);
             inSafezone.SendToPlayer(player, true);
-            const clientRegions = new ClientRegions(safezones, player)
+            const clientRegions = new ClientRegions(safezones, player);
             clientRegions.leftRegion.Connect(() => {
                 forceField.Destroy();
                 inSafezone.SendToPlayer(player, false);
                 clientRegions.kill();
             });
         }
-    })
-})
+    });
+});
 
 
 // RunService.Heartbeat.Connect(() => {
