@@ -112,11 +112,6 @@ do
 							-- ▼ Map.delete ▼
 							_7[_8] = nil
 							-- ▲ Map.delete ▲
-							local _9 = inRegion
-							local _10 = player
-							-- ▼ Map.delete ▼
-							_9[_10] = nil
-							-- ▲ Map.delete ▲
 							leftRegion:Fire(player, self.parts[index + 1])
 						end
 					end

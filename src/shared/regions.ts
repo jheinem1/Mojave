@@ -56,7 +56,6 @@ export class GlobalRegions extends BaseRegion {
                         }
                     } else if (inRegion.get(player)) {
                         inRegion.delete(player);
-                        inRegion.delete(player);
                         leftRegion.Fire(player, this.parts[index]);
                     }
                 });
