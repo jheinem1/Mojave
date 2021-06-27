@@ -44,6 +44,7 @@ inSafezone.Connect((player, _) => {
 
 Players.PlayerAdded.Connect(player => {
     player.CharacterAdded.Connect(character => {
+        wait();
         if (isInSafezone(character)) {
             const forceField = new Instance("ForceField");
             forceField.Visible = false;

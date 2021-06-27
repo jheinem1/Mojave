@@ -85,6 +85,7 @@ inSafezone:Connect(function(player, _)
 end)
 Players.PlayerAdded:Connect(function(player)
 	player.CharacterAdded:Connect(function(character)
+		wait()
 		if isInSafezone(character) then
 			local forceField = Instance.new("ForceField")
 			forceField.Visible = false
