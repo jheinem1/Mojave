@@ -282,7 +282,7 @@
         "affectsGlobalScope": false
       },
       "../src/client/hud/health.tsx": {
-        "version": "94fd71aeaaf590f0d766f04ed2d93c3f03df6f1762f1a064c4c7da91dad1d297",
+        "version": "7db99d020b320ab4a9874efb05c9f629cc7b5316c3228a2daebf75d0c01d5d36",
         "affectsGlobalScope": false
       },
       "../src/client/hud/scope.tsx": {

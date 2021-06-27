@@ -31,7 +31,7 @@ export class Health extends Roact.Component<{}, HealthState> {
             Key="Health"
             BackgroundTransparency={1}
             Position={new UDim2(0, 4, 1, -46)}
-            Size={new UDim2(0, 245, 0, 40)}
+            Size={new UDim2(0.2, 0, 0, 40)}
         >
             <textlabel
                 BackgroundTransparency={1}
@@ -66,7 +66,7 @@ export class Health extends Roact.Component<{}, HealthState> {
                 Key="Bars"
                 BackgroundTransparency={1}
                 Position={new UDim2(0, 35, 0, 10)}
-                Size={new UDim2(0, 200, 0, 10)}
+                Size={new UDim2(1, -35, 0, 10)}
             >
                 <frame
                     Key="RightBar"

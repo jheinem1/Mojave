@@ -41,7 +41,7 @@ do
 			Health = Roact.createElement("Frame", {
 				BackgroundTransparency = 1,
 				Position = UDim2.new(0, 4, 1, -46),
-				Size = UDim2.new(0, 245, 0, 40),
+				Size = UDim2.new(0.2, 0, 0, 40),
 			}, {
 				Roact.createElement("TextLabel", {
 					BackgroundTransparency = 1,
@@ -75,7 +75,7 @@ do
 				Bars = Roact.createElement("Frame", {
 					BackgroundTransparency = 1,
 					Position = UDim2.new(0, 35, 0, 10),
-					Size = UDim2.new(0, 200, 0, 10),
+					Size = UDim2.new(1, -35, 0, 10),
 				}, {
 					RightBar = Roact.createElement("Frame", {
 						BackgroundColor3 = Color3.fromRGB(255, 170, 0),
