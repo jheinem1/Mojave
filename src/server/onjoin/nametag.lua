@@ -1,7 +1,6 @@
 -- THIS SCRIPT WAS CREATED WITH ROJO; ANY CHANGES MADE IN STUDIO WILL BE OVERWRITTEN
 
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
-local Players = game:GetService("Players")
 local TS = require(game:GetService("ReplicatedStorage"):WaitForChild("rbxts_include"):WaitForChild("RuntimeLib"))
 local Roact: Roact = TS.import(script, TS.getModule(script, "roact").src)
 local Allies = require(ReplicatedStorage.Shared.allies).default
@@ -93,7 +92,7 @@ function onCharacter(player, character)
     end)
     character.Humanoid.NameDisplayDistance = 0
     local connection
-    connection = Players.LocalPlayer.CharacterRemoving:Connect(function()
+    connection = player.CharacterRemoving:Connect(function()
         Roact.unmount(nametagHandle);
         connection:Disconnect()
     end)
