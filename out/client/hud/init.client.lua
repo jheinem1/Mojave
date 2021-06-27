@@ -3,5 +3,4 @@ local TS = require(game:GetService("ReplicatedStorage"):WaitForChild("rbxts_incl
 local Roact = TS.import(script, TS.getModule(script, "roact").src)
 local Players = TS.import(script, TS.getModule(script, "services")).Players
 local HudComponent = TS.import(script, script, "hud_component").HudComponent
--- StarterGui.SetCoreGuiEnabled(Enum.CoreGuiType.Health, false);
 Roact.mount(Roact.createElement(HudComponent), Players.LocalPlayer:FindFirstChildOfClass("PlayerGui"))
