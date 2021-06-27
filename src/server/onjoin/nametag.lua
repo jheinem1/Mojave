@@ -1,6 +1,7 @@
 -- THIS SCRIPT WAS CREATED WITH ROJO; ANY CHANGES MADE IN STUDIO WILL BE OVERWRITTEN
 
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
+local Players = game:GetService("Players")
 local TS = require(game:GetService("ReplicatedStorage"):WaitForChild("rbxts_include"):WaitForChild("RuntimeLib"))
 local Roact: Roact = TS.import(script, TS.getModule(script, "roact").src)
 local Allies = require(ReplicatedStorage.Shared.allies).default
@@ -9,7 +10,6 @@ local mainGroup = 4978642
 function nametag(props)
     return Roact.createElement("BillboardGui",
         {
-            Name = "Nametag",
             Size = UDim2.fromScale(4, 1.5),
             StudsOffset = Vector3.new(0, 3.5, 0),
             MaxDistance = 150,
@@ -19,7 +19,6 @@ function nametag(props)
         {
             Roact.createElement("TextLabel",
                 {
-                    Name = "Name",
                     Position = UDim2.new(0, 5, 0, 0),
                     Size = UDim2.new(1, -10, 0.5, 0),
                     ZIndex = 2,
@@ -32,7 +31,6 @@ function nametag(props)
             ),
             Roact.createElement("TextLabel",
                 {
-                    Name = "Team",
                     Position = UDim2.new(0, 5, 0.5, 0),
                     Size = UDim2.new(1, -10, 0.25, 0),
                     BackgroundTransparency = 1,
@@ -44,7 +42,6 @@ function nametag(props)
             ),
             Roact.createElement("TextLabel",
                 {
-                    Name = "Rank",
                     Position = UDim2.new(0, 5, 0.75, 0),
                     Size = UDim2.new(1, -10, 0.25, 0),
                     BackgroundTransparency = 1,
@@ -80,7 +77,7 @@ function onCharacter(player, character)
         color = team.TeamColor.Color,
         visible = true
     }
-    local existingNametag = character.HumanoidRootPart:FindFirstChild("Nametag")
+    local existingNametag = character.HumanoidRootPart:FindFirstChild("RoactTree");
     if existingNametag then
         existingNametag:Destroy()
     end
@@ -95,6 +92,11 @@ function onCharacter(player, character)
         end
     end)
     character.Humanoid.NameDisplayDistance = 0
+    local connection
+    connection = Players.LocalPlayer.CharacterRemoving:Connect(function()
+        Roact.unmount(nametagHandle);
+        connection:Disconnect()
+    end)
 end
 
 function addNametag(player: Player)
