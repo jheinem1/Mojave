@@ -171,6 +171,7 @@ export class TeamsScreen extends Screen {
         return <ProgressItemComponent
             Name="Teams"
             Position={this.position}
+            StartSelected={this.startSelected}
             DeselectEvent={this.deselected}
             SelectEvent={this.selected}
             Event={{

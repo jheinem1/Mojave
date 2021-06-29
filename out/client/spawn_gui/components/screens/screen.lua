@@ -9,6 +9,7 @@ do
 		self.deselected = ObjectEvent.new()
 		self.selected = ObjectEvent.new()
 		self.position = position
+		self.startSelected = position == 0
 	end
 end
 return {

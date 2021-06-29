@@ -4,6 +4,7 @@ import Roact from "@rbxts/roact";
 interface ProgressItemProps {
     Name: string;
     Position: number;
+    StartSelected: boolean;
     DeselectEvent: ObjectEvent<[]>;
     SelectEvent: ObjectEvent<[]>;
     Event: {
@@ -16,11 +17,9 @@ interface ProgressItemState {
 }
 
 export class ProgressItemComponent extends Roact.Component<ProgressItemProps, ProgressItemState> {
-    state = {
-        selected: false
-    }
     constructor(props: ProgressItemProps) {
         super(props);
+        this.state = { selected: props.StartSelected };
         props.DeselectEvent.Connect(() => this.setState({ selected: false }));
         props.SelectEvent.Connect(() => this.setState({ selected: true }));
     }

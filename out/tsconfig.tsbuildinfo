@@ -294,19 +294,19 @@
         "affectsGlobalScope": false
       },
       "../src/client/spawn_gui/components/screens/progress_item.tsx": {
-        "version": "ef28aae5747a6a0cc8630f4c3b61e4a1726eac3c7a3418c56afefb2d1d53c87a",
+        "version": "83deecbcb364e9dd1a60a485e38eeb0a43746c52bf767acd6d4b0c6b2936312d",
         "affectsGlobalScope": false
       },
       "../src/client/spawn_gui/components/screens/screen.tsx": {
-        "version": "5fe9c60af6551ab69ea03a78a7478ccec13b74def181f9a22014908eda15eece",
+        "version": "52a01b66eead42b19d3e5719f2a4de00a93ffd488ef0b723304d71a3fa844cba",
         "affectsGlobalScope": false
       },
       "../src/client/spawn_gui/components/screens/map.tsx": {
-        "version": "7985bcfcde25027cd99b9c0928e9b650939d03ec012734f1ebc8758ca9244e6b",
+        "version": "5077611e3a7a6503470b799cf7e9f4958b4e69eaa72bd906ad77cbdeab6b5029",
         "affectsGlobalScope": false
       },
       "../src/client/spawn_gui/components/screens/teams.tsx": {
-        "version": "e0af858251dec5fcbde9d1759e2ae483e509a33276982ed90c80901f311a2736",
+        "version": "8e6bf8479467ca9dd08a8365c128488291e106585bce0383513f42177c671d05",
         "affectsGlobalScope": false
       },
       "../src/client/spawn_gui/components/progress.tsx": {

@@ -179,6 +179,7 @@ do
 		return Roact.createElement(ProgressItemComponent, {
 			Name = "Teams",
 			Position = self.position,
+			StartSelected = self.startSelected,
 			DeselectEvent = self.deselected,
 			SelectEvent = self.selected,
 			[Roact.Event.Clicked] = function()

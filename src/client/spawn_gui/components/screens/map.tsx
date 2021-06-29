@@ -92,6 +92,7 @@ export class MapScreen extends Screen {
         return <ProgressItemComponent
             Name="Spawn"
             Position={this.position}
+            StartSelected={this.startSelected}
             DeselectEvent={this.deselected}
             SelectEvent={this.selected}
             Event={{

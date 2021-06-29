@@ -6,7 +6,7 @@ do
 	ProgressItemComponent = Roact.Component:extend("ProgressItemComponent")
 	function ProgressItemComponent:init(props)
 		self.state = {
-			selected = false,
+			selected = props.StartSelected,
 		}
 		props.DeselectEvent:Connect(function()
 			return self:setState({
