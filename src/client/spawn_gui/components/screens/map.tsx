@@ -83,21 +83,10 @@ class MapComponent extends Roact.Component<MapProps, {}> {
 }
 
 export class MapScreen extends Screen {
+    name = "Spawn";
     getScreenComponent(): Roact.Element {
         return <MapComponent
             FinishedEvent={this.finished}
-        />;
-    }
-    getButtonComponent(): Roact.Element {
-        return <ProgressItemComponent
-            Name="Spawn"
-            Position={this.position}
-            StartSelected={this.startSelected}
-            DeselectEvent={this.deselected}
-            SelectEvent={this.selected}
-            Event={{
-                Clicked: () => this.selected.Fire()
-            }}
         />;
     }
 }

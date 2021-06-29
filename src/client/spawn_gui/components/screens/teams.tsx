@@ -164,19 +164,8 @@ class TeamsComponent extends Roact.Component {
 }
 
 export class TeamsScreen extends Screen {
+    name = "Teams";
     getScreenComponent(): Roact.Element {
         return <TeamsComponent />;
-    }
-    getButtonComponent(): Roact.Element {
-        return <ProgressItemComponent
-            Name="Teams"
-            Position={this.position}
-            StartSelected={this.startSelected}
-            DeselectEvent={this.deselected}
-            SelectEvent={this.selected}
-            Event={{
-                Clicked: () => this.selected.Fire()
-            }}
-        />;
     }
 }

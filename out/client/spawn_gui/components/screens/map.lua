@@ -1,7 +1,6 @@
 -- Compiled with roblox-ts v1.1.1
 local TS = require(game:GetService("ReplicatedStorage"):WaitForChild("rbxts_include"):WaitForChild("RuntimeLib"))
 local Roact = TS.import(script, TS.getModule(script, "roact").src)
-local ProgressItemComponent = TS.import(script, script.Parent, "progress_item").ProgressItemComponent
 local Screen = TS.import(script, script.Parent, "screen").Screen
 local MapComponent
 do
@@ -92,22 +91,11 @@ do
 	end
 	function MapScreen:constructor(...)
 		super.constructor(self, ...)
+		self.name = "Spawn"
 	end
 	function MapScreen:getScreenComponent()
 		return Roact.createElement(MapComponent, {
 			FinishedEvent = self.finished,
-		})
-	end
-	function MapScreen:getButtonComponent()
-		return Roact.createElement(ProgressItemComponent, {
-			Name = "Spawn",
-			Position = self.position,
-			StartSelected = self.startSelected,
-			DeselectEvent = self.deselected,
-			SelectEvent = self.selected,
-			[Roact.Event.Clicked] = function()
-				return self.selected:Fire()
-			end,
 		})
 	end
 end

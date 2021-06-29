@@ -1,7 +1,6 @@
 -- Compiled with roblox-ts v1.1.1
 local TS = require(game:GetService("ReplicatedStorage"):WaitForChild("rbxts_include"):WaitForChild("RuntimeLib"))
 local Roact = TS.import(script, TS.getModule(script, "roact").src)
-local ProgressItemComponent = TS.import(script, script.Parent, "progress_item").ProgressItemComponent
 local Screen = TS.import(script, script.Parent, "screen").Screen
 local TeamsComponent
 do
@@ -171,21 +170,10 @@ do
 	end
 	function TeamsScreen:constructor(...)
 		super.constructor(self, ...)
+		self.name = "Teams"
 	end
 	function TeamsScreen:getScreenComponent()
 		return Roact.createElement(TeamsComponent)
-	end
-	function TeamsScreen:getButtonComponent()
-		return Roact.createElement(ProgressItemComponent, {
-			Name = "Teams",
-			Position = self.position,
-			StartSelected = self.startSelected,
-			DeselectEvent = self.deselected,
-			SelectEvent = self.selected,
-			[Roact.Event.Clicked] = function()
-				return self.selected:Fire()
-			end,
-		})
 	end
 end
 return {
