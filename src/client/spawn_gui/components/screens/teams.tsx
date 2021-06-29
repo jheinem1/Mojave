@@ -1,7 +1,7 @@
 import Roact from "@rbxts/roact";
+import { Screen } from "./screen";
 
-// @static
-export class TeamsComponent extends Roact.Component {
+class TeamsComponent extends Roact.Component {
     render() {
         return <frame
             Key="Teams"
@@ -160,5 +160,14 @@ export class TeamsComponent extends Roact.Component {
                 />
             </frame>
         </frame>
+    }
+}
+
+export class TeamsScreen extends Screen {
+    getScreenComponent(onSpawn: () => void): Roact.Element {
+        throw "Method not implemented.";
+    }
+    getButtonComponent(onSelect: () => void): Roact.Element {
+        throw "Method not implemented.";
     }
 }

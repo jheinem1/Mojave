@@ -1,8 +1,6 @@
 -- Compiled with roblox-ts v1.1.1
 local TS = require(game:GetService("ReplicatedStorage"):WaitForChild("rbxts_include"):WaitForChild("RuntimeLib"))
 local Roact = TS.import(script, TS.getModule(script, "roact").src)
-local ProgressComponent = TS.import(script, script.Parent, "progress").ProgressComponent
-local ProgressItemComponent = TS.import(script, script.Parent, "progress_item").ProgressItemComponent
 local SpawnGuiComponent
 do
 	SpawnGuiComponent = Roact.Component:extend("SpawnGuiComponent")
@@ -30,17 +28,6 @@ do
 						TextSize = 24,
 						TextWrapped = true,
 						TextXAlignment = Enum.TextXAlignment.Left,
-					}),
-					Roact.createElement(ProgressComponent, {
-						items = { Roact.createElement(ProgressItemComponent, {
-							name = "Teams",
-							selected = true,
-							order = 1,
-						}), Roact.createElement(ProgressItemComponent, {
-							name = "Spawn",
-							selected = false,
-							order = 2,
-						}) },
 					}),
 				}),
 			}),

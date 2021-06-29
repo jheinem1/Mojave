@@ -1,6 +1,9 @@
 import Roact from "@rbxts/roact";
+import { Screen } from "./screen";
 
-export class MapComponent extends Roact.Component {
+
+
+class MapComponent extends Roact.Component {
     render() {
         return <frame
             Key="Map"
@@ -71,5 +74,14 @@ export class MapComponent extends Roact.Component {
                 </frame>
             </imagelabel>
         </frame>
+    }
+}
+
+export class MapScreen extends Screen {
+    getScreenComponent(onSpawn: () => void): Roact.Element {
+        throw "Method not implemented.";
+    }
+    getButtonComponent(onSelect: () => void): Roact.Element {
+        throw "Method not implemented.";
     }
 }

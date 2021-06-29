@@ -1,6 +1,6 @@
 import Roact from "@rbxts/roact";
 import { ProgressComponent } from "./progress";
-import { ProgressItemComponent } from "./progress_item";
+import { ProgressItemComponent } from "./screens/progress_item";
 
 export class SpawnGuiComponent extends Roact.Component {
     render() {
@@ -24,20 +24,7 @@ export class SpawnGuiComponent extends Roact.Component {
                     TextWrapped={true}
                     TextXAlignment={Enum.TextXAlignment.Left}
                 />
-                <ProgressComponent
-                    items={[
-                        <ProgressItemComponent
-                            name="Teams"
-                            selected={true}
-                            order={1}
-                        />,
-                        <ProgressItemComponent
-                            name="Spawn"
-                            selected={false}
-                            order={2}
-                        />
-                    ]}
-                />
+
             </frame>
         </screengui>
     }

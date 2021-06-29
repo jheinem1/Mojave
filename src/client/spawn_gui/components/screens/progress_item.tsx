@@ -4,11 +4,14 @@ interface Props {
     name: string;
     selected: boolean;
     order: number;
+    Event: {
+        MouseButton1Click: () => void;
+    };
 }
 
 export class ProgressItemComponent extends Roact.Component<Props, {}> {
     render() {
-        return <textlabel
+        return <textbutton
             Key={tostring(this.props.name)}
             BackgroundTransparency={1}
             Font={Enum.Font.SourceSansBold}
@@ -20,6 +23,7 @@ export class ProgressItemComponent extends Roact.Component<Props, {}> {
             TextScaled={true}
             TextSize={24}
             TextWrapped={true}
+            Event={this.props.Event}
         />
     }
 }

@@ -1,7 +1,7 @@
 -- Compiled with roblox-ts v1.1.1
 local TS = require(game:GetService("ReplicatedStorage"):WaitForChild("rbxts_include"):WaitForChild("RuntimeLib"))
 local Roact = TS.import(script, TS.getModule(script, "roact").src)
--- @static
+local Screen = TS.import(script, script.Parent, "screen").Screen
 local TeamsComponent
 do
 	TeamsComponent = Roact.Component:extend("TeamsComponent")
@@ -154,6 +154,31 @@ do
 		})
 	end
 end
+local TeamsScreen
+do
+	local super = Screen
+	TeamsScreen = setmetatable({}, {
+		__tostring = function()
+			return "TeamsScreen"
+		end,
+		__index = super,
+	})
+	TeamsScreen.__index = TeamsScreen
+	function TeamsScreen.new(...)
+		local self = setmetatable({}, TeamsScreen)
+		self:constructor(...)
+		return self
+	end
+	function TeamsScreen:constructor(...)
+		super.constructor(self, ...)
+	end
+	function TeamsScreen:getScreenComponent(onSpawn)
+		error("Method not implemented.")
+	end
+	function TeamsScreen:getButtonComponent(onSelect)
+		error("Method not implemented.")
+	end
+end
 return {
-	TeamsComponent = TeamsComponent,
+	TeamsScreen = TeamsScreen,
 }

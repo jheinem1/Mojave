@@ -1,6 +1,7 @@
 -- Compiled with roblox-ts v1.1.1
 local TS = require(game:GetService("ReplicatedStorage"):WaitForChild("rbxts_include"):WaitForChild("RuntimeLib"))
 local Roact = TS.import(script, TS.getModule(script, "roact").src)
+local Screen = TS.import(script, script.Parent, "screen").Screen
 local MapComponent
 do
 	MapComponent = Roact.Component:extend("MapComponent")
@@ -73,6 +74,31 @@ do
 		})
 	end
 end
+local MapScreen
+do
+	local super = Screen
+	MapScreen = setmetatable({}, {
+		__tostring = function()
+			return "MapScreen"
+		end,
+		__index = super,
+	})
+	MapScreen.__index = MapScreen
+	function MapScreen.new(...)
+		local self = setmetatable({}, MapScreen)
+		self:constructor(...)
+		return self
+	end
+	function MapScreen:constructor(...)
+		super.constructor(self, ...)
+	end
+	function MapScreen:getScreenComponent(onSpawn)
+		error("Method not implemented.")
+	end
+	function MapScreen:getButtonComponent(onSelect)
+		error("Method not implemented.")
+	end
+end
 return {
-	MapComponent = MapComponent,
+	MapScreen = MapScreen,
 }

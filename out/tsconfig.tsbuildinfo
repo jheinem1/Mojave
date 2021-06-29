@@ -289,16 +289,32 @@
         "version": "e5393d20d3d7007edb35a4d4577e2a7c65ed6240dc34545029638a2841967824",
         "affectsGlobalScope": false
       },
-      "../src/client/spawn_gui/components/progress.tsx": {
-        "version": "7cfa28fa6cc248e51492c49e79275e47117506b8467b8b1e5b6744791fe17e7f",
+      "../node_modules/@rbxts/object-event/index.d.ts": {
+        "version": "77d9001690db433c8af659f73fd6dcde3177c02ce5a5c901d7c6d0aae808c0c2",
         "affectsGlobalScope": false
       },
-      "../src/client/spawn_gui/components/progress_item.tsx": {
-        "version": "f926fac6c6b9fc90f94844ea97217f83f3a0ed6b0fa1858216cb6dc63034a649",
+      "../src/client/spawn_gui/components/screens/screen.tsx": {
+        "version": "303aa92b0bbabddee4e52fbf53ccec05009484948d02b64a5a3eb1f99f7d1a79",
+        "affectsGlobalScope": false
+      },
+      "../src/client/spawn_gui/components/screens/map.tsx": {
+        "version": "98d0cbc9800851deb87fb5eee62776f8b2dcf643718470eac1b6c9c5bd11b625",
+        "affectsGlobalScope": false
+      },
+      "../src/client/spawn_gui/components/screens/teams.tsx": {
+        "version": "7bb8ac4402c264800672f9ffbfc4c7b623bd942659a5e435f738442fbf8263da",
+        "affectsGlobalScope": false
+      },
+      "../src/client/spawn_gui/components/progress.tsx": {
+        "version": "06ca4f790c1efc5adde6f29b1fed2d0945ddd8d824a987c0cf24a462c66d8ad8",
+        "affectsGlobalScope": false
+      },
+      "../src/client/spawn_gui/components/screens/progress_item.tsx": {
+        "version": "97997e530c508990a5702e50b05302bd9eb0b0ef43c1a440a907f82e13da0bc3",
         "affectsGlobalScope": false
       },
       "../src/client/spawn_gui/components/spawn_gui.tsx": {
-        "version": "b8f02c0ac675e19ecc3392c3a8ef199e4582b7d0b6f1af674ccff337b7dca129",
+        "version": "b3003fc5ba260e44a4c7956bc772ee8a3cf902ffc73969458e871c0a98c2710d",
         "affectsGlobalScope": false
       },
       "../src/client/spawn_gui/index.tsx": {
@@ -307,10 +323,6 @@
       },
       "../src/client/gui_handler.client.ts": {
         "version": "a7ba155b2a7f24b7db4677be1852737d80ef0fe11911380aebcec0a094163d9d",
-        "affectsGlobalScope": false
-      },
-      "../node_modules/@rbxts/object-event/index.d.ts": {
-        "version": "77d9001690db433c8af659f73fd6dcde3177c02ce5a5c901d7c6d0aae808c0c2",
         "affectsGlobalScope": false
       },
       "../node_modules/@rbxts/rotatedregion3/index.d.ts": {
@@ -327,14 +339,6 @@
       },
       "../src/client/safezones.client.ts": {
         "version": "d5fa8755fe005c954dd61a4cad22738226aae4f6075c5965e08773b93e4ecba2",
-        "affectsGlobalScope": false
-      },
-      "../src/client/spawn_gui/components/map.tsx": {
-        "version": "0d8bd0c1925e4a14a3c136eb82933d122650f65ce004d8fd6b8034836fddc9a2",
-        "affectsGlobalScope": false
-      },
-      "../src/client/spawn_gui/components/teams.tsx": {
-        "version": "dcb3e076675ada47732a2473c85fe407d770cef04a7ac06307216a50263f4f17",
         "affectsGlobalScope": false
       },
       "../src/shared/allies.ts": {
@@ -692,22 +696,31 @@
         "../src/shared/regions.ts",
         "../src/shared/remotes.ts"
       ],
-      "../src/client/spawn_gui/components/map.tsx": [
-        "../node_modules/@rbxts/roact/src/index.d.ts"
-      ],
       "../src/client/spawn_gui/components/progress.tsx": [
+        "../node_modules/@rbxts/roact/src/index.d.ts",
+        "../src/client/spawn_gui/components/screens/map.tsx",
+        "../src/client/spawn_gui/components/screens/screen.tsx",
+        "../src/client/spawn_gui/components/screens/teams.tsx"
+      ],
+      "../src/client/spawn_gui/components/screens/map.tsx": [
+        "../node_modules/@rbxts/roact/src/index.d.ts",
+        "../src/client/spawn_gui/components/screens/screen.tsx"
+      ],
+      "../src/client/spawn_gui/components/screens/progress_item.tsx": [
         "../node_modules/@rbxts/roact/src/index.d.ts"
       ],
-      "../src/client/spawn_gui/components/progress_item.tsx": [
+      "../src/client/spawn_gui/components/screens/screen.tsx": [
+        "../node_modules/@rbxts/object-event/index.d.ts",
         "../node_modules/@rbxts/roact/src/index.d.ts"
+      ],
+      "../src/client/spawn_gui/components/screens/teams.tsx": [
+        "../node_modules/@rbxts/roact/src/index.d.ts",
+        "../src/client/spawn_gui/components/screens/screen.tsx"
       ],
       "../src/client/spawn_gui/components/spawn_gui.tsx": [
         "../node_modules/@rbxts/roact/src/index.d.ts",
         "../src/client/spawn_gui/components/progress.tsx",
-        "../src/client/spawn_gui/components/progress_item.tsx"
-      ],
-      "../src/client/spawn_gui/components/teams.tsx": [
-        "../node_modules/@rbxts/roact/src/index.d.ts"
+        "../src/client/spawn_gui/components/screens/progress_item.tsx"
       ],
       "../src/client/spawn_gui/index.tsx": [
         "../node_modules/@rbxts/roact/src/index.d.ts",
