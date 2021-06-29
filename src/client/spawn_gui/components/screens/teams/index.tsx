@@ -1,6 +1,6 @@
 import Roact from "@rbxts/roact";
-import { ProgressItemComponent } from "./progress_item";
-import { Screen } from "./screen";
+import { ProgressItemComponent } from "../progress_item";
+import { Screen } from "../screen";
 
 class TeamsComponent extends Roact.Component {
     render() {

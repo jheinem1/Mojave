@@ -25,20 +25,10 @@ do
 		-- ▲ ReadonlyArray.forEach ▲
 	end
 	function ProgressComponent:onSelect(screen)
+		self.screens[self.state.currentScreen + 1].deselected:Fire()
 		self:setState({
 			currentScreen = screen.position,
 		})
-		local _0 = self.screens
-		local _1 = function(otherScreen)
-			if screen ~= otherScreen then
-				otherScreen.deselected:Fire()
-			end
-		end
-		-- ▼ ReadonlyArray.forEach ▼
-		for _2, _3 in ipairs(_0) do
-			_1(_3, _2 - 1, _0)
-		end
-		-- ▲ ReadonlyArray.forEach ▲
 	end
 	function ProgressComponent:render()
 		local items = { Roact.createElement("UIListLayout", {
