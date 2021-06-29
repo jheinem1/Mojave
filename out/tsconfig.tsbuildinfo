@@ -364,6 +364,22 @@
       "../src/server/safezones.server.ts": {
         "version": "ba83ed9bee628a7ada6008b6970936d5b094706e2801b7861047d24790247af3",
         "affectsGlobalScope": false
+      },
+      "../src/shared/faction_manager/utility_functions.ts": {
+        "version": "a711ce002721378d376e4008628f8e0a201822b4b09bd94c3d6d11b363df8f18",
+        "affectsGlobalScope": false
+      },
+      "../src/shared/faction_manager/faction.ts": {
+        "version": "9b7ca2c6ae6830fe9b78a942a57e2bd45a2422cd99547472857e6488cefac730",
+        "affectsGlobalScope": false
+      },
+      "../src/shared/faction_manager/faction_remotes.ts": {
+        "version": "8385ae2ef7e277ecd2b4c7e3985265c92c2529a0bb033b800cd8fb0a0a79e382",
+        "affectsGlobalScope": false
+      },
+      "../src/shared/faction_manager/index.ts": {
+        "version": "3085f22a9540b3caaf2db32d040748528b3cdaca8a47a50302d78479691d1401",
+        "affectsGlobalScope": false
       }
     },
     "options": {
@@ -770,6 +786,18 @@
       "../src/shared/allies.ts": [
         "../node_modules/@rbxts/services/index.d.ts",
         "../node_modules/@rbxts/t/lib/t.d.ts"
+      ],
+      "../src/shared/faction_manager/faction.ts": [
+        "../node_modules/@rbxts/services/index.d.ts",
+        "../src/shared/faction_manager/utility_functions.ts"
+      ],
+      "../src/shared/faction_manager/faction_remotes.ts": [
+        "../node_modules/@rbxts/net/out/index.d.ts"
+      ],
+      "../src/shared/faction_manager/index.ts": [
+        "../node_modules/@rbxts/services/index.d.ts",
+        "../node_modules/@rbxts/t/lib/t.d.ts",
+        "../src/shared/faction_manager/faction.ts"
       ],
       "../src/shared/regions.ts": [
         "../node_modules/@rbxts/object-event/index.d.ts",
