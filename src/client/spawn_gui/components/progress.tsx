@@ -22,11 +22,8 @@ export class ProgressComponent extends Roact.Component<ProgressProps, ProgressSt
         this.screens.forEach(screen => screen.selected.Connect(() => this.onSelect(screen)));
     }
     onSelect(screen: Screen) {
+        this.screens[this.state.currentScreen].deselected.Fire();
         this.setState({ currentScreen: screen.position });
-        this.screens.forEach(otherScreen => {
-            if (screen !== otherScreen)
-                otherScreen.deselected.Fire();
-        });
     }
     render() {
         const items = [<uilistlayout
