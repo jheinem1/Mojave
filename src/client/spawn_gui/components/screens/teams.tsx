@@ -1,4 +1,5 @@
 import Roact from "@rbxts/roact";
+import { ProgressItemComponent } from "./progress_item";
 import { Screen } from "./screen";
 
 class TeamsComponent extends Roact.Component {
@@ -9,7 +10,6 @@ class TeamsComponent extends Roact.Component {
             BorderSizePixel={0}
             Position={new UDim2(0, 0, 0, 36)}
             Size={new UDim2(1, 0, 1, -36)}
-            Visible={false}
         >
             <uilistlayout FillDirection={Enum.FillDirection.Horizontal} SortOrder={Enum.SortOrder.LayoutOrder} />
             <frame
@@ -164,10 +164,18 @@ class TeamsComponent extends Roact.Component {
 }
 
 export class TeamsScreen extends Screen {
-    getScreenComponent(onSpawn: () => void): Roact.Element {
-        throw "Method not implemented.";
+    getScreenComponent(): Roact.Element {
+        return <TeamsComponent />;
     }
-    getButtonComponent(onSelect: () => void): Roact.Element {
-        throw "Method not implemented.";
+    getButtonComponent(): Roact.Element {
+        return <ProgressItemComponent
+            Name="Teams"
+            Position={this.position}
+            DeselectEvent={this.deselected}
+            SelectEvent={this.selected}
+            Event={{
+                Clicked: () => this.selected.Fire()
+            }}
+        />;
     }
 }

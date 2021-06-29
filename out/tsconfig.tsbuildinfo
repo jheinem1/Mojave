@@ -293,28 +293,28 @@
         "version": "77d9001690db433c8af659f73fd6dcde3177c02ce5a5c901d7c6d0aae808c0c2",
         "affectsGlobalScope": false
       },
+      "../src/client/spawn_gui/components/screens/progress_item.tsx": {
+        "version": "ef28aae5747a6a0cc8630f4c3b61e4a1726eac3c7a3418c56afefb2d1d53c87a",
+        "affectsGlobalScope": false
+      },
       "../src/client/spawn_gui/components/screens/screen.tsx": {
-        "version": "303aa92b0bbabddee4e52fbf53ccec05009484948d02b64a5a3eb1f99f7d1a79",
+        "version": "5fe9c60af6551ab69ea03a78a7478ccec13b74def181f9a22014908eda15eece",
         "affectsGlobalScope": false
       },
       "../src/client/spawn_gui/components/screens/map.tsx": {
-        "version": "98d0cbc9800851deb87fb5eee62776f8b2dcf643718470eac1b6c9c5bd11b625",
+        "version": "7985bcfcde25027cd99b9c0928e9b650939d03ec012734f1ebc8758ca9244e6b",
         "affectsGlobalScope": false
       },
       "../src/client/spawn_gui/components/screens/teams.tsx": {
-        "version": "7bb8ac4402c264800672f9ffbfc4c7b623bd942659a5e435f738442fbf8263da",
+        "version": "e0af858251dec5fcbde9d1759e2ae483e509a33276982ed90c80901f311a2736",
         "affectsGlobalScope": false
       },
       "../src/client/spawn_gui/components/progress.tsx": {
-        "version": "06ca4f790c1efc5adde6f29b1fed2d0945ddd8d824a987c0cf24a462c66d8ad8",
-        "affectsGlobalScope": false
-      },
-      "../src/client/spawn_gui/components/screens/progress_item.tsx": {
-        "version": "97997e530c508990a5702e50b05302bd9eb0b0ef43c1a440a907f82e13da0bc3",
+        "version": "fb25d2e6a3be46c0b0e72fc10954e98a46e9f16744ad5dfeb530d93d5902dfee",
         "affectsGlobalScope": false
       },
       "../src/client/spawn_gui/components/spawn_gui.tsx": {
-        "version": "b3003fc5ba260e44a4c7956bc772ee8a3cf902ffc73969458e871c0a98c2710d",
+        "version": "676e05f60e2b439fdf3aa0e2cf759c28326e301af9be98ec371cf25e3815209f",
         "affectsGlobalScope": false
       },
       "../src/client/spawn_gui/index.tsx": {
@@ -697,16 +697,20 @@
         "../src/shared/remotes.ts"
       ],
       "../src/client/spawn_gui/components/progress.tsx": [
+        "../node_modules/@rbxts/object-event/index.d.ts",
         "../node_modules/@rbxts/roact/src/index.d.ts",
         "../src/client/spawn_gui/components/screens/map.tsx",
         "../src/client/spawn_gui/components/screens/screen.tsx",
         "../src/client/spawn_gui/components/screens/teams.tsx"
       ],
       "../src/client/spawn_gui/components/screens/map.tsx": [
+        "../node_modules/@rbxts/object-event/index.d.ts",
         "../node_modules/@rbxts/roact/src/index.d.ts",
+        "../src/client/spawn_gui/components/screens/progress_item.tsx",
         "../src/client/spawn_gui/components/screens/screen.tsx"
       ],
       "../src/client/spawn_gui/components/screens/progress_item.tsx": [
+        "../node_modules/@rbxts/object-event/index.d.ts",
         "../node_modules/@rbxts/roact/src/index.d.ts"
       ],
       "../src/client/spawn_gui/components/screens/screen.tsx": [
@@ -715,6 +719,7 @@
       ],
       "../src/client/spawn_gui/components/screens/teams.tsx": [
         "../node_modules/@rbxts/roact/src/index.d.ts",
+        "../src/client/spawn_gui/components/screens/progress_item.tsx",
         "../src/client/spawn_gui/components/screens/screen.tsx"
       ],
       "../src/client/spawn_gui/components/spawn_gui.tsx": [

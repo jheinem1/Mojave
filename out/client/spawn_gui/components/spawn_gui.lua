@@ -1,6 +1,7 @@
 -- Compiled with roblox-ts v1.1.1
 local TS = require(game:GetService("ReplicatedStorage"):WaitForChild("rbxts_include"):WaitForChild("RuntimeLib"))
 local Roact = TS.import(script, TS.getModule(script, "roact").src)
+local ProgressComponent = TS.import(script, script.Parent, "progress").ProgressComponent
 local SpawnGuiComponent
 do
 	SpawnGuiComponent = Roact.Component:extend("SpawnGuiComponent")
@@ -29,6 +30,7 @@ do
 						TextWrapped = true,
 						TextXAlignment = Enum.TextXAlignment.Left,
 					}),
+					Roact.createElement(ProgressComponent),
 				}),
 			}),
 		})

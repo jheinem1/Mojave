@@ -1,6 +1,7 @@
 -- Compiled with roblox-ts v1.1.1
 local TS = require(game:GetService("ReplicatedStorage"):WaitForChild("rbxts_include"):WaitForChild("RuntimeLib"))
 local Roact = TS.import(script, TS.getModule(script, "roact").src)
+local ProgressItemComponent = TS.import(script, script.Parent, "progress_item").ProgressItemComponent
 local Screen = TS.import(script, script.Parent, "screen").Screen
 local TeamsComponent
 do
@@ -14,7 +15,6 @@ do
 				BorderSizePixel = 0,
 				Position = UDim2.new(0, 0, 0, 36),
 				Size = UDim2.new(1, 0, 1, -36),
-				Visible = false,
 			}, {
 				Roact.createElement("UIListLayout", {
 					FillDirection = Enum.FillDirection.Horizontal,
@@ -172,11 +172,19 @@ do
 	function TeamsScreen:constructor(...)
 		super.constructor(self, ...)
 	end
-	function TeamsScreen:getScreenComponent(onSpawn)
-		error("Method not implemented.")
+	function TeamsScreen:getScreenComponent()
+		return Roact.createElement(TeamsComponent)
 	end
-	function TeamsScreen:getButtonComponent(onSelect)
-		error("Method not implemented.")
+	function TeamsScreen:getButtonComponent()
+		return Roact.createElement(ProgressItemComponent, {
+			Name = "Teams",
+			Position = self.position,
+			DeselectEvent = self.deselected,
+			SelectEvent = self.selected,
+			[Roact.Event.Clicked] = function()
+				return self.selected:Fire()
+			end,
+		})
 	end
 end
 return {

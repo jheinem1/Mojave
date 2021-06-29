@@ -1,9 +1,14 @@
+import ObjectEvent from "@rbxts/object-event";
 import Roact from "@rbxts/roact";
+import { ProgressItemComponent } from "./progress_item";
 import { Screen } from "./screen";
 
 
+interface MapProps {
+    FinishedEvent: ObjectEvent<[]>;
+}
 
-class MapComponent extends Roact.Component {
+class MapComponent extends Roact.Component<MapProps, {}> {
     render() {
         return <frame
             Key="Map"
@@ -78,10 +83,20 @@ class MapComponent extends Roact.Component {
 }
 
 export class MapScreen extends Screen {
-    getScreenComponent(onSpawn: () => void): Roact.Element {
-        throw "Method not implemented.";
+    getScreenComponent(): Roact.Element {
+        return <MapComponent
+            FinishedEvent={this.finished}
+        />;
     }
-    getButtonComponent(onSelect: () => void): Roact.Element {
-        throw "Method not implemented.";
+    getButtonComponent(): Roact.Element {
+        return <ProgressItemComponent
+            Name="Spawn"
+            Position={this.position}
+            DeselectEvent={this.deselected}
+            SelectEvent={this.selected}
+            Event={{
+                Clicked: () => this.selected.Fire()
+            }}
+        />;
     }
 }

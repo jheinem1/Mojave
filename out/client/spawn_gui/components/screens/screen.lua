@@ -6,6 +6,8 @@ do
 	Screen = {}
 	function Screen:constructor(position)
 		self.finished = ObjectEvent.new()
+		self.deselected = ObjectEvent.new()
+		self.selected = ObjectEvent.new()
 		self.position = position
 	end
 end

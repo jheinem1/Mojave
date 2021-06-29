@@ -24,7 +24,7 @@ export class SpawnGuiComponent extends Roact.Component {
                     TextWrapped={true}
                     TextXAlignment={Enum.TextXAlignment.Left}
                 />
-
+                <ProgressComponent />
             </frame>
         </screengui>
     }
