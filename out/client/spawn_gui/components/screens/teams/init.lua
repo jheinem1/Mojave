@@ -2,6 +2,15 @@
 local TS = require(game:GetService("ReplicatedStorage"):WaitForChild("rbxts_include"):WaitForChild("RuntimeLib"))
 local Roact = TS.import(script, TS.getModule(script, "roact").src)
 local Screen = TS.import(script, script.Parent, "screen").Screen
+-- const buttons = new Array<Roact.Element>();
+-- for (let i = 0; i < 3; i++)
+-- buttons.push(<TeamButtonComponent
+-- Name={tostring(i)}
+-- Avatar={<AvatarViewportComponent />}
+-- StartSize={0.3}
+-- SelectedEvent={new ObjectEvent<[number]>()}
+-- DeselectedEvent={new ObjectEvent<[number]>()}
+-- />)
 local TeamsComponent
 do
 	TeamsComponent = Roact.Component:extend("TeamsComponent")
@@ -18,136 +27,6 @@ do
 				Roact.createElement("UIListLayout", {
 					FillDirection = Enum.FillDirection.Horizontal,
 					SortOrder = Enum.SortOrder.LayoutOrder,
-				}),
-				TeamTemplateMinimized = Roact.createElement("Frame", {
-					BackgroundColor3 = Color3.fromRGB(23, 23, 23),
-					BorderSizePixel = 0,
-					ClipsDescendants = true,
-					Size = UDim2.new(0.1, 0, 1, 0),
-				}, {
-					Avatar = Roact.createElement("ViewportFrame", {
-						Ambient = Color3.fromRGB(106, 106, 106),
-						BackgroundTransparency = 1,
-						LightColor = Color3.fromRGB(255, 255, 255),
-						LightDirection = Vector3.new(2, -1, -1),
-						Size = UDim2.new(1, 0, 1, 0),
-						ZIndex = 2,
-					}),
-				}),
-				TeamTemplateFull = Roact.createElement("Frame", {
-					BackgroundColor3 = Color3.fromRGB(46, 46, 46),
-					BorderSizePixel = 0,
-					ClipsDescendants = true,
-					Size = UDim2.new(0.3, 0, 1, 0),
-				}, {
-					Avatar = Roact.createElement("ViewportFrame", {
-						Ambient = Color3.fromRGB(106, 106, 106),
-						BackgroundTransparency = 1,
-						LightColor = Color3.fromRGB(255, 255, 255),
-						LightDirection = Vector3.new(2, -1, -1),
-						Size = UDim2.new(1, 0, 1, 0),
-						ZIndex = 2,
-					}),
-					Faction = Roact.createElement("TextLabel", {
-						BackgroundTransparency = 1,
-						Font = Enum.Font.GothamSemibold,
-						Size = UDim2.new(1, 0, 0.25, 0),
-						Text = "NCR",
-						TextColor3 = Color3.fromRGB(255, 208, 80),
-						TextScaled = true,
-						TextSize = 100,
-						TextWrapped = true,
-					}),
-				}),
-				TeamTemplateMinimized = Roact.createElement("Frame", {
-					BackgroundColor3 = Color3.fromRGB(23, 23, 23),
-					BorderSizePixel = 0,
-					ClipsDescendants = true,
-					Size = UDim2.new(0.1, 0, 1, 0),
-				}, {
-					Avatar = Roact.createElement("ViewportFrame", {
-						Ambient = Color3.fromRGB(106, 106, 106),
-						BackgroundTransparency = 1,
-						LightColor = Color3.fromRGB(255, 255, 255),
-						LightDirection = Vector3.new(2, -1, -1),
-						Size = UDim2.new(1, 0, 1, 0),
-						ZIndex = 2,
-					}),
-				}),
-				TeamTemplateMinimized = Roact.createElement("Frame", {
-					BackgroundColor3 = Color3.fromRGB(23, 23, 23),
-					BorderSizePixel = 0,
-					ClipsDescendants = true,
-					Size = UDim2.new(0.1, 0, 1, 0),
-				}, {
-					Avatar = Roact.createElement("ViewportFrame", {
-						Ambient = Color3.fromRGB(106, 106, 106),
-						BackgroundTransparency = 1,
-						LightColor = Color3.fromRGB(255, 255, 255),
-						LightDirection = Vector3.new(2, -1, -1),
-						Size = UDim2.new(1, 0, 1, 0),
-						ZIndex = 2,
-					}),
-				}),
-				TeamTemplateMinimized = Roact.createElement("Frame", {
-					BackgroundColor3 = Color3.fromRGB(23, 23, 23),
-					BorderSizePixel = 0,
-					ClipsDescendants = true,
-					Size = UDim2.new(0.1, 0, 1, 0),
-				}, {
-					Avatar = Roact.createElement("ViewportFrame", {
-						Ambient = Color3.fromRGB(106, 106, 106),
-						BackgroundTransparency = 1,
-						LightColor = Color3.fromRGB(255, 255, 255),
-						LightDirection = Vector3.new(2, -1, -1),
-						Size = UDim2.new(1, 0, 1, 0),
-						ZIndex = 2,
-					}),
-				}),
-				TeamTemplateMinimized = Roact.createElement("Frame", {
-					BackgroundColor3 = Color3.fromRGB(23, 23, 23),
-					BorderSizePixel = 0,
-					ClipsDescendants = true,
-					Size = UDim2.new(0.1, 0, 1, 0),
-				}, {
-					Avatar = Roact.createElement("ViewportFrame", {
-						Ambient = Color3.fromRGB(106, 106, 106),
-						BackgroundTransparency = 1,
-						LightColor = Color3.fromRGB(255, 255, 255),
-						LightDirection = Vector3.new(2, -1, -1),
-						Size = UDim2.new(1, 0, 1, 0),
-						ZIndex = 2,
-					}),
-				}),
-				TeamTemplateMinimized = Roact.createElement("Frame", {
-					BackgroundColor3 = Color3.fromRGB(23, 23, 23),
-					BorderSizePixel = 0,
-					ClipsDescendants = true,
-					Size = UDim2.new(0.1, 0, 1, 0),
-				}, {
-					Avatar = Roact.createElement("ViewportFrame", {
-						Ambient = Color3.fromRGB(106, 106, 106),
-						BackgroundTransparency = 1,
-						LightColor = Color3.fromRGB(255, 255, 255),
-						LightDirection = Vector3.new(2, -1, -1),
-						Size = UDim2.new(1, 0, 1, 0),
-						ZIndex = 2,
-					}),
-				}),
-				TeamTemplateMinimized = Roact.createElement("Frame", {
-					BackgroundColor3 = Color3.fromRGB(23, 23, 23),
-					BorderSizePixel = 0,
-					ClipsDescendants = true,
-					Size = UDim2.new(0.1, 0, 1, 0),
-				}, {
-					Avatar = Roact.createElement("ViewportFrame", {
-						Ambient = Color3.fromRGB(106, 106, 106),
-						BackgroundTransparency = 1,
-						LightColor = Color3.fromRGB(255, 255, 255),
-						LightDirection = Vector3.new(2, -1, -1),
-						Size = UDim2.new(1, 0, 1, 0),
-						ZIndex = 2,
-					}),
 				}),
 			}),
 		})

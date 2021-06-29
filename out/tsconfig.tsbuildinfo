@@ -305,8 +305,16 @@
         "version": "57e2b211b929f8004833d9bddaebed987294f156ef79b7a0458aa3dfee125192",
         "affectsGlobalScope": false
       },
+      "../src/client/spawn_gui/components/screens/teams/avatar_viewport.tsx": {
+        "version": "9115d223bf9a1571e9f04d294363a7400376b580399f282c5cd446a72e4572d8",
+        "affectsGlobalScope": false
+      },
+      "../src/client/spawn_gui/components/screens/teams/teambutton.tsx": {
+        "version": "2e001d457dedb5e64522ee6bf8ac371e556069c5b1cb55c2410785febe7713a4",
+        "affectsGlobalScope": false
+      },
       "../src/client/spawn_gui/components/screens/teams/index.tsx": {
-        "version": "f1364fdec9fd36366d388760bdba4851bfb1bab88586461464b470bc15286d82",
+        "version": "80309e88a5d7328299ec0a1c62a8b3466f7a7abb3f291425b6884e6ea38c7b32",
         "affectsGlobalScope": false
       },
       "../src/client/spawn_gui/components/progress.tsx": {
@@ -718,10 +726,20 @@
         "../node_modules/@rbxts/roact/src/index.d.ts",
         "../src/client/spawn_gui/components/screens/progress_item.tsx"
       ],
+      "../src/client/spawn_gui/components/screens/teams/avatar_viewport.tsx": [
+        "../node_modules/@rbxts/roact/src/index.d.ts"
+      ],
       "../src/client/spawn_gui/components/screens/teams/index.tsx": [
+        "../node_modules/@rbxts/object-event/index.d.ts",
         "../node_modules/@rbxts/roact/src/index.d.ts",
         "../src/client/spawn_gui/components/screens/progress_item.tsx",
-        "../src/client/spawn_gui/components/screens/screen.tsx"
+        "../src/client/spawn_gui/components/screens/screen.tsx",
+        "../src/client/spawn_gui/components/screens/teams/avatar_viewport.tsx",
+        "../src/client/spawn_gui/components/screens/teams/teambutton.tsx"
+      ],
+      "../src/client/spawn_gui/components/screens/teams/teambutton.tsx": [
+        "../node_modules/@rbxts/object-event/index.d.ts",
+        "../node_modules/@rbxts/roact/src/index.d.ts"
       ],
       "../src/client/spawn_gui/components/spawn_gui.tsx": [
         "../node_modules/@rbxts/roact/src/index.d.ts",
