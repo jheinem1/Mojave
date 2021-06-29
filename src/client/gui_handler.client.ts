@@ -1,3 +1,7 @@
+import { StarterGui } from "@rbxts/services";
 import { HUD } from "./hud";
+import { SpawnGui } from "./spawn_gui";
 
-HUD.mount();
+StarterGui.SetCoreGuiEnabled(Enum.CoreGuiType.All, false);
+SpawnGui.mount();
+// HUD.mount();

@@ -1,5 +1,4 @@
 import Roact from "@rbxts/roact";
-import { SpawnMenuComponent } from "./spawn_menu";
 
 // @static
 export class TeamsComponent extends Roact.Component {
