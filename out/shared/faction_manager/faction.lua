@@ -21,10 +21,10 @@ do
 		self:constructor(...)
 		return self
 	end
-	function Role:constructor(name, id, faction)
-		self.name = name
-		self.id = id
+	function Role:constructor(roleInfo, faction)
 		self.faction = faction
+		self.name = roleInfo.Name
+		self.id = roleInfo.Rank
 	end
 	function Role:hasRole(player)
 		return self.faction:getRole(player) == self
@@ -55,7 +55,7 @@ do
 		self.groupId = groupInfo.Id
 		local _1 = groupInfo.Roles
 		local _2 = function(roleInfo)
-			return Role.new(roleInfo.Name, roleInfo.Rank, self)
+			return Role.new(roleInfo, self)
 		end
 		-- ▼ ReadonlyArray.map ▼
 		local _3 = table.create(#_1)
@@ -77,7 +77,7 @@ do
 			_4(_6, _5 - 1, _3)
 		end
 		-- ▲ ReadonlyArray.forEach ▲
-		-- seems stupid but roblox-ts has a compiler error
+		-- seems stupid but roblox-ts has an issue (https://github.com/roblox-ts/roblox-ts/issues/1467)
 		self.color = assignColor(tostring((string.match(groupInfo.Description, [[Color:%s*["']([%w ]*)["']] .. "]"))))
 		local _5 = (string.match(groupInfo.Description, [[ShortName:%s*["']([%a ]*)["']] .. "]"))
 		if _5 == nil then
@@ -126,6 +126,79 @@ do
 		return _1[_2]
 	end
 end
+local ClientRole
+do
+	ClientRole = setmetatable({}, {
+		__tostring = function()
+			return "ClientRole"
+		end,
+	})
+	ClientRole.__index = ClientRole
+	function ClientRole.new(...)
+		local self = setmetatable({}, ClientRole)
+		self:constructor(...)
+		return self
+	end
+	function ClientRole:constructor(roleInfo, faction)
+		self.name = roleInfo.name
+		self.id = roleInfo.id
+		self.faction = faction
+	end
+	function ClientRole:hasRole()
+		return self.faction.clientRole == self
+	end
+end
+local ClientFaction
+do
+	ClientFaction = setmetatable({}, {
+		__tostring = function()
+			return "ClientFaction"
+		end,
+	})
+	ClientFaction.__index = ClientFaction
+	function ClientFaction.new(...)
+		local self = setmetatable({}, ClientFaction)
+		self:constructor(...)
+		return self
+	end
+	function ClientFaction:constructor(factionInfo)
+		self.groupId = factionInfo.groupId
+		local _1 = factionInfo.roles
+		local _2 = function(roleInfo)
+			return ClientRole.new(roleInfo, self)
+		end
+		-- ▼ ReadonlyArray.map ▼
+		local _3 = table.create(#_1)
+		for _4, _5 in ipairs(_1) do
+			_3[_4] = _2(_5, _4 - 1, _1)
+		end
+		-- ▲ ReadonlyArray.map ▲
+		self.roles = _3
+		self.color = factionInfo.color
+		self.shortName = factionInfo.shortName
+		local _4 = self.roles
+		local _5 = function(role)
+			return factionInfo.clientRole == role.id
+		end
+		-- ▼ ReadonlyArray.find ▼
+		local _6 = nil
+		for _7, _8 in ipairs(_4) do
+			if _5(_8, _7 - 1, _4) == true then
+				_6 = _8
+				break
+			end
+		end
+		-- ▲ ReadonlyArray.find ▲
+		self.clientRole = _6
+		self.uniformTop = factionInfo.uniformTop
+		self.uniformBottom = factionInfo.uniformBottom
+	end
+	function ClientFaction:getRole()
+		return self.clientRole
+	end
+end
 return {
+	Role = Role,
 	Faction = Faction,
+	ClientFaction = ClientFaction,
 }

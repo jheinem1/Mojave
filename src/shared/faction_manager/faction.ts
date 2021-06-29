@@ -5,8 +5,13 @@ import { assignColor, generateShortName } from "./utility_functions";
 /**
  * Stores information on factions and provides speedy alternatives to existing player/groupservice methods
  */
-class Role {
-    constructor(public name: string, public id: number, public faction: Faction) { }
+export class Role {
+    name: string;
+    id: number;
+    constructor(roleInfo: GroupInfo["Roles"][0], public faction: Faction) {
+        this.name = roleInfo.Name;
+        this.id = roleInfo.Rank;
+    }
     hasRole(player: Player) {
         return this.faction.getRole(player) === this;
     }
@@ -28,7 +33,7 @@ export class Faction {
     constructor(public groupInfo: GroupInfo) {
         this.name = groupInfo.Name;
         this.groupId = groupInfo.Id;
-        groupInfo.Roles.map(roleInfo => new Role(roleInfo.Name, roleInfo.Rank, this)).forEach(role => this.roles.set(role.id, role));
+        groupInfo.Roles.map(roleInfo => new Role(roleInfo, this)).forEach(role => this.roles.set(role.id, role));
         // seems stupid but roblox-ts has an issue (https://github.com/roblox-ts/roblox-ts/issues/1467) 
         this.color = assignColor(tostring(string.match(groupInfo.Description, `Color:%s*["']([%w ]*)["'` + "]")[0]));
         this.shortName = generateShortName(tostring(string.match(groupInfo.Description, `ShortName:%s*["']([%a ]*)["'` + "]")[0] ?? this.name));
@@ -90,7 +95,7 @@ export class ClientFaction {
         this.color = factionInfo.color;
         this.shortName = factionInfo.shortName;
         this.clientRole = this.roles.find(role => factionInfo.clientRole === role.id);
-        this.uniformTop = factionInfo.uniformTop'
+        this.uniformTop = factionInfo.uniformTop
         this.uniformBottom = factionInfo.uniformBottom;
     }
     getRole() {
