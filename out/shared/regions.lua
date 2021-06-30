@@ -187,11 +187,6 @@ do
 	ClientRegions.regionCheck = TS.async(function(self, enteredRegion, leftRegion, regions, client)
 		local connection
 		local inRegion = false
-		local weakRef = setmetatable({
-			this = self,
-		}, {
-			__mode = "k",
-		})
 		local check = function()
 			if not self.disabled then
 				local _1 = client.Character

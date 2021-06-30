@@ -88,7 +88,6 @@ export class ClientRegions extends BaseRegion {
     protected async regionCheck(enteredRegion: ObjectEvent<[Player, BasePart | undefined]>, leftRegion: ObjectEvent<[Player, BasePart | undefined]>, regions: RotatedRegion3[], client: Player) {
         let connection: RBXScriptConnection;
         let inRegion = false;
-        const weakRef = setmetatable({ this: this }, { __mode: "k" });
         const check = () => {
             if (!this.disabled) {
                 const rootPart = client.Character?.FindFirstChild("HumanoidRootPart");
