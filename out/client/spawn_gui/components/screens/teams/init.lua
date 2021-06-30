@@ -1,6 +1,7 @@
 -- Compiled with roblox-ts v1.1.1
 local TS = require(game:GetService("ReplicatedStorage"):WaitForChild("rbxts_include"):WaitForChild("RuntimeLib"))
 local Roact = TS.import(script, TS.getModule(script, "roact").src)
+local getClientFactionInfo = TS.import(script, game:GetService("ReplicatedStorage"), "Shared", "faction_manager").getClientFactionInfo
 local Screen = TS.import(script, script.Parent, "screen").Screen
 -- const buttons = new Array<Roact.Element>();
 -- for (let i = 0; i < 3; i++)
@@ -15,6 +16,7 @@ local TeamsComponent
 do
 	TeamsComponent = Roact.Component:extend("TeamsComponent")
 	function TeamsComponent:init()
+		self.factions = getClientFactionInfo()
 	end
 	function TeamsComponent:render()
 		return Roact.createFragment({

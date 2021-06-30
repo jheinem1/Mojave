@@ -1,10 +1,13 @@
 -- Compiled with roblox-ts v1.1.1
-local usedColors = {}
+-- const usedColors = new Array<number>();
+-- const isBrickColor = t.union(t.valueOf())
+-- ** NOT IMPLEMENTED */
 local function assignColor(color)
-	error("Function not implemented")
+	return BrickColor.new(1)
 end
-local function generateShortName(existingShortName)
-	error("Function not implemented")
+-- * NOT IMPLEMENTED
+local function generateShortName(name)
+	return name
 end
 local function cleanGroupName(name)
 	local outArray = {}

@@ -305,6 +305,26 @@
         "version": "57e2b211b929f8004833d9bddaebed987294f156ef79b7a0458aa3dfee125192",
         "affectsGlobalScope": false
       },
+      "../src/shared/faction_manager/faction_data_interfaces.ts": {
+        "version": "8fadb2fc5a0cccbff6a417144efe45c2688bf2275688b63e6ecf5be837941eb2",
+        "affectsGlobalScope": false
+      },
+      "../src/shared/faction_manager/utility_functions.ts": {
+        "version": "4b9a92d9351ed48dff0236c3c8dc736c7746460c66336280225517e2c048d4ba",
+        "affectsGlobalScope": false
+      },
+      "../src/shared/faction_manager/faction.ts": {
+        "version": "8cc6a99b44144ed733e96ca45ea862902b227595ffcd1969e0c67b0e385e37ed",
+        "affectsGlobalScope": false
+      },
+      "../src/shared/faction_manager/faction_remotes.ts": {
+        "version": "0ad093da9b3f9057096af0e43e4ad29b674372b0b356716df998529d5d063fc1",
+        "affectsGlobalScope": false
+      },
+      "../src/shared/faction_manager/index.ts": {
+        "version": "7a90b39eb8e8434c2f89d35c8694c538d332f1cf2e874d117d5deb93cc9e3b6d",
+        "affectsGlobalScope": false
+      },
       "../src/client/spawn_gui/components/screens/teams/avatar_viewport.tsx": {
         "version": "9115d223bf9a1571e9f04d294363a7400376b580399f282c5cd446a72e4572d8",
         "affectsGlobalScope": false
@@ -314,7 +334,7 @@
         "affectsGlobalScope": false
       },
       "../src/client/spawn_gui/components/screens/teams/index.tsx": {
-        "version": "80309e88a5d7328299ec0a1c62a8b3466f7a7abb3f291425b6884e6ea38c7b32",
+        "version": "432155f485af9c07900031c9eb66f1973daec0f2205d30ff07e8aea2b0956816",
         "affectsGlobalScope": false
       },
       "../src/client/spawn_gui/components/progress.tsx": {
@@ -338,7 +358,7 @@
         "affectsGlobalScope": false
       },
       "../src/shared/regions.ts": {
-        "version": "4a0c946920835ad3c57677f4eaee8f9fdad464737c8a2b7fedf2883f6c9b04cd",
+        "version": "2fa15d0c267593e584b5e1e061e42ad6477d9774042b55e8d6c473c77da774de",
         "affectsGlobalScope": false
       },
       "../src/client/lighting_regions.client.ts": {
@@ -363,26 +383,6 @@
       },
       "../src/server/safezones.server.ts": {
         "version": "ba83ed9bee628a7ada6008b6970936d5b094706e2801b7861047d24790247af3",
-        "affectsGlobalScope": false
-      },
-      "../src/shared/faction_manager/faction_data_interfaces.ts": {
-        "version": "8fadb2fc5a0cccbff6a417144efe45c2688bf2275688b63e6ecf5be837941eb2",
-        "affectsGlobalScope": false
-      },
-      "../src/shared/faction_manager/utility_functions.ts": {
-        "version": "a12d98714cce5352771af878132012ecd31c754942c407cb1c089ba66715c851",
-        "affectsGlobalScope": false
-      },
-      "../src/shared/faction_manager/faction.ts": {
-        "version": "8cc6a99b44144ed733e96ca45ea862902b227595ffcd1969e0c67b0e385e37ed",
-        "affectsGlobalScope": false
-      },
-      "../src/shared/faction_manager/faction_remotes.ts": {
-        "version": "0ad093da9b3f9057096af0e43e4ad29b674372b0b356716df998529d5d063fc1",
-        "affectsGlobalScope": false
-      },
-      "../src/shared/faction_manager/index.ts": {
-        "version": "7a90b39eb8e8434c2f89d35c8694c538d332f1cf2e874d117d5deb93cc9e3b6d",
         "affectsGlobalScope": false
       }
     },
@@ -755,7 +755,8 @@
         "../src/client/spawn_gui/components/screens/progress_item.tsx",
         "../src/client/spawn_gui/components/screens/screen.tsx",
         "../src/client/spawn_gui/components/screens/teams/avatar_viewport.tsx",
-        "../src/client/spawn_gui/components/screens/teams/teambutton.tsx"
+        "../src/client/spawn_gui/components/screens/teams/teambutton.tsx",
+        "../src/shared/faction_manager/index.ts"
       ],
       "../src/client/spawn_gui/components/screens/teams/teambutton.tsx": [
         "../node_modules/@rbxts/object-event/index.d.ts",
@@ -808,6 +809,9 @@
         "../src/shared/faction_manager/faction_data_interfaces.ts",
         "../src/shared/faction_manager/faction_remotes.ts",
         "../src/shared/faction_manager/utility_functions.ts"
+      ],
+      "../src/shared/faction_manager/utility_functions.ts": [
+        "../node_modules/@rbxts/t/lib/t.d.ts"
       ],
       "../src/shared/regions.ts": [
         "../node_modules/@rbxts/object-event/index.d.ts",

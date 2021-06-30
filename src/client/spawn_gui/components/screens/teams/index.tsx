@@ -1,5 +1,6 @@
 import ObjectEvent from "@rbxts/object-event";
 import Roact from "@rbxts/roact";
+import { getClientFactionInfo } from "shared/faction_manager";
 import { ProgressItemComponent } from "../progress_item";
 import { Screen } from "../screen";
 import { AvatarViewportComponent } from "./avatar_viewport";
@@ -16,6 +17,7 @@ import { TeamButtonComponent } from "./teambutton";
 //     />)
 
 class TeamsComponent extends Roact.Component {
+    factions = getClientFactionInfo();
     render() {
         return <frame
             Key="Teams"
@@ -25,7 +27,7 @@ class TeamsComponent extends Roact.Component {
             Size={new UDim2(1, 0, 1, -36)}
         >
             <uilistlayout FillDirection={Enum.FillDirection.Horizontal} SortOrder={Enum.SortOrder.LayoutOrder} />
-            {/* {buttons} */}
+            {}
         </frame>
     }
 }

@@ -1,11 +1,16 @@
-const usedColors = new Map<number, boolean>();
+import { t } from "@rbxts/t";
 
-export function assignColor(color?: string): BrickColor {
-    throw "Function not implemented";
+// const usedColors = new Array<number>();
+// const isBrickColor = t.union(t.valueOf())
+
+//** NOT IMPLEMENTED */
+export function assignColor(color: string): BrickColor {
+    return new BrickColor(1);
 }
 
-export function generateShortName(existingShortName?: string): string {
-    throw "Function not implemented";
+/** NOT IMPLEMENTED */
+export function generateShortName(name: string): string {
+    return name;
 }
 
 export function cleanGroupName(name: string) {
