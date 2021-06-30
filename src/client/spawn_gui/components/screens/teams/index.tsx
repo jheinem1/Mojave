@@ -27,7 +27,7 @@ class TeamsComponent extends Roact.Component {
             Size={new UDim2(1, 0, 1, -36)}
         >
             <uilistlayout FillDirection={Enum.FillDirection.Horizontal} SortOrder={Enum.SortOrder.LayoutOrder} />
-            {}
+            { }
         </frame>
     }
 }

@@ -334,7 +334,7 @@
         "affectsGlobalScope": false
       },
       "../src/client/spawn_gui/components/screens/teams/index.tsx": {
-        "version": "432155f485af9c07900031c9eb66f1973daec0f2205d30ff07e8aea2b0956816",
+        "version": "ad56b87f9bdedab6efef7e4b88387565144b1875e3a7fc154dafccc2d8b9ef41",
         "affectsGlobalScope": false
       },
       "../src/client/spawn_gui/components/progress.tsx": {
@@ -358,7 +358,7 @@
         "affectsGlobalScope": false
       },
       "../src/shared/regions.ts": {
-        "version": "2fa15d0c267593e584b5e1e061e42ad6477d9774042b55e8d6c473c77da774de",
+        "version": "f5d0e200fe5e131ae190aae1436b37634c4fed6f015d97d506d91b3113385cf7",
         "affectsGlobalScope": false
       },
       "../src/client/lighting_regions.client.ts": {
