@@ -15,6 +15,7 @@ do
 				LightDirection = Vector3.new(2, -1, -1),
 				Size = UDim2.new(1, 0, 1, 0),
 				ZIndex = 2,
+				Visible = true,
 			}),
 		})
 	end

@@ -314,7 +314,7 @@
         "affectsGlobalScope": false
       },
       "../src/shared/faction_manager/faction.ts": {
-        "version": "8cc6a99b44144ed733e96ca45ea862902b227595ffcd1969e0c67b0e385e37ed",
+        "version": "ed92aabca544f48e96ba44cc2a9e322106c9a831330ba9aadf51b0b756350b7d",
         "affectsGlobalScope": false
       },
       "../src/shared/faction_manager/faction_remotes.ts": {
@@ -322,19 +322,19 @@
         "affectsGlobalScope": false
       },
       "../src/shared/faction_manager/index.ts": {
-        "version": "7a90b39eb8e8434c2f89d35c8694c538d332f1cf2e874d117d5deb93cc9e3b6d",
+        "version": "8e4b232a427690812e0a309a47162c5a142ac0ee2b6aa804b94ec37014e24279",
         "affectsGlobalScope": false
       },
       "../src/client/spawn_gui/components/screens/teams/avatar_viewport.tsx": {
-        "version": "9115d223bf9a1571e9f04d294363a7400376b580399f282c5cd446a72e4572d8",
+        "version": "32040ea063cfc087445e2fcfc412ef11098134ef7af42909ca533e86e9d58913",
         "affectsGlobalScope": false
       },
       "../src/client/spawn_gui/components/screens/teams/teambutton.tsx": {
-        "version": "2e001d457dedb5e64522ee6bf8ac371e556069c5b1cb55c2410785febe7713a4",
+        "version": "6e8bc11dff071a010737b2464c9e63381e231aee079d49d45a110b4d996e8b75",
         "affectsGlobalScope": false
       },
       "../src/client/spawn_gui/components/screens/teams/index.tsx": {
-        "version": "ad56b87f9bdedab6efef7e4b88387565144b1875e3a7fc154dafccc2d8b9ef41",
+        "version": "b448020b22f0950dc62f8e1f46560281ee45515f75b96c3910b231e6c8c4fdb2",
         "affectsGlobalScope": false
       },
       "../src/client/spawn_gui/components/progress.tsx": {
@@ -367,6 +367,10 @@
       },
       "../src/client/safezones.client.ts": {
         "version": "d5fa8755fe005c954dd61a4cad22738226aae4f6075c5965e08773b93e4ecba2",
+        "affectsGlobalScope": false
+      },
+      "../src/server/faction_handler.server.ts": {
+        "version": "0746c131f3810f20628d8752cd93c0149fac76aa78e38b1fcc59a9fd14be48a7",
         "affectsGlobalScope": false
       },
       "../src/shared/allies.ts": {
@@ -752,15 +756,16 @@
       "../src/client/spawn_gui/components/screens/teams/index.tsx": [
         "../node_modules/@rbxts/object-event/index.d.ts",
         "../node_modules/@rbxts/roact/src/index.d.ts",
-        "../src/client/spawn_gui/components/screens/progress_item.tsx",
         "../src/client/spawn_gui/components/screens/screen.tsx",
         "../src/client/spawn_gui/components/screens/teams/avatar_viewport.tsx",
         "../src/client/spawn_gui/components/screens/teams/teambutton.tsx",
+        "../src/shared/faction_manager/faction.ts",
         "../src/shared/faction_manager/index.ts"
       ],
       "../src/client/spawn_gui/components/screens/teams/teambutton.tsx": [
         "../node_modules/@rbxts/object-event/index.d.ts",
-        "../node_modules/@rbxts/roact/src/index.d.ts"
+        "../node_modules/@rbxts/roact/src/index.d.ts",
+        "../node_modules/@rbxts/services/index.d.ts"
       ],
       "../src/client/spawn_gui/components/spawn_gui.tsx": [
         "../node_modules/@rbxts/roact/src/index.d.ts",
@@ -771,6 +776,9 @@
         "../node_modules/@rbxts/roact/src/index.d.ts",
         "../node_modules/@rbxts/services/index.d.ts",
         "../src/client/spawn_gui/components/spawn_gui.tsx"
+      ],
+      "../src/server/faction_handler.server.ts": [
+        "../src/shared/faction_manager/index.ts"
       ],
       "../src/server/generate_factions.server.ts": [
         "../node_modules/@rbxts/services/index.d.ts",

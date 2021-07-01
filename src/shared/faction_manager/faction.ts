@@ -82,18 +82,20 @@ class ClientRole {
 }
 
 export class ClientFaction {
+    name: string;
+    shortName: string;
     groupId: number;
     roles: ClientRole[];
     color: BrickColor;
-    shortName: string;
     clientRole?: ClientRole;
     uniformTop?: number;
     uniformBottom?: number;
     constructor(factionInfo: ClientFactionInfo) {
+        this.name = factionInfo.name;
+        this.shortName = factionInfo.shortName;
         this.groupId = factionInfo.groupId;
         this.roles = factionInfo.roles.map(roleInfo => new ClientRole(roleInfo, this));
         this.color = factionInfo.color;
-        this.shortName = factionInfo.shortName;
         this.clientRole = this.roles.find(role => factionInfo.clientRole === role.id);
         this.uniformTop = factionInfo.uniformTop
         this.uniformBottom = factionInfo.uniformBottom;

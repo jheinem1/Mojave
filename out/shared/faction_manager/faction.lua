@@ -162,6 +162,8 @@ do
 		return self
 	end
 	function ClientFaction:constructor(factionInfo)
+		self.name = factionInfo.name
+		self.shortName = factionInfo.shortName
 		self.groupId = factionInfo.groupId
 		local _1 = factionInfo.roles
 		local _2 = function(roleInfo)
@@ -175,7 +177,6 @@ do
 		-- ▲ ReadonlyArray.map ▲
 		self.roles = _3
 		self.color = factionInfo.color
-		self.shortName = factionInfo.shortName
 		local _4 = self.roles
 		local _5 = function(role)
 			return factionInfo.clientRole == role.id

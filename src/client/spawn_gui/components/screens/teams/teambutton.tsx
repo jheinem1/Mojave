@@ -1,12 +1,15 @@
 import ObjectEvent from "@rbxts/object-event";
 import Roact from "@rbxts/roact";
+import { Workspace } from "@rbxts/services";
 
 interface TeamButtonProps {
     Name: string;
+    Id: number;
     Avatar: Roact.Element;
-    StartSize: number;
-    SelectedEvent: ObjectEvent<[number]>;
-    DeselectedEvent: ObjectEvent<[number]>;
+    NumButtons: number;
+    SelectedEvent: ObjectEvent<[TeamButtonComponent, boolean]>;
+    StartSelectedIfAlone: boolean
+    SelectionFinishedEvent: ObjectEvent<[number]>;
     Event?: {
         TeamSelected?: (name: string) => void;
     }
@@ -14,33 +17,44 @@ interface TeamButtonProps {
 
 interface TeamButtonState {
     selected: boolean;
-    minSize: number;
+    oneSelected: boolean;
 }
 
 export class TeamButtonComponent extends Roact.Component<TeamButtonProps, TeamButtonState> {
     constructor(props: TeamButtonProps) {
         super(props);
-        this.state = {
-            minSize: props.StartSize,
-            selected: false
-        };
-        props.SelectedEvent.Connect(newSize => this.setState({
-            minSize: newSize,
-            selected: true
+        props.SelectedEvent.Connect((element, selected) => this.setState({
+            selected: element === this ? selected : false,
+            oneSelected: selected
         }));
-        props.DeselectedEvent.Connect(newSize => this.setState({
-            minSize: newSize,
-            selected: false
-        }));
+        if (props.StartSelectedIfAlone)
+            this.setState({
+                selected: props.StartSelectedIfAlone,
+                oneSelected: props.StartSelectedIfAlone
+            });
+        else
+            props.SelectedEvent.Fire(this, false);
     }
     render() {
+        const normalMinimizedSize = Workspace.CurrentCamera ? Workspace.CurrentCamera.ViewportSize.X / this.props.NumButtons : 0;
+        const selectedMinimizedSize = Workspace.CurrentCamera ? Workspace.CurrentCamera.ViewportSize.X / (this.props.NumButtons + 0.5) : 0;
+        const maximizedSize = selectedMinimizedSize * 1.5;
         return <textbutton
             Key={this.props.Name}
             BackgroundColor3={this.state.selected ? Color3.fromRGB(46, 46, 46) : Color3.fromRGB(23, 23, 23)}
             BorderSizePixel={0}
             ClipsDescendants={true}
-            Size={new UDim2(this.state.selected ? this.state.minSize * 3 : this.state.minSize, 0, 1, 0)}
+            Size={new UDim2(0, this.state.selected ? maximizedSize : this.state.oneSelected ? selectedMinimizedSize : normalMinimizedSize, 1, 0)}
             Text=""
+            AutoButtonColor={false}
+            Event={{
+                MouseButton1Click: () => {
+                    if (this.state.selected)
+                        this.props.SelectionFinishedEvent.Fire(this.props.Id);
+                    else
+                        this.props.SelectedEvent.Fire(this, true);
+                }
+            }}
         >
             <textlabel
                 Key="Faction"

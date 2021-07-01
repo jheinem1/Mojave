@@ -2,7 +2,7 @@ import Net from "@rbxts/net";
 import { GroupService, Players, RunService } from "@rbxts/services";
 import { t } from "@rbxts/t";
 import { ClientFaction, Faction, Role } from "./faction";
-import { ClientInfo } from "./faction_data_interfaces";
+import { ClientFactionInfo, ClientInfo, RoleInfo } from "./faction_data_interfaces";
 import FactionRemotes from "./faction_remotes";
 import { cleanGroupName } from "./utility_functions";
 
@@ -46,18 +46,37 @@ export function startCaching() {
         throw "Cannot be called from the client";
     quitCaching();
     cachingConnections = new Array<RBXScriptConnection>();
+    const factionRemote = FactionRemotes.Server.Create("GetClientInfo");
     const factions = getFactions(true);
     cachingConnections.push(Players.PlayerAdded.Connect(player => factions.forEach(faction => {
         const role = faction.roles.get(player.GetRankInGroup(faction.groupId));
         if (role)
             faction.players.set(player, role);
     })));
-    FactionRemotes.Server.Create("GetClientInfo").SetCallback(player => clientInfo.get(player) as ClientInfo);
     Players.GetPlayers().forEach(player => factions.forEach(faction => {
-        const role = faction.roles.get(player.GetRankInGroup(faction.groupId));
-        if (role)
+        const rank = player.GetRankInGroup(faction.groupId);
+        const role = faction.roles.get(rank);
+        if (role) {
             faction.players.set(player, role);
+            if (!clientInfo.get(player))
+                clientInfo.set(player, { factions: new Array<ClientFactionInfo>() });
+            const roles = new Array<RoleInfo>();
+            faction.roles.forEach(role => roles.push({
+                name: role.name,
+                id: role.id,
+                faction: faction.groupId
+            }))
+            clientInfo.get(player)?.factions.push({
+                name: faction.name,
+                shortName: faction.shortName,
+                groupId: faction.groupId,
+                roles: roles,
+                color: faction.color,
+                clientRole: rank
+            });
+        }
     }));
+    factionRemote.SetCallback(player => clientInfo.get(player) ?? error(`Client info for player ${player} does not exist`));
 }
 
 export function quitCaching() {
@@ -67,10 +86,10 @@ export function quitCaching() {
 
 let clientFactionInfo: ClientFaction[] | undefined;
 
-export function getClientFactionInfo(update?: boolean) {
+export async function getClientFactionInfo(update?: boolean) {
     if (update || !clientFactionInfo) {
-        const clientData = FactionRemotes.Client.Get("GetClientInfo").CallServer();
-        clientFactionInfo = clientData.factions.map(factionInfo => new ClientFaction(factionInfo));
+        const clientData = FactionRemotes.Client.WaitFor("GetClientInfo").andThen(remote => remote.CallServerAsync());
+        clientFactionInfo = (await clientData).factions.map(factionInfo => new ClientFaction(factionInfo));
     }
     return clientFactionInfo
 }
