@@ -33,30 +33,14 @@ export class BasePartRegion extends Region {
         this.part = newPart;
     }
     async enteredRegion(part: BasePart): Promise<void> {
-        if (part.GetTouchingParts().some(part => part === this.part))
-            return;
-        return new Promise(resolve => {
-            let connection: RBXScriptConnection
-            connection = part.Touched.Connect(hit => {
-                if (hit === this.part) {
-                    connection.Disconnect();
-                    resolve();
-                }
-            });
-        });
+        let inRegion = this.isInRegion(part);
+        while (!inRegion)
+            inRegion = part.Touched.Wait()[0] === this.part
     }
     async leftRegion(part: BasePart): Promise<void> {
-        if (part.GetTouchingParts().some(part => part === this.part))
-            return;
-        return new Promise(resolve => {
-            let connection: RBXScriptConnection
-            connection = part.TouchEnded.Connect(hit => {
-                if (hit === this.part) {
-                    connection.Disconnect();
-                    resolve();
-                }
-            });
-        });
+        let inRegion = this.isInRegion(part);
+        while (inRegion)
+            inRegion = !(part.TouchEnded.Wait()[0] === this.part)
     }
     isInRegion(part: BasePart): boolean {
         return part.GetTouchingParts().some(part => part === this.part);
@@ -75,26 +59,12 @@ export class SphereRegion extends Region {
         this.radius = math.min(sphere.Size.X, sphere.Size.Y, sphere.Size.Z);
     }
     async enteredRegion(part: BasePart): Promise<void> {
-        return new Promise(resolve => {
-            let connection: RBXScriptConnection
-            connection = RunService.Heartbeat.Connect(() => {
-                if (this.isInRegion(part)) {
-                    connection.Disconnect();
-                    resolve();
-                }
-            });
-        });
+        while (!this.isInRegion(part))
+            RunService.Heartbeat.Wait();
     }
     async leftRegion(part: BasePart): Promise<void> {
-        return new Promise(resolve => {
-            let connection: RBXScriptConnection
-            connection = RunService.Heartbeat.Connect(() => {
-                if (!this.isInRegion(part)) {
-                    connection.Disconnect();
-                    resolve();
-                }
-            });
-        });
+        while (this.isInRegion(part))
+            RunService.Heartbeat.Wait();
     }
     isInRegion(part: BasePart): boolean {
         return (part.Position.sub(this.center)).Magnitude <= this.radius;
