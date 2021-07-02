@@ -130,6 +130,13 @@ export class SphereRegion extends Region {
     isInRegion(object: Model | Player): boolean {
         return (this.getRoot(object).Position.sub(this.center)).Magnitude <= this.radius;
     }
+    /**
+     * @param object A valid player or character, will throw error if missing properties.
+     * @returns The character's distance from the center
+     */
+    getDistance(object: Model | Player): number {
+        return (this.getRoot(object).Position.sub(this.center)).Magnitude
+    }
 }
 
 /**
