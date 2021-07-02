@@ -37,58 +37,16 @@ do
 		self.part = newPart
 	end
 	BasePartRegion.enteredRegion = TS.async(function(self, part)
-		local _0 = part:GetTouchingParts()
-		local _1 = function(part)
-			return part == self.part
+		local inRegion = self:isInRegion(part)
+		while not inRegion do
+			inRegion = (part.Touched:Wait()) == self.part
 		end
-		-- ▼ ReadonlyArray.some ▼
-		local _2 = false
-		for _3, _4 in ipairs(_0) do
-			if _1(_4, _3 - 1, _0) then
-				_2 = true
-				break
-			end
-		end
-		-- ▲ ReadonlyArray.some ▲
-		if _2 then
-			return nil
-		end
-		return TS.Promise.new(function(resolve)
-			local connection
-			connection = self.part.Touched:Connect(function(hit)
-				if hit == part then
-					connection:Disconnect()
-					resolve()
-				end
-			end)
-		end)
 	end)
 	BasePartRegion.leftRegion = TS.async(function(self, part)
-		local _0 = part:GetTouchingParts()
-		local _1 = function(part)
-			return part == self.part
+		local inRegion = self:isInRegion(part)
+		while inRegion do
+			inRegion = not ((part.TouchEnded:Wait()) == self.part)
 		end
-		-- ▼ ReadonlyArray.some ▼
-		local _2 = false
-		for _3, _4 in ipairs(_0) do
-			if _1(_4, _3 - 1, _0) then
-				_2 = true
-				break
-			end
-		end
-		-- ▲ ReadonlyArray.some ▲
-		if _2 then
-			return nil
-		end
-		return TS.Promise.new(function(resolve)
-			local connection
-			connection = self.part.TouchEnded:Connect(function(hit)
-				if hit == part then
-					connection:Disconnect()
-					resolve()
-				end
-			end)
-		end)
 	end)
 	function BasePartRegion:isInRegion(part)
 		local _0 = part:GetTouchingParts()
@@ -132,26 +90,14 @@ do
 		self.radius = math.min(sphere.Size.X, sphere.Size.Y, sphere.Size.Z)
 	end
 	SphereRegion.enteredRegion = TS.async(function(self, part)
-		return TS.Promise.new(function(resolve)
-			local connection
-			connection = RunService.Heartbeat:Connect(function()
-				if self:isInRegion(part) then
-					connection:Disconnect()
-					resolve()
-				end
-			end)
-		end)
+		while not self:isInRegion(part) do
+			RunService.Heartbeat:Wait()
+		end
 	end)
 	SphereRegion.leftRegion = TS.async(function(self, part)
-		return TS.Promise.new(function(resolve)
-			local connection
-			connection = RunService.Heartbeat:Connect(function()
-				if not self:isInRegion(part) then
-					connection:Disconnect()
-					resolve()
-				end
-			end)
-		end)
+		while self:isInRegion(part) do
+			RunService.Heartbeat:Wait()
+		end
 	end)
 	function SphereRegion:isInRegion(part)
 		local _0 = part.Position

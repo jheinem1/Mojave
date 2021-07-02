@@ -35,12 +35,12 @@ export class BasePartRegion extends Region {
     async enteredRegion(part: BasePart): Promise<void> {
         let inRegion = this.isInRegion(part);
         while (!inRegion)
-            inRegion = part.Touched.Wait()[0] === this.part
+            inRegion = part.Touched.Wait()[0] === this.part;
     }
     async leftRegion(part: BasePart): Promise<void> {
         let inRegion = this.isInRegion(part);
         while (inRegion)
-            inRegion = !(part.TouchEnded.Wait()[0] === this.part)
+            inRegion = !(part.TouchEnded.Wait()[0] === this.part);
     }
     isInRegion(part: BasePart): boolean {
         return part.GetTouchingParts().some(part => part === this.part);
@@ -73,7 +73,7 @@ export class SphereRegion extends Region {
      * @returns The character's distance from the center
      */
     getDistance(part: BasePart): number {
-        return (part.Position.sub(this.center)).Magnitude
+        return (part.Position.sub(this.center)).Magnitude;
     }
 }
 
