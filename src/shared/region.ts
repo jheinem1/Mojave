@@ -78,7 +78,7 @@ export class SphereRegion extends Region {
         return new Promise(resolve => {
             let connection: RBXScriptConnection
             connection = RunService.Heartbeat.Connect(() => {
-                if ((part.Position.sub(this.center)).Magnitude <= this.radius) {
+                if (this.isInRegion(part)) {
                     connection.Disconnect();
                     resolve();
                 }
@@ -89,7 +89,7 @@ export class SphereRegion extends Region {
         return new Promise(resolve => {
             let connection: RBXScriptConnection
             connection = RunService.Heartbeat.Connect(() => {
-                if ((part.Position.sub(this.center)).Magnitude > this.radius) {
+                if (!this.isInRegion(part)) {
                     connection.Disconnect();
                     resolve();
                 }

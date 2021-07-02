@@ -1,25 +1,10 @@
 -- Compiled with roblox-ts v1.1.1
 local TS = require(game:GetService("ReplicatedStorage"):WaitForChild("rbxts_include"):WaitForChild("RuntimeLib"))
 local RunService = TS.import(script, TS.getModule(script, "services")).RunService
-local t = TS.import(script, TS.getModule(script, "t").lib.ts).t
-local isCharacter = t.union(t.instanceIsA("Model"), t.children({
-	HumanoidRootPart = t.instanceIsA("Part"),
-	Humanoid = t.instanceIsA("Humanoid"),
-	Head = t.instanceOf("BasePart"),
-}))
 local Region
 do
 	Region = {}
 	function Region:constructor()
-	end
-	function Region:getRoot(object)
-		if t.instanceIsA("Player")(object) then
-			return object.Character and self:getRoot(object.Character) or self:getRoot((object.CharacterAdded:Wait()))
-		elseif isCharacter(object) then
-			return object.HumanoidRootPart
-		else
-			error("Invalid character model!")
-		end
 	end
 end
 --[[
@@ -51,9 +36,8 @@ do
 		newPart.CanCollide = false
 		self.part = newPart
 	end
-	BasePartRegion.enteredRegion = TS.async(function(self, object)
-		local root = self:getRoot(object)
-		local _0 = root:GetTouchingParts()
+	BasePartRegion.enteredRegion = TS.async(function(self, part)
+		local _0 = part:GetTouchingParts()
 		local _1 = function(part)
 			return part == self.part
 		end
@@ -72,16 +56,15 @@ do
 		return TS.Promise.new(function(resolve)
 			local connection
 			connection = self.part.Touched:Connect(function(hit)
-				if hit == root then
+				if hit == part then
 					connection:Disconnect()
 					resolve()
 				end
 			end)
 		end)
 	end)
-	BasePartRegion.leftRegion = TS.async(function(self, object)
-		local root = self:getRoot(object)
-		local _0 = root:GetTouchingParts()
+	BasePartRegion.leftRegion = TS.async(function(self, part)
+		local _0 = part:GetTouchingParts()
 		local _1 = function(part)
 			return part == self.part
 		end
@@ -100,15 +83,15 @@ do
 		return TS.Promise.new(function(resolve)
 			local connection
 			connection = self.part.TouchEnded:Connect(function(hit)
-				if hit == root then
+				if hit == part then
 					connection:Disconnect()
 					resolve()
 				end
 			end)
 		end)
 	end)
-	function BasePartRegion:isInRegion(object)
-		local _0 = self:getRoot(object):GetTouchingParts()
+	function BasePartRegion:isInRegion(part)
+		local _0 = part:GetTouchingParts()
 		local _1 = function(part)
 			return part == self.part
 		end
@@ -148,41 +131,35 @@ do
 		self.center = sphere.Position
 		self.radius = math.min(sphere.Size.X, sphere.Size.Y, sphere.Size.Z)
 	end
-	SphereRegion.enteredRegion = TS.async(function(self, object)
-		local root = self:getRoot(object)
+	SphereRegion.enteredRegion = TS.async(function(self, part)
 		return TS.Promise.new(function(resolve)
 			local connection
 			connection = RunService.Heartbeat:Connect(function()
-				local _0 = root.Position
-				local _1 = self.center
-				if (_0 - _1).Magnitude <= self.radius then
+				if self:isInRegion(part) then
 					connection:Disconnect()
 					resolve()
 				end
 			end)
 		end)
 	end)
-	SphereRegion.leftRegion = TS.async(function(self, object)
-		local root = self:getRoot(object)
+	SphereRegion.leftRegion = TS.async(function(self, part)
 		return TS.Promise.new(function(resolve)
 			local connection
 			connection = RunService.Heartbeat:Connect(function()
-				local _0 = root.Position
-				local _1 = self.center
-				if (_0 - _1).Magnitude > self.radius then
+				if not self:isInRegion(part) then
 					connection:Disconnect()
 					resolve()
 				end
 			end)
 		end)
 	end)
-	function SphereRegion:isInRegion(object)
-		local _0 = self:getRoot(object).Position
+	function SphereRegion:isInRegion(part)
+		local _0 = part.Position
 		local _1 = self.center
 		return (_0 - _1).Magnitude <= self.radius
 	end
-	function SphereRegion:getDistance(object)
-		local _0 = self:getRoot(object).Position
+	function SphereRegion:getDistance(part)
+		local _0 = part.Position
 		local _1 = self.center
 		return (_0 - _1).Magnitude
 	end
@@ -207,11 +184,11 @@ do
 	function RegionUnion:constructor(regions)
 		self.regions = regions
 	end
-	RegionUnion.enteredRegion = TS.async(function(self, object)
+	RegionUnion.enteredRegion = TS.async(function(self, part)
 		local _0 = TS.Promise
 		local _1 = self.regions
 		local _2 = function(region)
-			return region:enteredRegion(object)
+			return region:enteredRegion(part)
 		end
 		-- ▼ ReadonlyArray.map ▼
 		local _3 = table.create(#_1)
@@ -221,11 +198,11 @@ do
 		-- ▲ ReadonlyArray.map ▲
 		return _0.race(_3)
 	end)
-	RegionUnion.leftRegion = TS.async(function(self, object)
+	RegionUnion.leftRegion = TS.async(function(self, part)
 		local _0 = TS.Promise
 		local _1 = self.regions
 		local _2 = function(region)
-			return region:leftRegion(object)
+			return region:leftRegion(part)
 		end
 		-- ▼ ReadonlyArray.map ▼
 		local _3 = table.create(#_1)
@@ -235,10 +212,10 @@ do
 		-- ▲ ReadonlyArray.map ▲
 		return _0.race(_3)
 	end)
-	function RegionUnion:isInRegions(object)
+	function RegionUnion:isInRegions(part)
 		local _0 = self.regions
 		local _1 = function(region)
-			return region:isInRegion(object)
+			return region:isInRegion(part)
 		end
 		-- ▼ ReadonlyArray.filter ▼
 		local _2 = {}
@@ -252,10 +229,10 @@ do
 		-- ▲ ReadonlyArray.filter ▲
 		return _2
 	end
-	function RegionUnion:isInRegion(object)
+	function RegionUnion:isInRegion(part)
 		local _0 = self.regions
 		local _1 = function(region)
-			return region:isInRegion(object)
+			return region:isInRegion(part)
 		end
 		-- ▼ ReadonlyArray.find ▼
 		local _2 = nil

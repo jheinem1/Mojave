@@ -390,7 +390,7 @@
         "affectsGlobalScope": false
       },
       "../src/shared/region.ts": {
-        "version": "4b50e72958cef591b2bd59e8a207b55a79de8b00f91a66916f05729ade98e4ff",
+        "version": "9f9a72b2e96c43956758de20ad95d19eeda24dfcfdc920a2b749a5a1f074dd37",
         "affectsGlobalScope": false
       }
     },
@@ -826,8 +826,7 @@
         "../node_modules/@rbxts/t/lib/t.d.ts"
       ],
       "../src/shared/region.ts": [
-        "../node_modules/@rbxts/services/index.d.ts",
-        "../node_modules/@rbxts/t/lib/t.d.ts"
+        "../node_modules/@rbxts/services/index.d.ts"
       ],
       "../src/shared/regions.ts": [
         "../node_modules/@rbxts/object-event/index.d.ts",
