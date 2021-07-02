@@ -32,17 +32,17 @@ export class BasePartRegion extends Region {
         newPart.CanCollide = false;
         this.part = newPart;
     }
-    async enteredRegion(part: BasePart): Promise<void> {
+    async enteredRegion(part: BasePart) {
         let inRegion = this.isInRegion(part);
         while (!inRegion)
             inRegion = part.Touched.Wait()[0] === this.part;
     }
-    async leftRegion(part: BasePart): Promise<void> {
+    async leftRegion(part: BasePart) {
         let inRegion = this.isInRegion(part);
         while (inRegion)
             inRegion = !(part.TouchEnded.Wait()[0] === this.part);
     }
-    isInRegion(part: BasePart): boolean {
+    isInRegion(part: BasePart) {
         return part.GetTouchingParts().some(part => part === this.part);
     }
 }
@@ -58,21 +58,21 @@ export class SphereRegion extends Region {
         this.center = sphere.Position;
         this.radius = math.min(sphere.Size.X, sphere.Size.Y, sphere.Size.Z);
     }
-    async enteredRegion(part: BasePart): Promise<void> {
+    async enteredRegion(part: BasePart) {
         while (!this.isInRegion(part))
             RunService.Heartbeat.Wait();
     }
-    async leftRegion(part: BasePart): Promise<void> {
+    async leftRegion(part: BasePart) {
         while (this.isInRegion(part))
             RunService.Heartbeat.Wait();
     }
-    isInRegion(part: BasePart): boolean {
+    isInRegion(part: BasePart) {
         return (part.Position.sub(this.center)).Magnitude <= this.radius;
     }
     /**
      * @returns The character's distance from the center
      */
-    getDistance(part: BasePart): number {
+    getDistance(part: BasePart) {
         return (part.Position.sub(this.center)).Magnitude;
     }
 }
@@ -98,14 +98,14 @@ export class RegionUnion {
      * Checks if the player/character is inside all regions.
      * @returns An array of regions (if any) the player is in
      */
-    isInRegions(part: BasePart): Region[] {
+    isInRegions(part: BasePart) {
         return this.regions.filter(region => region.isInRegion(part));
     }
     /**
      * Checks if the player/character is inside a single region.
      * @returns A region (if any) the player is in
      */
-    isInRegion(part: BasePart): Region | undefined {
+    isInRegion(part: BasePart) {
         return this.regions.find(region => region.isInRegion(part));
     }
 }
