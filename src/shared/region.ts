@@ -37,8 +37,8 @@ export class BasePartRegion extends Region {
             return;
         return new Promise(resolve => {
             let connection: RBXScriptConnection
-            connection = this.part.Touched.Connect(hit => {
-                if (hit === part) {
+            connection = part.Touched.Connect(hit => {
+                if (hit === this.part) {
                     connection.Disconnect();
                     resolve();
                 }
@@ -50,8 +50,8 @@ export class BasePartRegion extends Region {
             return;
         return new Promise(resolve => {
             let connection: RBXScriptConnection
-            connection = this.part.TouchEnded.Connect(hit => {
-                if (hit === part) {
+            connection = part.TouchEnded.Connect(hit => {
+                if (hit === this.part) {
                     connection.Disconnect();
                     resolve();
                 }
