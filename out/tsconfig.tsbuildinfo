@@ -388,6 +388,10 @@
       "../src/server/safezones.server.ts": {
         "version": "ba83ed9bee628a7ada6008b6970936d5b094706e2801b7861047d24790247af3",
         "affectsGlobalScope": false
+      },
+      "../src/shared/region.ts": {
+        "version": "afcf106c68b23ff0ac3b14fdbbb65e284942a5165c777f1f8db3ca26f0817be3",
+        "affectsGlobalScope": false
       }
     },
     "options": {
@@ -819,6 +823,10 @@
         "../src/shared/faction_manager/utility_functions.ts"
       ],
       "../src/shared/faction_manager/utility_functions.ts": [
+        "../node_modules/@rbxts/t/lib/t.d.ts"
+      ],
+      "../src/shared/region.ts": [
+        "../node_modules/@rbxts/services/index.d.ts",
         "../node_modules/@rbxts/t/lib/t.d.ts"
       ],
       "../src/shared/regions.ts": [
