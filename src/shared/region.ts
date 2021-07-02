@@ -106,7 +106,8 @@ export class SphereRegion extends Region {
     async enteredRegion(object: Model | Player): Promise<void> {
         const root = this.getRoot(object);
         return new Promise(resolve => {
-            RunService.BindToRenderStep(tostring(this), 1, () => {
+            let connection: RBXScriptConnection
+            connection = RunService.Heartbeat.Connect(() => {
                 if ((root.Position.sub(this.center)).Magnitude <= this.radius) {
                     RunService.UnbindFromRenderStep(tostring(this));
                     resolve();
@@ -117,8 +118,9 @@ export class SphereRegion extends Region {
     async leftRegion(object: Model | Player): Promise<void> {
         const root = this.getRoot(object);
         return new Promise(resolve => {
-            RunService.BindToRenderStep(tostring(this), 1, () => {
-                if ((root.Position.sub(this.center)).Magnitude < this.radius) {
+            let connection: RBXScriptConnection
+            connection = RunService.Heartbeat.Connect(() => {
+                if ((root.Position.sub(this.center)).Magnitude > this.radius) {
                     RunService.UnbindFromRenderStep(tostring(this));
                     resolve();
                 }
