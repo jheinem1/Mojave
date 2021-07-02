@@ -109,7 +109,7 @@ export class SphereRegion extends Region {
             let connection: RBXScriptConnection
             connection = RunService.Heartbeat.Connect(() => {
                 if ((root.Position.sub(this.center)).Magnitude <= this.radius) {
-                    RunService.UnbindFromRenderStep(tostring(this));
+                    connection.Disconnect();
                     resolve();
                 }
             });
@@ -121,7 +121,7 @@ export class SphereRegion extends Region {
             let connection: RBXScriptConnection
             connection = RunService.Heartbeat.Connect(() => {
                 if ((root.Position.sub(this.center)).Magnitude > this.radius) {
-                    RunService.UnbindFromRenderStep(tostring(this));
+                    connection.Disconnect();
                     resolve();
                 }
             });

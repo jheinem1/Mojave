@@ -390,7 +390,7 @@
         "affectsGlobalScope": false
       },
       "../src/shared/region.ts": {
-        "version": "afcf106c68b23ff0ac3b14fdbbb65e284942a5165c777f1f8db3ca26f0817be3",
+        "version": "4b50e72958cef591b2bd59e8a207b55a79de8b00f91a66916f05729ade98e4ff",
         "affectsGlobalScope": false
       }
     },

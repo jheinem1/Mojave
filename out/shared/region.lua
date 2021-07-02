@@ -156,7 +156,7 @@ do
 				local _0 = root.Position
 				local _1 = self.center
 				if (_0 - _1).Magnitude <= self.radius then
-					RunService:UnbindFromRenderStep(tostring(self))
+					connection:Disconnect()
 					resolve()
 				end
 			end)
@@ -170,7 +170,7 @@ do
 				local _0 = root.Position
 				local _1 = self.center
 				if (_0 - _1).Magnitude > self.radius then
-					RunService:UnbindFromRenderStep(tostring(self))
+					connection:Disconnect()
 					resolve()
 				end
 			end)
