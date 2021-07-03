@@ -22,7 +22,7 @@ function safezoneCheck(player: Player, character: Model | undefined = player.Cha
         forceField.Parent = character;
         shielded.set(character, forceField);
         inSafezone.SendToPlayer(player, true);
-        safezoneRegions.enteredRegion(character.PrimaryPart).then(() => {
+        safezoneRegions.leftRegion(character.PrimaryPart).then(() => {
             forceField.Destroy();
             inSafezone.SendToPlayer(player, false);
         });

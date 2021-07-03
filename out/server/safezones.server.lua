@@ -61,7 +61,7 @@ local function safezoneCheck(player, character)
 		_10[_11] = _12
 		-- ▲ Map.set ▲
 		inSafezone:SendToPlayer(player, true)
-		local _13 = safezoneRegions:enteredRegion(character.PrimaryPart)
+		local _13 = safezoneRegions:leftRegion(character.PrimaryPart)
 		local _14 = function()
 			forceField:Destroy()
 			inSafezone:SendToPlayer(player, false)

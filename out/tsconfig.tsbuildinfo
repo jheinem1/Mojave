@@ -382,7 +382,7 @@
         "affectsGlobalScope": false
       },
       "../src/server/safezones.server.ts": {
-        "version": "54ec82ec6bc4fa5f29e5e483b8003d79441dfdb78b7cc74d805142fa9b5da7c8",
+        "version": "0fb606a47f5f8d0e11253343b35ab099e101096c0754191ea2e010894d8f887e",
         "affectsGlobalScope": false
       },
       "../node_modules/@rbxts/rotatedregion3/index.d.ts": {
