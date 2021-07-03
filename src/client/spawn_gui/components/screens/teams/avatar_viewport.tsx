@@ -1,6 +1,10 @@
 import Roact from "@rbxts/roact";
 
 export class AvatarViewportComponent extends Roact.Component {
+    viewportRef = Roact.createRef<ViewportFrame>();
+    didMount() {
+        
+    }
     render() {
         return <viewportframe
             Key="Avatar"
@@ -11,6 +15,7 @@ export class AvatarViewportComponent extends Roact.Component {
             Size={new UDim2(1, 0, 1, 0)}
             ZIndex={2}
             Visible={true}
+            Ref={this.viewportRef}
         />
     }
 }
