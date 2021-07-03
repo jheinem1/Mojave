@@ -1,41 +1,78 @@
 -- Compiled with roblox-ts v1.1.1
 local TS = require(game:GetService("ReplicatedStorage"):WaitForChild("rbxts_include"):WaitForChild("RuntimeLib"))
 local _0 = TS.import(script, TS.getModule(script, "services"))
+local Players = _0.Players
 local ReplicatedStorage = _0.ReplicatedStorage
 local Workspace = _0.Workspace
 local t = TS.import(script, TS.getModule(script, "t").lib.ts).t
-local ClientRegions = TS.import(script, game:GetService("ReplicatedStorage"), "Shared", "regions").ClientRegions
+local _1 = TS.import(script, game:GetService("ReplicatedStorage"), "Shared", "region")
+local BasePartRegion = _1.BasePartRegion
+local RegionUnion = _1.RegionUnion
 local Remotes = TS.import(script, game:GetService("ReplicatedStorage"), "Shared", "remotes").default
 local inSafezone = Remotes.Client:Get("InSafezone")
 local validSafezoneChildren = t.array(t.instanceIsA("BasePart"))
-local _1 = Workspace:FindFirstChild("Safezones")
-if _1 == nil then
-	_1 = ReplicatedStorage:FindFirstChild("Safezones")
+local _2 = Workspace:FindFirstChild("Safezones")
+if _2 == nil then
+	_2 = ReplicatedStorage:FindFirstChild("Safezones")
 end
-local safezoneFolder = _1
-local _2 = safezoneFolder
-assert(_2, "Expected a folder named 'Safezones' in the workspace or ReplicatedStorage")
+local safezoneFolder = _2
+local _3 = safezoneFolder
+assert(_3, "Expected a folder named 'Safezones' in the workspace or ReplicatedStorage")
 local safezoneParts = safezoneFolder:GetChildren()
-local _3 = validSafezoneChildren(safezoneParts)
-assert(_3, "Expected children of 'Safezones' folder to be BaseParts")
-local safezoneRegions = ClientRegions.new(safezoneParts)
+local _4 = validSafezoneChildren(safezoneParts)
+assert(_4, "Expected children of 'Safezones' folder to be BaseParts")
+local _5 = safezoneParts
+local _6 = function(safezonePart)
+	return BasePartRegion.new(safezonePart)
+end
+-- ▼ ReadonlyArray.map ▼
+local _7 = table.create(#_5)
+for _8, _9 in ipairs(_5) do
+	_7[_8] = _6(_9, _8 - 1, _5)
+end
+-- ▲ ReadonlyArray.map ▲
+local safezoneRegions = RegionUnion.new(_7)
 local shielded = false
+local function enteredRegion(part)
+	if not shielded then
+		shielded = true
+		wait()
+		inSafezone:SendToServer(true)
+	end
+	local _8 = safezoneRegions:enteredRegion(part)
+	local _9 = function()
+		return enteredRegion(part)
+	end
+	_8:andThen(_9)
+end
+local function onCharacter(character)
+	local part = character.PrimaryPart
+	if part then
+		local _8 = safezoneRegions:enteredRegion(part)
+		local _9 = function()
+			return enteredRegion(part)
+		end
+		_8:andThen(_9)
+	end
+end
 inSafezone:Connect(function(isInSafezone)
 	if isInSafezone then
 		shielded = true
 	else
 		shielded = false
-		if safezoneRegions:isInRegion() then
+		local _8 = Players.LocalPlayer.Character
+		if _8 ~= nil then
+			_8 = _8.PrimaryPart
+		end
+		local root = _8
+		if root and safezoneRegions:isInRegion(root) then
 			wait(0.5)
 			shielded = true
 			inSafezone:SendToServer(true)
 		end
 	end
 end)
-safezoneRegions.enteredRegion:Connect(function()
-	if not shielded then
-		shielded = true
-		wait()
-		inSafezone:SendToServer(true)
-	end
-end)
+Players.LocalPlayer.CharacterAdded:Connect(onCharacter)
+if Players.LocalPlayer.Character then
+	onCharacter(Players.LocalPlayer.Character)
+end

@@ -353,20 +353,16 @@
         "version": "a7ba155b2a7f24b7db4677be1852737d80ef0fe11911380aebcec0a094163d9d",
         "affectsGlobalScope": false
       },
-      "../node_modules/@rbxts/rotatedregion3/index.d.ts": {
-        "version": "03744245543c51dcc46c2f6376078cbddb01a5a7bb65768a3a3b7f78efa4f877",
-        "affectsGlobalScope": false
-      },
-      "../src/shared/regions.ts": {
-        "version": "f5d0e200fe5e131ae190aae1436b37634c4fed6f015d97d506d91b3113385cf7",
-        "affectsGlobalScope": false
-      },
       "../src/client/lighting_regions.client.ts": {
-        "version": "c5699b52c1dd41a329e90e46dac0c146b7b3788bef6cd0504ed87bd311711cea",
+        "version": "06ec7f3a0a6a405c6db196e495d6b8c4d37b033fcbae94ade4b4efdbc58ed01b",
+        "affectsGlobalScope": false
+      },
+      "../src/shared/region.ts": {
+        "version": "8fd1ac29aa6d0689434cda847a04f7f604d7a9a117d28ef0b0466ebe413fba44",
         "affectsGlobalScope": false
       },
       "../src/client/safezones.client.ts": {
-        "version": "d5fa8755fe005c954dd61a4cad22738226aae4f6075c5965e08773b93e4ecba2",
+        "version": "10372d24854599cddf1197a4d10749da42d1065b1636a3ac841bdcff2cd0ae2b",
         "affectsGlobalScope": false
       },
       "../src/server/faction_handler.server.ts": {
@@ -382,15 +378,15 @@
         "affectsGlobalScope": false
       },
       "../src/server/lighting_regions_handler.server.ts": {
-        "version": "dc5be052e60f9387fb1f72339708e10495d98e33b68fbca53ce22e14ac851959",
+        "version": "093660fbbe8aa2b4dbacbdd19e44de5b9eefd9f4211ab14ac6caec5f0f01e3db",
         "affectsGlobalScope": false
       },
       "../src/server/safezones.server.ts": {
-        "version": "ba83ed9bee628a7ada6008b6970936d5b094706e2801b7861047d24790247af3",
+        "version": "54ec82ec6bc4fa5f29e5e483b8003d79441dfdb78b7cc74d805142fa9b5da7c8",
         "affectsGlobalScope": false
       },
-      "../src/shared/region.ts": {
-        "version": "7cedce09e19c59cad4672780232d9a3a1368f113084cc4202da1e27bb90279b1",
+      "../node_modules/@rbxts/rotatedregion3/index.d.ts": {
+        "version": "03744245543c51dcc46c2f6376078cbddb01a5a7bb65768a3a3b7f78efa4f877",
         "affectsGlobalScope": false
       }
     },
@@ -720,16 +716,10 @@
         "../node_modules/@rbxts/services/index.d.ts",
         "../src/client/hud/components/hud_component.tsx"
       ],
-      "../src/client/lighting_regions.client.ts": [
-        "../node_modules/@rbxts/services/index.d.ts",
-        "../node_modules/@rbxts/t/lib/t.d.ts",
-        "../src/shared/regions.ts"
-      ],
       "../src/client/safezones.client.ts": [
-        "../node_modules/@rbxts/rotatedregion3/index.d.ts",
         "../node_modules/@rbxts/services/index.d.ts",
         "../node_modules/@rbxts/t/lib/t.d.ts",
-        "../src/shared/regions.ts",
+        "../src/shared/region.ts",
         "../src/shared/remotes.ts"
       ],
       "../src/client/spawn_gui/components/progress.tsx": [
@@ -789,15 +779,10 @@
         "../node_modules/@rbxts/t/lib/t.d.ts",
         "../src/shared/allies.ts"
       ],
-      "../src/server/lighting_regions_handler.server.ts": [
-        "../node_modules/@rbxts/services/index.d.ts",
-        "../node_modules/@rbxts/t/lib/t.d.ts"
-      ],
       "../src/server/safezones.server.ts": [
-        "../node_modules/@rbxts/rotatedregion3/index.d.ts",
         "../node_modules/@rbxts/services/index.d.ts",
         "../node_modules/@rbxts/t/lib/t.d.ts",
-        "../src/shared/regions.ts",
+        "../src/shared/region.ts",
         "../src/shared/remotes.ts"
       ],
       "../src/shared/allies.ts": [
@@ -827,12 +812,6 @@
       ],
       "../src/shared/region.ts": [
         "../node_modules/@rbxts/services/index.d.ts"
-      ],
-      "../src/shared/regions.ts": [
-        "../node_modules/@rbxts/object-event/index.d.ts",
-        "../node_modules/@rbxts/rotatedregion3/index.d.ts",
-        "../node_modules/@rbxts/services/index.d.ts",
-        "../node_modules/@rbxts/t/lib/t.d.ts"
       ],
       "../src/shared/remotes.ts": [
         "../node_modules/@rbxts/net/out/index.d.ts"

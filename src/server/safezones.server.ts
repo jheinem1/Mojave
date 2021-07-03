@@ -1,7 +1,6 @@
-import RotatedRegion3 from "@rbxts/rotatedregion3";
 import { Players, ReplicatedStorage, RunService, Workspace } from "@rbxts/services";
 import { t } from "@rbxts/t";
-import { ClientRegions } from "shared/regions";
+import { BasePartRegion, RegionUnion } from "shared/region";
 import Remotes from "shared/remotes";
 
 const inSafezone = Remotes.Server.Create("InSafezone");
@@ -10,73 +9,33 @@ const safezoneFolder = Workspace.FindFirstChild("Safezones") ?? ReplicatedStorag
 assert(safezoneFolder, "Expected a folder named 'Safezones' in the workspace or ReplicatedStorage");
 const safezoneParts = safezoneFolder.GetChildren();
 assert(validSafezoneChildren(safezoneParts), "Expected children of 'Safezones' folder to be BaseParts");
-const safezones = safezoneParts.map((safezonePart) => RotatedRegion3.FromPart(safezonePart));
+const safezoneRegions = new RegionUnion(safezoneParts.map((safezonePart) => new BasePartRegion(safezonePart)));
 const shielded = new WeakMap<Model, ForceField>();
 
 safezoneFolder.Parent = ReplicatedStorage;
 
-function isInSafezone(character: Model) {
-    const rootPart = character.FindFirstChild("HumanoidRootPart");
-    if (t.instanceIsA("BasePart")(rootPart) && safezones.some((safezone) => safezone.CastPart(rootPart)))
-        return true;
-    return false;
-}
-
-inSafezone.Connect((player, _) => {
-    const character = player.Character;
-    if (character && isInSafezone(character)) {
+function safezoneCheck(player: Player, character: Model | undefined = player.Character) {
+    if (character?.PrimaryPart && safezoneRegions.isInRegion(character.PrimaryPart)) {
         const forceField = new Instance("ForceField");
         forceField.Visible = false;
         forceField.Name = "Safezone";
         forceField.Parent = character;
         shielded.set(character, forceField);
         inSafezone.SendToPlayer(player, true);
-        const clientRegions = new ClientRegions(safezones, player);
-        clientRegions.leftRegion.Connect(() => {
+        safezoneRegions.enteredRegion(character.PrimaryPart).then(() => {
             forceField.Destroy();
             inSafezone.SendToPlayer(player, false);
-            clientRegions.kill();
         });
     } else {
         inSafezone.SendToPlayer(player, false);
     }
-});
+}
+
+inSafezone.Connect((player, _) => safezoneCheck(player));
 
 Players.PlayerAdded.Connect(player => {
     player.CharacterAdded.Connect(character => {
-        wait();
-        if (isInSafezone(character)) {
-            const forceField = new Instance("ForceField");
-            forceField.Visible = false;
-            forceField.Name = "Safezone";
-            forceField.Parent = character;
-            shielded.set(character, forceField);
-            inSafezone.SendToPlayer(player, true);
-            const clientRegions = new ClientRegions(safezones, player);
-            clientRegions.leftRegion.Connect(() => {
-                forceField.Destroy();
-                inSafezone.SendToPlayer(player, false);
-                clientRegions.kill();
-            });
-        }
+        RunService.Heartbeat.Wait();
+        safezoneCheck(player, character);
     });
 });
-
-
-// RunService.Heartbeat.Connect(() => {
-//     Players.GetPlayers().forEach((player) => {
-//         const rootPart = player.Character?.FindFirstChild("HumanoidRootPart");
-//         const existingForceField = player.Character?.FindFirstChild("Safezone");
-//         const isInSafezone = t.instanceOf("Part")(rootPart) ? safezones.some((savezone) => savezone.CastPart(rootPart)) : false;
-//         if (!existingForceField && rootPart && isInSafezone) {
-//             const forceField = new Instance("ForceField");
-//             forceField.Visible = false;
-//             forceField.Name = "Safezone";
-//             forceField.Parent = player.Character;
-//             inSafezone.SendToPlayer(player, true);
-//         } else if (existingForceField && rootPart && !isInSafezone) {
-//             existingForceField.Destroy();
-//             inSafezone.SendToPlayer(player, false);
-//         }
-//     });
-// });
