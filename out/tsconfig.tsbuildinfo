@@ -326,7 +326,7 @@
         "affectsGlobalScope": false
       },
       "../src/client/spawn_gui/components/screens/teams/avatar_viewport.tsx": {
-        "version": "32040ea063cfc087445e2fcfc412ef11098134ef7af42909ca533e86e9d58913",
+        "version": "4b9968658d30bf33ce11bbf6b9c8d75352cb14db73adc981dd09db3dc6c429c0",
         "affectsGlobalScope": false
       },
       "../src/client/spawn_gui/components/screens/teams/teambutton.tsx": {
@@ -383,6 +383,14 @@
       },
       "../src/server/safezones.server.ts": {
         "version": "0fb606a47f5f8d0e11253343b35ab099e101096c0754191ea2e010894d8f887e",
+        "affectsGlobalScope": false
+      },
+      "../src/shared/avatar/character_types.ts": {
+        "version": "4648e533445c169a23ca596eb951c51dc3a195b6d06c34e847d83b118f8ffaa0",
+        "affectsGlobalScope": false
+      },
+      "../src/shared/avatar/index.ts": {
+        "version": "29e6f1a4243b07389833f639f8cdf0c81d2ee3fb24e66e8226c5e7a48b825a20",
         "affectsGlobalScope": false
       },
       "../node_modules/@rbxts/rotatedregion3/index.d.ts": {
@@ -788,6 +796,11 @@
       "../src/shared/allies.ts": [
         "../node_modules/@rbxts/services/index.d.ts",
         "../node_modules/@rbxts/t/lib/t.d.ts"
+      ],
+      "../src/shared/avatar/index.ts": [
+        "../node_modules/@rbxts/services/index.d.ts",
+        "../node_modules/@rbxts/t/lib/t.d.ts",
+        "../src/shared/avatar/character_types.ts"
       ],
       "../src/shared/faction_manager/faction.ts": [
         "../node_modules/@rbxts/services/index.d.ts",

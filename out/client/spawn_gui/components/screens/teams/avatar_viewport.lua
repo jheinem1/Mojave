@@ -5,6 +5,9 @@ local AvatarViewportComponent
 do
 	AvatarViewportComponent = Roact.Component:extend("AvatarViewportComponent")
 	function AvatarViewportComponent:init()
+		self.viewportRef = Roact.createRef()
+	end
+	function AvatarViewportComponent:didMount()
 	end
 	function AvatarViewportComponent:render()
 		return Roact.createFragment({
@@ -16,6 +19,7 @@ do
 				Size = UDim2.new(1, 0, 1, 0),
 				ZIndex = 2,
 				Visible = true,
+				[Roact.Ref] = self.viewportRef,
 			}),
 		})
 	end
