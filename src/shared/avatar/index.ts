@@ -1,6 +1,6 @@
 import { InsertService, Players, RunService } from "@rbxts/services";
 import { t } from "@rbxts/t";
-import { getR15, getR6, R15, R6 } from "./character_types";
+import { Character, getR15, getR6, R15, R6 } from "./character_types";
 
 export class Avatar {
     appearanceInfo: CharacterAppearanceInfo;
@@ -43,6 +43,20 @@ export class Avatar {
         bodyColors.RightLegColor = new BrickColor(this.appearanceInfo.bodyColors.rightLegColorId);
         bodyColors.LeftArmColor = new BrickColor(this.appearanceInfo.bodyColors.leftArmColorId);
         character.Name = t.number(this.user) ? Players.GetNameFromUserIdAsync(this.user) : this.user.Name;
+        return character;
+    }
+    changeShirt<T extends Character>(character: T, newShirtId: number): T {
+        const newShirt = InsertService.LoadAsset(newShirtId).FindFirstChildWhichIsA("Shirt");
+        assert(newShirt, `Expected shirt, got [${InsertService.LoadAsset(newShirtId).GetChildren().map(tostring).join()}] from '${newShirtId}'`);
+        character.Shirt?.Destroy();
+        newShirt.Parent = character;
+        return character;
+    }
+    changePants<T extends Character>(character: T, newPantsId: number): T {
+        const newPants = InsertService.LoadAsset(newPantsId).FindFirstChildWhichIsA("Pants");
+        assert(newPants, `Expected pants, got [${InsertService.LoadAsset(newPantsId).GetChildren().map(tostring).join()}] from '${newPantsId}'`);
+        character.Pants?.Destroy();
+        newPants.Parent = character;
         return character;
     }
     loadCharacterR6(): R6 {

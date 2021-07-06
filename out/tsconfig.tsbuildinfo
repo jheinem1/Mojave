@@ -386,11 +386,11 @@
         "affectsGlobalScope": false
       },
       "../src/shared/avatar/character_types.ts": {
-        "version": "4648e533445c169a23ca596eb951c51dc3a195b6d06c34e847d83b118f8ffaa0",
+        "version": "dafd9e1b09c01ca1d9615daaec60f6eb83f770f30601e86c51aa2f6d32a716bf",
         "affectsGlobalScope": false
       },
       "../src/shared/avatar/index.ts": {
-        "version": "29e6f1a4243b07389833f639f8cdf0c81d2ee3fb24e66e8226c5e7a48b825a20",
+        "version": "a8f13c9baa09557077ee68d18747fe630caed35a4a59336ece1d8cb7353a27e2",
         "affectsGlobalScope": false
       },
       "../node_modules/@rbxts/rotatedregion3/index.d.ts": {

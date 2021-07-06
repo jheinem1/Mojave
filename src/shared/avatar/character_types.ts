@@ -1,4 +1,13 @@
-export type R15 = Model & {
+export type Character = Model & {
+    Humanoid: Humanoid;
+    HumanoidRootPart: Part;
+    Head: Part;
+    Shirt?: Shirt;
+    Pants?: Pants;
+    ShirtGraphic?: ShirtGraphic;
+}
+
+export type R15 = Character & {
     LeftLowerArm: MeshPart & {
         LeftElbowRigAttachment: Attachment;
         LeftElbow: Motor6D;
@@ -79,7 +88,6 @@ export type R15 = Model & {
         LeftGripAttachment: Attachment;
         LeftWristRigAttachment: Attachment;
     };
-    Humanoid: Humanoid;
     RightUpperArm: MeshPart & {
         RightShoulder: Motor6D;
         RightShoulderRigAttachment: Attachment;
@@ -96,9 +104,8 @@ export type R15 = Model & {
         RightAnkleRigAttachment: Attachment;
     };
 }
-export type R6 = Model & {
+export type R6 = Character & {
     ["Left Leg"]: Part;
-    Humanoid: Humanoid;
     ["Right Arm"]: Part & {
         RightShoulderAttachment: Attachment;
     };

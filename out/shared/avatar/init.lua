@@ -94,6 +94,46 @@ do
 		character.Name = t.number(self.user) and Players:GetNameFromUserIdAsync(self.user) or self.user.Name
 		return character
 	end
+	function Avatar:changeShirt(character, newShirtId)
+		local newShirt = InsertService:LoadAsset(newShirtId):FindFirstChildWhichIsA("Shirt")
+		local _1 = InsertService:LoadAsset(newShirtId):GetChildren()
+		local _2 = tostring
+		-- ▼ ReadonlyArray.map ▼
+		local _3 = table.create(#_1)
+		for _4, _5 in ipairs(_1) do
+			_3[_4] = _2(_5, _4 - 1, _1)
+		end
+		-- ▲ ReadonlyArray.map ▲
+		local _4 = newShirt
+		local _5 = "Expected shirt, got [" .. table.concat(_3, ", ") .. "] from '" .. tostring(newShirtId) .. "'"
+		assert(_4, _5)
+		local _6 = character.Shirt
+		if _6 ~= nil then
+			_6:Destroy()
+		end
+		newShirt.Parent = character
+		return character
+	end
+	function Avatar:changePants(character, newPantsId)
+		local newPants = InsertService:LoadAsset(newPantsId):FindFirstChildWhichIsA("Pants")
+		local _1 = InsertService:LoadAsset(newPantsId):GetChildren()
+		local _2 = tostring
+		-- ▼ ReadonlyArray.map ▼
+		local _3 = table.create(#_1)
+		for _4, _5 in ipairs(_1) do
+			_3[_4] = _2(_5, _4 - 1, _1)
+		end
+		-- ▲ ReadonlyArray.map ▲
+		local _4 = newPants
+		local _5 = "Expected pants, got [" .. table.concat(_3, ", ") .. "] from '" .. tostring(newPantsId) .. "'"
+		assert(_4, _5)
+		local _6 = character.Pants
+		if _6 ~= nil then
+			_6:Destroy()
+		end
+		newPants.Parent = character
+		return character
+	end
 	function Avatar:loadCharacterR6()
 		error("Method not implemented")
 		-- const character = getR6();
