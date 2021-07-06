@@ -1,11 +1,12 @@
 -- Compiled with roblox-ts v1.1.1
 local TS = require(game:GetService("ReplicatedStorage"):WaitForChild("rbxts_include"):WaitForChild("RuntimeLib"))
 local _0 = TS.import(script, TS.getModule(script, "services"))
+local Debris = _0.Debris
 local InsertService = _0.InsertService
 local MarketplaceService = _0.MarketplaceService
 local Remotes = TS.import(script, game:GetService("ReplicatedStorage"), "Shared", "remotes").default
 local remote = Remotes.Server:Create("GetAccessory")
-remote:SetCallback(function(player, id)
+remote:Connect(function(player, id)
 	local _1, _2 = TS.try(function()
 		local productInfo = MarketplaceService:GetProductInfo(id, Enum.InfoType.Asset)
 		local _3 = productInfo.AssetTypeId
@@ -34,8 +35,8 @@ remote:SetCallback(function(player, id)
 			end
 			if _4 or _3 == ((Enum.AssetType.EarAccessory.Value)) then
 				local asset = InsertService:LoadAsset(id)
-				asset.Parent = nil
-				return TS.TRY_RETURN, { asset:FindFirstAncestorWhichIsA("Accessory") }
+				asset.Parent = player
+				Debris:AddItem(asset)
 			end
 		until true
 	end, function()

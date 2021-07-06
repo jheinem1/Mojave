@@ -3,7 +3,7 @@ local TS = require(game:GetService("ReplicatedStorage"):WaitForChild("rbxts_incl
 local Net = TS.import(script, TS.getModule(script, "net").out)
 local Remotes = Net.Definitions.Create({
 	InSafezone = Net.Definitions.BidirectionalEvent(),
-	GetAccessory = Net.Definitions.ServerFunction(),
+	GetAccessory = Net.Definitions.ClientToServerEvent(),
 })
 local default = Remotes
 return {

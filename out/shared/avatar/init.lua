@@ -26,109 +26,90 @@ do
 	end
 	function Avatar:loadCharacter()
 		local character = getR15()
-		local _1 = self.appearanceInfo.assets
-		local _2 = function(asset)
-			local _3 = asset.assetType.id
-			repeat
-				local _4 = false
-				if _3 == ((Enum.AssetType.Hat.Value)) then
-					_4 = true
-				end
-				if _4 or _3 == ((Enum.AssetType.HairAccessory.Value)) then
-					_4 = true
-				end
-				if _4 or _3 == ((Enum.AssetType.FaceAccessory.Value)) then
-					_4 = true
-				end
-				if _4 or _3 == ((Enum.AssetType.NeckAccessory.Value)) then
-					_4 = true
-				end
-				if _4 or _3 == ((Enum.AssetType.ShoulderAccessory.Value)) then
-					_4 = true
-				end
-				if _4 or _3 == ((Enum.AssetType.FrontAccessory.Value)) then
-					_4 = true
-				end
-				if _4 or _3 == ((Enum.AssetType.BackAccessory.Value)) then
-					_4 = true
-				end
-				if _4 or _3 == ((Enum.AssetType.WaistAccessory.Value)) then
-					_4 = true
-				end
-				if _4 or _3 == ((Enum.AssetType.EarAccessory.Value)) then
-					local _5 = accessoryRemote:andThen(function(remote)
-						return remote:CallServerAsync(asset.id)
-					end)
-					local _6 = function(accessory)
-						if accessory then
-							character.Humanoid:AddAccessory(accessory)
-						end
-					end
-					_5:andThen(_6)
-					break
-				end
-				if _3 == ((Enum.AssetType.Shirt.Value)) then
-					local instance = Instance.new("Shirt")
-					instance.ShirtTemplate = "rbxassetid://" .. tostring(asset.id)
-					instance.Parent = character
-					break
-				end
-				if _3 == ((Enum.AssetType.TeeShirt.Value)) then
-					local instance = Instance.new("ShirtGraphic")
-					instance.Graphic = "rbxassetid://" .. tostring(asset.id)
-					instance.Parent = character
-					break
-				end
-				if _3 == ((Enum.AssetType.Pants.Value)) then
-					local instance = Instance.new("Shirt")
-					instance.ShirtTemplate = "rbxassetid://" .. tostring(asset.id)
-					instance.Parent = character
-					break
-				end
-				if _3 == ((Enum.AssetType.Face.Value)) then
-					local instance = Instance.new("Decal")
-					instance.Texture = "rbxassetid://" .. tostring(asset.id)
-					instance.Parent = character
-					break
-				end
-			until true
-			-- if (asset)
-			-- if (t.instanceIsA("Accessory")(asset))
-			-- character.Humanoid.AddAccessory(asset);
-			-- else if (t.instanceIsA("ValueBase")(asset))
-			-- asset.Parent = character.Humanoid;
-			-- else if (asset.Name === "R15ArtistIntent") {
-			-- asset.GetChildren().forEach(bodyPart => {
-			-- const bodyPartType = Enum.BodyPartR15.GetEnumItems().find(item => item.Name === bodyPart.Name);
-			-- if (t.instanceIsA("BasePart")(bodyPart) && bodyPartType)
-			-- character.Humanoid.ReplaceBodyPartR15(bodyPartType, bodyPart);
-			-- });
-			-- asset.Destroy();
-			-- }
-			-- else if (t.union(t.instanceIsA("Clothing"), t.instanceIsA("ShirtGraphic"))(asset))
-			-- asset.Parent = character;
-			-- else if (t.instanceIsA("SpecialMesh")(asset) && asset.Name === "Mesh") {
-			-- character.Head.Mesh.Destroy();
-			-- asset.Parent = character.Head;
-			-- }
-			-- else if (t.instanceIsA("Decal")(asset) && asset.Name === "face") {
-			-- character.Head.face.Destroy();
-			-- asset.Parent = character.Head;
-			-- }
-		end
-		-- ▼ ReadonlyArray.forEach ▼
-		for _3, _4 in ipairs(_1) do
-			_2(_4, _3 - 1, _1)
-		end
-		-- ▲ ReadonlyArray.forEach ▲
-		local bodyColors = Instance.new("BodyColors")
-		bodyColors.HeadColor = BrickColor.new(self.appearanceInfo.bodyColors.headColorId)
-		bodyColors.TorsoColor = BrickColor.new(self.appearanceInfo.bodyColors.torsoColorId)
-		bodyColors.RightArmColor = BrickColor.new(self.appearanceInfo.bodyColors.rightArmColorId)
-		bodyColors.LeftLegColor = BrickColor.new(self.appearanceInfo.bodyColors.leftLegColorId)
-		bodyColors.RightLegColor = BrickColor.new(self.appearanceInfo.bodyColors.rightLegColorId)
-		bodyColors.LeftArmColor = BrickColor.new(self.appearanceInfo.bodyColors.leftArmColorId)
-		character.Name = t.number(self.user) and Players:GetNameFromUserIdAsync(self.user) or self.user.Name
+		-- this.appearanceInfo.assets.forEach(asset => {
+		-- print(asset)
+		-- switch (asset.assetType.id) {
+		-- case (Enum.AssetType.Hat.Value):
+		-- case (Enum.AssetType.HairAccessory.Value):
+		-- case (Enum.AssetType.FaceAccessory.Value):
+		-- case (Enum.AssetType.NeckAccessory.Value):
+		-- case (Enum.AssetType.ShoulderAccessory.Value):
+		-- case (Enum.AssetType.FrontAccessory.Value):
+		-- case (Enum.AssetType.BackAccessory.Value):
+		-- case (Enum.AssetType.WaistAccessory.Value):
+		-- case (Enum.AssetType.EarAccessory.Value): {
+		-- accessoryRemote.then(remote => remote.SendToServer(asset.id));
+		-- break;
+		-- }
+		-- case (Enum.AssetType.Shirt.Value): {
+		-- const instance = new Instance("Shirt");
+		-- instance.ShirtTemplate = `rbxassetid://${asset.id}`;
+		-- instance.Name = "Shirt";
+		-- instance.Parent = character;
+		-- break;
+		-- }
+		-- case (Enum.AssetType.TeeShirt.Value): {
+		-- const instance = new Instance("ShirtGraphic");
+		-- instance.Graphic = `rbxassetid://${asset.id}`;
+		-- instance.Name = "ShirtGraphic";
+		-- instance.Parent = character;
+		-- break;
+		-- }
+		-- case (Enum.AssetType.Pants.Value): {
+		-- const instance = new Instance("Pants");
+		-- instance.PantsTemplate = `rbxassetid://${asset.id}`;
+		-- instance.Name = "Pants";
+		-- instance.Parent = character;
+		-- break;
+		-- }
+		-- case (Enum.AssetType.Face.Value): {
+		-- const instance = new Instance("Decal");
+		-- instance.Texture = `rbxassetid://${asset.id}`;
+		-- instance.Name = "face";
+		-- character.Head.face.Destroy();
+		-- instance.Parent = character.Head;
+		-- break;
+		-- }
+		-- case (Enum.AssetType.Head.Value): {
+		-- const instance = new Instance("SpecialMesh");
+		-- instance.MeshId = `rbxassetid://${asset.id}`;
+		-- instance.Name = "Mesh";
+		-- character.Head.Mesh.Destroy();
+		-- }
+		-- }
+		-- // if (asset)
+		-- //     if (t.instanceIsA("Accessory")(asset))
+		-- //         character.Humanoid.AddAccessory(asset);
+		-- //     else if (t.instanceIsA("ValueBase")(asset))
+		-- //         asset.Parent = character.Humanoid;
+		-- //     else if (asset.Name === "R15ArtistIntent") {
+		-- //         asset.GetChildren().forEach(bodyPart => {
+		-- //             const bodyPartType = Enum.BodyPartR15.GetEnumItems().find(item => item.Name === bodyPart.Name);
+		-- //             if (t.instanceIsA("BasePart")(bodyPart) && bodyPartType)
+		-- //                 character.Humanoid.ReplaceBodyPartR15(bodyPartType, bodyPart);
+		-- //         });
+		-- //         asset.Destroy();
+		-- //     }
+		-- //     else if (t.union(t.instanceIsA("Clothing"), t.instanceIsA("ShirtGraphic"))(asset))
+		-- //         asset.Parent = character;
+		-- //     else if (t.instanceIsA("SpecialMesh")(asset) && asset.Name === "Mesh") {
+		-- //         character.Head.Mesh.Destroy();
+		-- //         asset.Parent = character.Head;
+		-- //     }
+		-- //     else if (t.instanceIsA("Decal")(asset) && asset.Name === "face") {
+		-- //         character.Head.face.Destroy();
+		-- //         asset.Parent = character.Head;
+		-- //     }
+		-- });
+		-- const bodyColors = new Instance("BodyColors");
+		-- bodyColors.HeadColor = new BrickColor(this.appearanceInfo.bodyColors.headColorId);
+		-- bodyColors.TorsoColor = new BrickColor(this.appearanceInfo.bodyColors.torsoColorId);
+		-- bodyColors.RightArmColor = new BrickColor(this.appearanceInfo.bodyColors.rightArmColorId);
+		-- bodyColors.LeftLegColor = new BrickColor(this.appearanceInfo.bodyColors.leftLegColorId);
+		-- bodyColors.RightLegColor = new BrickColor(this.appearanceInfo.bodyColors.rightLegColorId);
+		-- bodyColors.LeftArmColor = new BrickColor(this.appearanceInfo.bodyColors.leftArmColorId);
+		-- character.Name = t.number(this.user) ? Players.GetNameFromUserIdAsync(this.user) : this.user.Name;
+		character.Humanoid:ApplyDescription(Players:GetHumanoidDescriptionFromUserId(t.number(self.user) and self.user or self.user.UserId))
 		return character
 	end
 	function Avatar:changeShirt(character, newShirtId)

@@ -1,9 +1,9 @@
-import { InsertService, MarketplaceService } from "@rbxts/services";
+import { CollectionService, Debris, InsertService, MarketplaceService, Players, ReplicatedStorage } from "@rbxts/services";
 import Remotes from "shared/remotes";
 
 const remote = Remotes.Server.Create("GetAccessory");
 
-remote.SetCallback((player, id) => {
+remote.Connect((player, id) => {
     try {
         const productInfo = MarketplaceService.GetProductInfo(id, Enum.InfoType.Asset);
         switch (productInfo.AssetTypeId) {
@@ -16,8 +16,8 @@ remote.SetCallback((player, id) => {
             case (Enum.AssetType.WaistAccessory.Value):
             case (Enum.AssetType.EarAccessory.Value): {
                 const asset = InsertService.LoadAsset(id);
-                asset.Parent = undefined;
-                return asset.FindFirstAncestorWhichIsA("Accessory");
+                asset.Parent = player;
+                Debris.AddItem(asset);
             }
         }
     } catch {

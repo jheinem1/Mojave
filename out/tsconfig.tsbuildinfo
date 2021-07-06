@@ -270,7 +270,7 @@
         "affectsGlobalScope": false
       },
       "../src/shared/remotes.ts": {
-        "version": "1d3b8dad32539f3ccef9f2ebfdc2885bd79ade151b7529263de7093697b9168a",
+        "version": "e98ab3ed128688615284285d95f0091618f221d45f5912b955ee2abd5c42846f",
         "affectsGlobalScope": false
       },
       "../src/client/hud/components/state.tsx": {
@@ -330,7 +330,7 @@
         "affectsGlobalScope": false
       },
       "../src/shared/avatar/index.ts": {
-        "version": "03482979319ad38a6125e220bbd4c612193ae76ef95914363446b07c4988668c",
+        "version": "6fa95607eda42d74501a0d124a861b17c4a80d20f84eb7737d287b425a462237",
         "affectsGlobalScope": false
       },
       "../src/client/spawn_gui/components/screens/teams/avatar_viewport.tsx": {
@@ -374,7 +374,7 @@
         "affectsGlobalScope": false
       },
       "../src/server/accessory_handler.server.ts": {
-        "version": "d5cedb70f7422698d9bb789318d213bba246749f1f1586ea9984a37ccaaf5e73",
+        "version": "363c2f410f9673ed7f69870611ea702518f190a3e6494760ff560823f76218db",
         "affectsGlobalScope": false
       },
       "../src/server/faction_handler.server.ts": {
