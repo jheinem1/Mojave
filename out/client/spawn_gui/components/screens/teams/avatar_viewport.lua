@@ -13,9 +13,9 @@ do
 		local viewport = self.viewportRef:getValue()
 		if viewport then
 			local camera = Instance.new("Camera")
-			camera.CFrame = CFrame.new()
-			camera.Parent = viewport
-			viewport.CurrentCamera = camera
+			camera.CFrame = CFrame.fromOrientation(0, 0, 0)
+			camera.CameraType = Enum.CameraType.Scriptable
+			camera.FieldOfView = 70
 			local character = self.avatarGenerator:loadCharacter()
 			local _0 = self.props.shirtId
 			if _0 ~= 0 and _0 == _0 and _0 then
@@ -25,6 +25,9 @@ do
 			if _1 ~= 0 and _1 == _1 and _1 then
 				self.avatarGenerator:changePants(character, self.props.pantsId)
 			end
+			character:SetPrimaryPartCFrame(CFrame.new(16.5, -3, 7))
+			camera.Parent = viewport
+			viewport.CurrentCamera = camera
 			character.Parent = viewport
 		end
 	end

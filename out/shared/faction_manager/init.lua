@@ -105,58 +105,57 @@ local function startCaching()
 	-- ▼ Array.push ▼
 	_2[#_2 + 1] = _3
 	-- ▲ Array.push ▲
-	local _4 = Players:GetPlayers()
-	local _5 = function(player)
-		local _6 = factions
-		local _7 = function(faction)
+	local onPlayer = function(player)
+		local _4 = factions
+		local _5 = function(faction)
 			local rank = player:GetRankInGroup(faction.groupId)
-			local _8 = faction.roles
-			local _9 = rank
-			local role = _8[_9]
+			local _6 = faction.roles
+			local _7 = rank
+			local role = _6[_7]
 			if role then
-				local _10 = faction.players
-				local _11 = player
-				local _12 = role
+				local _8 = faction.players
+				local _9 = player
+				local _10 = role
 				-- ▼ Map.set ▼
-				_10[_11] = _12
+				_8[_9] = _10
 				-- ▲ Map.set ▲
-				local _13 = clientInfo
-				local _14 = player
-				if not _13[_14] then
-					local _15 = clientInfo
-					local _16 = player
+				local _11 = clientInfo
+				local _12 = player
+				if not _11[_12] then
+					local _13 = clientInfo
+					local _14 = player
 					-- ▼ Map.set ▼
-					_15[_16] = {
+					_13[_14] = {
 						factions = {},
 					}
 					-- ▲ Map.set ▲
 				end
 				local roles = {}
-				local _15 = faction.roles
-				local _16 = function(role)
-					local _17 = roles
-					local _18 = {
+				local _13 = faction.roles
+				local _14 = function(role)
+					local _15 = roles
+					local _16 = {
 						name = role.name,
 						id = role.id,
 						faction = faction.groupId,
 					}
 					-- ▼ Array.push ▼
-					local _19 = #_17
-					_17[_19 + 1] = _18
+					local _17 = #_15
+					_15[_17 + 1] = _16
 					-- ▲ Array.push ▲
-					return _19 + 1
+					return _17 + 1
 				end
 				-- ▼ ReadonlyMap.forEach ▼
-				for _17, _18 in pairs(_15) do
-					_16(_18, _17, _15)
+				for _15, _16 in pairs(_13) do
+					_14(_16, _15, _13)
 				end
 				-- ▲ ReadonlyMap.forEach ▲
-				local _17 = clientInfo
-				local _18 = player
-				local _19 = _17[_18]
-				if _19 ~= nil then
-					local _20 = _19.factions
-					local _21 = {
+				local _15 = clientInfo
+				local _16 = player
+				local _17 = _15[_16]
+				if _17 ~= nil then
+					local _18 = _17.factions
+					local _19 = {
 						name = faction.name,
 						shortName = faction.shortName,
 						groupId = faction.groupId,
@@ -165,18 +164,21 @@ local function startCaching()
 						clientRole = rank,
 					}
 					-- ▼ Array.push ▼
-					_20[#_20 + 1] = _21
+					_18[#_18 + 1] = _19
 					-- ▲ Array.push ▲
 				end
 			end
 		end
 		-- ▼ ReadonlyMap.forEach ▼
-		for _8, _9 in pairs(_6) do
-			_7(_9, _8, _6)
+		for _6, _7 in pairs(_4) do
+			_5(_7, _6, _4)
 		end
 		-- ▲ ReadonlyMap.forEach ▲
 		return nil
 	end
+	Players.PlayerAdded:Connect(onPlayer)
+	local _4 = Players:GetPlayers()
+	local _5 = onPlayer
 	-- ▼ ReadonlyArray.forEach ▼
 	for _6, _7 in ipairs(_4) do
 		_5(_7, _6 - 1, _4)

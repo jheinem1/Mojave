@@ -3,7 +3,7 @@ import { t } from "@rbxts/t";
 import Remotes from "shared/remotes";
 import { Character, getR15, getR6, R15, R6 } from "./character_types";
 
-const accessoryRemote = await Remotes.Client.WaitFor("GetAccessory");
+const accessoryRemote = Remotes.Client.WaitFor("GetAccessory");
 
 export class Avatar {
     appearanceInfo: CharacterAppearanceInfo;
@@ -12,8 +12,6 @@ export class Avatar {
     }
     loadCharacter(): R15 {
         const character = getR15();
-        const x = new Instance("HumanoidDescription")
-        x.GetAccessories(true);
         this.appearanceInfo.assets.forEach(asset => {
             switch (asset.assetType.id) {
                 case (Enum.AssetType.Hat.Value):
@@ -25,7 +23,7 @@ export class Avatar {
                 case (Enum.AssetType.BackAccessory.Value):
                 case (Enum.AssetType.WaistAccessory.Value):
                 case (Enum.AssetType.EarAccessory.Value): {
-                    accessoryRemote.CallServerAsync(asset.assetType.id).then(accessory => {
+                    accessoryRemote.andThen(remote => remote.CallServerAsync(asset.id)).then(accessory => {
                         if (accessory)
                             character.Humanoid.AddAccessory(accessory);
                     });

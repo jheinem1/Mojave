@@ -53,7 +53,7 @@ export function startCaching() {
         if (role)
             faction.players.set(player, role);
     })));
-    Players.GetPlayers().forEach(player => factions.forEach(faction => {
+    const onPlayer = (player: Player) => factions.forEach(faction => {
         const rank = player.GetRankInGroup(faction.groupId);
         const role = faction.roles.get(rank);
         if (role) {
@@ -75,7 +75,9 @@ export function startCaching() {
                 clientRole: rank
             });
         }
-    }));
+    });
+    Players.PlayerAdded.Connect(onPlayer);
+    Players.GetPlayers().forEach(onPlayer);
     factionRemote.SetCallback(player => clientInfo.get(player) ?? error(`Client info for player ${player} does not exist`));
 }
 

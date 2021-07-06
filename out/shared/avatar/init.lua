@@ -4,7 +4,9 @@ local _0 = TS.import(script, TS.getModule(script, "services"))
 local MarketplaceService = _0.MarketplaceService
 local Players = _0.Players
 local t = TS.import(script, TS.getModule(script, "t").lib.ts).t
+local Remotes = TS.import(script, game:GetService("ReplicatedStorage"), "Shared", "remotes").default
 local getR15 = TS.import(script, game:GetService("ReplicatedStorage"), "Shared", "avatar", "character_types").getR15
+local accessoryRemote = Remotes.Client:WaitFor("GetAccessory")
 local Avatar
 do
 	Avatar = setmetatable({}, {
@@ -29,7 +31,10 @@ do
 			local _3 = asset.assetType.id
 			repeat
 				local _4 = false
-				if _3 == ((Enum.AssetType.HairAccessory.Value)) then
+				if _3 == ((Enum.AssetType.Hat.Value)) then
+					_4 = true
+				end
+				if _4 or _3 == ((Enum.AssetType.HairAccessory.Value)) then
 					_4 = true
 				end
 				if _4 or _3 == ((Enum.AssetType.FaceAccessory.Value)) then
@@ -51,6 +56,40 @@ do
 					_4 = true
 				end
 				if _4 or _3 == ((Enum.AssetType.EarAccessory.Value)) then
+					local _5 = accessoryRemote:andThen(function(remote)
+						return remote:CallServerAsync(asset.id)
+					end)
+					local _6 = function(accessory)
+						if accessory then
+							character.Humanoid:AddAccessory(accessory)
+						end
+					end
+					_5:andThen(_6)
+					break
+				end
+				if _3 == ((Enum.AssetType.Shirt.Value)) then
+					local instance = Instance.new("Shirt")
+					instance.ShirtTemplate = "rbxassetid://" .. tostring(asset.id)
+					instance.Parent = character
+					break
+				end
+				if _3 == ((Enum.AssetType.TeeShirt.Value)) then
+					local instance = Instance.new("ShirtGraphic")
+					instance.Graphic = "rbxassetid://" .. tostring(asset.id)
+					instance.Parent = character
+					break
+				end
+				if _3 == ((Enum.AssetType.Pants.Value)) then
+					local instance = Instance.new("Shirt")
+					instance.ShirtTemplate = "rbxassetid://" .. tostring(asset.id)
+					instance.Parent = character
+					break
+				end
+				if _3 == ((Enum.AssetType.Face.Value)) then
+					local instance = Instance.new("Decal")
+					instance.Texture = "rbxassetid://" .. tostring(asset.id)
+					instance.Parent = character
+					break
 				end
 			until true
 			-- if (asset)

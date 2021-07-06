@@ -322,7 +322,7 @@
         "affectsGlobalScope": false
       },
       "../src/shared/faction_manager/index.ts": {
-        "version": "8e4b232a427690812e0a309a47162c5a142ac0ee2b6aa804b94ec37014e24279",
+        "version": "59202e1b2e67f0d04a0bfd57c61f98673c3b357d52956e263bfd25529107aa77",
         "affectsGlobalScope": false
       },
       "../src/shared/avatar/character_types.ts": {
@@ -330,11 +330,11 @@
         "affectsGlobalScope": false
       },
       "../src/shared/avatar/index.ts": {
-        "version": "0be258062503fbac8e74e7783918101023acac56c7adc58da221df959f9f1fdd",
+        "version": "03482979319ad38a6125e220bbd4c612193ae76ef95914363446b07c4988668c",
         "affectsGlobalScope": false
       },
       "../src/client/spawn_gui/components/screens/teams/avatar_viewport.tsx": {
-        "version": "63b42267673e82e0080e3dac5da0c6403eea8fb4e8853d2a9e242836b81235a7",
+        "version": "25478d1222e8d6d8e5477f824c1b20fec0c3b21aa88d048e17970d1224a902a9",
         "affectsGlobalScope": false
       },
       "../src/client/spawn_gui/components/screens/teams/teambutton.tsx": {
@@ -373,6 +373,10 @@
         "version": "10372d24854599cddf1197a4d10749da42d1065b1636a3ac841bdcff2cd0ae2b",
         "affectsGlobalScope": false
       },
+      "../src/server/accessory_handler.server.ts": {
+        "version": "d5cedb70f7422698d9bb789318d213bba246749f1f1586ea9984a37ccaaf5e73",
+        "affectsGlobalScope": false
+      },
       "../src/server/faction_handler.server.ts": {
         "version": "0746c131f3810f20628d8752cd93c0149fac76aa78e38b1fcc59a9fd14be48a7",
         "affectsGlobalScope": false
@@ -391,10 +395,6 @@
       },
       "../src/server/safezones.server.ts": {
         "version": "0fb606a47f5f8d0e11253343b35ab099e101096c0754191ea2e010894d8f887e",
-        "affectsGlobalScope": false
-      },
-      "../src/server/accessory_handler.server.ts": {
-        "version": "3687c2df16128b9a9cdb28ceacdb490e57aa8cac1d57357546cce05a90d5b221",
         "affectsGlobalScope": false
       },
       "../node_modules/@rbxts/rotatedregion3/index.d.ts": {
@@ -810,7 +810,8 @@
       "../src/shared/avatar/index.ts": [
         "../node_modules/@rbxts/services/index.d.ts",
         "../node_modules/@rbxts/t/lib/t.d.ts",
-        "../src/shared/avatar/character_types.ts"
+        "../src/shared/avatar/character_types.ts",
+        "../src/shared/remotes.ts"
       ],
       "../src/shared/faction_manager/faction.ts": [
         "../node_modules/@rbxts/services/index.d.ts",
