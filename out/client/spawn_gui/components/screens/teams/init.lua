@@ -2,6 +2,7 @@
 local TS = require(game:GetService("ReplicatedStorage"):WaitForChild("rbxts_include"):WaitForChild("RuntimeLib"))
 local ObjectEvent = TS.import(script, TS.getModule(script, "object-event"))
 local Roact = TS.import(script, TS.getModule(script, "roact").src)
+local Players = TS.import(script, TS.getModule(script, "services")).Players
 local getClientFactionInfo = TS.import(script, game:GetService("ReplicatedStorage"), "Shared", "faction_manager").getClientFactionInfo
 local Screen = TS.import(script, script.Parent, "screen").Screen
 local AvatarViewportComponent = TS.import(script, script, "avatar_viewport").AvatarViewportComponent
@@ -66,6 +67,9 @@ do
 			_1 = 0
 		end
 		local numFactions = _1 + 1
+		local avatarViewport = Roact.createElement(AvatarViewportComponent, {
+			player = Players.LocalPlayer,
+		})
 		local _2 = self.state.factions
 		if _2 ~= nil then
 			local _3 = function(faction)
@@ -73,7 +77,7 @@ do
 				local _5 = Roact.createElement(TeamButtonComponent, {
 					Name = faction.shortName,
 					Id = faction.groupId,
-					Avatar = Roact.createElement(AvatarViewportComponent),
+					Avatar = avatarViewport,
 					NumButtons = numFactions,
 					StartSelectedIfAlone = false,
 					SelectedEvent = self.event,
@@ -105,7 +109,7 @@ do
 			Roact.createElement(TeamButtonComponent, {
 				Name = "WASTELANDER",
 				Id = -1,
-				Avatar = Roact.createElement(AvatarViewportComponent),
+				Avatar = avatarViewport,
 				NumButtons = numFactions,
 				StartSelectedIfAlone = true,
 				SelectedEvent = self.event,

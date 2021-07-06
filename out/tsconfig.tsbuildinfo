@@ -270,7 +270,7 @@
         "affectsGlobalScope": false
       },
       "../src/shared/remotes.ts": {
-        "version": "23eab7ec9ec0963b703b9d755b56ee1771a65a7b2020a51dd9dbf8711d345294",
+        "version": "1d3b8dad32539f3ccef9f2ebfdc2885bd79ade151b7529263de7093697b9168a",
         "affectsGlobalScope": false
       },
       "../src/client/hud/components/state.tsx": {
@@ -325,8 +325,16 @@
         "version": "8e4b232a427690812e0a309a47162c5a142ac0ee2b6aa804b94ec37014e24279",
         "affectsGlobalScope": false
       },
+      "../src/shared/avatar/character_types.ts": {
+        "version": "dafd9e1b09c01ca1d9615daaec60f6eb83f770f30601e86c51aa2f6d32a716bf",
+        "affectsGlobalScope": false
+      },
+      "../src/shared/avatar/index.ts": {
+        "version": "0be258062503fbac8e74e7783918101023acac56c7adc58da221df959f9f1fdd",
+        "affectsGlobalScope": false
+      },
       "../src/client/spawn_gui/components/screens/teams/avatar_viewport.tsx": {
-        "version": "4b9968658d30bf33ce11bbf6b9c8d75352cb14db73adc981dd09db3dc6c429c0",
+        "version": "63b42267673e82e0080e3dac5da0c6403eea8fb4e8853d2a9e242836b81235a7",
         "affectsGlobalScope": false
       },
       "../src/client/spawn_gui/components/screens/teams/teambutton.tsx": {
@@ -334,7 +342,7 @@
         "affectsGlobalScope": false
       },
       "../src/client/spawn_gui/components/screens/teams/index.tsx": {
-        "version": "b448020b22f0950dc62f8e1f46560281ee45515f75b96c3910b231e6c8c4fdb2",
+        "version": "573772a71fc485ca3473b17fe2c6263b5ae31ba73ee40996a1e52f52c52231c8",
         "affectsGlobalScope": false
       },
       "../src/client/spawn_gui/components/progress.tsx": {
@@ -385,12 +393,8 @@
         "version": "0fb606a47f5f8d0e11253343b35ab099e101096c0754191ea2e010894d8f887e",
         "affectsGlobalScope": false
       },
-      "../src/shared/avatar/character_types.ts": {
-        "version": "dafd9e1b09c01ca1d9615daaec60f6eb83f770f30601e86c51aa2f6d32a716bf",
-        "affectsGlobalScope": false
-      },
-      "../src/shared/avatar/index.ts": {
-        "version": "a8f13c9baa09557077ee68d18747fe630caed35a4a59336ece1d8cb7353a27e2",
+      "../src/server/accessory_handler.server.ts": {
+        "version": "3687c2df16128b9a9cdb28ceacdb490e57aa8cac1d57357546cce05a90d5b221",
         "affectsGlobalScope": false
       },
       "../node_modules/@rbxts/rotatedregion3/index.d.ts": {
@@ -753,11 +757,13 @@
         "../src/client/spawn_gui/components/screens/progress_item.tsx"
       ],
       "../src/client/spawn_gui/components/screens/teams/avatar_viewport.tsx": [
-        "../node_modules/@rbxts/roact/src/index.d.ts"
+        "../node_modules/@rbxts/roact/src/index.d.ts",
+        "../src/shared/avatar/index.ts"
       ],
       "../src/client/spawn_gui/components/screens/teams/index.tsx": [
         "../node_modules/@rbxts/object-event/index.d.ts",
         "../node_modules/@rbxts/roact/src/index.d.ts",
+        "../node_modules/@rbxts/services/index.d.ts",
         "../src/client/spawn_gui/components/screens/screen.tsx",
         "../src/client/spawn_gui/components/screens/teams/avatar_viewport.tsx",
         "../src/client/spawn_gui/components/screens/teams/teambutton.tsx",
@@ -778,6 +784,10 @@
         "../node_modules/@rbxts/roact/src/index.d.ts",
         "../node_modules/@rbxts/services/index.d.ts",
         "../src/client/spawn_gui/components/spawn_gui.tsx"
+      ],
+      "../src/server/accessory_handler.server.ts": [
+        "../node_modules/@rbxts/services/index.d.ts",
+        "../src/shared/remotes.ts"
       ],
       "../src/server/faction_handler.server.ts": [
         "../src/shared/faction_manager/index.ts"

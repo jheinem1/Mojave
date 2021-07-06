@@ -1,5 +1,6 @@
 import ObjectEvent from "@rbxts/object-event";
 import Roact from "@rbxts/roact";
+import { Players } from "@rbxts/services";
 import { getClientFactionInfo } from "shared/faction_manager";
 import { ClientFaction } from "shared/faction_manager/faction";
 import { Screen } from "../screen";
@@ -33,11 +34,14 @@ class TeamsComponent extends Roact.Component<{}, TeamsState> {
     render() {
         const teams = new Array<Roact.Element>();
         const numFactions = (this.state.factions?.size() ?? 0) + 1;
+        const avatarViewport = <AvatarViewportComponent
+            player={Players.LocalPlayer}
+        />
         this.state.factions?.forEach(faction =>
             teams.push(<TeamButtonComponent
                 Name={faction.shortName}
                 Id={faction.groupId}
-                Avatar={<AvatarViewportComponent />}
+                Avatar={avatarViewport}
                 NumButtons={numFactions}
                 StartSelectedIfAlone={false}
                 SelectedEvent={this.event}
@@ -55,7 +59,7 @@ class TeamsComponent extends Roact.Component<{}, TeamsState> {
             <TeamButtonComponent
                 Name={"WASTELANDER"}
                 Id={-1}
-                Avatar={<AvatarViewportComponent />}
+                Avatar={avatarViewport}
                 NumButtons={numFactions}
                 StartSelectedIfAlone={true}
                 SelectedEvent={this.event}

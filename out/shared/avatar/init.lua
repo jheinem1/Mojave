@@ -1,7 +1,7 @@
 -- Compiled with roblox-ts v1.1.1
 local TS = require(game:GetService("ReplicatedStorage"):WaitForChild("rbxts_include"):WaitForChild("RuntimeLib"))
 local _0 = TS.import(script, TS.getModule(script, "services"))
-local InsertService = _0.InsertService
+local MarketplaceService = _0.MarketplaceService
 local Players = _0.Players
 local t = TS.import(script, TS.getModule(script, "t").lib.ts).t
 local getR15 = TS.import(script, game:GetService("ReplicatedStorage"), "Shared", "avatar", "character_types").getR15
@@ -26,62 +26,60 @@ do
 		local character = getR15()
 		local _1 = self.appearanceInfo.assets
 		local _2 = function(asset)
-			return InsertService:LoadAsset(asset.id)
-		end
-		-- ▼ ReadonlyArray.map ▼
-		local _3 = table.create(#_1)
-		for _4, _5 in ipairs(_1) do
-			_3[_4] = _2(_5, _4 - 1, _1)
-		end
-		-- ▲ ReadonlyArray.map ▲
-		local _4 = function(model)
-			local asset = model:FindFirstChildWhichIsA("Instance")
-			if asset then
-				if t.instanceIsA("Accessory")(asset) then
-					character.Humanoid:AddAccessory(asset)
-				elseif t.instanceIsA("ValueBase")(asset) then
-					asset.Parent = character.Humanoid
-				elseif asset.Name == "R15ArtistIntent" then
-					local _5 = asset:GetChildren()
-					local _6 = function(bodyPart)
-						local _7 = Enum.BodyPartR15:GetEnumItems()
-						local _8 = function(item)
-							return item.Name == bodyPart.Name
-						end
-						-- ▼ ReadonlyArray.find ▼
-						local _9 = nil
-						for _10, _11 in ipairs(_7) do
-							if _8(_11, _10 - 1, _7) == true then
-								_9 = _11
-								break
-							end
-						end
-						-- ▲ ReadonlyArray.find ▲
-						local bodyPartType = _9
-						if t.instanceIsA("BasePart")(bodyPart) and bodyPartType then
-							character.Humanoid:ReplaceBodyPartR15(bodyPartType, bodyPart)
-						end
-					end
-					-- ▼ ReadonlyArray.forEach ▼
-					for _7, _8 in ipairs(_5) do
-						_6(_8, _7 - 1, _5)
-					end
-					-- ▲ ReadonlyArray.forEach ▲
-					asset:Destroy()
-				elseif t.union(t.instanceIsA("Clothing"), t.instanceIsA("ShirtGraphic"))(asset) then
-					asset.Parent = character
-				elseif t.instanceIsA("SpecialMesh")(asset) and asset.Name == "Mesh" then
-					character.Head.Mesh:Destroy()
-					asset.Parent = character.Head
-				elseif t.instanceIsA("Decal")(asset) and asset.Name == "face" then
-					character.Head.face:Destroy()
-					asset.Parent = character.Head
+			local _3 = asset.assetType.id
+			repeat
+				local _4 = false
+				if _3 == ((Enum.AssetType.HairAccessory.Value)) then
+					_4 = true
 				end
-			end
+				if _4 or _3 == ((Enum.AssetType.FaceAccessory.Value)) then
+					_4 = true
+				end
+				if _4 or _3 == ((Enum.AssetType.NeckAccessory.Value)) then
+					_4 = true
+				end
+				if _4 or _3 == ((Enum.AssetType.ShoulderAccessory.Value)) then
+					_4 = true
+				end
+				if _4 or _3 == ((Enum.AssetType.FrontAccessory.Value)) then
+					_4 = true
+				end
+				if _4 or _3 == ((Enum.AssetType.BackAccessory.Value)) then
+					_4 = true
+				end
+				if _4 or _3 == ((Enum.AssetType.WaistAccessory.Value)) then
+					_4 = true
+				end
+				if _4 or _3 == ((Enum.AssetType.EarAccessory.Value)) then
+				end
+			until true
+			-- if (asset)
+			-- if (t.instanceIsA("Accessory")(asset))
+			-- character.Humanoid.AddAccessory(asset);
+			-- else if (t.instanceIsA("ValueBase")(asset))
+			-- asset.Parent = character.Humanoid;
+			-- else if (asset.Name === "R15ArtistIntent") {
+			-- asset.GetChildren().forEach(bodyPart => {
+			-- const bodyPartType = Enum.BodyPartR15.GetEnumItems().find(item => item.Name === bodyPart.Name);
+			-- if (t.instanceIsA("BasePart")(bodyPart) && bodyPartType)
+			-- character.Humanoid.ReplaceBodyPartR15(bodyPartType, bodyPart);
+			-- });
+			-- asset.Destroy();
+			-- }
+			-- else if (t.union(t.instanceIsA("Clothing"), t.instanceIsA("ShirtGraphic"))(asset))
+			-- asset.Parent = character;
+			-- else if (t.instanceIsA("SpecialMesh")(asset) && asset.Name === "Mesh") {
+			-- character.Head.Mesh.Destroy();
+			-- asset.Parent = character.Head;
+			-- }
+			-- else if (t.instanceIsA("Decal")(asset) && asset.Name === "face") {
+			-- character.Head.face.Destroy();
+			-- asset.Parent = character.Head;
+			-- }
 		end
 		-- ▼ ReadonlyArray.forEach ▼
-		for _5, _6 in ipairs(_3) do
-			_4(_6, _5 - 1, _3)
+		for _3, _4 in ipairs(_1) do
+			_2(_4, _3 - 1, _1)
 		end
 		-- ▲ ReadonlyArray.forEach ▲
 		local bodyColors = Instance.new("BodyColors")
@@ -95,18 +93,25 @@ do
 		return character
 	end
 	function Avatar:changeShirt(character, newShirtId)
-		local newShirt = InsertService:LoadAsset(newShirtId):FindFirstChildWhichIsA("Shirt")
-		local _1 = InsertService:LoadAsset(newShirtId):GetChildren()
-		local _2 = tostring
-		-- ▼ ReadonlyArray.map ▼
-		local _3 = table.create(#_1)
-		for _4, _5 in ipairs(_1) do
-			_3[_4] = _2(_5, _4 - 1, _1)
+		local productInfo = MarketplaceService:GetProductInfo(newShirtId, Enum.InfoType.Asset)
+		local _1 = productInfo.AssetTypeId == Enum.AssetType.Shirt.Value
+		local _2 = Enum.AssetType:GetEnumItems()
+		local _3 = function(assetType)
+			return assetType.Value == productInfo.AssetTypeId
 		end
-		-- ▲ ReadonlyArray.map ▲
-		local _4 = newShirt
-		local _5 = "Expected shirt, got [" .. table.concat(_3, ", ") .. "] from '" .. tostring(newShirtId) .. "'"
-		assert(_4, _5)
+		-- ▼ ReadonlyArray.find ▼
+		local _4 = nil
+		for _5, _6 in ipairs(_2) do
+			if _3(_6, _5 - 1, _2) == true then
+				_4 = _6
+				break
+			end
+		end
+		-- ▲ ReadonlyArray.find ▲
+		local _5 = 'Expected shirt, got "' .. tostring(_4) .. [[" from ']] .. tostring(newShirtId) .. "'"
+		assert(_1, _5)
+		local newShirt = Instance.new("Shirt")
+		newShirt.ShirtTemplate = "rbxassetid://" .. tostring(productInfo.AssetId)
 		local _6 = character.Shirt
 		if _6 ~= nil then
 			_6:Destroy()
@@ -115,18 +120,25 @@ do
 		return character
 	end
 	function Avatar:changePants(character, newPantsId)
-		local newPants = InsertService:LoadAsset(newPantsId):FindFirstChildWhichIsA("Pants")
-		local _1 = InsertService:LoadAsset(newPantsId):GetChildren()
-		local _2 = tostring
-		-- ▼ ReadonlyArray.map ▼
-		local _3 = table.create(#_1)
-		for _4, _5 in ipairs(_1) do
-			_3[_4] = _2(_5, _4 - 1, _1)
+		local productInfo = MarketplaceService:GetProductInfo(newPantsId, Enum.InfoType.Asset)
+		local _1 = productInfo.AssetTypeId == Enum.AssetType.Pants.Value
+		local _2 = Enum.AssetType:GetEnumItems()
+		local _3 = function(assetType)
+			return assetType.Value == productInfo.AssetTypeId
 		end
-		-- ▲ ReadonlyArray.map ▲
-		local _4 = newPants
-		local _5 = "Expected pants, got [" .. table.concat(_3, ", ") .. "] from '" .. tostring(newPantsId) .. "'"
-		assert(_4, _5)
+		-- ▼ ReadonlyArray.find ▼
+		local _4 = nil
+		for _5, _6 in ipairs(_2) do
+			if _3(_6, _5 - 1, _2) == true then
+				_4 = _6
+				break
+			end
+		end
+		-- ▲ ReadonlyArray.find ▲
+		local _5 = 'Expected pants, got "' .. tostring(_4) .. [[" from ']] .. tostring(newPantsId) .. "'"
+		assert(_1, _5)
+		local newPants = Instance.new("Pants")
+		newPants.PantsTemplate = "rbxassetid://" .. tostring(productInfo.AssetId)
 		local _6 = character.Pants
 		if _6 ~= nil then
 			_6:Destroy()
