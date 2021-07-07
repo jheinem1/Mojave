@@ -1,5 +1,7 @@
 export type Character = Model & {
-    Humanoid: Humanoid;
+    Humanoid: Humanoid & {
+        HumanoidDescription?: HumanoidDescription;
+    };
     HumanoidRootPart: Part;
     Head: Part;
     Shirt?: Shirt;

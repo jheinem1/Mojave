@@ -14,11 +14,11 @@ export class AvatarViewportComponent extends Roact.Component<AvatarViewportProps
         super(props);
         this.avatarGenerator = new Avatar(props.player);
     }
-    didMount() {
+    async didMount() {
         const viewport = this.viewportRef.getValue();
         if (viewport) {
             const camera = new Instance("Camera");
-            camera.CFrame = CFrame.fromOrientation(0, 0, 0);
+            camera.CFrame = CFrame.lookAt(new Vector3(0, 0, -5), new Vector3(0, 0, 0));
             camera.CameraType = Enum.CameraType.Scriptable;
             camera.FieldOfView = 70;
 
@@ -27,7 +27,6 @@ export class AvatarViewportComponent extends Roact.Component<AvatarViewportProps
                 this.avatarGenerator.changeShirt(character, this.props.shirtId);
             if (this.props.pantsId)
                 this.avatarGenerator.changePants(character, this.props.pantsId);
-            character.SetPrimaryPartCFrame(new CFrame(16.5, -3, 7));
 
             camera.Parent = viewport;
             viewport.CurrentCamera = camera;

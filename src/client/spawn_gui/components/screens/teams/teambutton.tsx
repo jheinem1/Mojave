@@ -60,7 +60,7 @@ export class TeamButtonComponent extends Roact.Component<TeamButtonProps, TeamBu
                 Key="Faction"
                 BackgroundTransparency={1}
                 Size={new UDim2(1, 0, 0.25, 0)}
-                Visible={this.state.selected}
+                Visible={this.state.selected || this.state.oneSelected ? selectedMinimizedSize >= 350 : normalMinimizedSize >= 350}
                 Font={Enum.Font.GothamSemibold}
                 Text={this.props.Name}
                 TextColor3={Color3.fromRGB(255, 208, 80)}

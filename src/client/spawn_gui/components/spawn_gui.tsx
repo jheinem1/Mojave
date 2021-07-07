@@ -1,8 +1,11 @@
 import Roact from "@rbxts/roact";
 import { ProgressComponent } from "./progress";
-import { ProgressItemComponent } from "./screens/progress_item";
 
-export class SpawnGuiComponent extends Roact.Component {
+interface SpawnGuiProps {
+    currentScreen: LuaTuple<[Roact.Binding<number>, (newValue: number) => void]>;
+}
+
+export class SpawnGuiComponent extends Roact.Component<SpawnGuiProps, {}> {
     render() {
         return <screengui Key="StartMenu" IgnoreGuiInset={true} ZIndexBehavior={Enum.ZIndexBehavior.Sibling}>
             <frame
@@ -24,7 +27,9 @@ export class SpawnGuiComponent extends Roact.Component {
                     TextWrapped={true}
                     TextXAlignment={Enum.TextXAlignment.Left}
                 />
-                <ProgressComponent />
+                <ProgressComponent
+                    currentScreen={this.props.currentScreen}
+                />
             </frame>
         </screengui>
     }

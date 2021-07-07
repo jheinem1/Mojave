@@ -3,14 +3,12 @@ import Roact from "@rbxts/roact";
 import { ProgressItemComponent } from "./progress_item";
 
 export abstract class Screen {
-    position: number;
     startSelected: boolean;
     finished = new ObjectEvent<[]>();
     deselected = new ObjectEvent<[]>();
     selected = new ObjectEvent<[]>();
     abstract name: string;
-    constructor(position: number) {
-        this.position = position;
+    constructor(public position: number, public currentScreen: LuaTuple<[Roact.Binding<number>, (newValue: number) => void]>) {
         this.startSelected = position === 0;
     }
     getButtonComponent(): Roact.Element {

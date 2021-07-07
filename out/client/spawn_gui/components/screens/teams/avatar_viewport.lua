@@ -9,11 +9,11 @@ do
 		self.viewportRef = Roact.createRef()
 		self.avatarGenerator = Avatar.new(props.player)
 	end
-	function AvatarViewportComponent:didMount()
+	AvatarViewportComponent.didMount = TS.async(function(self)
 		local viewport = self.viewportRef:getValue()
 		if viewport then
 			local camera = Instance.new("Camera")
-			camera.CFrame = CFrame.fromOrientation(0, 0, 0)
+			camera.CFrame = CFrame.lookAt(Vector3.new(0, 0, -5), Vector3.new(0, 0, 0))
 			camera.CameraType = Enum.CameraType.Scriptable
 			camera.FieldOfView = 70
 			local character = self.avatarGenerator:loadCharacter()
@@ -25,12 +25,11 @@ do
 			if _1 ~= 0 and _1 == _1 and _1 then
 				self.avatarGenerator:changePants(character, self.props.pantsId)
 			end
-			character:SetPrimaryPartCFrame(CFrame.new(16.5, -3, 7))
 			camera.Parent = viewport
 			viewport.CurrentCamera = camera
 			character.Parent = viewport
 		end
-	end
+	end)
 	function AvatarViewportComponent:render()
 		return Roact.createFragment({
 			Avatar = Roact.createElement("ViewportFrame", {

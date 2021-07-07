@@ -51,7 +51,8 @@ do
 					end
 					_2 = _6
 				end
-				return print("The client has selected to spawn as the " .. tostring(_2) .. " (id:" .. tostring(id) .. ")")
+				print("The client has selected to spawn as the " .. tostring(_2) .. " (id:" .. tostring(id) .. ")")
+				self.props.currentScreen[2](self.props.currentScreen[1]:getValue() + 1)
 			end)
 		end
 		_0:andThen(_1)
@@ -67,9 +68,6 @@ do
 			_1 = 0
 		end
 		local numFactions = _1 + 1
-		local avatarViewport = Roact.createElement(AvatarViewportComponent, {
-			player = Players.LocalPlayer,
-		})
 		local _2 = self.state.factions
 		if _2 ~= nil then
 			local _3 = function(faction)
@@ -77,7 +75,11 @@ do
 				local _5 = Roact.createElement(TeamButtonComponent, {
 					Name = faction.shortName,
 					Id = faction.groupId,
-					Avatar = avatarViewport,
+					Avatar = Roact.createElement(AvatarViewportComponent, {
+						player = Players.LocalPlayer,
+						shirtId = faction.uniformTop,
+						pantsId = faction.uniformBottom,
+					}),
 					NumButtons = numFactions,
 					StartSelectedIfAlone = false,
 					SelectedEvent = self.event,
@@ -109,7 +111,11 @@ do
 			Roact.createElement(TeamButtonComponent, {
 				Name = "WASTELANDER",
 				Id = -1,
-				Avatar = avatarViewport,
+				Avatar = Roact.createElement(AvatarViewportComponent, {
+					player = Players.LocalPlayer,
+					shirtId = 333020740,
+					pantsId = 333020646,
+				}),
 				NumButtons = numFactions,
 				StartSelectedIfAlone = true,
 				SelectedEvent = self.event,
@@ -145,7 +151,9 @@ do
 		self.name = "Teams"
 	end
 	function TeamsScreen:getScreenComponent()
-		return Roact.createElement(TeamsComponent)
+		return Roact.createElement(TeamsComponent, {
+			currentScreen = self.currentScreen,
+		})
 	end
 end
 return {

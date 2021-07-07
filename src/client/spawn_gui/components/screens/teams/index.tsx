@@ -17,31 +17,39 @@ import { TeamButtonComponent } from "./teambutton";
 //         DeselectedEvent={new ObjectEvent<[number]>()}
 //     />)
 
+interface TeamsProps {
+    currentScreen: LuaTuple<[Roact.Binding<number>, (newValue: number) => void]>;
+}
+
 interface TeamsState {
     factions: ClientFaction[] | undefined;
 }
 
-class TeamsComponent extends Roact.Component<{}, TeamsState> {
+class TeamsComponent extends Roact.Component<TeamsProps, TeamsState> {
     event = new ObjectEvent<[TeamButtonComponent, boolean]>();
     teamSelectedEvent = new ObjectEvent<[number]>();
-    constructor(props: {}) {
+    constructor(props: TeamsProps) {
         super(props);
         getClientFactionInfo().then(factionInfo => {
             this.setState({ factions: factionInfo });
-            this.teamSelectedEvent.Connect(id => print(`The client has selected to spawn as the ${id === -1 ? "Wastelanders" : factionInfo.find(faction => faction.groupId === id)?.name} (id:${id})`));
-        })
+            this.teamSelectedEvent.Connect(id => {
+                print(`The client has selected to spawn as the ${id === -1 ? "Wastelanders" : factionInfo.find(faction => faction.groupId === id)?.name} (id:${id})`);
+                this.props.currentScreen[1](this.props.currentScreen[0].getValue() + 1);
+            });
+        });
     }
     render() {
         const teams = new Array<Roact.Element>();
         const numFactions = (this.state.factions?.size() ?? 0) + 1;
-        const avatarViewport = <AvatarViewportComponent
-            player={Players.LocalPlayer}
-        />
         this.state.factions?.forEach(faction =>
             teams.push(<TeamButtonComponent
                 Name={faction.shortName}
                 Id={faction.groupId}
-                Avatar={avatarViewport}
+                Avatar={<AvatarViewportComponent
+                    player={Players.LocalPlayer}
+                    shirtId={faction.uniformTop}
+                    pantsId={faction.uniformBottom}
+                />}
                 NumButtons={numFactions}
                 StartSelectedIfAlone={false}
                 SelectedEvent={this.event}
@@ -59,7 +67,11 @@ class TeamsComponent extends Roact.Component<{}, TeamsState> {
             <TeamButtonComponent
                 Name={"WASTELANDER"}
                 Id={-1}
-                Avatar={avatarViewport}
+                Avatar={<AvatarViewportComponent
+                    player={Players.LocalPlayer}
+                    shirtId={333020740}
+                    pantsId={333020646}
+                />}
                 NumButtons={numFactions}
                 StartSelectedIfAlone={true}
                 SelectedEvent={this.event}
@@ -73,6 +85,8 @@ class TeamsComponent extends Roact.Component<{}, TeamsState> {
 export class TeamsScreen extends Screen {
     name = "Teams";
     getScreenComponent(): Roact.Element {
-        return <TeamsComponent />;
+        return <TeamsComponent
+            currentScreen={this.currentScreen}
+        />;
     }
 }

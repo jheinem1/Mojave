@@ -30,7 +30,9 @@ do
 						TextWrapped = true,
 						TextXAlignment = Enum.TextXAlignment.Left,
 					}),
-					Roact.createElement(ProgressComponent),
+					Roact.createElement(ProgressComponent, {
+						currentScreen = self.props.currentScreen,
+					}),
 				}),
 			}),
 		})

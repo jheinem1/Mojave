@@ -6,11 +6,12 @@ local ProgressItemComponent = TS.import(script, script.Parent, "progress_item").
 local Screen
 do
 	Screen = {}
-	function Screen:constructor(position)
+	function Screen:constructor(position, currentScreen)
+		self.position = position
+		self.currentScreen = currentScreen
 		self.finished = ObjectEvent.new()
 		self.deselected = ObjectEvent.new()
 		self.selected = ObjectEvent.new()
-		self.position = position
 		self.startSelected = position == 0
 	end
 	function Screen:getButtonComponent()

@@ -19,7 +19,10 @@ do
 	function SpawnGui:constructor()
 	end
 	function SpawnGui:mount()
-		SpawnGui.spawnGuiListener = Roact.mount(Roact.createElement(SpawnGuiComponent), Players.LocalPlayer:FindFirstChildOfClass("PlayerGui"))
+		local screenBinding = { Roact.createBinding(0) }
+		SpawnGui.spawnGuiListener = Roact.mount(Roact.createElement(SpawnGuiComponent, {
+			currentScreen = screenBinding,
+		}), Players.LocalPlayer:FindFirstChildOfClass("PlayerGui"))
 	end
 	function SpawnGui:unmount()
 		if SpawnGui.spawnGuiListener then

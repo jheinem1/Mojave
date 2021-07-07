@@ -1,29 +1,33 @@
 import ObjectEvent from "@rbxts/object-event";
-import Roact, { Element } from "@rbxts/roact";
+import Roact, { Element, setGlobalConfig } from "@rbxts/roact";
 import { MapScreen } from "./screens/map";
 import { Screen } from "./screens/screen";
 import { TeamsScreen } from "./screens/teams";
 
-interface ProgressState {
-    currentScreen: number;
+interface ProgressProps {
+    currentScreen: LuaTuple<[Roact.Binding<number>, (newValue: number) => void]>;
 }
 
-interface ProgressProps { }
-
-export class ProgressComponent extends Roact.Component<ProgressProps, ProgressState> {
-    screens: Screen[] = [
-        new TeamsScreen(0),
-        new MapScreen(1)
-    ]
+export class ProgressComponent extends Roact.Component<ProgressProps, {}> {
+    screens: Screen[];
     constructor(props: ProgressProps) {
         super(props);
+        const valueChange = props.currentScreen[1];
+        props.currentScreen[1] = newValue => {
+            valueChange(newValue);
+            this.setState({});
+        };
+        this.screens = [
+            new TeamsScreen(0, props.currentScreen),
+            new MapScreen(1, props.currentScreen)
+        ];
         this.setState({ currentScreen: this.screens[0].position });
-        this.screens[this.state.currentScreen].selected.Fire();
+        this.screens[this.props.currentScreen[0].getValue()].selected.Fire();
         this.screens.forEach(screen => screen.selected.Connect(() => this.onSelect(screen)));
     }
     onSelect(screen: Screen) {
-        this.screens[this.state.currentScreen].deselected.Fire();
-        this.setState({ currentScreen: screen.position });
+        this.screens[this.props.currentScreen[0].getValue()].deselected.Fire();
+        this.props.currentScreen[1](screen.position);
     }
     render() {
         const items = [<uilistlayout
@@ -40,7 +44,7 @@ export class ProgressComponent extends Roact.Component<ProgressProps, ProgressSt
                 Position: new UDim2(0.3, 70, 0, 0),
                 Size: new UDim2(0.7, -70, 0, 36)
             }, items)}
-            {this.screens[this.state.currentScreen].getScreenComponent()}
+            {this.screens[this.props.currentScreen[0].getValue()].getScreenComponent()}
         </frame>;
     }
 }

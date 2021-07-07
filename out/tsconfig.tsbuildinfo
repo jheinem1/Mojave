@@ -298,7 +298,7 @@
         "affectsGlobalScope": false
       },
       "../src/client/spawn_gui/components/screens/screen.tsx": {
-        "version": "0af77761cef276a3f10e96e8f00931afe808df2f0e593b36d205cda883aa40a2",
+        "version": "407925c59b6ecd73440e68cf6887a4daf7e0828ab692e9b028533d8ee742ea7c",
         "affectsGlobalScope": false
       },
       "../src/client/spawn_gui/components/screens/map/index.tsx": {
@@ -326,35 +326,35 @@
         "affectsGlobalScope": false
       },
       "../src/shared/avatar/character_types.ts": {
-        "version": "dafd9e1b09c01ca1d9615daaec60f6eb83f770f30601e86c51aa2f6d32a716bf",
+        "version": "97ae243e059edf07369efd4388bd1505a98ec6d1340568abf5cee00ca5bae32e",
         "affectsGlobalScope": false
       },
       "../src/shared/avatar/index.ts": {
-        "version": "6fa95607eda42d74501a0d124a861b17c4a80d20f84eb7737d287b425a462237",
+        "version": "06a243de88791e328f5110cec8625b9cf5eacf8d46e968d0b6a00880ac7c6604",
         "affectsGlobalScope": false
       },
       "../src/client/spawn_gui/components/screens/teams/avatar_viewport.tsx": {
-        "version": "25478d1222e8d6d8e5477f824c1b20fec0c3b21aa88d048e17970d1224a902a9",
+        "version": "8f9a6ff7852c32c264278ebbdcb7c4ecec2f74f0033902fdd0d5c3797bfb45c4",
         "affectsGlobalScope": false
       },
       "../src/client/spawn_gui/components/screens/teams/teambutton.tsx": {
-        "version": "6e8bc11dff071a010737b2464c9e63381e231aee079d49d45a110b4d996e8b75",
+        "version": "6113517dc64a9569b16454c214f0320932958fc03c26e8932a648f511d9aa6e5",
         "affectsGlobalScope": false
       },
       "../src/client/spawn_gui/components/screens/teams/index.tsx": {
-        "version": "573772a71fc485ca3473b17fe2c6263b5ae31ba73ee40996a1e52f52c52231c8",
+        "version": "a3507cae1894de79aa08207bbc5ce8b4e1b4d9eef16af57862008e4a84a5602c",
         "affectsGlobalScope": false
       },
       "../src/client/spawn_gui/components/progress.tsx": {
-        "version": "0349ac4c17ea9b2df5f3a79bece366b519a30f1dbd2fc52919d98b6cffd64f00",
+        "version": "2c06557909c2d6aeeed2eb6531b1d3b83de35a158e838ec824a171bb0b9daa3c",
         "affectsGlobalScope": false
       },
       "../src/client/spawn_gui/components/spawn_gui.tsx": {
-        "version": "676e05f60e2b439fdf3aa0e2cf759c28326e301af9be98ec371cf25e3815209f",
+        "version": "7162c086c1b09c0430830ae6200bbfed7e8079932215dc2cc2473045dcc31566",
         "affectsGlobalScope": false
       },
       "../src/client/spawn_gui/index.tsx": {
-        "version": "d9b23abf3e7a0c06d8fdc2c5bc676a2443145887c56154387c9b0ec21ef28eef",
+        "version": "38db733bd291b4ad5f2c368a2704c4b8878f4dee9f7f007ae58c382ede146341",
         "affectsGlobalScope": false
       },
       "../src/client/gui_handler.client.ts": {
@@ -777,8 +777,7 @@
       ],
       "../src/client/spawn_gui/components/spawn_gui.tsx": [
         "../node_modules/@rbxts/roact/src/index.d.ts",
-        "../src/client/spawn_gui/components/progress.tsx",
-        "../src/client/spawn_gui/components/screens/progress_item.tsx"
+        "../src/client/spawn_gui/components/progress.tsx"
       ],
       "../src/client/spawn_gui/index.tsx": [
         "../node_modules/@rbxts/roact/src/index.d.ts",

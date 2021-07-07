@@ -7,11 +7,16 @@ local ProgressComponent
 do
 	ProgressComponent = Roact.Component:extend("ProgressComponent")
 	function ProgressComponent:init(props)
-		self.screens = { TeamsScreen.new(0), MapScreen.new(1) }
+		local valueChange = props.currentScreen[2]
+		props.currentScreen[2] = function(newValue)
+			valueChange(newValue)
+			self:setState({})
+		end
+		self.screens = { TeamsScreen.new(0, props.currentScreen), MapScreen.new(1, props.currentScreen) }
 		self:setState({
 			currentScreen = self.screens[1].position,
 		})
-		self.screens[self.state.currentScreen + 1].selected:Fire()
+		self.screens[self.props.currentScreen[1]:getValue() + 1].selected:Fire()
 		local _0 = self.screens
 		local _1 = function(screen)
 			return screen.selected:Connect(function()
@@ -25,10 +30,8 @@ do
 		-- ▲ ReadonlyArray.forEach ▲
 	end
 	function ProgressComponent:onSelect(screen)
-		self.screens[self.state.currentScreen + 1].deselected:Fire()
-		self:setState({
-			currentScreen = screen.position,
-		})
+		self.screens[self.props.currentScreen[1]:getValue() + 1].deselected:Fire()
+		self.props.currentScreen[2](screen.position)
 	end
 	function ProgressComponent:render()
 		local items = { Roact.createElement("UIListLayout", {
@@ -62,7 +65,7 @@ do
 				Position = UDim2.new(0.3, 70, 0, 0),
 				Size = UDim2.new(0.7, -70, 0, 36),
 			}, items),
-			self.screens[self.state.currentScreen + 1]:getScreenComponent(),
+			self.screens[self.props.currentScreen[1]:getValue() + 1]:getScreenComponent(),
 		})
 	end
 end
