@@ -302,11 +302,11 @@
         "affectsGlobalScope": false
       },
       "../src/shared/region.ts": {
-        "version": "9b55450536e17336f644257a505417b7a678bc7ff70a630722b1b3f8fdf99da8",
+        "version": "fce1832675e4b7c94c58c25d1470a85d955676ef37c6c5a4324d752f9e4ddd9b",
         "affectsGlobalScope": false
       },
       "../src/client/safezones.client.ts": {
-        "version": "7a13fb2016743983f9645c0bba389bf0c107e40fa4391f1111678a4603a2193e",
+        "version": "a8382676e7b3cb96b267079959b52bfdac64ef7d8dd9b71686aadb0be63118ca",
         "affectsGlobalScope": false
       },
       "../node_modules/@rbxts/object-event/index.d.ts": {
@@ -394,7 +394,7 @@
         "affectsGlobalScope": false
       },
       "../src/server/safezones.server.ts": {
-        "version": "6c35b9ab7bee752e03a8f022ab201adb1409e19ddd10b8e16fc30b569c74ad47",
+        "version": "26d6571412803f4f1181f613511223146a281e747ae81c8a585e109687191c67",
         "affectsGlobalScope": false
       }
     },
@@ -824,7 +824,8 @@
       ],
       "../src/shared/region.ts": [
         "../node_modules/@rbxts/rotatedregion3/index.d.ts",
-        "../node_modules/@rbxts/services/index.d.ts"
+        "../node_modules/@rbxts/services/index.d.ts",
+        "../node_modules/@rbxts/t/lib/t.d.ts"
       ],
       "../src/shared/remotes.ts": [
         "../node_modules/@rbxts/net/out/index.d.ts"

@@ -31,6 +31,7 @@ function onCharacter(character: Model) {
 
 inSafezone.Connect((isInSafezone) => {
     if (isInSafezone) {
+        print("hi im a client and im safe")
         shielded = true;
     } else {
         shielded = false;

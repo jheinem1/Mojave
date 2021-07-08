@@ -1,5 +1,6 @@
 import RotatedRegion3 from "@rbxts/rotatedregion3";
 import { RunService, Workspace } from "@rbxts/services";
+import { t } from "@rbxts/t";
 
 abstract class Region {
     /**
@@ -27,10 +28,11 @@ export class BasePartRegion extends Region {
     constructor(part: BasePart) {
         super();
         const newPart = new Instance("Part");
-        newPart.Position = part.Position;
+        newPart.CFrame = part.CFrame;
         newPart.Size = part.Size;
+        newPart.Shape = t.instanceIsA("Part")(part) ? part.Shape : Enum.PartType.Block;
         newPart.Anchored = true;
-        newPart.Transparency = 0.5;
+        newPart.Transparency = 1;
         newPart.CanCollide = false;
         newPart.CanTouch = true;
         newPart.Parent = RunService.IsClient() ? Workspace : undefined;
@@ -43,10 +45,10 @@ export class BasePartRegion extends Region {
             let inRegion = this.isInRegion(part);
             while (!inRegion)
                 inRegion = part.Touched.Wait()[0] === this.part;
-        } else {
+        } else
             while (this.isInRegion(part))
                 RunService.Heartbeat.Wait();
-        }
+
     }
     async leftRegion(part: BasePart) {
         if (RunService.IsClient()) {
@@ -54,6 +56,7 @@ export class BasePartRegion extends Region {
             while (inRegion)
                 inRegion = !(part.TouchEnded.Wait()[0] === this.part);
         } else {
+            print(this.isInRegion(part))
             while (this.isInRegion(part))
                 RunService.Heartbeat.Wait();
         }
@@ -108,7 +111,7 @@ export class RegionUnion {
      * @returns A promise that resolves when a player leaves a region
      */
     async leftRegion(part: BasePart) {
-        return Promise.race(this.regions.map(region => region.leftRegion(part)));
+        return Promise.all(this.regions.map(region => region.leftRegion(part)));
     }
     /**
      * Checks if the player/character is inside all regions.

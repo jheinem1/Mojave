@@ -4,6 +4,7 @@ local RotatedRegion3 = TS.import(script, TS.getModule(script, "rotatedregion3"))
 local _0 = TS.import(script, TS.getModule(script, "services"))
 local RunService = _0.RunService
 local Workspace = _0.Workspace
+local t = TS.import(script, TS.getModule(script, "t").lib.ts).t
 local Region
 do
 	Region = {}
@@ -32,10 +33,11 @@ do
 	function BasePartRegion:constructor(part)
 		super.constructor(self)
 		local newPart = Instance.new("Part")
-		newPart.Position = part.Position
+		newPart.CFrame = part.CFrame
 		newPart.Size = part.Size
+		newPart.Shape = t.instanceIsA("Part")(part) and part.Shape or Enum.PartType.Block
 		newPart.Anchored = true
-		newPart.Transparency = 0.5
+		newPart.Transparency = 1
 		newPart.CanCollide = false
 		newPart.CanTouch = true
 		newPart.Parent = RunService:IsClient() and Workspace or nil
@@ -62,6 +64,7 @@ do
 				inRegion = not ((part.TouchEnded:Wait()) == self.part)
 			end
 		else
+			print(self:isInRegion(part))
 			while self:isInRegion(part) do
 				RunService.Heartbeat:Wait()
 			end
@@ -162,7 +165,7 @@ do
 			_4[_5] = _3(_6, _5 - 1, _2)
 		end
 		-- ▲ ReadonlyArray.map ▲
-		return _1.race(_4)
+		return _1.all(_4)
 	end)
 	function RegionUnion:isInRegions(part)
 		local _1 = self.regions

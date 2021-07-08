@@ -33,9 +33,13 @@ function safezoneCheck(player: Player, character = player.Character) {
 
 inSafezone.Connect((player, _) => safezoneCheck(player));
 
-Players.PlayerAdded.Connect(player => {
-    player.CharacterAdded.Connect(character => {
-        RunService.Heartbeat.Wait();
-        safezoneCheck(player, character);
-    });
-});
+const onCharacter = (player: Player, character: Model) => {
+    RunService.Heartbeat.Wait();
+    safezoneCheck(player, character);
+};
+const onPlayer = (player: Player) => {
+    player.CharacterAdded.Connect(character => onCharacter(player, character));
+}
+
+Players.GetPlayers().forEach(onPlayer);
+Players.PlayerAdded.Connect(onPlayer);

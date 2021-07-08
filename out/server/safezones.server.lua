@@ -74,9 +74,20 @@ end
 inSafezone:Connect(function(player, _)
 	return safezoneCheck(player)
 end)
-Players.PlayerAdded:Connect(function(player)
+local onCharacter = function(player, character)
+	RunService.Heartbeat:Wait()
+	safezoneCheck(player, character)
+end
+local onPlayer = function(player)
 	player.CharacterAdded:Connect(function(character)
-		RunService.Heartbeat:Wait()
-		safezoneCheck(player, character)
+		return onCharacter(player, character)
 	end)
-end)
+end
+local _8 = Players:GetPlayers()
+local _9 = onPlayer
+-- ▼ ReadonlyArray.forEach ▼
+for _10, _11 in ipairs(_8) do
+	_9(_11, _10 - 1, _8)
+end
+-- ▲ ReadonlyArray.forEach ▲
+Players.PlayerAdded:Connect(onPlayer)
