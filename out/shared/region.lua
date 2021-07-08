@@ -64,7 +64,6 @@ do
 				inRegion = not ((part.TouchEnded:Wait()) == self.part)
 			end
 		else
-			print(self:isInRegion(part))
 			while self:isInRegion(part) do
 				RunService.Heartbeat:Wait()
 			end

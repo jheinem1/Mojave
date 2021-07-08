@@ -30,10 +30,9 @@ function onCharacter(character: Model) {
 }
 
 inSafezone.Connect((isInSafezone) => {
-    if (isInSafezone) {
-        print("hi im a client and im safe")
+    if (isInSafezone)
         shielded = true;
-    } else {
+    else {
         shielded = false;
         const root = Players.LocalPlayer.Character?.WaitForChild("HumanoidRootPart", 5);
         if (t.instanceIsA("Part")(root) && safezoneRegions.isInRegion(root)) {

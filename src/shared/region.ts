@@ -55,11 +55,9 @@ export class BasePartRegion extends Region {
             let inRegion = this.isInRegion(part);
             while (inRegion)
                 inRegion = !(part.TouchEnded.Wait()[0] === this.part);
-        } else {
-            print(this.isInRegion(part))
+        } else
             while (this.isInRegion(part))
                 RunService.Heartbeat.Wait();
-        }
     }
     isInRegion(part: BasePart) {
         return this.rotatedRegion3.CastPoint(part.Position);

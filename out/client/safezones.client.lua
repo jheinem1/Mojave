@@ -56,7 +56,6 @@ local function onCharacter(character)
 end
 inSafezone:Connect(function(isInSafezone)
 	if isInSafezone then
-		print("hi im a client and im safe")
 		shielded = true
 	else
 		shielded = false

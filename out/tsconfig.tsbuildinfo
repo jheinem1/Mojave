@@ -302,11 +302,11 @@
         "affectsGlobalScope": false
       },
       "../src/shared/region.ts": {
-        "version": "fce1832675e4b7c94c58c25d1470a85d955676ef37c6c5a4324d752f9e4ddd9b",
+        "version": "8c14387843afc5ef458f495d9c679ccb434af29555abbdbde3a7aec81498aafa",
         "affectsGlobalScope": false
       },
       "../src/client/safezones.client.ts": {
-        "version": "a8382676e7b3cb96b267079959b52bfdac64ef7d8dd9b71686aadb0be63118ca",
+        "version": "88bf0b2cff7d1523401bf866e664ba39fc2034e55c1ea55ac3a7a89965453a33",
         "affectsGlobalScope": false
       },
       "../node_modules/@rbxts/object-event/index.d.ts": {
