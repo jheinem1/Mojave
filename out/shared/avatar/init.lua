@@ -5,9 +5,7 @@ local MarketplaceService = _0.MarketplaceService
 local Players = _0.Players
 local Workspace = _0.Workspace
 local t = TS.import(script, TS.getModule(script, "t").lib.ts).t
-local Remotes = TS.import(script, game:GetService("ReplicatedStorage"), "Shared", "remotes").default
 local getR15 = TS.import(script, game:GetService("ReplicatedStorage"), "Shared", "avatar", "character_types").getR15
-local accessoryRemote = Remotes.Client:WaitFor("GetAccessory")
 local Avatar
 do
 	Avatar = setmetatable({}, {

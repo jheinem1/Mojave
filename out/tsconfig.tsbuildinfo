@@ -1,10 +1,6 @@
 {
   "program": {
     "fileInfos": {
-      "../node_modules/@rbxts/services/index.d.ts": {
-        "version": "7780f22ed46d445e7287d9cd3fba33e1aad88a6b3542673a78de90356bfc1109",
-        "affectsGlobalScope": false
-      },
       "../node_modules/@rbxts/types/include/generated/enums.d.ts": {
         "version": "c4f0f2ba15edefe5b4e6d0465512c3310d6505c5b6eafbc5e05fcfe9c54e49fc",
         "affectsGlobalScope": true
@@ -127,6 +123,10 @@
       },
       "../node_modules/@rbxts/roact/src/index.d.ts": {
         "version": "4f5cf03494441e2b3664f8d61a545f984b01c3ea4aa224a27b0eb4eae24ec8e6",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/@rbxts/services/index.d.ts": {
+        "version": "7780f22ed46d445e7287d9cd3fba33e1aad88a6b3542673a78de90356bfc1109",
         "affectsGlobalScope": false
       },
       "../src/client/hud/components/ap.tsx": {
@@ -270,7 +270,7 @@
         "affectsGlobalScope": false
       },
       "../src/shared/remotes.ts": {
-        "version": "e98ab3ed128688615284285d95f0091618f221d45f5912b955ee2abd5c42846f",
+        "version": "23eab7ec9ec0963b703b9d755b56ee1771a65a7b2020a51dd9dbf8711d345294",
         "affectsGlobalScope": false
       },
       "../src/client/hud/components/state.tsx": {
@@ -287,6 +287,26 @@
       },
       "../src/client/hud/index.tsx": {
         "version": "e5393d20d3d7007edb35a4d4577e2a7c65ed6240dc34545029638a2841967824",
+        "affectsGlobalScope": false
+      },
+      "../src/client/gui_handler.client.ts": {
+        "version": "360e78013f194eddc1c8c481a4c78b710c8ebe810eccc68143f3e7ce3ff658c4",
+        "affectsGlobalScope": false
+      },
+      "../src/client/lighting_regions.client.ts": {
+        "version": "06ec7f3a0a6a405c6db196e495d6b8c4d37b033fcbae94ade4b4efdbc58ed01b",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/@rbxts/rotatedregion3/index.d.ts": {
+        "version": "03744245543c51dcc46c2f6376078cbddb01a5a7bb65768a3a3b7f78efa4f877",
+        "affectsGlobalScope": false
+      },
+      "../src/shared/region.ts": {
+        "version": "9b55450536e17336f644257a505417b7a678bc7ff70a630722b1b3f8fdf99da8",
+        "affectsGlobalScope": false
+      },
+      "../src/client/safezones.client.ts": {
+        "version": "7a13fb2016743983f9645c0bba389bf0c107e40fa4391f1111678a4603a2193e",
         "affectsGlobalScope": false
       },
       "../node_modules/@rbxts/object-event/index.d.ts": {
@@ -330,7 +350,7 @@
         "affectsGlobalScope": false
       },
       "../src/shared/avatar/index.ts": {
-        "version": "06a243de88791e328f5110cec8625b9cf5eacf8d46e968d0b6a00880ac7c6604",
+        "version": "4976c740c206dab42fddb6138bf074539cbfdeb1754b53f658ee49ff28e24fac",
         "affectsGlobalScope": false
       },
       "../src/client/spawn_gui/components/screens/teams/avatar_viewport.tsx": {
@@ -357,26 +377,6 @@
         "version": "38db733bd291b4ad5f2c368a2704c4b8878f4dee9f7f007ae58c382ede146341",
         "affectsGlobalScope": false
       },
-      "../src/client/gui_handler.client.ts": {
-        "version": "a7ba155b2a7f24b7db4677be1852737d80ef0fe11911380aebcec0a094163d9d",
-        "affectsGlobalScope": false
-      },
-      "../src/client/lighting_regions.client.ts": {
-        "version": "06ec7f3a0a6a405c6db196e495d6b8c4d37b033fcbae94ade4b4efdbc58ed01b",
-        "affectsGlobalScope": false
-      },
-      "../src/shared/region.ts": {
-        "version": "8fd1ac29aa6d0689434cda847a04f7f604d7a9a117d28ef0b0466ebe413fba44",
-        "affectsGlobalScope": false
-      },
-      "../src/client/safezones.client.ts": {
-        "version": "10372d24854599cddf1197a4d10749da42d1065b1636a3ac841bdcff2cd0ae2b",
-        "affectsGlobalScope": false
-      },
-      "../src/server/accessory_handler.server.ts": {
-        "version": "363c2f410f9673ed7f69870611ea702518f190a3e6494760ff560823f76218db",
-        "affectsGlobalScope": false
-      },
       "../src/server/faction_handler.server.ts": {
         "version": "0746c131f3810f20628d8752cd93c0149fac76aa78e38b1fcc59a9fd14be48a7",
         "affectsGlobalScope": false
@@ -394,11 +394,7 @@
         "affectsGlobalScope": false
       },
       "../src/server/safezones.server.ts": {
-        "version": "0fb606a47f5f8d0e11253343b35ab099e101096c0754191ea2e010894d8f887e",
-        "affectsGlobalScope": false
-      },
-      "../node_modules/@rbxts/rotatedregion3/index.d.ts": {
-        "version": "03744245543c51dcc46c2f6376078cbddb01a5a7bb65768a3a3b7f78efa4f877",
+        "version": "6c35b9ab7bee752e03a8f022ab201adb1409e19ddd10b8e16fc30b569c74ad47",
         "affectsGlobalScope": false
       }
     },
@@ -670,9 +666,7 @@
         "../node_modules/@rbxts/types/include/macro_math.d.ts"
       ],
       "../src/client/gui_handler.client.ts": [
-        "../node_modules/@rbxts/services/index.d.ts",
-        "../src/client/hud/index.tsx",
-        "../src/client/spawn_gui/index.tsx"
+        "../src/client/hud/index.tsx"
       ],
       "../src/client/hud/components/ap.tsx": [
         "../node_modules/@rbxts/roact/src/index.d.ts"
@@ -784,10 +778,6 @@
         "../node_modules/@rbxts/services/index.d.ts",
         "../src/client/spawn_gui/components/spawn_gui.tsx"
       ],
-      "../src/server/accessory_handler.server.ts": [
-        "../node_modules/@rbxts/services/index.d.ts",
-        "../src/shared/remotes.ts"
-      ],
       "../src/server/faction_handler.server.ts": [
         "../src/shared/faction_manager/index.ts"
       ],
@@ -809,8 +799,7 @@
       "../src/shared/avatar/index.ts": [
         "../node_modules/@rbxts/services/index.d.ts",
         "../node_modules/@rbxts/t/lib/t.d.ts",
-        "../src/shared/avatar/character_types.ts",
-        "../src/shared/remotes.ts"
+        "../src/shared/avatar/character_types.ts"
       ],
       "../src/shared/faction_manager/faction.ts": [
         "../node_modules/@rbxts/services/index.d.ts",
@@ -834,6 +823,7 @@
         "../node_modules/@rbxts/t/lib/t.d.ts"
       ],
       "../src/shared/region.ts": [
+        "../node_modules/@rbxts/rotatedregion3/index.d.ts",
         "../node_modules/@rbxts/services/index.d.ts"
       ],
       "../src/shared/remotes.ts": [

@@ -14,7 +14,7 @@ const shielded = new WeakMap<Model, ForceField>();
 
 safezoneFolder.Parent = ReplicatedStorage;
 
-function safezoneCheck(player: Player, character: Model | undefined = player.Character) {
+function safezoneCheck(player: Player, character = player.Character) {
     if (character?.PrimaryPart && safezoneRegions.isInRegion(character.PrimaryPart)) {
         const forceField = new Instance("ForceField");
         forceField.Visible = false;

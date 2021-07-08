@@ -1,6 +1,9 @@
 -- Compiled with roblox-ts v1.1.1
 local TS = require(game:GetService("ReplicatedStorage"):WaitForChild("rbxts_include"):WaitForChild("RuntimeLib"))
-local RunService = TS.import(script, TS.getModule(script, "services")).RunService
+local RotatedRegion3 = TS.import(script, TS.getModule(script, "rotatedregion3"))
+local _0 = TS.import(script, TS.getModule(script, "services"))
+local RunService = _0.RunService
+local Workspace = _0.Workspace
 local Region
 do
 	Region = {}
@@ -32,37 +35,40 @@ do
 		newPart.Position = part.Position
 		newPart.Size = part.Size
 		newPart.Anchored = true
-		newPart.Transparency = 1
+		newPart.Transparency = 0.5
 		newPart.CanCollide = false
+		newPart.CanTouch = true
+		newPart.Parent = RunService:IsClient() and Workspace or nil
+		newPart.Name = tostring(self)
 		self.part = newPart
+		self.rotatedRegion3 = RotatedRegion3.FromPart(self.part)
 	end
 	BasePartRegion.enteredRegion = TS.async(function(self, part)
-		local inRegion = self:isInRegion(part)
-		while not inRegion do
-			inRegion = (part.Touched:Wait()) == self.part
+		if RunService:IsClient() then
+			local inRegion = self:isInRegion(part)
+			while not inRegion do
+				inRegion = (part.Touched:Wait()) == self.part
+			end
+		else
+			while self:isInRegion(part) do
+				RunService.Heartbeat:Wait()
+			end
 		end
 	end)
 	BasePartRegion.leftRegion = TS.async(function(self, part)
-		local inRegion = self:isInRegion(part)
-		while inRegion do
-			inRegion = not ((part.TouchEnded:Wait()) == self.part)
+		if RunService:IsClient() then
+			local inRegion = self:isInRegion(part)
+			while inRegion do
+				inRegion = not ((part.TouchEnded:Wait()) == self.part)
+			end
+		else
+			while self:isInRegion(part) do
+				RunService.Heartbeat:Wait()
+			end
 		end
 	end)
 	function BasePartRegion:isInRegion(part)
-		local _0 = part:GetTouchingParts()
-		local _1 = function(part)
-			return part == self.part
-		end
-		-- ▼ ReadonlyArray.some ▼
-		local _2 = false
-		for _3, _4 in ipairs(_0) do
-			if _1(_4, _3 - 1, _0) then
-				_2 = true
-				break
-			end
-		end
-		-- ▲ ReadonlyArray.some ▲
-		return _2
+		return self.rotatedRegion3:CastPoint(part.Position)
 	end
 end
 --[[
@@ -100,14 +106,14 @@ do
 		end
 	end)
 	function SphereRegion:isInRegion(part)
-		local _0 = part.Position
-		local _1 = self.center
-		return (_0 - _1).Magnitude <= self.radius
+		local _1 = part.Position
+		local _2 = self.center
+		return (_1 - _2).Magnitude <= self.radius
 	end
 	function SphereRegion:getDistance(part)
-		local _0 = part.Position
-		local _1 = self.center
-		return (_0 - _1).Magnitude
+		local _1 = part.Position
+		local _2 = self.center
+		return (_1 - _2).Magnitude
 	end
 end
 --[[
@@ -131,65 +137,65 @@ do
 		self.regions = regions
 	end
 	RegionUnion.enteredRegion = TS.async(function(self, part)
-		local _0 = TS.Promise
-		local _1 = self.regions
-		local _2 = function(region)
+		local _1 = TS.Promise
+		local _2 = self.regions
+		local _3 = function(region)
 			return region:enteredRegion(part)
 		end
 		-- ▼ ReadonlyArray.map ▼
-		local _3 = table.create(#_1)
-		for _4, _5 in ipairs(_1) do
-			_3[_4] = _2(_5, _4 - 1, _1)
+		local _4 = table.create(#_2)
+		for _5, _6 in ipairs(_2) do
+			_4[_5] = _3(_6, _5 - 1, _2)
 		end
 		-- ▲ ReadonlyArray.map ▲
-		return _0.race(_3)
+		return _1.race(_4)
 	end)
 	RegionUnion.leftRegion = TS.async(function(self, part)
-		local _0 = TS.Promise
-		local _1 = self.regions
-		local _2 = function(region)
+		local _1 = TS.Promise
+		local _2 = self.regions
+		local _3 = function(region)
 			return region:leftRegion(part)
 		end
 		-- ▼ ReadonlyArray.map ▼
-		local _3 = table.create(#_1)
-		for _4, _5 in ipairs(_1) do
-			_3[_4] = _2(_5, _4 - 1, _1)
+		local _4 = table.create(#_2)
+		for _5, _6 in ipairs(_2) do
+			_4[_5] = _3(_6, _5 - 1, _2)
 		end
 		-- ▲ ReadonlyArray.map ▲
-		return _0.race(_3)
+		return _1.race(_4)
 	end)
 	function RegionUnion:isInRegions(part)
-		local _0 = self.regions
-		local _1 = function(region)
+		local _1 = self.regions
+		local _2 = function(region)
 			return region:isInRegion(part)
 		end
 		-- ▼ ReadonlyArray.filter ▼
-		local _2 = {}
-		local _3 = 0
-		for _4, _5 in ipairs(_0) do
-			if _1(_5, _4 - 1, _0) == true then
-				_3 += 1
-				_2[_3] = _5
+		local _3 = {}
+		local _4 = 0
+		for _5, _6 in ipairs(_1) do
+			if _2(_6, _5 - 1, _1) == true then
+				_4 += 1
+				_3[_4] = _6
 			end
 		end
 		-- ▲ ReadonlyArray.filter ▲
-		return _2
+		return _3
 	end
 	function RegionUnion:isInRegion(part)
-		local _0 = self.regions
-		local _1 = function(region)
+		local _1 = self.regions
+		local _2 = function(region)
 			return region:isInRegion(part)
 		end
 		-- ▼ ReadonlyArray.find ▼
-		local _2 = nil
-		for _3, _4 in ipairs(_0) do
-			if _1(_4, _3 - 1, _0) == true then
-				_2 = _4
+		local _3 = nil
+		for _4, _5 in ipairs(_1) do
+			if _2(_5, _4 - 1, _1) == true then
+				_3 = _5
 				break
 			end
 		end
 		-- ▲ ReadonlyArray.find ▲
-		return _2
+		return _3
 	end
 end
 return {

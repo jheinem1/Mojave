@@ -39,20 +39,19 @@ local function enteredRegion(part)
 		wait()
 		inSafezone:SendToServer(true)
 	end
-	local _8 = safezoneRegions:enteredRegion(part)
-	local _9 = function()
-		return enteredRegion(part)
-	end
-	_8:andThen(_9)
 end
 local function onCharacter(character)
-	local part = character.PrimaryPart
-	if part then
-		local _8 = safezoneRegions:enteredRegion(part)
+	local part = character:WaitForChild("HumanoidRootPart")
+	if t.instanceIsA("Part")(part) then
+		local promise = safezoneRegions:enteredRegion(part)
+		local _8 = promise
 		local _9 = function()
 			return enteredRegion(part)
 		end
 		_8:andThen(_9)
+		Players.LocalPlayer.CharacterRemoving:Connect(function()
+			return promise:cancel()
+		end)
 	end
 end
 inSafezone:Connect(function(isInSafezone)
@@ -62,17 +61,27 @@ inSafezone:Connect(function(isInSafezone)
 		shielded = false
 		local _8 = Players.LocalPlayer.Character
 		if _8 ~= nil then
-			_8 = _8.PrimaryPart
+			_8 = _8:WaitForChild("HumanoidRootPart", 5)
 		end
 		local root = _8
-		if root and safezoneRegions:isInRegion(root) then
+		if t.instanceIsA("Part")(root) and safezoneRegions:isInRegion(root) then
 			wait(0.5)
 			shielded = true
 			inSafezone:SendToServer(true)
+		elseif t.instanceIsA("Part")(root) then
+			local promise = safezoneRegions:enteredRegion(root)
+			local _9 = promise
+			local _10 = function()
+				return enteredRegion(root)
+			end
+			_9:andThen(_10)
+			Players.LocalPlayer.CharacterRemoving:Connect(function()
+				return promise:cancel()
+			end)
 		end
 	end
 end)
-Players.LocalPlayer.CharacterAdded:Connect(onCharacter)
 if Players.LocalPlayer.Character then
 	onCharacter(Players.LocalPlayer.Character)
 end
+Players.LocalPlayer.CharacterAdded:Connect(onCharacter)

@@ -1,4 +1,5 @@
-import { RunService } from "@rbxts/services";
+import RotatedRegion3 from "@rbxts/rotatedregion3";
+import { RunService, Workspace } from "@rbxts/services";
 
 abstract class Region {
     /**
@@ -22,28 +23,43 @@ abstract class Region {
  */
 export class BasePartRegion extends Region {
     protected part: Part;
+    protected rotatedRegion3: RotatedRegion3;
     constructor(part: BasePart) {
         super();
         const newPart = new Instance("Part");
         newPart.Position = part.Position;
         newPart.Size = part.Size;
         newPart.Anchored = true;
-        newPart.Transparency = 1;
+        newPart.Transparency = 0.5;
         newPart.CanCollide = false;
+        newPart.CanTouch = true;
+        newPart.Parent = RunService.IsClient() ? Workspace : undefined;
+        newPart.Name = tostring(this);
         this.part = newPart;
+        this.rotatedRegion3 = RotatedRegion3.FromPart(this.part);
     }
     async enteredRegion(part: BasePart) {
-        let inRegion = this.isInRegion(part);
-        while (!inRegion)
-            inRegion = part.Touched.Wait()[0] === this.part;
+        if (RunService.IsClient()) {
+            let inRegion = this.isInRegion(part);
+            while (!inRegion)
+                inRegion = part.Touched.Wait()[0] === this.part;
+        } else {
+            while (this.isInRegion(part))
+                RunService.Heartbeat.Wait();
+        }
     }
     async leftRegion(part: BasePart) {
-        let inRegion = this.isInRegion(part);
-        while (inRegion)
-            inRegion = !(part.TouchEnded.Wait()[0] === this.part);
+        if (RunService.IsClient()) {
+            let inRegion = this.isInRegion(part);
+            while (inRegion)
+                inRegion = !(part.TouchEnded.Wait()[0] === this.part);
+        } else {
+            while (this.isInRegion(part))
+                RunService.Heartbeat.Wait();
+        }
     }
     isInRegion(part: BasePart) {
-        return part.GetTouchingParts().some(part => part === this.part);
+        return this.rotatedRegion3.CastPoint(part.Position);
     }
 }
 

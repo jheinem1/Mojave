@@ -18,13 +18,14 @@ function enteredRegion(part: BasePart) {
         wait();
         inSafezone.SendToServer(true);
     }
-    safezoneRegions.enteredRegion(part).then(() => enteredRegion(part));
 }
 
 function onCharacter(character: Model) {
-    const part = character.PrimaryPart
-    if (part) {
-        safezoneRegions.enteredRegion(part).then(() => enteredRegion(part));
+    const part = character.WaitForChild("HumanoidRootPart");
+    if (t.instanceIsA("Part")(part)) {
+        const promise = safezoneRegions.enteredRegion(part);
+        promise.then(() => enteredRegion(part));
+        Players.LocalPlayer.CharacterRemoving.Connect(() => promise.cancel());
     }
 }
 
@@ -33,15 +34,19 @@ inSafezone.Connect((isInSafezone) => {
         shielded = true;
     } else {
         shielded = false;
-        const root = Players.LocalPlayer.Character?.PrimaryPart;
-        if (root && safezoneRegions.isInRegion(root)) {
+        const root = Players.LocalPlayer.Character?.WaitForChild("HumanoidRootPart", 5);
+        if (t.instanceIsA("Part")(root) && safezoneRegions.isInRegion(root)) {
             wait(0.5);
             shielded = true;
             inSafezone.SendToServer(true);
+        } else if (t.instanceIsA("Part")(root)) {
+            const promise = safezoneRegions.enteredRegion(root);
+            promise.then(() => enteredRegion(root));
+            Players.LocalPlayer.CharacterRemoving.Connect(() => promise.cancel());
         }
     }
 });
 
-Players.LocalPlayer.CharacterAdded.Connect(onCharacter);
 if (Players.LocalPlayer.Character)
     onCharacter(Players.LocalPlayer.Character);
+Players.LocalPlayer.CharacterAdded.Connect(onCharacter);

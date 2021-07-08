@@ -1,9 +1,6 @@
-import { InsertService, MarketplaceService, Players, RunService, Workspace } from "@rbxts/services";
+import { MarketplaceService, Players, Workspace } from "@rbxts/services";
 import { t } from "@rbxts/t";
-import Remotes from "shared/remotes";
-import { Character, getR15, getR6, R15, R6 } from "./character_types";
-
-const accessoryRemote = Remotes.Client.WaitFor("GetAccessory");
+import { Character, getR15, R15, R6 } from "./character_types";
 
 export class Avatar {
     appearanceInfo: CharacterAppearanceInfo;
