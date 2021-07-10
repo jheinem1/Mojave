@@ -3,14 +3,9 @@ import { Players } from "@rbxts/services";
 import { t } from "@rbxts/t";
 
 export class Settings extends Roact.Component {
-    private settings = Players.LocalPlayer.FindFirstChild("PlayerGui")?.FindFirstChild("Settings") ?? Players.LocalPlayer.WaitForChild("PlayerGui", 5)?.WaitForChild("Settings", 5);
-
     constructor(props: {}) {
         super(props);
-        if (t.instanceIsA("ScreenGui")(this.settings))
-            this.settings.ResetOnSpawn = false
     }
-
     render() {
         return <frame Key="Settings" BackgroundTransparency={1} Size={new UDim2(1, 0, 1, 0)}>
             <imagebutton
@@ -25,8 +20,9 @@ export class Settings extends Roact.Component {
                 ZIndex={2}
                 Event={{
                     MouseButton1Click: () => {
-                        if (this.settings?.IsA("ScreenGui"))
-                            this.settings.Enabled = !this.settings.Enabled;
+                        const settings = Players.LocalPlayer.FindFirstChild("PlayerGui")?.FindFirstChild("Settings") ?? Players.LocalPlayer.WaitForChild("PlayerGui", 5)?.WaitForChild("Settings", 5);
+                        if (settings?.IsA("ScreenGui"))
+                            settings.Enabled = !settings.Enabled;
                         else
                             throw "Settings not found!";
                     }

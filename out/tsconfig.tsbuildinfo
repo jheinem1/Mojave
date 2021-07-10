@@ -158,7 +158,7 @@
         "affectsGlobalScope": false
       },
       "../src/client/hud/components/settings.tsx": {
-        "version": "aa67d9aa360844b10b68ba878b89fb76585b42439b3e1f18b40b16ff7f37e07e",
+        "version": "682a986a7f233048c4d0d405df337aaf6e113f492b839f050b4722c6141b97c1",
         "affectsGlobalScope": false
       },
       "../node_modules/@rbxts/net/out/internal/index.d.ts": {
