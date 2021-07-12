@@ -377,6 +377,10 @@
         "version": "38db733bd291b4ad5f2c368a2704c4b8878f4dee9f7f007ae58c382ede146341",
         "affectsGlobalScope": false
       },
+      "../src/server/age_script.server.ts": {
+        "version": "b1020d120f4f6c006dae84f0f5ae922ac94cfdce2921ddb27a0c758c9ab44b8f",
+        "affectsGlobalScope": false
+      },
       "../src/server/faction_handler.server.ts": {
         "version": "0746c131f3810f20628d8752cd93c0149fac76aa78e38b1fcc59a9fd14be48a7",
         "affectsGlobalScope": false
@@ -395,6 +399,18 @@
       },
       "../src/server/safezones.server.ts": {
         "version": "26d6571412803f4f1181f613511223146a281e747ae81c8a585e109687191c67",
+        "affectsGlobalScope": false
+      },
+      "../src/shared/map/point.ts": {
+        "version": "d9da87c8d4b9e12dcbabce9714f463b38c5fa2c4d1ab0f98d6520d6d95d0c3cb",
+        "affectsGlobalScope": false
+      },
+      "../src/shared/map/index.ts": {
+        "version": "6b282a83be2f73cd4f39c408fc26271db4a4b0184f5d9f6a323ea2aa9d9633fb",
+        "affectsGlobalScope": false
+      },
+      "../src/shared/map/point_gen.ts": {
+        "version": "e07f4e61b74f7b9bbefa73763c220bb8ede446db715ffb86a81ce9c697c9d120",
         "affectsGlobalScope": false
       }
     },
@@ -778,6 +794,9 @@
         "../node_modules/@rbxts/services/index.d.ts",
         "../src/client/spawn_gui/components/spawn_gui.tsx"
       ],
+      "../src/server/age_script.server.ts": [
+        "../node_modules/@rbxts/services/index.d.ts"
+      ],
       "../src/server/faction_handler.server.ts": [
         "../src/shared/faction_manager/index.ts"
       ],
@@ -821,6 +840,13 @@
       ],
       "../src/shared/faction_manager/utility_functions.ts": [
         "../node_modules/@rbxts/t/lib/t.d.ts"
+      ],
+      "../src/shared/map/index.ts": [
+        "../src/shared/map/point.ts"
+      ],
+      "../src/shared/map/point_gen.ts": [
+        "../node_modules/@rbxts/t/lib/t.d.ts",
+        "../src/shared/map/point.ts"
       ],
       "../src/shared/region.ts": [
         "../node_modules/@rbxts/rotatedregion3/index.d.ts",
