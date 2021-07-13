@@ -322,7 +322,7 @@
         "affectsGlobalScope": false
       },
       "../src/client/spawn_gui/components/screens/map/index.tsx": {
-        "version": "57e2b211b929f8004833d9bddaebed987294f156ef79b7a0458aa3dfee125192",
+        "version": "22636346880a1f0a3238789531d7aa9e4b2930cdad4083e3350cbcd838f738aa",
         "affectsGlobalScope": false
       },
       "../src/shared/faction_manager/faction_data_interfaces.ts": {
@@ -411,6 +411,14 @@
       },
       "../src/shared/map/point_gen.ts": {
         "version": "459cfc65683087426023795b380d1e6ed89b47cc2311c865010d4cdf823002b3",
+        "affectsGlobalScope": false
+      },
+      "../src/client/spawn_gui/components/screens/map/tooltip.tsx": {
+        "version": "3505ff53f26d96bd301101eea037b2546fa5c9b7181fcba17ea28ed89f9df76c",
+        "affectsGlobalScope": false
+      },
+      "../src/client/spawn_gui/components/screens/map/map_point.tsx": {
+        "version": "a1ea0e196d003a412a5980d5b085423554b5c576f2d5de2dcdc4ca202e38c49a",
         "affectsGlobalScope": false
       }
     },
@@ -754,8 +762,14 @@
       "../src/client/spawn_gui/components/screens/map/index.tsx": [
         "../node_modules/@rbxts/object-event/index.d.ts",
         "../node_modules/@rbxts/roact/src/index.d.ts",
-        "../src/client/spawn_gui/components/screens/progress_item.tsx",
         "../src/client/spawn_gui/components/screens/screen.tsx"
+      ],
+      "../src/client/spawn_gui/components/screens/map/map_point.tsx": [
+        "../node_modules/@rbxts/roact/src/index.d.ts",
+        "../src/shared/faction_manager/faction.ts"
+      ],
+      "../src/client/spawn_gui/components/screens/map/tooltip.tsx": [
+        "../node_modules/@rbxts/roact/src/index.d.ts"
       ],
       "../src/client/spawn_gui/components/screens/progress_item.tsx": [
         "../node_modules/@rbxts/object-event/index.d.ts",
