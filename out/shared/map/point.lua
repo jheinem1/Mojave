@@ -14,6 +14,8 @@ do
 	end
 	function Point:constructor(metatdata)
 		self.metatdata = metatdata
+		self.x = metatdata.position.X
+		self.y = metatdata.position.Y
 	end
 end
 return {
