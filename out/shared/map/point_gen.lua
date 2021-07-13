@@ -4,7 +4,8 @@ local t = TS.import(script, TS.getModule(script, "t").lib.ts).t
 local Point = TS.import(script, game:GetService("ReplicatedStorage"), "Shared", "map", "point").Point
 local isValidPointConstructor = t.children({
 	PointName = t.instanceIsA("StringValue"),
-	Position = t.instanceIsA("Vector3Value"),
+	PositionX = t.instanceIsA("NumberValue"),
+	PositionY = t.instanceIsA("NumberValue"),
 	CanSpawn = t.union(t.instanceIsA("BoolValue"), t.none),
 })
 local getValidPointConstructors = function(pointConstructors)
@@ -28,17 +29,13 @@ end
 local function genPoints(pointConstructors)
 	local _0 = getValidPointConstructors(pointConstructors)
 	local _1 = function(pointConstructor)
-		local _2 = {
-			name = pointConstructor.PointName.Value,
-			position = pointConstructor.Position.Value,
-		}
-		local _3 = "canSpawn"
+		local _2 = Vector2.new(pointConstructor.PositionX.Value, pointConstructor.PositionY.Value)
+		local _3 = pointConstructor.PointName.Value
 		local _4 = pointConstructor.CanSpawn
 		if _4 ~= nil then
 			_4 = _4.Value
 		end
-		_2[_3] = _4
-		return Point.new(_2)
+		return Point.new(_2, _3, _4)
 	end
 	-- ▼ ReadonlyArray.map ▼
 	local _2 = table.create(#_0)
@@ -51,7 +48,7 @@ end
 local function mapBounds(points)
 	local _0 = points
 	local _1 = function(lowest, current)
-		return current.x < lowest.x and current or lowest
+		return current.position.X < lowest.position.X and current or lowest
 	end
 	-- ▼ ReadonlyArray.reduce ▼
 	if #_0 == 0 then
@@ -63,10 +60,10 @@ local function mapBounds(points)
 		_2 = _3(_2, _0[_4], _4 - 1, _0)
 	end
 	-- ▲ ReadonlyArray.reduce ▲
-	local _4 = _2.x
+	local _4 = _2.position.X
 	local _5 = points
 	local _6 = function(lowest, current)
-		return current.y < lowest.y and current or lowest
+		return current.position.Y < lowest.position.Y and current or lowest
 	end
 	-- ▼ ReadonlyArray.reduce ▼
 	if #_5 == 0 then
@@ -78,10 +75,10 @@ local function mapBounds(points)
 		_7 = _8(_7, _5[_9], _9 - 1, _5)
 	end
 	-- ▲ ReadonlyArray.reduce ▲
-	local _9 = Vector2.new(_4, _7.y)
+	local _9 = Vector2.new(_4, _7.position.Y)
 	local _10 = points
 	local _11 = function(highest, current)
-		return current.x > highest.x and current or highest
+		return current.position.X > highest.position.X and current or highest
 	end
 	-- ▼ ReadonlyArray.reduce ▼
 	if #_10 == 0 then
@@ -93,10 +90,10 @@ local function mapBounds(points)
 		_12 = _13(_12, _10[_14], _14 - 1, _10)
 	end
 	-- ▲ ReadonlyArray.reduce ▲
-	local _14 = _12.x
+	local _14 = _12.position.X
 	local _15 = points
 	local _16 = function(highest, current)
-		return current.y > highest.y and current or highest
+		return current.position.Y > highest.position.Y and current or highest
 	end
 	-- ▼ ReadonlyArray.reduce ▼
 	if #_15 == 0 then
@@ -108,7 +105,7 @@ local function mapBounds(points)
 		_17 = _18(_17, _15[_19], _19 - 1, _15)
 	end
 	-- ▲ ReadonlyArray.reduce ▲
-	return { _9, Vector2.new(_14, _17.y) }
+	return { _9, Vector2.new(_14, _17.position.Y) }
 end
 return {
 	genPoints = genPoints,

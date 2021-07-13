@@ -12,10 +12,13 @@ do
 		self:constructor(...)
 		return self
 	end
-	function Point:constructor(metatdata)
-		self.metatdata = metatdata
-		self.x = metatdata.position.X
-		self.y = metatdata.position.Y
+	function Point:constructor(position, name, canSpawn)
+		if canSpawn == nil then
+			canSpawn = false
+		end
+		self.position = position
+		self.name = name
+		self.canSpawn = canSpawn
 	end
 end
 return {

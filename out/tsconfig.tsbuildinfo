@@ -402,15 +402,15 @@
         "affectsGlobalScope": false
       },
       "../src/shared/map/point.ts": {
-        "version": "30d020c659195d7714932d6d757663d31ca3d3faec054c3f0ba7ec4716be0799",
+        "version": "09a86a05a857e878e746b3ed433dbc906c45bb136cb44afd3407cd8b79424308",
         "affectsGlobalScope": false
       },
       "../src/shared/map/index.ts": {
-        "version": "7a120b23e6493f4ad1a198dcf13f904a7f1978a6144891b60e88616336ac3e35",
+        "version": "f64f80b34ee2195b3f240370782c52c51d3cb77f6f78a13fe4746d524ef4c350",
         "affectsGlobalScope": false
       },
       "../src/shared/map/point_gen.ts": {
-        "version": "19a092fd5addcc43e06aa0ed3aa8e42d41db00dea6eafa968fc269491515b1b5",
+        "version": "459cfc65683087426023795b380d1e6ed89b47cc2311c865010d4cdf823002b3",
         "affectsGlobalScope": false
       }
     },
