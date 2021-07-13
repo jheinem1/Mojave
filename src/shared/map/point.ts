@@ -5,5 +5,10 @@ export interface PointMetadata {
 }
 
 export class Point {
-    constructor(public metatdata: PointMetadata) { }
+    x: number;
+    y: number;
+    constructor(protected metatdata: PointMetadata) {
+        this.x = metatdata.position.X;
+        this.y = metatdata.position.Y
+    }
 }
