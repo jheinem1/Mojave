@@ -1,0 +1,1 @@
+The 'vendor' directory is for Luau third-party modules.
