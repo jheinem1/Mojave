@@ -1,18 +1,21 @@
 import { t } from "@rbxts/t";
 
-// const usedColors = new Array<number>();
-// const isBrickColor = t.union(t.valueOf())
+const usedColors = new Array<number>();
 
-//** NOT IMPLEMENTED */
-export function assignColor(color: string): BrickColor {
+/** returns a random color
+ * NOT IMPLEMENTED */
+export function assignColor(color?: string): BrickColor {
     return new BrickColor(1);
 }
 
-/** NOT IMPLEMENTED */
+/** extracts the first letter of every word in a string */
 export function generateShortName(name: string): string {
-    return name;
+    const words = name.split(" ");
+    const shortName = words.map(word => word.match("%a")[0] ?? "").join("");
+    return shortName;
 }
 
+/** removes any non-alphanumeric characters from a string */
 export function cleanGroupName(name: string) {
     const outArray = new Array<string>();
     let i = 1;

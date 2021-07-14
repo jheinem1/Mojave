@@ -330,7 +330,7 @@
         "affectsGlobalScope": false
       },
       "../src/shared/faction_manager/utility_functions.ts": {
-        "version": "4b9a92d9351ed48dff0236c3c8dc736c7746460c66336280225517e2c048d4ba",
+        "version": "50d3e4cb2c58f18e23f6f490f070606a7438719bfd854dbf0dda7b3f86fa2f45",
         "affectsGlobalScope": false
       },
       "../src/shared/faction_manager/faction.ts": {
@@ -377,6 +377,14 @@
         "version": "38db733bd291b4ad5f2c368a2704c4b8878f4dee9f7f007ae58c382ede146341",
         "affectsGlobalScope": false
       },
+      "../src/client/spawn_gui/components/screens/map/map_point.tsx": {
+        "version": "a1ea0e196d003a412a5980d5b085423554b5c576f2d5de2dcdc4ca202e38c49a",
+        "affectsGlobalScope": false
+      },
+      "../src/client/spawn_gui/components/screens/map/tooltip.tsx": {
+        "version": "567ddf06e4cf1b18bce2918eae206a8ca87f0cb2e4249060dd3636ef9e358227",
+        "affectsGlobalScope": false
+      },
       "../src/server/age_script.server.ts": {
         "version": "b1020d120f4f6c006dae84f0f5ae922ac94cfdce2921ddb27a0c758c9ab44b8f",
         "affectsGlobalScope": false
@@ -411,14 +419,6 @@
       },
       "../src/shared/map/point_gen.ts": {
         "version": "459cfc65683087426023795b380d1e6ed89b47cc2311c865010d4cdf823002b3",
-        "affectsGlobalScope": false
-      },
-      "../src/client/spawn_gui/components/screens/map/tooltip.tsx": {
-        "version": "3505ff53f26d96bd301101eea037b2546fa5c9b7181fcba17ea28ed89f9df76c",
-        "affectsGlobalScope": false
-      },
-      "../src/client/spawn_gui/components/screens/map/map_point.tsx": {
-        "version": "a1ea0e196d003a412a5980d5b085423554b5c576f2d5de2dcdc4ca202e38c49a",
         "affectsGlobalScope": false
       }
     },

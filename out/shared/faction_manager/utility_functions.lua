@@ -1,14 +1,39 @@
 -- Compiled with roblox-ts v1.1.1
--- const usedColors = new Array<number>();
--- const isBrickColor = t.union(t.valueOf())
--- ** NOT IMPLEMENTED */
+local usedColors = {}
+--[[
+	* returns a random color
+	* NOT IMPLEMENTED
+]]
 local function assignColor(color)
 	return BrickColor.new(1)
 end
--- * NOT IMPLEMENTED
+-- * extracts the first letter of every word in a string
 local function generateShortName(name)
-	return name
+	local words = string.split(name, " ")
+	local _0 = words
+	local _1 = function(word)
+		local _2 = (string.match(word, "%a"))
+		if _2 == nil then
+			_2 = ""
+		end
+		return _2
+	end
+	-- ▼ ReadonlyArray.map ▼
+	local _2 = table.create(#_0)
+	for _3, _4 in ipairs(_0) do
+		_2[_3] = _1(_4, _3 - 1, _0)
+	end
+	-- ▲ ReadonlyArray.map ▲
+	-- ▼ ReadonlyArray.join ▼
+	local _3 = ""
+	if _3 == nil then
+		_3 = ", "
+	end
+	-- ▲ ReadonlyArray.join ▲
+	local shortName = table.concat(_2, _3)
+	return shortName
 end
+-- * removes any non-alphanumeric characters from a string
 local function cleanGroupName(name)
 	local outArray = {}
 	local i = 1

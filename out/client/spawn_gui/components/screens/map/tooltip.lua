@@ -12,15 +12,18 @@ do
 				BackgroundColor3 = Color3.fromRGB(126, 111, 42),
 				BorderColor3 = Color3.fromRGB(255, 226, 86),
 				BorderSizePixel = 3,
-				Position = UDim2.new(0, 1150, 0, 550),
+				Position = self.props.position:map(function(position)
+					return UDim2.fromScale(position.X, position.Y)
+				end),
 				Size = UDim2.new(0, 283, 0, 60),
+				Visible = self.props.visible,
 			}, {
 				DestinationInfo = Roact.createElement("TextLabel", {
 					BackgroundTransparency = 1,
 					Font = Enum.Font.SourceSansSemibold,
 					Position = UDim2.new(0, 5, 0, 0),
 					Size = UDim2.new(1, -10, 1, 0),
-					Text = "Hoover Dam\nControlling Faction: NCR",
+					Text = self.props.text,
 					TextColor3 = Color3.fromRGB(255, 226, 86),
 					TextSize = 32,
 					TextXAlignment = Enum.TextXAlignment.Left,
@@ -40,6 +43,7 @@ do
 						Text = "SPAWN",
 						TextColor3 = Color3.fromRGB(255, 226, 86),
 						TextSize = 32,
+						Visible = self.props.canSpawn,
 					}),
 				}),
 			}),
