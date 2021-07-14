@@ -74,15 +74,14 @@ do
 			_arg0_1(_v, _k - 1, _newValue)
 		end
 		-- ▲ ReadonlyArray.forEach ▲
-		-- seems stupid but roblox-ts has an issue (https://github.com/roblox-ts/roblox-ts/issues/1467)
-		self.color = assignColor(tostring((string.match(groupInfo.Description, [[Color:%s*["']([%w ]*)["']] .. "]"))))
-		local _condition = (string.match(groupInfo.Description, [[ShortName:%s*["']([%a ]*)["']] .. "]"))
+		self.color = assignColor(tostring((string.match(groupInfo.Description, [=[Color:%s*["']([%w ]*)["']]=]))))
+		local _condition = (string.match(groupInfo.Description, [=[ShortName:%s*["']([%a ]*)["']]=]))
 		if _condition == nil then
 			_condition = self.name
 		end
 		self.shortName = generateShortName(tostring(_condition))
 		self.uniformTop = tonumber((string.match(groupInfo.Description, [[UniformTop:%s*["']([%d]*)["']] .. "]")))
-		self.uniformBottom = tonumber((string.match(groupInfo.Description, [[UniformBottom:%s*["']([%d]*)["']] .. "]")))
+		self.uniformBottom = tonumber((string.match(groupInfo.Description, [=[UniformBottom:%s*["']([%d]*)["']]=])))
 		Players.PlayerAdded:Connect(function(player)
 			return self:onPlayer(player)
 		end)

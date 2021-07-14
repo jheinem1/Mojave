@@ -34,11 +34,10 @@ export class Faction {
         this.name = groupInfo.Name;
         this.groupId = groupInfo.Id;
         groupInfo.Roles.map(roleInfo => new Role(roleInfo, this)).forEach(role => this.roles.set(role.id, role));
-        // seems stupid but roblox-ts has an issue (https://github.com/roblox-ts/roblox-ts/issues/1467) 
-        this.color = assignColor(tostring(string.match(groupInfo.Description, `Color:%s*["']([%w ]*)["'` + "]")[0]));
-        this.shortName = generateShortName(tostring(string.match(groupInfo.Description, `ShortName:%s*["']([%a ]*)["'` + "]")[0] ?? this.name));
+        this.color = assignColor(tostring(string.match(groupInfo.Description, `Color:%s*["']([%w ]*)["']`)[0]));
+        this.shortName = generateShortName(tostring(string.match(groupInfo.Description, `ShortName:%s*["']([%a ]*)["']`)[0] ?? this.name));
         this.uniformTop = tonumber(string.match(groupInfo.Description, `UniformTop:%s*["']([%d]*)["'` + "]")[0]);
-        this.uniformBottom = tonumber(string.match(groupInfo.Description, `UniformBottom:%s*["']([%d]*)["'` + "]")[0]);
+        this.uniformBottom = tonumber(string.match(groupInfo.Description, `UniformBottom:%s*["']([%d]*)["']`)[0]);
         Players.PlayerAdded.Connect(player => this.onPlayer(player));
         Players.GetPlayers().forEach(player => this.onPlayer(player));
     }

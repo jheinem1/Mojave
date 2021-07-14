@@ -1,5 +1,5 @@
 -- Compiled with roblox-ts v1.2.2
-local usedColors = {}
+-- const usedColors = new Array<number>();
 --[[
 	* returns a random color
 	* NOT IMPLEMENTED

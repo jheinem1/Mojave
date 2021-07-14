@@ -24,7 +24,7 @@ local function getFactions(update)
 	end
 	if update or not factions then
 		local newAllies = {}
-		local allyPages = GroupService:GetAlliesAsync(4978642)
+		local allyPages = GroupService:GetAlliesAsync(groupId)
 		while true do
 			local _exp = allyPages:GetCurrentPage()
 			local _arg0 = function(group)
