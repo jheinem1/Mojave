@@ -1,7 +1,5 @@
-import Net from "@rbxts/net";
 import { GroupService, Players, RunService } from "@rbxts/services";
-import { t } from "@rbxts/t";
-import { ClientFaction, Faction, Role } from "./faction";
+import { ClientFaction, Faction } from "./faction";
 import { ClientFactionInfo, ClientInfo, RoleInfo } from "./faction_data_interfaces";
 import FactionRemotes from "./faction_remotes";
 import { cleanGroupName } from "./utility_functions";
@@ -20,7 +18,7 @@ export function getFactions(update?: boolean) {
         throw "Cannot be called from the client";
     if (update || !factions) {
         const newAllies = new Array<GroupInfo>();
-        const allyPages = GroupService.GetAlliesAsync(4978642);
+        const allyPages = GroupService.GetAlliesAsync(groupId);
         while (true) {
             allyPages.GetCurrentPage().forEach((group) => {
                 group.Name = cleanGroupName(group.Name);

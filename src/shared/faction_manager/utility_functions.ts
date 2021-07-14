@@ -1,6 +1,4 @@
-import { t } from "@rbxts/t";
-
-const usedColors = new Array<number>();
+// const usedColors = new Array<number>();
 
 /** returns a random color
  * NOT IMPLEMENTED */

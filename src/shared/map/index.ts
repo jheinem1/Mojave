@@ -1,7 +1,6 @@
 import { Point } from "./point";
 
 
-
 export class GameMap {
     public size: Vector2;
     constructor(public points: Point[], public bounds: [Vector2, Vector2]) {
