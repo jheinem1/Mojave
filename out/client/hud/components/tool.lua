@@ -1,8 +1,8 @@
--- Compiled with roblox-ts v1.1.1
+-- Compiled with roblox-ts v1.2.2
 local TS = require(game:GetService("ReplicatedStorage"):WaitForChild("rbxts_include"):WaitForChild("RuntimeLib"))
-local Roact = TS.import(script, TS.getModule(script, "roact").src)
-local Players = TS.import(script, TS.getModule(script, "services")).Players
-local t = TS.import(script, TS.getModule(script, "t").lib.ts).t
+local Roact = TS.import(script, TS.getModule(script, "@rbxts", "roact").src)
+local Players = TS.import(script, TS.getModule(script, "@rbxts", "services")).Players
+local t = TS.import(script, TS.getModule(script, "@rbxts", "t").lib.ts).t
 local ToolComponent
 do
 	ToolComponent = Roact.Component:extend("ToolComponent")
@@ -36,14 +36,14 @@ do
 		local ammoConnection
 		if tool:FindFirstChild("BlasterSettings") then
 			local ammo = tool:FindFirstChild("Ammo")
-			local _0 = tool:FindFirstChild("BlasterSettings")
-			if _0 ~= nil then
-				_0 = _0:FindFirstChild("Stats")
-				if _0 ~= nil then
-					_0 = _0:FindFirstChild("MaxAmmo")
+			local _maxAmmo = tool:FindFirstChild("BlasterSettings")
+			if _maxAmmo ~= nil then
+				_maxAmmo = _maxAmmo:FindFirstChild("Stats")
+				if _maxAmmo ~= nil then
+					_maxAmmo = _maxAmmo:FindFirstChild("MaxAmmo")
 				end
 			end
-			local maxAmmo = _0
+			local maxAmmo = _maxAmmo
 			ammoConnection = t.instanceOf("IntValue")(ammo) and ammo.Changed:Connect(function(num)
 				return self:setState({
 					ammo = tostring(num),

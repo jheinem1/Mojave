@@ -1,24 +1,24 @@
--- Compiled with roblox-ts v1.1.1
+-- Compiled with roblox-ts v1.2.2
 local TS = require(game:GetService("ReplicatedStorage"):WaitForChild("rbxts_include"):WaitForChild("RuntimeLib"))
-local Roact = TS.import(script, TS.getModule(script, "roact").src)
-local Workspace = TS.import(script, TS.getModule(script, "services")).Workspace
+local Roact = TS.import(script, TS.getModule(script, "@rbxts", "roact").src)
+local Workspace = TS.import(script, TS.getModule(script, "@rbxts", "services")).Workspace
 local TeamButtonComponent
 do
 	TeamButtonComponent = Roact.Component:extend("TeamButtonComponent")
 	function TeamButtonComponent:init(props)
 		props.SelectedEvent:Connect(function(element, selected)
-			local _0 = self
-			local _1 = {}
-			local _2 = "selected"
-			local _3
+			local _fn = self
+			local _ptr = {}
+			local _left = "selected"
+			local _result
 			if element == self then
-				_3 = selected
+				_result = selected
 			else
-				_3 = false
+				_result = false
 			end
-			_1[_2] = _3
-			_1.oneSelected = selected
-			return _0:setState(_1)
+			_ptr[_left] = _result
+			_ptr.oneSelected = selected
+			return _fn:setState(_ptr)
 		end)
 		if props.StartSelectedIfAlone then
 			self:setState({
@@ -33,7 +33,7 @@ do
 		local normalMinimizedSize = Workspace.CurrentCamera and Workspace.CurrentCamera.ViewportSize.X / self.props.NumButtons or 0
 		local selectedMinimizedSize = Workspace.CurrentCamera and Workspace.CurrentCamera.ViewportSize.X / (self.props.NumButtons + 0.5) or 0
 		local maximizedSize = selectedMinimizedSize * 1.5
-		local _0 = {
+		local _ptr = {
 			BackgroundColor3 = self.state.selected and Color3.fromRGB(46, 46, 46) or Color3.fromRGB(23, 23, 23),
 			BorderSizePixel = 0,
 			ClipsDescendants = true,
@@ -48,28 +48,28 @@ do
 				end
 			end,
 		}
-		local _1 = {}
-		local _2 = #_1
-		local _3 = {
+		local _ptr_1 = {}
+		local _length = #_ptr_1
+		local _ptr_2 = {
 			BackgroundTransparency = 1,
 			Size = UDim2.new(1, 0, 0.25, 0),
 		}
-		local _4
+		local _result
 		if self.state.selected or self.state.oneSelected then
-			_4 = selectedMinimizedSize >= 350
+			_result = selectedMinimizedSize >= 350
 		else
-			_4 = normalMinimizedSize >= 350
+			_result = normalMinimizedSize >= 350
 		end
-		_3.Visible = _4
-		_3.Font = Enum.Font.GothamSemibold
-		_3.Text = self.props.Name
-		_3.TextColor3 = Color3.fromRGB(255, 208, 80)
-		_3.TextScaled = true
-		_3.ZIndex = 0
-		_1.Faction = Roact.createElement("TextLabel", _3)
-		_1[_2 + 1] = self.props.Avatar
+		_ptr_2.Visible = _result
+		_ptr_2.Font = Enum.Font.GothamSemibold
+		_ptr_2.Text = self.props.Name
+		_ptr_2.TextColor3 = Color3.fromRGB(255, 208, 80)
+		_ptr_2.TextScaled = true
+		_ptr_2.ZIndex = 0
+		_ptr_1.Faction = Roact.createElement("TextLabel", _ptr_2)
+		_ptr_1[_length + 1] = self.props.Avatar
 		return Roact.createFragment({
-			[self.props.Name] = Roact.createElement("TextButton", _0, _1),
+			[self.props.Name] = Roact.createElement("TextButton", _ptr, _ptr_1),
 		})
 	end
 end

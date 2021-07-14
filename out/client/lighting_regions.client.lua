@@ -1,4 +1,4 @@
--- Compiled with roblox-ts v1.1.1
+-- Compiled with roblox-ts v1.2.2
 -- import { Workspace, ReplicatedStorage, Lighting } from "@rbxts/services";
 -- import { t } from "@rbxts/t";
 -- const lightingRegions = ReplicatedStorage.WaitForChild("LightRegions", 5);

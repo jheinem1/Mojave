@@ -1,11 +1,11 @@
--- Compiled with roblox-ts v1.1.1
+-- Compiled with roblox-ts v1.2.2
 local TS = require(game:GetService("ReplicatedStorage"):WaitForChild("rbxts_include"):WaitForChild("RuntimeLib"))
-local ReplicatedStorage = TS.import(script, TS.getModule(script, "services")).ReplicatedStorage
-local t = TS.import(script, TS.getModule(script, "t").lib.ts).t
+local ReplicatedStorage = TS.import(script, TS.getModule(script, "@rbxts", "services")).ReplicatedStorage
+local t = TS.import(script, TS.getModule(script, "@rbxts", "t").lib.ts).t
 local Allies = TS.import(script, game:GetService("ReplicatedStorage"), "Shared", "allies").default
 local location = ReplicatedStorage:FindFirstChild("FamilyList")
-local _0 = t.instanceOf("Folder")(location)
-assert(_0, "Expected folder in ReplicatedStorage named 'FamilyList'")
+local _arg0 = t.instanceOf("Folder")(location)
+assert(_arg0, "Expected folder in ReplicatedStorage named 'FamilyList'")
 local function generateFactionFolder(group)
 	local folder = Instance.new("Folder")
 	folder.Name = group.Name
@@ -20,22 +20,22 @@ local function generateFactionFolder(group)
 	return folder
 end
 local function generate()
-	local _1 = location
-	if _1 ~= nil then
-		_1:ClearAllChildren()
+	local _result = location
+	if _result ~= nil then
+		_result:ClearAllChildren()
 	end
 	for _, group in ipairs(Allies:getAllies()) do
 		generateFactionFolder(group).Parent = location
 	end
 end
-local _1 = script.Parent
-if _1 ~= nil then
-	_1 = _1:FindFirstChild("onjoin")
-	if _1 ~= nil then
-		_1 = _1:FindFirstChild("reloadteams")
+local _bindable = script.Parent
+if _bindable ~= nil then
+	_bindable = _bindable:FindFirstChild("onjoin")
+	if _bindable ~= nil then
+		_bindable = _bindable:FindFirstChild("reloadteams")
 	end
 end
-local bindable = _1
+local bindable = _bindable
 if t.instanceIsA("BindableEvent")(bindable) then
 	bindable.Event:Connect(generate)
 end

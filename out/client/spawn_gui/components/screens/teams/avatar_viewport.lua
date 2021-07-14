@@ -1,6 +1,6 @@
--- Compiled with roblox-ts v1.1.1
+-- Compiled with roblox-ts v1.2.2
 local TS = require(game:GetService("ReplicatedStorage"):WaitForChild("rbxts_include"):WaitForChild("RuntimeLib"))
-local Roact = TS.import(script, TS.getModule(script, "roact").src)
+local Roact = TS.import(script, TS.getModule(script, "@rbxts", "roact").src)
 local Avatar = TS.import(script, game:GetService("ReplicatedStorage"), "Shared", "avatar").Avatar
 local AvatarViewportComponent
 do
@@ -17,12 +17,12 @@ do
 			camera.CameraType = Enum.CameraType.Scriptable
 			camera.FieldOfView = 70
 			local character = self.avatarGenerator:loadCharacter()
-			local _0 = self.props.shirtId
-			if _0 ~= 0 and _0 == _0 and _0 then
+			local _value = self.props.shirtId
+			if _value ~= 0 and _value == _value and _value then
 				self.avatarGenerator:changeShirt(character, self.props.shirtId)
 			end
-			local _1 = self.props.pantsId
-			if _1 ~= 0 and _1 == _1 and _1 then
+			local _value_1 = self.props.pantsId
+			if _value_1 ~= 0 and _value_1 == _value_1 and _value_1 then
 				self.avatarGenerator:changePants(character, self.props.pantsId)
 			end
 			camera.Parent = viewport

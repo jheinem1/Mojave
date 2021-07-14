@@ -1,25 +1,25 @@
--- Compiled with roblox-ts v1.1.1
+-- Compiled with roblox-ts v1.2.2
 local TS = require(game:GetService("ReplicatedStorage"):WaitForChild("rbxts_include"):WaitForChild("RuntimeLib"))
-local Roact = TS.import(script, TS.getModule(script, "roact").src)
-local Players = TS.import(script, TS.getModule(script, "services")).Players
-local t = TS.import(script, TS.getModule(script, "t").lib.ts).t
+local Roact = TS.import(script, TS.getModule(script, "@rbxts", "roact").src)
+local Players = TS.import(script, TS.getModule(script, "@rbxts", "services")).Players
+local t = TS.import(script, TS.getModule(script, "@rbxts", "t").lib.ts).t
 local Caps
 do
 	Caps = Roact.Component:extend("Caps")
 	function Caps:init(props)
-		local _0 = Players.LocalPlayer:FindFirstChild("Data")
-		if _0 ~= nil then
-			_0 = _0:FindFirstChild("Caps")
+		local _result = Players.LocalPlayer:FindFirstChild("Data")
+		if _result ~= nil then
+			_result = _result:FindFirstChild("Caps")
 		end
-		local _1 = _0
-		if _1 == nil then
-			local _2 = Players.LocalPlayer:WaitForChild("Data", 5)
-			if _2 ~= nil then
-				_2 = _2:WaitForChild("Caps", 5)
+		local _condition = _result
+		if _condition == nil then
+			local _result_1 = Players.LocalPlayer:WaitForChild("Data", 5)
+			if _result_1 ~= nil then
+				_result_1 = _result_1:WaitForChild("Caps", 5)
 			end
-			_1 = _2
+			_condition = _result_1
 		end
-		self.capsValue = _1
+		self.capsValue = _condition
 		self.state = {
 			caps = "N/A",
 		}

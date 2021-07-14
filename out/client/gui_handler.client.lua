@@ -1,4 +1,4 @@
--- Compiled with roblox-ts v1.1.1
+-- Compiled with roblox-ts v1.2.2
 local TS = require(game:GetService("ReplicatedStorage"):WaitForChild("rbxts_include"):WaitForChild("RuntimeLib"))
 -- import { StarterGui } from "@rbxts/services";
 local HUD = TS.import(script, script.Parent, "hud").HUD

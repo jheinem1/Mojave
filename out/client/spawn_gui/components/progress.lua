@@ -1,6 +1,6 @@
--- Compiled with roblox-ts v1.1.1
+-- Compiled with roblox-ts v1.2.2
 local TS = require(game:GetService("ReplicatedStorage"):WaitForChild("rbxts_include"):WaitForChild("RuntimeLib"))
-local Roact = TS.import(script, TS.getModule(script, "roact").src)
+local Roact = TS.import(script, TS.getModule(script, "@rbxts", "roact").src)
 local MapScreen = TS.import(script, script.Parent, "screens", "map").MapScreen
 local TeamsScreen = TS.import(script, script.Parent, "screens", "teams").TeamsScreen
 local ProgressComponent
@@ -17,15 +17,15 @@ do
 			currentScreen = self.screens[1].position,
 		})
 		self.screens[self.props.currentScreen[1]:getValue() + 1].selected:Fire()
-		local _0 = self.screens
-		local _1 = function(screen)
+		local _screens = self.screens
+		local _arg0 = function(screen)
 			return screen.selected:Connect(function()
 				return self:onSelect(screen)
 			end)
 		end
 		-- ▼ ReadonlyArray.forEach ▼
-		for _2, _3 in ipairs(_0) do
-			_1(_3, _2 - 1, _0)
+		for _k, _v in ipairs(_screens) do
+			_arg0(_v, _k - 1, _screens)
 		end
 		-- ▲ ReadonlyArray.forEach ▲
 	end
@@ -40,19 +40,18 @@ do
 			Padding = UDim.new(0.1, 0),
 			SortOrder = Enum.SortOrder.LayoutOrder,
 		}) }
-		local _0 = self.screens
-		local _1 = function(screen)
-			local _2 = items
-			local _3 = screen:getButtonComponent()
+		local _screens = self.screens
+		local _arg0 = function(screen)
+			local _arg0_1 = screen:getButtonComponent()
 			-- ▼ Array.push ▼
-			local _4 = #_2
-			_2[_4 + 1] = _3
+			local _length = #items
+			items[_length + 1] = _arg0_1
 			-- ▲ Array.push ▲
-			return _4 + 1
+			return _length + 1
 		end
 		-- ▼ ReadonlyArray.forEach ▼
-		for _2, _3 in ipairs(_0) do
-			_1(_3, _2 - 1, _0)
+		for _k, _v in ipairs(_screens) do
+			_arg0(_v, _k - 1, _screens)
 		end
 		-- ▲ ReadonlyArray.forEach ▲
 		return Roact.createElement("Frame", {

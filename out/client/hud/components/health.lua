@@ -1,8 +1,8 @@
--- Compiled with roblox-ts v1.1.1
+-- Compiled with roblox-ts v1.2.2
 local TS = require(game:GetService("ReplicatedStorage"):WaitForChild("rbxts_include"):WaitForChild("RuntimeLib"))
-local Roact = TS.import(script, TS.getModule(script, "roact").src)
-local Players = TS.import(script, TS.getModule(script, "services")).Players
-local t = TS.import(script, TS.getModule(script, "t").lib.ts).t
+local Roact = TS.import(script, TS.getModule(script, "@rbxts", "roact").src)
+local Players = TS.import(script, TS.getModule(script, "@rbxts", "services")).Players
+local t = TS.import(script, TS.getModule(script, "@rbxts", "t").lib.ts).t
 local Username = TS.import(script, script.Parent, "username").Username
 local Health
 do
@@ -20,11 +20,11 @@ do
 		end
 	end
 	function Health:onCharacter(character)
-		local _0 = character:FindFirstChildOfClass("Humanoid")
-		if _0 == nil then
-			_0 = character:WaitForChild("Humanoid", 5)
+		local _condition = character:FindFirstChildOfClass("Humanoid")
+		if _condition == nil then
+			_condition = character:WaitForChild("Humanoid", 5)
 		end
-		local humanoid = _0
+		local humanoid = _condition
 		if t.instanceOf("Humanoid")(humanoid) then
 			humanoid:GetPropertyChangedSignal("Health"):Connect(function()
 				return self:setState({

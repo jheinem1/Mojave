@@ -1,4 +1,4 @@
--- Compiled with roblox-ts v1.1.1
+-- Compiled with roblox-ts v1.2.2
 -- import { ReplicatedStorage, Workspace } from "@rbxts/services";
 -- import { t } from "@rbxts/t";
 -- // basically it just moves a folder to replicatedstorage

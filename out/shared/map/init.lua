@@ -1,4 +1,4 @@
--- Compiled with roblox-ts v1.1.1
+-- Compiled with roblox-ts v1.2.2
 local TS = require(game:GetService("ReplicatedStorage"):WaitForChild("rbxts_include"):WaitForChild("RuntimeLib"))
 local Point = TS.import(script, game:GetService("ReplicatedStorage"), "Shared", "map", "point").Point
 local GameMap
@@ -11,28 +11,26 @@ do
 	GameMap.__index = GameMap
 	function GameMap.new(...)
 		local self = setmetatable({}, GameMap)
-		self:constructor(...)
-		return self
+		return self:constructor(...) or self
 	end
 	function GameMap:constructor(points, bounds)
 		self.points = points
 		self.bounds = bounds
-		local _0 = bounds[2]
-		local _1 = bounds[1]
-		self.size = _0 - _1
-		local _2 = points
-		local _3 = function(absPoint)
-			local _4 = absPoint.position
-			local _5 = bounds[1]
-			return Point.new(_4 - _5, absPoint.name, absPoint.canSpawn)
+		local _exp = bounds[2]
+		local _arg0 = bounds[1]
+		self.size = _exp - _arg0
+		local _arg0_1 = function(absPoint)
+			local _position = absPoint.position
+			local _arg0_2 = bounds[1]
+			return Point.new(_position - _arg0_2, absPoint.name, absPoint.canSpawn)
 		end
 		-- ▼ ReadonlyArray.map ▼
-		local _4 = table.create(#_2)
-		for _5, _6 in ipairs(_2) do
-			_4[_5] = _3(_6, _5 - 1, _2)
+		local _newValue = table.create(#points)
+		for _k, _v in ipairs(points) do
+			_newValue[_k] = _arg0_1(_v, _k - 1, points)
 		end
 		-- ▲ ReadonlyArray.map ▲
-		self.points = _4
+		self.points = _newValue
 	end
 end
 return {

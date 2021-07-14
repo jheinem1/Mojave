@@ -1,6 +1,6 @@
--- Compiled with roblox-ts v1.1.1
+-- Compiled with roblox-ts v1.2.2
 local TS = require(game:GetService("ReplicatedStorage"):WaitForChild("rbxts_include"):WaitForChild("RuntimeLib"))
-local Roact = TS.import(script, TS.getModule(script, "roact").src)
+local Roact = TS.import(script, TS.getModule(script, "@rbxts", "roact").src)
 local Screen = TS.import(script, script.Parent, "screen").Screen
 local MapComponent
 do
@@ -36,8 +36,7 @@ do
 	MapScreen.__index = MapScreen
 	function MapScreen.new(...)
 		local self = setmetatable({}, MapScreen)
-		self:constructor(...)
-		return self
+		return self:constructor(...) or self
 	end
 	function MapScreen:constructor(...)
 		super.constructor(self, ...)

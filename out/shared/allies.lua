@@ -1,9 +1,9 @@
--- Compiled with roblox-ts v1.1.1
+-- Compiled with roblox-ts v1.2.2
 local TS = require(game:GetService("ReplicatedStorage"):WaitForChild("rbxts_include"):WaitForChild("RuntimeLib"))
-local _0 = TS.import(script, TS.getModule(script, "services"))
-local GroupService = _0.GroupService
-local ServerScriptService = _0.ServerScriptService
-local t = TS.import(script, TS.getModule(script, "t").lib.ts).t
+local _services = TS.import(script, TS.getModule(script, "@rbxts", "services"))
+local GroupService = _services.GroupService
+local ServerScriptService = _services.ServerScriptService
+local t = TS.import(script, TS.getModule(script, "@rbxts", "t").lib.ts).t
 local Allies
 do
 	Allies = setmetatable({}, {
@@ -14,8 +14,7 @@ do
 	Allies.__index = Allies
 	function Allies.new(...)
 		local self = setmetatable({}, Allies)
-		self:constructor(...)
-		return self
+		return self:constructor(...) or self
 	end
 	function Allies:constructor()
 	end
@@ -23,18 +22,16 @@ do
 		local newAllies = {}
 		local allyPages = GroupService:GetAlliesAsync(4978642)
 		while true do
-			local _1 = allyPages:GetCurrentPage()
-			local _2 = function(group)
+			local _exp = allyPages:GetCurrentPage()
+			local _arg0 = function(group)
 				group.Name = self:cleanGroupName(group.Name)
-				local _3 = newAllies
-				local _4 = group
 				-- ▼ Array.push ▼
-				_3[#_3 + 1] = _4
+				newAllies[#newAllies + 1] = group
 				-- ▲ Array.push ▲
 			end
 			-- ▼ ReadonlyArray.forEach ▼
-			for _3, _4 in ipairs(_1) do
-				_2(_4, _3 - 1, _1)
+			for _k, _v in ipairs(_exp) do
+				_arg0(_v, _k - 1, _exp)
 			end
 			-- ▲ ReadonlyArray.forEach ▲
 			if allyPages.IsFinished then
@@ -48,40 +45,37 @@ do
 	function Allies:cleanGroupName(name)
 		local outArray = {}
 		local i = 1
-		local _1 = name
-		local _2 = i
-		local _3 = i
-		local char = string.sub(_1, _2, _3)
+		local _i = i
+		local _i_1 = i
+		local char = string.sub(name, _i, _i_1)
 		while char ~= "" do
-			local _4 = char == " " or (string.match(char, "%a"))
-			if _4 ~= 0 and _4 == _4 and _4 ~= "" and _4 then
-				local _5 = outArray
-				local _6 = char
+			local _value = char == " " or (string.match(char, "%a"))
+			if _value ~= 0 and _value == _value and _value ~= "" and _value then
+				local _char = char
 				-- ▼ Array.push ▼
-				_5[#_5 + 1] = _6
+				outArray[#outArray + 1] = _char
 				-- ▲ Array.push ▲
 			end
 			i += 1
-			local _5 = name
-			local _6 = i
-			local _7 = i
-			char = string.sub(_5, _6, _7)
+			local _i_2 = i
+			local _i_3 = i
+			char = string.sub(name, _i_2, _i_3)
 		end
 		-- ▼ ReadonlyArray.join ▼
-		local _4 = ""
-		if _4 == nil then
-			_4 = ", "
+		local _arg0 = ""
+		if _arg0 == nil then
+			_arg0 = ", "
 		end
 		-- ▲ ReadonlyArray.join ▲
-		local outStr = table.concat(outArray, _4)
-		local _5 = (string.match(outStr, "^%s*(%a+[%a%s]*%a+)%s*$"))
-		if _5 == nil then
-			_5 = (string.match(outStr, "^%s*(%a+)%s*$"))
-			if _5 == nil then
-				_5 = "Invalid Group Name!"
+		local outStr = table.concat(outArray, _arg0)
+		local _condition = (string.match(outStr, "^%s*(%a+[%a%s]*%a+)%s*$"))
+		if _condition == nil then
+			_condition = (string.match(outStr, "^%s*(%a+)%s*$"))
+			if _condition == nil then
+				_condition = "Invalid Group Name!"
 			end
 		end
-		return _5
+		return _condition
 	end
 	function Allies:getAllies()
 		if not self.allies then
@@ -90,14 +84,14 @@ do
 		return self.allies
 	end
 end
-local _1 = ServerScriptService:FindFirstChild("Server")
-if _1 ~= nil then
-	_1 = _1:FindFirstChild("onjoin")
-	if _1 ~= nil then
-		_1 = _1:FindFirstChild("reloadteams")
+local _refreshEvent = ServerScriptService:FindFirstChild("Server")
+if _refreshEvent ~= nil then
+	_refreshEvent = _refreshEvent:FindFirstChild("onjoin")
+	if _refreshEvent ~= nil then
+		_refreshEvent = _refreshEvent:FindFirstChild("reloadteams")
 	end
 end
-local refreshEvent = _1
+local refreshEvent = _refreshEvent
 if t.instanceOf("BindableEvent")(refreshEvent) then
 	refreshEvent.Event:Connect(function()
 		return Allies:refresh()

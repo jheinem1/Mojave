@@ -1,38 +1,36 @@
--- Compiled with roblox-ts v1.1.1
+-- Compiled with roblox-ts v1.2.2
 local TS = require(game:GetService("ReplicatedStorage"):WaitForChild("rbxts_include"):WaitForChild("RuntimeLib"))
-local _0 = TS.import(script, TS.getModule(script, "services"))
-local Players = _0.Players
-local ReplicatedStorage = _0.ReplicatedStorage
-local RunService = _0.RunService
-local Workspace = _0.Workspace
-local t = TS.import(script, TS.getModule(script, "t").lib.ts).t
-local _1 = TS.import(script, game:GetService("ReplicatedStorage"), "Shared", "region")
-local BasePartRegion = _1.BasePartRegion
-local RegionUnion = _1.RegionUnion
+local _services = TS.import(script, TS.getModule(script, "@rbxts", "services"))
+local Players = _services.Players
+local ReplicatedStorage = _services.ReplicatedStorage
+local RunService = _services.RunService
+local Workspace = _services.Workspace
+local t = TS.import(script, TS.getModule(script, "@rbxts", "t").lib.ts).t
+local _region = TS.import(script, game:GetService("ReplicatedStorage"), "Shared", "region")
+local BasePartRegion = _region.BasePartRegion
+local RegionUnion = _region.RegionUnion
 local Remotes = TS.import(script, game:GetService("ReplicatedStorage"), "Shared", "remotes").default
 local inSafezone = Remotes.Server:Create("InSafezone")
 local validSafezoneChildren = t.array(t.instanceIsA("BasePart"))
-local _2 = Workspace:FindFirstChild("Safezones")
-if _2 == nil then
-	_2 = ReplicatedStorage:FindFirstChild("Safezones")
+local _condition = Workspace:FindFirstChild("Safezones")
+if _condition == nil then
+	_condition = ReplicatedStorage:FindFirstChild("Safezones")
 end
-local safezoneFolder = _2
-local _3 = safezoneFolder
-assert(_3, "Expected a folder named 'Safezones' in the workspace or ReplicatedStorage")
+local safezoneFolder = _condition
+assert(safezoneFolder, "Expected a folder named 'Safezones' in the workspace or ReplicatedStorage")
 local safezoneParts = safezoneFolder:GetChildren()
-local _4 = validSafezoneChildren(safezoneParts)
-assert(_4, "Expected children of 'Safezones' folder to be BaseParts")
-local _5 = safezoneParts
-local _6 = function(safezonePart)
+local _arg0 = validSafezoneChildren(safezoneParts)
+assert(_arg0, "Expected children of 'Safezones' folder to be BaseParts")
+local _arg0_1 = function(safezonePart)
 	return BasePartRegion.new(safezonePart)
 end
 -- ▼ ReadonlyArray.map ▼
-local _7 = table.create(#_5)
-for _8, _9 in ipairs(_5) do
-	_7[_8] = _6(_9, _8 - 1, _5)
+local _newValue = table.create(#safezoneParts)
+for _k, _v in ipairs(safezoneParts) do
+	_newValue[_k] = _arg0_1(_v, _k - 1, safezoneParts)
 end
 -- ▲ ReadonlyArray.map ▲
-local safezoneRegions = RegionUnion.new(_7)
+local safezoneRegions = RegionUnion.new(_newValue)
 local shielded = setmetatable({}, {
 	__mode = "k",
 })
@@ -41,32 +39,29 @@ local function safezoneCheck(player, character)
 	if character == nil then
 		character = player.Character
 	end
-	local _8 = character
-	if _8 ~= nil then
-		_8 = _8.PrimaryPart
+	local _result = character
+	if _result ~= nil then
+		_result = _result.PrimaryPart
 	end
-	local _9 = _8
-	if _9 then
-		_9 = safezoneRegions:isInRegion(character.PrimaryPart)
+	local _condition_1 = _result
+	if _condition_1 then
+		_condition_1 = safezoneRegions:isInRegion(character.PrimaryPart)
 	end
-	if _9 then
+	if _condition_1 then
 		local forceField = Instance.new("ForceField")
 		forceField.Visible = false
 		forceField.Name = "Safezone"
 		forceField.Parent = character
-		local _10 = shielded
-		local _11 = character
-		local _12 = forceField
 		-- ▼ Map.set ▼
-		_10[_11] = _12
+		shielded[character] = forceField
 		-- ▲ Map.set ▲
 		inSafezone:SendToPlayer(player, true)
-		local _13 = safezoneRegions:leftRegion(character.PrimaryPart)
-		local _14 = function()
+		local _exp = safezoneRegions:leftRegion(character.PrimaryPart)
+		local _arg0_2 = function()
 			forceField:Destroy()
 			inSafezone:SendToPlayer(player, false)
 		end
-		_13:andThen(_14)
+		_exp:andThen(_arg0_2)
 	else
 		inSafezone:SendToPlayer(player, false)
 	end
@@ -83,11 +78,10 @@ local onPlayer = function(player)
 		return onCharacter(player, character)
 	end)
 end
-local _8 = Players:GetPlayers()
-local _9 = onPlayer
+local _exp = Players:GetPlayers()
 -- ▼ ReadonlyArray.forEach ▼
-for _10, _11 in ipairs(_8) do
-	_9(_11, _10 - 1, _8)
+for _k, _v in ipairs(_exp) do
+	onPlayer(_v, _k - 1, _exp)
 end
 -- ▲ ReadonlyArray.forEach ▲
 Players.PlayerAdded:Connect(onPlayer)

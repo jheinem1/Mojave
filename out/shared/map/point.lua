@@ -1,4 +1,4 @@
--- Compiled with roblox-ts v1.1.1
+-- Compiled with roblox-ts v1.2.2
 local Point
 do
 	Point = setmetatable({}, {
@@ -9,8 +9,7 @@ do
 	Point.__index = Point
 	function Point.new(...)
 		local self = setmetatable({}, Point)
-		self:constructor(...)
-		return self
+		return self:constructor(...) or self
 	end
 	function Point:constructor(position, name, canSpawn)
 		if canSpawn == nil then

@@ -1,6 +1,6 @@
--- Compiled with roblox-ts v1.1.1
+-- Compiled with roblox-ts v1.2.2
 local TS = require(game:GetService("ReplicatedStorage"):WaitForChild("rbxts_include"):WaitForChild("RuntimeLib"))
-local Roact = TS.import(script, TS.getModule(script, "roact").src)
+local Roact = TS.import(script, TS.getModule(script, "@rbxts", "roact").src)
 local ProgressComponent = TS.import(script, script.Parent, "progress").ProgressComponent
 local SpawnGuiComponent
 do

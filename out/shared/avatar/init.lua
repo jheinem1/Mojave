@@ -1,10 +1,10 @@
--- Compiled with roblox-ts v1.1.1
+-- Compiled with roblox-ts v1.2.2
 local TS = require(game:GetService("ReplicatedStorage"):WaitForChild("rbxts_include"):WaitForChild("RuntimeLib"))
-local _0 = TS.import(script, TS.getModule(script, "services"))
-local MarketplaceService = _0.MarketplaceService
-local Players = _0.Players
-local Workspace = _0.Workspace
-local t = TS.import(script, TS.getModule(script, "t").lib.ts).t
+local _services = TS.import(script, TS.getModule(script, "@rbxts", "services"))
+local MarketplaceService = _services.MarketplaceService
+local Players = _services.Players
+local Workspace = _services.Workspace
+local t = TS.import(script, TS.getModule(script, "@rbxts", "t").lib.ts).t
 local getR15 = TS.import(script, game:GetService("ReplicatedStorage"), "Shared", "avatar", "character_types").getR15
 local Avatar
 do
@@ -16,8 +16,7 @@ do
 	Avatar.__index = Avatar
 	function Avatar.new(...)
 		local self = setmetatable({}, Avatar)
-		self:constructor(...)
-		return self
+		return self:constructor(...) or self
 	end
 	function Avatar:constructor(user)
 		self.user = user
@@ -34,22 +33,22 @@ do
 	end
 	function Avatar:changeShirt(character, newShirtId)
 		local productInfo = MarketplaceService:GetProductInfo(newShirtId, Enum.InfoType.Asset)
-		local _1 = productInfo.AssetTypeId == Enum.AssetType.Image.Value
-		local _2 = Enum.AssetType:GetEnumItems()
-		local _3 = function(assetType)
+		local _exp = productInfo.AssetTypeId == Enum.AssetType.Image.Value
+		local _exp_1 = Enum.AssetType:GetEnumItems()
+		local _arg0 = function(assetType)
 			return assetType.Value == productInfo.AssetTypeId
 		end
 		-- ▼ ReadonlyArray.find ▼
-		local _4 = nil
-		for _5, _6 in ipairs(_2) do
-			if _3(_6, _5 - 1, _2) == true then
-				_4 = _6
+		local _result = nil
+		for _i, _v in ipairs(_exp_1) do
+			if _arg0(_v, _i - 1, _exp_1) == true then
+				_result = _v
 				break
 			end
 		end
 		-- ▲ ReadonlyArray.find ▲
-		local _5 = 'Expected image, got "' .. tostring(_4) .. [[" from ']] .. tostring(newShirtId) .. "'"
-		assert(_1, _5)
+		local _arg1 = 'Expected image, got "' .. tostring(_result) .. [[" from ']] .. tostring(newShirtId) .. "'"
+		assert(_exp, _arg1)
 		-- const newShirt = new Instance("Shirt");
 		-- newShirt.ShirtTemplate = `rbxassetid://${productInfo.AssetId}`;
 		-- character.Shirt?.Destroy();
@@ -65,22 +64,22 @@ do
 	end
 	function Avatar:changePants(character, newPantsId)
 		local productInfo = MarketplaceService:GetProductInfo(newPantsId, Enum.InfoType.Asset)
-		local _1 = productInfo.AssetTypeId == Enum.AssetType.Image.Value
-		local _2 = Enum.AssetType:GetEnumItems()
-		local _3 = function(assetType)
+		local _exp = productInfo.AssetTypeId == Enum.AssetType.Image.Value
+		local _exp_1 = Enum.AssetType:GetEnumItems()
+		local _arg0 = function(assetType)
 			return assetType.Value == productInfo.AssetTypeId
 		end
 		-- ▼ ReadonlyArray.find ▼
-		local _4 = nil
-		for _5, _6 in ipairs(_2) do
-			if _3(_6, _5 - 1, _2) == true then
-				_4 = _6
+		local _result = nil
+		for _i, _v in ipairs(_exp_1) do
+			if _arg0(_v, _i - 1, _exp_1) == true then
+				_result = _v
 				break
 			end
 		end
 		-- ▲ ReadonlyArray.find ▲
-		local _5 = 'Expected image, got "' .. tostring(_4) .. [[" from ']] .. tostring(newPantsId) .. "'"
-		assert(_1, _5)
+		local _arg1 = 'Expected image, got "' .. tostring(_result) .. [[" from ']] .. tostring(newPantsId) .. "'"
+		assert(_exp, _arg1)
 		-- const newPants = new Instance("Pants");
 		-- newPants.PantsTemplate = `rbxassetid://${productInfo.AssetId}`;
 		-- character.Pants?.Destroy();

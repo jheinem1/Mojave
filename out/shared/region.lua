@@ -1,10 +1,10 @@
--- Compiled with roblox-ts v1.1.1
+-- Compiled with roblox-ts v1.2.2
 local TS = require(game:GetService("ReplicatedStorage"):WaitForChild("rbxts_include"):WaitForChild("RuntimeLib"))
-local RotatedRegion3 = TS.import(script, TS.getModule(script, "rotatedregion3"))
-local _0 = TS.import(script, TS.getModule(script, "services"))
-local RunService = _0.RunService
-local Workspace = _0.Workspace
-local t = TS.import(script, TS.getModule(script, "t").lib.ts).t
+local RotatedRegion3 = TS.import(script, TS.getModule(script, "@rbxts", "rotatedregion3"))
+local _services = TS.import(script, TS.getModule(script, "@rbxts", "services"))
+local RunService = _services.RunService
+local Workspace = _services.Workspace
+local t = TS.import(script, TS.getModule(script, "@rbxts", "t").lib.ts).t
 local Region
 do
 	Region = {}
@@ -27,8 +27,7 @@ do
 	BasePartRegion.__index = BasePartRegion
 	function BasePartRegion.new(...)
 		local self = setmetatable({}, BasePartRegion)
-		self:constructor(...)
-		return self
+		return self:constructor(...) or self
 	end
 	function BasePartRegion:constructor(part)
 		super.constructor(self)
@@ -89,8 +88,7 @@ do
 	SphereRegion.__index = SphereRegion
 	function SphereRegion.new(...)
 		local self = setmetatable({}, SphereRegion)
-		self:constructor(...)
-		return self
+		return self:constructor(...) or self
 	end
 	function SphereRegion:constructor(sphere)
 		super.constructor(self)
@@ -108,14 +106,14 @@ do
 		end
 	end)
 	function SphereRegion:isInRegion(part)
-		local _1 = part.Position
-		local _2 = self.center
-		return (_1 - _2).Magnitude <= self.radius
+		local _position = part.Position
+		local _center = self.center
+		return (_position - _center).Magnitude <= self.radius
 	end
 	function SphereRegion:getDistance(part)
-		local _1 = part.Position
-		local _2 = self.center
-		return (_1 - _2).Magnitude
+		local _position = part.Position
+		local _center = self.center
+		return (_position - _center).Magnitude
 	end
 end
 --[[
@@ -132,72 +130,71 @@ do
 	RegionUnion.__index = RegionUnion
 	function RegionUnion.new(...)
 		local self = setmetatable({}, RegionUnion)
-		self:constructor(...)
-		return self
+		return self:constructor(...) or self
 	end
 	function RegionUnion:constructor(regions)
 		self.regions = regions
 	end
 	RegionUnion.enteredRegion = TS.async(function(self, part)
-		local _1 = TS.Promise
-		local _2 = self.regions
-		local _3 = function(region)
+		local _fn = TS.Promise
+		local _regions = self.regions
+		local _arg0 = function(region)
 			return region:enteredRegion(part)
 		end
 		-- ▼ ReadonlyArray.map ▼
-		local _4 = table.create(#_2)
-		for _5, _6 in ipairs(_2) do
-			_4[_5] = _3(_6, _5 - 1, _2)
+		local _newValue = table.create(#_regions)
+		for _k, _v in ipairs(_regions) do
+			_newValue[_k] = _arg0(_v, _k - 1, _regions)
 		end
 		-- ▲ ReadonlyArray.map ▲
-		return _1.race(_4)
+		return _fn.race(_newValue)
 	end)
 	RegionUnion.leftRegion = TS.async(function(self, part)
-		local _1 = TS.Promise
-		local _2 = self.regions
-		local _3 = function(region)
+		local _fn = TS.Promise
+		local _regions = self.regions
+		local _arg0 = function(region)
 			return region:leftRegion(part)
 		end
 		-- ▼ ReadonlyArray.map ▼
-		local _4 = table.create(#_2)
-		for _5, _6 in ipairs(_2) do
-			_4[_5] = _3(_6, _5 - 1, _2)
+		local _newValue = table.create(#_regions)
+		for _k, _v in ipairs(_regions) do
+			_newValue[_k] = _arg0(_v, _k - 1, _regions)
 		end
 		-- ▲ ReadonlyArray.map ▲
-		return _1.all(_4)
+		return _fn.all(_newValue)
 	end)
 	function RegionUnion:isInRegions(part)
-		local _1 = self.regions
-		local _2 = function(region)
+		local _regions = self.regions
+		local _arg0 = function(region)
 			return region:isInRegion(part)
 		end
 		-- ▼ ReadonlyArray.filter ▼
-		local _3 = {}
-		local _4 = 0
-		for _5, _6 in ipairs(_1) do
-			if _2(_6, _5 - 1, _1) == true then
-				_4 += 1
-				_3[_4] = _6
+		local _newValue = {}
+		local _length = 0
+		for _k, _v in ipairs(_regions) do
+			if _arg0(_v, _k - 1, _regions) == true then
+				_length += 1
+				_newValue[_length] = _v
 			end
 		end
 		-- ▲ ReadonlyArray.filter ▲
-		return _3
+		return _newValue
 	end
 	function RegionUnion:isInRegion(part)
-		local _1 = self.regions
-		local _2 = function(region)
+		local _regions = self.regions
+		local _arg0 = function(region)
 			return region:isInRegion(part)
 		end
 		-- ▼ ReadonlyArray.find ▼
-		local _3 = nil
-		for _4, _5 in ipairs(_1) do
-			if _2(_5, _4 - 1, _1) == true then
-				_3 = _5
+		local _result = nil
+		for _i, _v in ipairs(_regions) do
+			if _arg0(_v, _i - 1, _regions) == true then
+				_result = _v
 				break
 			end
 		end
 		-- ▲ ReadonlyArray.find ▲
-		return _3
+		return _result
 	end
 end
 return {

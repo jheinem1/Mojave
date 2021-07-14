@@ -1,7 +1,7 @@
--- Compiled with roblox-ts v1.1.1
+-- Compiled with roblox-ts v1.2.2
 local TS = require(game:GetService("ReplicatedStorage"):WaitForChild("rbxts_include"):WaitForChild("RuntimeLib"))
-local Roact = TS.import(script, TS.getModule(script, "roact").src)
-local Players = TS.import(script, TS.getModule(script, "services")).Players
+local Roact = TS.import(script, TS.getModule(script, "@rbxts", "roact").src)
+local Players = TS.import(script, TS.getModule(script, "@rbxts", "services")).Players
 local Settings
 do
 	Settings = Roact.Component:extend("Settings")
@@ -23,24 +23,24 @@ do
 					Selectable = false,
 					ZIndex = 2,
 					[Roact.Event.MouseButton1Click] = function()
-						local _0 = Players.LocalPlayer:FindFirstChild("PlayerGui")
-						if _0 ~= nil then
-							_0 = _0:FindFirstChild("Settings")
+						local _result = Players.LocalPlayer:FindFirstChild("PlayerGui")
+						if _result ~= nil then
+							_result = _result:FindFirstChild("Settings")
 						end
-						local _1 = _0
-						if _1 == nil then
-							local _2 = Players.LocalPlayer:WaitForChild("PlayerGui", 5)
-							if _2 ~= nil then
-								_2 = _2:WaitForChild("Settings", 5)
+						local _condition = _result
+						if _condition == nil then
+							local _result_1 = Players.LocalPlayer:WaitForChild("PlayerGui", 5)
+							if _result_1 ~= nil then
+								_result_1 = _result_1:WaitForChild("Settings", 5)
 							end
-							_1 = _2
+							_condition = _result_1
 						end
-						local settings = _1
-						local _2 = settings
-						if _2 ~= nil then
-							_2 = _2:IsA("ScreenGui")
+						local settings = _condition
+						local _result_1 = settings
+						if _result_1 ~= nil then
+							_result_1 = _result_1:IsA("ScreenGui")
 						end
-						if _2 then
+						if _result_1 then
 							settings.Enabled = not settings.Enabled
 						else
 							error("Settings not found!")
