@@ -52,7 +52,7 @@ do
 			end
 		else
 			while self:isInRegion(part) do
-				RunService.Heartbeat:Wait()
+				wait(0.1)
 			end
 		end
 	end)
@@ -64,7 +64,7 @@ do
 			end
 		else
 			while self:isInRegion(part) do
-				RunService.Heartbeat:Wait()
+				wait(0.1)
 			end
 		end
 	end)
@@ -97,12 +97,12 @@ do
 	end
 	SphereRegion.enteredRegion = TS.async(function(self, part)
 		while not self:isInRegion(part) do
-			RunService.Heartbeat:Wait()
+			wait(0.1)
 		end
 	end)
 	SphereRegion.leftRegion = TS.async(function(self, part)
 		while self:isInRegion(part) do
-			RunService.Heartbeat:Wait()
+			wait(0.1)
 		end
 	end)
 	function SphereRegion:isInRegion(part)

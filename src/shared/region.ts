@@ -47,7 +47,7 @@ export class BasePartRegion extends Region {
                 inRegion = part.Touched.Wait()[0] === this.part;
         } else
             while (this.isInRegion(part))
-                RunService.Heartbeat.Wait();
+                wait(0.1);
 
     }
     async leftRegion(part: BasePart) {
@@ -57,7 +57,7 @@ export class BasePartRegion extends Region {
                 inRegion = !(part.TouchEnded.Wait()[0] === this.part);
         } else
             while (this.isInRegion(part))
-                RunService.Heartbeat.Wait();
+                wait(0.1);
     }
     isInRegion(part: BasePart) {
         return this.rotatedRegion3.CastPoint(part.Position);
@@ -77,11 +77,11 @@ export class SphereRegion extends Region {
     }
     async enteredRegion(part: BasePart) {
         while (!this.isInRegion(part))
-            RunService.Heartbeat.Wait();
+            wait(0.1);
     }
     async leftRegion(part: BasePart) {
         while (this.isInRegion(part))
-            RunService.Heartbeat.Wait();
+            wait(0.1);
     }
     isInRegion(part: BasePart) {
         return (part.Position.sub(this.center)).Magnitude <= this.radius;
