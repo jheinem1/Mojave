@@ -1,9 +1,10 @@
 // const usedColors = new Array<number>();
 
-/** returns a random color
- * NOT IMPLEMENTED */
+import { getColor } from "./brick_colors";
+
+/** returns a random color */
 export function assignColor(color?: string): BrickColor {
-    return new BrickColor(1);
+    return getColor(color);
 }
 
 /** extracts the first letter of every word in a string */
