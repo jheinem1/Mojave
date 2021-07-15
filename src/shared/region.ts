@@ -109,7 +109,7 @@ export class RegionUnion {
      * @returns A promise that resolves when a player leaves a region
      */
     async leftRegion(part: BasePart) {
-        return Promise.all(this.regions.map(region => region.leftRegion(part)));
+        return Promise.race(this.isInRegions(part).map(region => region.leftRegion(part)));
     }
     /**
      * Checks if the player/character is inside all regions.
