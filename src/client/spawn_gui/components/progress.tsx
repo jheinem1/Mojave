@@ -22,13 +22,6 @@ export class ProgressComponent extends Roact.Component<ProgressProps, {}> {
             new TeamsScreen(0, props.currentScreen),
             new MapScreen(1, props.currentScreen, this.props.finished)
         ];
-        this.setState({ currentScreen: this.screens[0].position });
-        this.screens[this.props.currentScreen[0].getValue()].selected.Fire();
-        this.screens.forEach(screen => screen.selected.Connect(() => this.onSelect(screen)));
-    }
-    onSelect(screen: Screen) {
-        this.screens[this.props.currentScreen[0].getValue()].deselected.Fire();
-        this.props.currentScreen[1](screen.position);
     }
     render() {
         const items = [<uilistlayout

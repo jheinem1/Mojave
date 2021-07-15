@@ -16,14 +16,12 @@ do
 	end
 	function Screen:getButtonComponent()
 		return Roact.createElement(ProgressItemComponent, {
-			Name = self.name,
-			Position = self.position,
-			StartSelected = self.startSelected,
-			DeselectEvent = self.deselected,
-			SelectEvent = self.selected,
-			[Roact.Event.Clicked] = function()
-				return self.selected:Fire()
-			end,
+			name = self.name,
+			position = self.position,
+			startSelected = self.startSelected,
+			deselectEvent = self.deselected,
+			selected = self.currentScreen[1],
+			updateSelection = self.currentScreen[2],
 		})
 	end
 end

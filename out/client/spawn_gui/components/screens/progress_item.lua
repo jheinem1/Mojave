@@ -6,34 +6,26 @@ do
 	ProgressItemComponent = Roact.Component:extend("ProgressItemComponent")
 	function ProgressItemComponent:init(props)
 		self.state = {
-			selected = props.StartSelected,
+			selected = props.startSelected,
 		}
-		props.DeselectEvent:Connect(function()
-			return self:setState({
-				selected = false,
-			})
-		end)
-		props.SelectEvent:Connect(function()
-			return self:setState({
-				selected = true,
-			})
-		end)
 	end
 	function ProgressItemComponent:render()
 		return Roact.createFragment({
-			[tostring(self.props.Name)] = Roact.createElement("TextButton", {
+			[tostring(self.props.name)] = Roact.createElement("TextButton", {
 				BackgroundTransparency = 1,
 				Font = Enum.Font.SourceSansBold,
-				LayoutOrder = self.props.Position,
+				LayoutOrder = self.props.position,
 				Position = UDim2.new(0, 70, 0, 0),
 				Size = UDim2.new(0.2, 0, 0, 36),
-				Text = tostring(self.props.Name),
-				TextColor3 = self.state.selected and Color3.fromRGB(255, 255, 255) or Color3.fromRGB(172, 172, 172),
+				Text = tostring(self.props.name),
+				TextColor3 = self.props.selected:map(function(currentScreen)
+					return currentScreen == self.props.position and Color3.fromRGB(255, 255, 255) or Color3.fromRGB(172, 172, 172)
+				end),
 				TextScaled = true,
 				TextSize = 24,
 				TextWrapped = true,
 				[Roact.Event.MouseButton1Click] = function()
-					return self.props.SelectEvent:Fire()
+					return self.props.updateSelection(self.props.position)
 				end,
 			}),
 		})

@@ -27,7 +27,7 @@ do
 				TextSize = 14,
 				AutoButtonColor = false,
 			}, {
-				Title = Roact.createElement("TextBox", {
+				Title = Roact.createElement("TextLabel", {
 					Position = UDim2.new(0.5, -20, -1, 0),
 					Size = UDim2.new(0, 40, 1, 0),
 					BackgroundTransparency = 1,

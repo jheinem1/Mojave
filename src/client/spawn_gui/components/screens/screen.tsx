@@ -13,14 +13,12 @@ export abstract class Screen {
     }
     getButtonComponent(): Roact.Element {
         return <ProgressItemComponent
-            Name={this.name}
-            Position={this.position}
-            StartSelected={this.startSelected}
-            DeselectEvent={this.deselected}
-            SelectEvent={this.selected}
-            Event={{
-                Clicked: () => this.selected.Fire()
-            }}
+            name={this.name}
+            position={this.position}
+            startSelected={this.startSelected}
+            deselectEvent={this.deselected}
+            selected={this.currentScreen[0]}
+            updateSelection={this.currentScreen[1]}
         />;
     }
     abstract getScreenComponent(): Roact.Element;

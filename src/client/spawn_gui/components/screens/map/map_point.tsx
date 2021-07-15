@@ -32,7 +32,7 @@ export class MapPointComponent extends Roact.Component<MapPointComponentProps> {
             TextSize={14}
             AutoButtonColor={false}
         >
-            <textbox
+            <textlabel
                 Key="Title"
                 Position={new UDim2(0.5, -20, -1, 0)}
                 Size={new UDim2(0, 40, 1, 0)}

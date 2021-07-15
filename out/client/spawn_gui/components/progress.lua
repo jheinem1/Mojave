@@ -13,25 +13,6 @@ do
 			self:setState({})
 		end
 		self.screens = { TeamsScreen.new(0, props.currentScreen), MapScreen.new(1, props.currentScreen, self.props.finished) }
-		self:setState({
-			currentScreen = self.screens[1].position,
-		})
-		self.screens[self.props.currentScreen[1]:getValue() + 1].selected:Fire()
-		local _screens = self.screens
-		local _arg0 = function(screen)
-			return screen.selected:Connect(function()
-				return self:onSelect(screen)
-			end)
-		end
-		-- ▼ ReadonlyArray.forEach ▼
-		for _k, _v in ipairs(_screens) do
-			_arg0(_v, _k - 1, _screens)
-		end
-		-- ▲ ReadonlyArray.forEach ▲
-	end
-	function ProgressComponent:onSelect(screen)
-		self.screens[self.props.currentScreen[1]:getValue() + 1].deselected:Fire()
-		self.props.currentScreen[2](screen.position)
 	end
 	function ProgressComponent:render()
 		local items = { Roact.createElement("UIListLayout", {
