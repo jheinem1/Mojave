@@ -52,7 +52,7 @@ do
 			end
 		else
 			while self:isInRegion(part) do
-				RunService.Heartbeat:Wait()
+				wait(0.1)
 			end
 		end
 	end)
@@ -64,7 +64,7 @@ do
 			end
 		else
 			while self:isInRegion(part) do
-				RunService.Heartbeat:Wait()
+				wait(0.1)
 			end
 		end
 	end)
@@ -97,12 +97,12 @@ do
 	end
 	SphereRegion.enteredRegion = TS.async(function(self, part)
 		while not self:isInRegion(part) do
-			RunService.Heartbeat:Wait()
+			wait(0.1)
 		end
 	end)
 	SphereRegion.leftRegion = TS.async(function(self, part)
 		while self:isInRegion(part) do
-			RunService.Heartbeat:Wait()
+			wait(0.1)
 		end
 	end)
 	function SphereRegion:isInRegion(part)
@@ -151,17 +151,17 @@ do
 	end)
 	RegionUnion.leftRegion = TS.async(function(self, part)
 		local _fn = TS.Promise
-		local _regions = self.regions
+		local _exp = self:isInRegions(part)
 		local _arg0 = function(region)
 			return region:leftRegion(part)
 		end
 		-- ▼ ReadonlyArray.map ▼
-		local _newValue = table.create(#_regions)
-		for _k, _v in ipairs(_regions) do
-			_newValue[_k] = _arg0(_v, _k - 1, _regions)
+		local _newValue = table.create(#_exp)
+		for _k, _v in ipairs(_exp) do
+			_newValue[_k] = _arg0(_v, _k - 1, _exp)
 		end
 		-- ▲ ReadonlyArray.map ▲
-		return _fn.all(_newValue)
+		return _fn.race(_newValue)
 	end)
 	function RegionUnion:isInRegions(part)
 		local _regions = self.regions

@@ -4,7 +4,7 @@ local Players = game:GetService("Players")
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
 
 Players.PlayerAdded:Connect(function(player)
-    player.CharacterAdded:Connect(function(character)
+    player.CharacterAdded:Connect(function()
         if ReplicatedStorage:FindFirstChild("ESell") then
             local gui = ReplicatedStorage.ESell:Clone()
             gui.Parent = player.Character:WaitForChild("HumanoidRootPart")
