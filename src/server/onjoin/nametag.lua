@@ -64,8 +64,10 @@ function onCharacter(player, character)
         end
     end
     local rank
-    if player:GetRankInGroup(mainGroup) >= 20 or not group then
+    if not group then
         rank = player:GetRoleInGroup(mainGroup)
+    elseif player:GetRankInGroup(mainGroup) >= 20 then
+        rank = "🛠 " .. player:GetRoleInGroup(group.Id)
     else
         rank = player:GetRoleInGroup(group.Id)
     end
