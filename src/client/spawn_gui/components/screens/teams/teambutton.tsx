@@ -36,9 +36,9 @@ export class TeamButtonComponent extends Roact.Component<TeamButtonProps, TeamBu
             props.SelectedEvent.Fire(this, false);
     }
     render() {
-        const normalMinimizedSize = Workspace.CurrentCamera ? Workspace.CurrentCamera.ViewportSize.X / this.props.NumButtons : 0;
-        const selectedMinimizedSize = Workspace.CurrentCamera ? Workspace.CurrentCamera.ViewportSize.X / (this.props.NumButtons + 0.5) : 0;
-        const maximizedSize = selectedMinimizedSize * 1.5;
+        const normalMinimizedSize = Workspace.CurrentCamera ? math.ceil(Workspace.CurrentCamera.ViewportSize.X / this.props.NumButtons) : 0;
+        const selectedMinimizedSize = Workspace.CurrentCamera ? math.ceil(Workspace.CurrentCamera.ViewportSize.X / (this.props.NumButtons + 0.5)) : 0;
+        const maximizedSize = math.ceil(selectedMinimizedSize * 1.5);
         return <textbutton
             Key={this.props.Name}
             BackgroundColor3={this.state.selected ? Color3.fromRGB(46, 46, 46) : Color3.fromRGB(23, 23, 23)}
