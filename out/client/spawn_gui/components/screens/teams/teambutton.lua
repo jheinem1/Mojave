@@ -30,9 +30,9 @@ do
 		end
 	end
 	function TeamButtonComponent:render()
-		local normalMinimizedSize = Workspace.CurrentCamera and Workspace.CurrentCamera.ViewportSize.X / self.props.NumButtons or 0
-		local selectedMinimizedSize = Workspace.CurrentCamera and Workspace.CurrentCamera.ViewportSize.X / (self.props.NumButtons + 0.5) or 0
-		local maximizedSize = selectedMinimizedSize * 1.5
+		local normalMinimizedSize = Workspace.CurrentCamera and math.ceil(Workspace.CurrentCamera.ViewportSize.X / self.props.NumButtons) or 0
+		local selectedMinimizedSize = Workspace.CurrentCamera and math.ceil(Workspace.CurrentCamera.ViewportSize.X / (self.props.NumButtons + 0.5)) or 0
+		local maximizedSize = math.ceil(selectedMinimizedSize * 1.5)
 		local _ptr = {
 			BackgroundColor3 = self.state.selected and Color3.fromRGB(46, 46, 46) or Color3.fromRGB(23, 23, 23),
 			BorderSizePixel = 0,
