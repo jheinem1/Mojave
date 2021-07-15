@@ -25,17 +25,25 @@ do
 	end
 	function MapComponent:render()
 		local _ptr = {
-			BackgroundColor3 = Color3.fromRGB(126, 111, 42),
+			BackgroundColor3 = Color3.fromRGB(46, 46, 46),
 			BorderSizePixel = 0,
 			Position = UDim2.new(0, 0, 0, 36),
 			Size = UDim2.new(1, 0, 1, -36),
 		}
 		local _ptr_1 = {}
 		local _length = #_ptr_1
+		local _ptr_2 = {
+			BackgroundTransparency = 1,
+			Position = UDim2.new(0.1, 0, 0.1, 0),
+			Size = UDim2.new(0.8, -25, 0.8, -25),
+			BorderSizePixel = 0,
+		}
+		local _ptr_3 = {}
+		local _length_1 = #_ptr_3
 		for _k, _v in ipairs(self.mapPoints) do
-			_ptr_1[_length + _k] = _v
+			_ptr_3[_length_1 + _k] = _v
 		end
-		_length = #_ptr_1
+		_ptr_1.MapFrame = Roact.createElement("Frame", _ptr_2, _ptr_3)
 		return Roact.createFragment({
 			Map = Roact.createElement("Frame", _ptr, _ptr_1),
 		})

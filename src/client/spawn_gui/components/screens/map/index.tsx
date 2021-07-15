@@ -21,21 +21,20 @@ class MapComponent extends Roact.Component<MapProps> {
     render() {
         return <frame
             Key="Map"
-            BackgroundColor3={Color3.fromRGB(126, 111, 42)}
+            BackgroundColor3={Color3.fromRGB(46, 46, 46)}
             BorderSizePixel={0}
             Position={new UDim2(0, 0, 0, 36)}
             Size={new UDim2(1, 0, 1, -36)}
         >
-            {/* <frame
-                Key="MapImage"
-                BackgroundTransparency={0}
-                Position={new UDim2(0.5, -960, 0, 0)}
-                Size={new UDim2(0, 1920, 1, 0)}
-                BackgroundColor3={new Color3(1, 1, 1)}
+            <frame
+                Key="MapFrame"
+                BackgroundTransparency={1}
+                Position={new UDim2(0.1, 0, 0.1, 0)}
+                Size={new UDim2(0.8, -25, 0.8, -25)}
                 BorderSizePixel={0}
-            > */}
-            {this.mapPoints}
-            {/* </frame> */}
+            >
+                {this.mapPoints}
+            </frame>
         </frame>
     }
 }
