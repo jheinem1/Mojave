@@ -1,13 +1,23 @@
 import ObjectEvent from "@rbxts/object-event";
 import Roact from "@rbxts/roact";
+import gameMap from "client/client_points_handler";
 import { Screen } from "../screen";
+import { MapPointComponent } from "./map_point";
 
 
 interface MapProps {
     finished: ObjectEvent<[]>;
 }
 
-class MapComponent extends Roact.Component<MapProps, {}> {
+class MapComponent extends Roact.Component<MapProps> {
+    mapPoints: Roact.Element[];
+    constructor(props: MapProps) {
+        super(props);
+        this.mapPoints = gameMap.points.map(point => <MapPointComponent
+            point={point}
+            size={gameMap.size}
+        />);
+    }
     render() {
         return <frame
             Key="Map"
@@ -16,22 +26,25 @@ class MapComponent extends Roact.Component<MapProps, {}> {
             Position={new UDim2(0, 0, 0, 36)}
             Size={new UDim2(1, 0, 1, -36)}
         >
-            <frame
+            {/* <frame
                 Key="MapImage"
-                BackgroundTransparency={1}
-                // Image="rbxassetid://7010013959"
+                BackgroundTransparency={0}
                 Position={new UDim2(0.5, -960, 0, 0)}
-                // ScaleType={Enum.ScaleType.Fit}
                 Size={new UDim2(0, 1920, 1, 0)}
-            // SliceScale={0}
-            >
-            </frame>
+                BackgroundColor3={new Color3(1, 1, 1)}
+                BorderSizePixel={0}
+            > */}
+            {this.mapPoints}
+            {/* </frame> */}
         </frame>
     }
 }
 
 export class MapScreen extends Screen {
     name = "Spawn";
+    constructor(public position: number, public currentScreen: LuaTuple<[Roact.Binding<number>, (newValue: number) => void]>, public finished: ObjectEvent<[]>) {
+        super(position, currentScreen);
+    }
     getScreenComponent(): Roact.Element {
         return <MapComponent
             finished={this.finished}

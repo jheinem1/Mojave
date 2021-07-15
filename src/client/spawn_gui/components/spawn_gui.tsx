@@ -1,11 +1,13 @@
+import ObjectEvent from "@rbxts/object-event";
 import Roact from "@rbxts/roact";
 import { ProgressComponent } from "./progress";
 
 interface SpawnGuiProps {
     currentScreen: LuaTuple<[Roact.Binding<number>, (newValue: number) => void]>;
+    finished: ObjectEvent<[]>;
 }
 
-export class SpawnGuiComponent extends Roact.Component<SpawnGuiProps, {}> {
+export class SpawnGuiComponent extends Roact.Component<SpawnGuiProps> {
     render() {
         return <screengui Key="StartMenu" IgnoreGuiInset={true} ZIndexBehavior={Enum.ZIndexBehavior.Sibling}>
             <frame
@@ -29,6 +31,7 @@ export class SpawnGuiComponent extends Roact.Component<SpawnGuiProps, {}> {
                 />
                 <ProgressComponent
                     currentScreen={this.props.currentScreen}
+                    finished={this.props.finished}
                 />
             </frame>
         </screengui>

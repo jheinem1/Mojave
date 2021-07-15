@@ -32,6 +32,7 @@ do
 					}),
 					Roact.createElement(ProgressComponent, {
 						currentScreen = self.props.currentScreen,
+						finished = self.props.finished,
 					}),
 				}),
 			}),

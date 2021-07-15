@@ -1,4 +1,5 @@
 -- Compiled with roblox-ts v1.2.2
+-- * a 2d point in the game- generally used for spawn locations
 local Point
 do
 	Point = setmetatable({}, {

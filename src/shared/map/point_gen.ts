@@ -1,29 +1,35 @@
 import { t } from "@rbxts/t";
 import { Point } from "./point";
 
-type PointConstructor = Model & {
+type PointConstructor = Instance & {
     PointName: StringValue;
-    PositionX: NumberValue;
-    PositionY: NumberValue;
-    CanSpawn?: BoolValue;
+    Position: Instance & {
+        X: NumberValue;
+        Y: NumberValue;
+    }
+    CanSpawn: BoolValue;
 }
 const isValidPointConstructor = t.children({
     PointName: t.instanceIsA("StringValue"),
-    PositionX: t.instanceIsA("NumberValue"),
-    PositionY: t.instanceIsA("NumberValue"),
-    CanSpawn: t.union(t.instanceIsA("BoolValue"), t.none)
+    Position: t.children({
+        X: t.instanceIsA("NumberValue"),
+        Y: t.instanceIsA("NumberValue")
+    }),
+    CanSpawn: t.instanceIsA("BoolValue")
 })
 const getValidPointConstructors = (pointConstructors: Instance[]) => pointConstructors.mapFiltered(
     pointConstructor => isValidPointConstructor(pointConstructor) ? <PointConstructor>pointConstructor : undefined
 );
 
-export function genPoints(pointConstructors: Model[]) {
+/** generates an array of `Point` objects from an array of valid `PointConstructor` instances (see PointConsturctor type) */
+export function genPoints(pointConstructors: Instance[]) {
     return getValidPointConstructors(pointConstructors).map((pointConstructor) => new Point(
-        new Vector2(pointConstructor.PositionX.Value, pointConstructor.PositionY.Value),
+        new Vector2(pointConstructor.Position.X.Value, pointConstructor.Position.X.Value),
         pointConstructor.PointName.Value,
-        pointConstructor.CanSpawn?.Value));
+        pointConstructor.CanSpawn.Value));
 }
 
+/** determines the bounds of a map from an array of `Point` objects and returns a tuple of the upper and lower bounds */
 export function mapBounds(points: Point[]): [Vector2, Vector2] {
     return [new Vector2(
         points.reduce((lowest, current) => current.position.X < lowest.position.X ? current : lowest).position.X,

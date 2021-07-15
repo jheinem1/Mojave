@@ -12,7 +12,7 @@ do
 			valueChange(newValue)
 			self:setState({})
 		end
-		self.screens = { TeamsScreen.new(0, props.currentScreen), MapScreen.new(1, props.currentScreen) }
+		self.screens = { TeamsScreen.new(0, props.currentScreen), MapScreen.new(1, props.currentScreen, self.props.finished) }
 		self:setState({
 			currentScreen = self.screens[1].position,
 		})

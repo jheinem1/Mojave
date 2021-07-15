@@ -6,6 +6,7 @@ import { TeamsScreen } from "./screens/teams";
 
 interface ProgressProps {
     currentScreen: LuaTuple<[Roact.Binding<number>, (newValue: number) => void]>;
+    finished: ObjectEvent<[]>;
 }
 
 export class ProgressComponent extends Roact.Component<ProgressProps, {}> {
@@ -19,7 +20,7 @@ export class ProgressComponent extends Roact.Component<ProgressProps, {}> {
         };
         this.screens = [
             new TeamsScreen(0, props.currentScreen),
-            new MapScreen(1, props.currentScreen)
+            new MapScreen(1, props.currentScreen, this.props.finished)
         ];
         this.setState({ currentScreen: this.screens[0].position });
         this.screens[this.props.currentScreen[0].getValue()].selected.Fire();

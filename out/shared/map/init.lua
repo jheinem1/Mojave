@@ -1,6 +1,7 @@
 -- Compiled with roblox-ts v1.2.2
 local TS = require(game:GetService("ReplicatedStorage"):WaitForChild("rbxts_include"):WaitForChild("RuntimeLib"))
 local Point = TS.import(script, game:GetService("ReplicatedStorage"), "Shared", "map", "point").Point
+-- * used for holding all points in a game- generally for spawn locations
 local GameMap
 do
 	GameMap = setmetatable({}, {

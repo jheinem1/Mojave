@@ -4,9 +4,11 @@ local t = TS.import(script, TS.getModule(script, "@rbxts", "t").lib.ts).t
 local Point = TS.import(script, game:GetService("ReplicatedStorage"), "Shared", "map", "point").Point
 local isValidPointConstructor = t.children({
 	PointName = t.instanceIsA("StringValue"),
-	PositionX = t.instanceIsA("NumberValue"),
-	PositionY = t.instanceIsA("NumberValue"),
-	CanSpawn = t.union(t.instanceIsA("BoolValue"), t.none),
+	Position = t.children({
+		X = t.instanceIsA("NumberValue"),
+		Y = t.instanceIsA("NumberValue"),
+	}),
+	CanSpawn = t.instanceIsA("BoolValue"),
 })
 local getValidPointConstructors = function(pointConstructors)
 	local _arg0 = function(pointConstructor)
@@ -25,16 +27,11 @@ local getValidPointConstructors = function(pointConstructors)
 	-- ▲ ReadonlyArray.mapFiltered ▲
 	return _newValue
 end
+-- * generates an array of `Point` objects from an array of valid `PointConstructor` instances (see PointConsturctor type)
 local function genPoints(pointConstructors)
 	local _exp = getValidPointConstructors(pointConstructors)
 	local _arg0 = function(pointConstructor)
-		local _exp_1 = Vector2.new(pointConstructor.PositionX.Value, pointConstructor.PositionY.Value)
-		local _exp_2 = pointConstructor.PointName.Value
-		local _result = pointConstructor.CanSpawn
-		if _result ~= nil then
-			_result = _result.Value
-		end
-		return Point.new(_exp_1, _exp_2, _result)
+		return Point.new(Vector2.new(pointConstructor.Position.X.Value, pointConstructor.Position.X.Value), pointConstructor.PointName.Value, pointConstructor.CanSpawn.Value)
 	end
 	-- ▼ ReadonlyArray.map ▼
 	local _newValue = table.create(#_exp)
@@ -44,6 +41,7 @@ local function genPoints(pointConstructors)
 	-- ▲ ReadonlyArray.map ▲
 	return _newValue
 end
+-- * determines the bounds of a map from an array of `Point` objects and returns a tuple of the upper and lower bounds
 local function mapBounds(points)
 	local _arg0 = function(lowest, current)
 		return current.position.X < lowest.position.X and current or lowest

@@ -4,6 +4,7 @@ export interface PointMetadata {
     canSpawn?: boolean
 }
 
+/** a 2d point in the game- generally used for spawn locations */
 export class Point {
     constructor(public readonly position: Vector2, public readonly name: string, public readonly canSpawn: boolean = false) { }
 }
