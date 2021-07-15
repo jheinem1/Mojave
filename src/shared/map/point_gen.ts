@@ -8,6 +8,7 @@ type PointConstructor = Instance & {
         Y: NumberValue;
     }
     CanSpawn: BoolValue;
+    Safezone: BoolValue;
 }
 const isValidPointConstructor = t.children({
     PointName: t.instanceIsA("StringValue"),
@@ -15,7 +16,8 @@ const isValidPointConstructor = t.children({
         X: t.instanceIsA("NumberValue"),
         Y: t.instanceIsA("NumberValue")
     }),
-    CanSpawn: t.instanceIsA("BoolValue")
+    CanSpawn: t.instanceIsA("BoolValue"),
+    Safezone: t.instanceIsA("BoolValue")
 })
 const getValidPointConstructors = (pointConstructors: Instance[]) => pointConstructors.mapFiltered(
     pointConstructor => isValidPointConstructor(pointConstructor) ? <PointConstructor>pointConstructor : undefined
@@ -26,7 +28,9 @@ export function genPoints(pointConstructors: Instance[]) {
     return getValidPointConstructors(pointConstructors).map((pointConstructor) => new Point(
         new Vector2(pointConstructor.Position.X.Value, pointConstructor.Position.X.Value),
         pointConstructor.PointName.Value,
-        pointConstructor.CanSpawn.Value));
+        pointConstructor.CanSpawn.Value,
+        pointConstructor.Safezone.Value)
+    );
 }
 
 /** determines the bounds of a map from an array of `Point` objects and returns a tuple of the upper and lower bounds */

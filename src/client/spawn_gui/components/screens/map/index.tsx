@@ -11,6 +11,8 @@ interface MapProps {
 
 class MapComponent extends Roact.Component<MapProps> {
     mapPoints: Roact.Element[];
+    tooltipVisible = Roact.createBinding(false);
+    tooltipText = Roact.createBinding("");
     constructor(props: MapProps) {
         super(props);
         this.mapPoints = gameMap.points.map(point => <MapPointComponent
@@ -30,7 +32,7 @@ class MapComponent extends Roact.Component<MapProps> {
                 Key="MapFrame"
                 BackgroundTransparency={1}
                 Position={new UDim2(0.1, 0, 0.1, 0)}
-                Size={new UDim2(0.8, -25, 0.8, -25)}
+                Size={new UDim2(0.8, -30, 0.8, -30)}
                 BorderSizePixel={0}
             >
                 {this.mapPoints}

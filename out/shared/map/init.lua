@@ -23,7 +23,7 @@ do
 		local _arg0_1 = function(absPoint)
 			local _position = absPoint.position
 			local _arg0_2 = bounds[1]
-			return Point.new(_position - _arg0_2, absPoint.name, absPoint.canSpawn)
+			return Point.new(_position - _arg0_2, absPoint.name, absPoint.canSpawn, absPoint.safezone)
 		end
 		-- ▼ ReadonlyArray.map ▼
 		local _newValue = table.create(#points)

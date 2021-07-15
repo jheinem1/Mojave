@@ -9,6 +9,7 @@ local isValidPointConstructor = t.children({
 		Y = t.instanceIsA("NumberValue"),
 	}),
 	CanSpawn = t.instanceIsA("BoolValue"),
+	Safezone = t.instanceIsA("BoolValue"),
 })
 local getValidPointConstructors = function(pointConstructors)
 	local _arg0 = function(pointConstructor)
@@ -31,7 +32,7 @@ end
 local function genPoints(pointConstructors)
 	local _exp = getValidPointConstructors(pointConstructors)
 	local _arg0 = function(pointConstructor)
-		return Point.new(Vector2.new(pointConstructor.Position.X.Value, pointConstructor.Position.X.Value), pointConstructor.PointName.Value, pointConstructor.CanSpawn.Value)
+		return Point.new(Vector2.new(pointConstructor.Position.X.Value, pointConstructor.Position.X.Value), pointConstructor.PointName.Value, pointConstructor.CanSpawn.Value, pointConstructor.Safezone.Value)
 	end
 	-- ▼ ReadonlyArray.map ▼
 	local _newValue = table.create(#_exp)

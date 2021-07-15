@@ -12,13 +12,11 @@ do
 		local self = setmetatable({}, Point)
 		return self:constructor(...) or self
 	end
-	function Point:constructor(position, name, canSpawn)
-		if canSpawn == nil then
-			canSpawn = false
-		end
+	function Point:constructor(position, name, canSpawn, safezone)
 		self.position = position
 		self.name = name
 		self.canSpawn = canSpawn
+		self.safezone = safezone
 	end
 end
 return {

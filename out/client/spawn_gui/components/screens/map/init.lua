@@ -8,6 +8,8 @@ local MapComponent
 do
 	MapComponent = Roact.Component:extend("MapComponent")
 	function MapComponent:init(props)
+		self.tooltipVisible = { Roact.createBinding(false) }
+		self.tooltipText = { Roact.createBinding("") }
 		local _points = gameMap.points
 		local _arg0 = function(point)
 			return Roact.createElement(MapPointComponent, {
@@ -35,7 +37,7 @@ do
 		local _ptr_2 = {
 			BackgroundTransparency = 1,
 			Position = UDim2.new(0.1, 0, 0.1, 0),
-			Size = UDim2.new(0.8, -25, 0.8, -25),
+			Size = UDim2.new(0.8, -30, 0.8, -30),
 			BorderSizePixel = 0,
 		}
 		local _ptr_3 = {}
