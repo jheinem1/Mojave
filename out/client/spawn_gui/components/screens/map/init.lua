@@ -4,17 +4,33 @@ local Roact = TS.import(script, TS.getModule(script, "@rbxts", "roact").src)
 local gameMap = TS.import(script, script.Parent.Parent.Parent.Parent, "client_points_handler").default
 local Screen = TS.import(script, script.Parent, "screen").Screen
 local MapPointComponent = TS.import(script, script, "map_point").MapPointComponent
+local TooltipComponent = TS.import(script, script, "tooltip").TooltipComponent
 local MapComponent
 do
 	MapComponent = Roact.Component:extend("MapComponent")
 	function MapComponent:init(props)
-		self.tooltipVisible = { Roact.createBinding(false) }
-		self.tooltipText = { Roact.createBinding("") }
+		local tooltip, setTooltip = Roact.createBinding(false)
+		local tooltipText, setTooltipText = Roact.createBinding("")
+		local tooltipPosition, setTooltipPosition = Roact.createBinding(Vector2.new())
+		local tooltipSelected, setTooltipSelected = Roact.createBinding(false)
+		self.tooltipBindings = {
+			tooltip = tooltip,
+			setTooltip = setTooltip,
+			tooltipText = tooltipText,
+			setTooltipText = setTooltipText,
+			tooltipPosition = tooltipPosition,
+			setTooltipPosition = setTooltipPosition,
+			tooltipSelected = tooltipSelected,
+			setTooltipSelected = setTooltipSelected,
+		}
+		self.selectedPoint = { Roact.createBinding(nil) }
 		local _points = gameMap.points
 		local _arg0 = function(point)
 			return Roact.createElement(MapPointComponent, {
 				point = point,
 				size = gameMap.size,
+				tooltipBindings = self.tooltipBindings,
+				selectedPoint = self.selectedPoint,
 			})
 		end
 		-- ▼ ReadonlyArray.map ▼
@@ -25,12 +41,21 @@ do
 		-- ▲ ReadonlyArray.map ▲
 		self.mapPoints = _newValue
 	end
+	function MapComponent:onClick()
+		self.tooltipBindings.setTooltip(false)
+		self.tooltipBindings.setTooltipSelected(false)
+	end
 	function MapComponent:render()
 		local _ptr = {
 			BackgroundColor3 = Color3.fromRGB(46, 46, 46),
 			BorderSizePixel = 0,
 			Position = UDim2.new(0, 0, 0, 36),
 			Size = UDim2.new(1, 0, 1, -36),
+			[Roact.Event.InputEnded] = function(_frame, input)
+				if input.UserInputType == Enum.UserInputType.MouseButton1 then
+					self:onClick()
+				end
+			end,
 		}
 		local _ptr_1 = {}
 		local _length = #_ptr_1
@@ -46,6 +71,14 @@ do
 			_ptr_3[_length_1 + _k] = _v
 		end
 		_ptr_1.MapFrame = Roact.createElement("Frame", _ptr_2, _ptr_3)
+		_ptr_1[_length + 1] = Roact.createElement(TooltipComponent, {
+			tooltipBindings = self.tooltipBindings,
+			event = {
+				onSpawn = function()
+					return print("player has selected to spawn at point " .. tostring(self.selectedPoint[1]:getValue()))
+				end,
+			},
+		})
 		return Roact.createFragment({
 			Map = Roact.createElement("Frame", _ptr, _ptr_1),
 		})
