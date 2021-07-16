@@ -30,29 +30,7 @@ do
 				factions = factionInfo,
 			})
 			self.teamSelectedEvent:Connect(function(id)
-				local _result
-				if id == -1 then
-					_result = "Wastelanders"
-				else
-					local _arg0_1 = function(faction)
-						return faction.groupId == id
-					end
-					-- ▼ ReadonlyArray.find ▼
-					local _result_1 = nil
-					for _i, _v in ipairs(factionInfo) do
-						if _arg0_1(_v, _i - 1, factionInfo) == true then
-							_result_1 = _v
-							break
-						end
-					end
-					-- ▲ ReadonlyArray.find ▲
-					local _result_2 = _result_1
-					if _result_2 ~= nil then
-						_result_2 = _result_2.name
-					end
-					_result = _result_2
-				end
-				print("The client has selected to spawn as the " .. tostring(_result) .. " (id:" .. tostring(id) .. ")")
+				-- print(`The client has selected to spawn as the ${id === -1 ? "Wastelanders" : factionInfo.find(faction => faction.groupId === id)?.name} (id:${id})`);
 				self.props.currentScreen[2](self.props.currentScreen[1]:getValue() + 1)
 			end)
 		end

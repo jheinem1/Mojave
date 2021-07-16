@@ -60,12 +60,13 @@ do
 		-- ▲ ReadonlyArray.find ▲
 		local _arg1 = 'Expected image, got "' .. tostring(_result) .. [[" from ']] .. tostring(newShirtId) .. "'"
 		assert(_exp, _arg1)
-		if character.Humanoid.HumanoidDescription then
-			character.Humanoid.HumanoidDescription.Shirt = productInfo.AssetId
-			local oldParent = character.Parent
-			character.Parent = Workspace
-			character.Humanoid:ApplyDescription(character.Humanoid.HumanoidDescription)
-			character.Parent = oldParent
+		local shirt = character:FindFirstChildWhichIsA("Shirt")
+		if shirt then
+			shirt.ShirtTemplate = "rbxassetid://" .. tostring(newShirtId)
+		else
+			local newShirt = Instance.new("Shirt")
+			newShirt.ShirtTemplate = "rbxassetid://" .. tostring(newShirtId)
+			newShirt.Parent = character
 		end
 		return character
 	end
@@ -87,12 +88,13 @@ do
 		-- ▲ ReadonlyArray.find ▲
 		local _arg1 = 'Expected image, got "' .. tostring(_result) .. [[" from ']] .. tostring(newPantsId) .. "'"
 		assert(_exp, _arg1)
-		if character.Humanoid.HumanoidDescription then
-			character.Humanoid.HumanoidDescription.Pants = productInfo.AssetId
-			local oldParent = character.Parent
-			character.Parent = Workspace
-			character.Humanoid:ApplyDescription(character.Humanoid.HumanoidDescription)
-			character.Parent = oldParent
+		local pants = character:FindFirstChildWhichIsA("Pants")
+		if pants then
+			pants.PantsTemplate = "rbxassetid://" .. tostring(newPantsId)
+		else
+			local newPants = Instance.new("Pants")
+			newPants.PantsTemplate = "rbxassetid://" .. tostring(newPantsId)
+			newPants.Parent = character
 		end
 		return character
 	end

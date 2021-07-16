@@ -28,24 +28,26 @@ export class Avatar {
     changeShirt<T extends Character>(character: T, newShirtId: number): T {
         const productInfo = MarketplaceService.GetProductInfo(newShirtId, Enum.InfoType.Asset);
         assert(productInfo.AssetTypeId === Enum.AssetType.Image.Value, `Expected image, got "${Enum.AssetType.GetEnumItems().find(assetType => assetType.Value === productInfo.AssetTypeId)}" from '${newShirtId}'`);
-        if (character.Humanoid.HumanoidDescription) {
-            character.Humanoid.HumanoidDescription.Shirt = productInfo.AssetId;
-            const oldParent = character.Parent;
-            character.Parent = Workspace;
-            character.Humanoid.ApplyDescription(character.Humanoid.HumanoidDescription);
-            character.Parent = oldParent;
+        const shirt = character.FindFirstChildWhichIsA("Shirt")
+        if (shirt)
+            shirt.ShirtTemplate = `rbxassetid://${newShirtId}`;
+        else {
+            const newShirt = new Instance("Shirt");
+            newShirt.ShirtTemplate = `rbxassetid://${newShirtId}`;
+            newShirt.Parent = character;
         }
         return character;
     }
     changePants<T extends Character>(character: T, newPantsId: number): T {
         const productInfo = MarketplaceService.GetProductInfo(newPantsId, Enum.InfoType.Asset);
         assert(productInfo.AssetTypeId === Enum.AssetType.Image.Value, `Expected image, got "${Enum.AssetType.GetEnumItems().find(assetType => assetType.Value === productInfo.AssetTypeId)}" from '${newPantsId}'`);
-        if (character.Humanoid.HumanoidDescription) {
-            character.Humanoid.HumanoidDescription.Pants = productInfo.AssetId;
-            const oldParent = character.Parent;
-            character.Parent = Workspace;
-            character.Humanoid.ApplyDescription(character.Humanoid.HumanoidDescription);
-            character.Parent = oldParent;
+        const pants = character.FindFirstChildWhichIsA("Pants")
+        if (pants)
+            pants.PantsTemplate = `rbxassetid://${newPantsId}`;
+        else {
+            const newPants = new Instance("Pants");
+            newPants.PantsTemplate = `rbxassetid://${newPantsId}`;
+            newPants.Parent = character;
         }
         return character;
     }

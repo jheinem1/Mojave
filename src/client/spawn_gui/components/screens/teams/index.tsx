@@ -33,7 +33,7 @@ class TeamsComponent extends Roact.Component<TeamsProps, TeamsState> {
         getClientFactionInfo().then(factionInfo => {
             this.setState({ factions: factionInfo });
             this.teamSelectedEvent.Connect(id => {
-                print(`The client has selected to spawn as the ${id === -1 ? "Wastelanders" : factionInfo.find(faction => faction.groupId === id)?.name} (id:${id})`);
+                // print(`The client has selected to spawn as the ${id === -1 ? "Wastelanders" : factionInfo.find(faction => faction.groupId === id)?.name} (id:${id})`);
                 this.props.currentScreen[1](this.props.currentScreen[0].getValue() + 1);
             });
         });

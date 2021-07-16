@@ -12,7 +12,6 @@ export class MapPointComponent extends Roact.Component<MapPointComponentProps> {
     position: UDim2;
     constructor(props: MapPointComponentProps) {
         super(props);
-        print(props.point.position, props.size)
         const relPosition = new Vector2(props.point.position.X / props.size.X, props.point.position.Y / props.size.Y);
         this.position = UDim2.fromScale(relPosition.X, relPosition.Y);
     }

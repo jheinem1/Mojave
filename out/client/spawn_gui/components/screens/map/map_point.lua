@@ -5,7 +5,6 @@ local MapPointComponent
 do
 	MapPointComponent = Roact.Component:extend("MapPointComponent")
 	function MapPointComponent:init(props)
-		print(props.point.position, props.size)
 		local relPosition = Vector2.new(props.point.position.X / props.size.X, props.point.position.Y / props.size.Y)
 		self.position = UDim2.fromScale(relPosition.X, relPosition.Y)
 	end
