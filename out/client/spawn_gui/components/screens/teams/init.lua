@@ -2,7 +2,9 @@
 local TS = require(game:GetService("ReplicatedStorage"):WaitForChild("rbxts_include"):WaitForChild("RuntimeLib"))
 local ObjectEvent = TS.import(script, TS.getModule(script, "@rbxts", "object-event"))
 local Roact = TS.import(script, TS.getModule(script, "@rbxts", "roact").src)
-local Players = TS.import(script, TS.getModule(script, "@rbxts", "services")).Players
+local _services = TS.import(script, TS.getModule(script, "@rbxts", "services"))
+local Players = _services.Players
+local Workspace = _services.Workspace
 local getClientFactionInfo = TS.import(script, game:GetService("ReplicatedStorage"), "Shared", "faction_manager").getClientFactionInfo
 local Screen = TS.import(script, script.Parent, "screen").Screen
 local AvatarViewportComponent = TS.import(script, script, "avatar_viewport").AvatarViewportComponent
@@ -55,6 +57,12 @@ do
 			end)
 		end
 		_exp:andThen(_arg0)
+		local _result = Workspace.CurrentCamera
+		if _result ~= nil then
+			_result = _result:GetPropertyChangedSignal("ViewportSize"):Connect(function()
+				return self:render()
+			end)
+		end
 	end
 	function TeamsComponent:render()
 		local teams = {}

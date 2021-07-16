@@ -5,7 +5,9 @@ local MarketplaceService = _services.MarketplaceService
 local Players = _services.Players
 local Workspace = _services.Workspace
 local t = TS.import(script, TS.getModule(script, "@rbxts", "t").lib.ts).t
-local getR15 = TS.import(script, game:GetService("ReplicatedStorage"), "Shared", "avatar", "character_types").getR15
+local _character_types = TS.import(script, game:GetService("ReplicatedStorage"), "Shared", "avatar", "character_types")
+local getR15 = _character_types.getR15
+local getR6 = _character_types.getR6
 local Avatar
 do
 	Avatar = setmetatable({}, {
@@ -22,7 +24,16 @@ do
 		self.user = user
 		self.appearanceInfo = Players:GetCharacterAppearanceInfoAsync(t.number(user) and user or user.UserId)
 	end
-	function Avatar:loadCharacter()
+	function Avatar:loadCharacterR6()
+		local character = getR6()
+		character:SetPrimaryPartCFrame(CFrame.new())
+		character.HumanoidRootPart.Anchored = true
+		character.Parent = Workspace
+		character.Humanoid:ApplyDescription(Players:GetHumanoidDescriptionFromUserId(t.number(self.user) and self.user or self.user.UserId))
+		character.Parent = nil
+		return character
+	end
+	function Avatar:loadCharacterR15()
 		local character = getR15()
 		character:SetPrimaryPartCFrame(CFrame.new())
 		character.HumanoidRootPart.Anchored = true
@@ -49,10 +60,6 @@ do
 		-- ▲ ReadonlyArray.find ▲
 		local _arg1 = 'Expected image, got "' .. tostring(_result) .. [[" from ']] .. tostring(newShirtId) .. "'"
 		assert(_exp, _arg1)
-		-- const newShirt = new Instance("Shirt");
-		-- newShirt.ShirtTemplate = `rbxassetid://${productInfo.AssetId}`;
-		-- character.Shirt?.Destroy();
-		-- newShirt.Parent = character;
 		if character.Humanoid.HumanoidDescription then
 			character.Humanoid.HumanoidDescription.Shirt = productInfo.AssetId
 			local oldParent = character.Parent
@@ -80,10 +87,6 @@ do
 		-- ▲ ReadonlyArray.find ▲
 		local _arg1 = 'Expected image, got "' .. tostring(_result) .. [[" from ']] .. tostring(newPantsId) .. "'"
 		assert(_exp, _arg1)
-		-- const newPants = new Instance("Pants");
-		-- newPants.PantsTemplate = `rbxassetid://${productInfo.AssetId}`;
-		-- character.Pants?.Destroy();
-		-- newPants.Parent = character;
 		if character.Humanoid.HumanoidDescription then
 			character.Humanoid.HumanoidDescription.Pants = productInfo.AssetId
 			local oldParent = character.Parent
@@ -92,11 +95,6 @@ do
 			character.Parent = oldParent
 		end
 		return character
-	end
-	function Avatar:loadCharacterR6()
-		error("Method not implemented")
-		-- const character = getR6();
-		-- return character;
 	end
 end
 return {

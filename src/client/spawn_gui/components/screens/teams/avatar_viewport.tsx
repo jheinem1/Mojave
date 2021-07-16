@@ -22,7 +22,7 @@ export class AvatarViewportComponent extends Roact.Component<AvatarViewportProps
             camera.CameraType = Enum.CameraType.Scriptable;
             camera.FieldOfView = 70;
 
-            const character = this.avatarGenerator.loadCharacter();
+            const character = this.avatarGenerator.loadCharacterR6();
             if (this.props.shirtId)
                 this.avatarGenerator.changeShirt(character, this.props.shirtId);
             if (this.props.pantsId)

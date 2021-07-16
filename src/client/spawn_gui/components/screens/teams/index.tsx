@@ -1,6 +1,6 @@
 import ObjectEvent from "@rbxts/object-event";
 import Roact from "@rbxts/roact";
-import { Players } from "@rbxts/services";
+import { Players, Workspace } from "@rbxts/services";
 import { getClientFactionInfo } from "shared/faction_manager";
 import { ClientFaction } from "shared/faction_manager/faction";
 import { Screen } from "../screen";
@@ -37,6 +37,7 @@ class TeamsComponent extends Roact.Component<TeamsProps, TeamsState> {
                 this.props.currentScreen[1](this.props.currentScreen[0].getValue() + 1);
             });
         });
+        Workspace.CurrentCamera?.GetPropertyChangedSignal("ViewportSize").Connect(() => this.render());
     }
     render() {
         const teams = new Array<Roact.Element>();

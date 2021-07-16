@@ -16,7 +16,7 @@ do
 			camera.CFrame = CFrame.lookAt(Vector3.new(0, 0, -5), Vector3.new(0, 0, 0))
 			camera.CameraType = Enum.CameraType.Scriptable
 			camera.FieldOfView = 70
-			local character = self.avatarGenerator:loadCharacter()
+			local character = self.avatarGenerator:loadCharacterR6()
 			local _value = self.props.shirtId
 			if _value ~= 0 and _value == _value and _value then
 				self.avatarGenerator:changeShirt(character, self.props.shirtId)
