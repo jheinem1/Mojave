@@ -18,7 +18,8 @@ do
 			Tooltip = Roact.createElement("Frame", {
 				BackgroundColor3 = Color3.fromRGB(126, 111, 42),
 				BorderColor3 = Color3.fromRGB(255, 226, 86),
-				BorderSizePixel = 3,
+				BorderSizePixel = 2,
+				BorderMode = Enum.BorderMode.Inset,
 				Position = tooltipBindings.tooltipPosition:map(function(cursor)
 					local _viewportSize = Workspace.CurrentCamera
 					if _viewportSize ~= nil then
@@ -72,7 +73,8 @@ do
 				Tooltip = Roact.createElement("Frame", {
 					BackgroundColor3 = Color3.fromRGB(126, 111, 42),
 					BorderColor3 = Color3.fromRGB(255, 226, 86),
-					BorderSizePixel = 3,
+					BorderSizePixel = 2,
+					BorderMode = Enum.BorderMode.Inset,
 					Position = UDim2.new(0, 0, 1, 3),
 					Size = UDim2.new(1, 0, 0, 16),
 					Visible = tooltipBindings.tooltipSelected,

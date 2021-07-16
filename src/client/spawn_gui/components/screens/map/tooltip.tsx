@@ -33,7 +33,8 @@ export class TooltipComponent extends Roact.Component<TooltipProps> {
             Key="Tooltip"
             BackgroundColor3={Color3.fromRGB(126, 111, 42)}
             BorderColor3={Color3.fromRGB(255, 226, 86)}
-            BorderSizePixel={3}
+            BorderSizePixel={2}
+            BorderMode={Enum.BorderMode.Inset}
             Position={tooltipBindings.tooltipPosition.map(cursor => {
                 const viewportSize = Workspace.CurrentCamera?.ViewportSize;
                 if (viewportSize) {
@@ -80,7 +81,8 @@ export class TooltipComponent extends Roact.Component<TooltipProps> {
                 Key="Tooltip"
                 BackgroundColor3={Color3.fromRGB(126, 111, 42)}
                 BorderColor3={Color3.fromRGB(255, 226, 86)}
-                BorderSizePixel={3}
+                BorderSizePixel={2}
+                BorderMode={Enum.BorderMode.Inset}
                 Position={new UDim2(0, 0, 1, 3)}
                 Size={new UDim2(1, 0, 0, 16)}
                 Visible={tooltipBindings.tooltipSelected}
