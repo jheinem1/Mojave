@@ -43,6 +43,9 @@ export class MapPointComponent extends Roact.Component<MapPointComponentProps> {
                 if (newMousePos !== mousePos && !tooltipBindings.tooltipSelected.getValue()) {
                     mousePos = newMousePos;
                     tooltipBindings.setTooltipPosition(mousePos);
+                    tooltipBindings.setTooltipText(`NAME: ${point.name}\nSAFEZONE: ${point.safezone ? "YES" : "NO"}` +
+                        `\nCAN SPAWN: ${point.canSpawn ? "YES" : "NO"}` +
+                        `\nCONTROLLING FACTION: ${this.props.controlling && this.props.controlling.getValue() ? this.props.controlling.getValue().shortName : "UNKNOWN"}`);
                 }
                 if (!this.inBounds(newMousePos, button)) {
                     RunService.UnbindFromRenderStep("MapToolTip");
@@ -50,9 +53,6 @@ export class MapPointComponent extends Roact.Component<MapPointComponentProps> {
                         tooltipBindings.setTooltip(false);
                 }
             });
-            tooltipBindings.setTooltipText(`NAME: ${point.name}\nSAFEZONE: ${point.safezone ? "YES" : "NO"}` +
-                `\nCAN SPAWN: ${point.canSpawn ? "YES" : "NO"}` +
-                `\nCONTROLLING FACTION: ${this.props.controlling && this.props.controlling.getValue() ? this.props.controlling.getValue().shortName : "UNKNOWN"}`);
             tooltipBindings.setTooltip(true);
         }
     }

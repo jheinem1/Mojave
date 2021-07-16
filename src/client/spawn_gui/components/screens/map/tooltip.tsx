@@ -21,7 +21,7 @@ interface TooltipProps {
 
 export class TooltipComponent extends Roact.Component<TooltipProps> {
     tooltipBindings: TooltipBindings;
-    size = new Vector2(290, 10);
+    size = new Vector2(250, 10);
     ref = Roact.createRef<Frame>();
     constructor(props: TooltipProps) {
         super(props);
@@ -37,18 +37,26 @@ export class TooltipComponent extends Roact.Component<TooltipProps> {
             Position={tooltipBindings.tooltipPosition.map(cursor => {
                 const viewportSize = Workspace.CurrentCamera?.ViewportSize;
                 if (viewportSize) {
+                    cursor = cursor.add(new Vector2(0, -36))
                     const size = this.size;
-                    const spawnButtonSizeY = this.tooltipBindings.tooltipSelected.getValue() ? 32 : 0
-                    let position = new Vector2(math.clamp(cursor.X + 5, 0, viewportSize.X - size.X), math.clamp(cursor.Y - size.Y - 5 - spawnButtonSizeY, 0, cursor.Y - size.Y - spawnButtonSizeY));
-                    if (position.Y < 0 || position.Y + size.Y > viewportSize.Y - size.Y - spawnButtonSizeY)
-                        position = new Vector2(position.X, math.clamp(cursor.Y + 5, cursor.Y, viewportSize.Y - size.Y - spawnButtonSizeY))
+                    const spawnButtonSizeY = this.tooltipBindings.tooltipSelected.getValue() ? 16 : 0;
+                    let position = new Vector2(cursor.X + 5, cursor.Y - size.Y - spawnButtonSizeY - 5);
+                    if (position.X + size.X > viewportSize.X)
+                        position = new Vector2(viewportSize.X - size.X, position.Y);
+                    if (position.Y < 0)
+                        position = new Vector2(position.X, 0);
+                    if (position.Y + size.Y + spawnButtonSizeY >= cursor.Y) {
+                        position = new Vector2(position.X, cursor.Y + 5);
+                        if (position.Y + size.Y + spawnButtonSizeY > viewportSize.Y)
+                            position = new Vector2(position.X, viewportSize.Y - size.Y - spawnButtonSizeY);
+                    }
                     return UDim2.fromOffset(position.X, position.Y);
                 } else
                     return new UDim2();
             })}
             Size={this.tooltipBindings.tooltipText.map(text => {
-                let textSize = TextService.GetTextSize(text, 12, Enum.Font.SourceSans, new Vector2(290, math.huge));
-                textSize = textSize.add(new Vector2(10, 10));
+                let textSize = TextService.GetTextSize(text, 18, Enum.Font.SourceSans, new Vector2(this.size.X, math.huge));
+                textSize = new Vector2(this.size.X, textSize.Y + 10)
                 this.size = textSize;
                 return UDim2.fromOffset(textSize.X, textSize.Y);
             })}
@@ -64,8 +72,9 @@ export class TooltipComponent extends Roact.Component<TooltipProps> {
                 Size={new UDim2(1, -10, 1, 0)}
                 Text={tooltipBindings.tooltipText}
                 TextColor3={Color3.fromRGB(255, 226, 86)}
-                TextSize={12}
+                TextSize={18}
                 TextXAlignment={Enum.TextXAlignment.Left}
+                TextWrapped={true}
             />
             <frame
                 Key="Tooltip"
@@ -73,7 +82,7 @@ export class TooltipComponent extends Roact.Component<TooltipProps> {
                 BorderColor3={Color3.fromRGB(255, 226, 86)}
                 BorderSizePixel={3}
                 Position={new UDim2(0, 0, 1, 3)}
-                Size={new UDim2(1, 0, 0, 32)}
+                Size={new UDim2(1, 0, 0, 16)}
                 Visible={tooltipBindings.tooltipSelected}
             >
                 <textbutton
@@ -84,7 +93,7 @@ export class TooltipComponent extends Roact.Component<TooltipProps> {
                     Size={new UDim2(1, -10, 1, 0)}
                     Text="SPAWN"
                     TextColor3={Color3.fromRGB(255, 226, 86)}
-                    TextSize={32}
+                    TextSize={16}
                     AutoButtonColor={false}
                     Event={{
                         MouseButton1Click: () => this.props.event?.onSpawn ? this.props.event?.onSpawn() : undefined

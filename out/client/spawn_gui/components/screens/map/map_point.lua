@@ -36,6 +36,7 @@ do
 				if newMousePos ~= mousePos and not tooltipBindings.tooltipSelected:getValue() then
 					mousePos = newMousePos
 					tooltipBindings.setTooltipPosition(mousePos)
+					tooltipBindings.setTooltipText("NAME: " .. point.name .. "\nSAFEZONE: " .. (point.safezone and "YES" or "NO") .. "\nCAN SPAWN: " .. (point.canSpawn and "YES" or "NO") .. "\nCONTROLLING FACTION: " .. (self.props.controlling and self.props.controlling:getValue() and self.props.controlling:getValue().shortName or "UNKNOWN"))
 				end
 				if not self:inBounds(newMousePos, button) then
 					RunService:UnbindFromRenderStep("MapToolTip")
@@ -44,7 +45,6 @@ do
 					end
 				end
 			end)
-			tooltipBindings.setTooltipText("NAME: " .. point.name .. "\nSAFEZONE: " .. (point.safezone and "YES" or "NO") .. "\nCAN SPAWN: " .. (point.canSpawn and "YES" or "NO") .. "\nCONTROLLING FACTION: " .. (self.props.controlling and self.props.controlling:getValue() and self.props.controlling:getValue().shortName or "UNKNOWN"))
 			tooltipBindings.setTooltip(true)
 		end
 	end

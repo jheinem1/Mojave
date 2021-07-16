@@ -8,7 +8,7 @@ local TooltipComponent
 do
 	TooltipComponent = Roact.Component:extend("TooltipComponent")
 	function TooltipComponent:init(props)
-		self.size = Vector2.new(290, 10)
+		self.size = Vector2.new(250, 10)
 		self.ref = Roact.createRef()
 		self.tooltipBindings = props.tooltipBindings
 	end
@@ -26,11 +26,22 @@ do
 					end
 					local viewportSize = _viewportSize
 					if viewportSize then
+						local _vector2 = Vector2.new(0, -36)
+						cursor = cursor + _vector2
 						local size = self.size
-						local spawnButtonSizeY = self.tooltipBindings.tooltipSelected:getValue() and 32 or 0
-						local position = Vector2.new(math.clamp(cursor.X + 5, 0, viewportSize.X - size.X), math.clamp(cursor.Y - size.Y - 5 - spawnButtonSizeY, 0, cursor.Y - size.Y - spawnButtonSizeY))
-						if position.Y < 0 or position.Y + size.Y > viewportSize.Y - size.Y - spawnButtonSizeY then
-							position = Vector2.new(position.X, math.clamp(cursor.Y + 5, cursor.Y, viewportSize.Y - size.Y - spawnButtonSizeY))
+						local spawnButtonSizeY = self.tooltipBindings.tooltipSelected:getValue() and 16 or 0
+						local position = Vector2.new(cursor.X + 5, cursor.Y - size.Y - spawnButtonSizeY - 5)
+						if position.X + size.X > viewportSize.X then
+							position = Vector2.new(viewportSize.X - size.X, position.Y)
+						end
+						if position.Y < 0 then
+							position = Vector2.new(position.X, 0)
+						end
+						if position.Y + size.Y + spawnButtonSizeY >= cursor.Y then
+							position = Vector2.new(position.X, cursor.Y + 5)
+							if position.Y + size.Y + spawnButtonSizeY > viewportSize.Y then
+								position = Vector2.new(position.X, viewportSize.Y - size.Y - spawnButtonSizeY)
+							end
 						end
 						return UDim2.fromOffset(position.X, position.Y)
 					else
@@ -38,10 +49,8 @@ do
 					end
 				end),
 				Size = self.tooltipBindings.tooltipText:map(function(text)
-					local textSize = TextService:GetTextSize(text, 12, Enum.Font.SourceSans, Vector2.new(290, math.huge))
-					local _textSize = textSize
-					local _vector2 = Vector2.new(10, 10)
-					textSize = _textSize + _vector2
+					local textSize = TextService:GetTextSize(text, 18, Enum.Font.SourceSans, Vector2.new(self.size.X, math.huge))
+					textSize = Vector2.new(self.size.X, textSize.Y + 10)
 					self.size = textSize
 					return UDim2.fromOffset(textSize.X, textSize.Y)
 				end),
@@ -56,15 +65,16 @@ do
 					Size = UDim2.new(1, -10, 1, 0),
 					Text = tooltipBindings.tooltipText,
 					TextColor3 = Color3.fromRGB(255, 226, 86),
-					TextSize = 12,
+					TextSize = 18,
 					TextXAlignment = Enum.TextXAlignment.Left,
+					TextWrapped = true,
 				}),
 				Tooltip = Roact.createElement("Frame", {
 					BackgroundColor3 = Color3.fromRGB(126, 111, 42),
 					BorderColor3 = Color3.fromRGB(255, 226, 86),
 					BorderSizePixel = 3,
 					Position = UDim2.new(0, 0, 1, 3),
-					Size = UDim2.new(1, 0, 0, 32),
+					Size = UDim2.new(1, 0, 0, 16),
 					Visible = tooltipBindings.tooltipSelected,
 				}, {
 					SpawnButton = Roact.createElement("TextButton", {
@@ -74,7 +84,7 @@ do
 						Size = UDim2.new(1, -10, 1, 0),
 						Text = "SPAWN",
 						TextColor3 = Color3.fromRGB(255, 226, 86),
-						TextSize = 32,
+						TextSize = 16,
 						AutoButtonColor = false,
 						[Roact.Event.MouseButton1Click] = function()
 							local _result = self.props.event
