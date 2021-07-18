@@ -1,14 +1,14 @@
 import ObjectEvent from "@rbxts/object-event";
 import Roact from "@rbxts/roact";
 import gameMap from "client/client_points_handler";
-import { Point } from "shared/map/point";
+import { Point } from "client/map/point";
 import { Screen } from "../screen";
 import { MapPointComponent } from "./map_point";
 import { TooltipBindings, TooltipComponent } from "./tooltip";
 
 
 interface MapProps {
-    finished: ObjectEvent<[]>;
+    finished: (point: Point) => void;
 }
 
 export type SelectedPoint = LuaTuple<[Roact.Binding<Point | undefined>, (selectedFaction: Point | undefined) => void]>;
@@ -71,7 +71,11 @@ class MapComponent extends Roact.Component<MapProps> {
             <TooltipComponent
                 tooltipBindings={this.tooltipBindings}
                 event={{
-                    onSpawn: () => print(`player has selected to spawn at point ${this.selectedPoint[0].getValue()}`)
+                    onSpawn: () => {
+                        const point = this.selectedPoint[0].getValue();
+                        if (point)
+                            this.props.finished(point);
+                    }
                 }}
             />
         </frame>
@@ -80,7 +84,7 @@ class MapComponent extends Roact.Component<MapProps> {
 
 export class MapScreen extends Screen {
     name = "Spawn";
-    constructor(public position: number, public currentScreen: LuaTuple<[Roact.Binding<number>, (newValue: number) => void]>, public finished: ObjectEvent<[]>) {
+    constructor(public position: number, public currentScreen: LuaTuple<[Roact.Binding<number>, (newValue: number) => void]>, public finished: (point: Point) => void) {
         super(position, currentScreen);
     }
     getScreenComponent(): Roact.Element {

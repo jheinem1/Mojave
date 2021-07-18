@@ -1,7 +1,7 @@
 import Roact from "@rbxts/roact";
 import { RunService, UserInputService } from "@rbxts/services";
-import { ClientFaction } from "shared/faction_manager/faction";
-import { Point } from "shared/map/point";
+import { ClientFaction } from "client/factions";
+import { Point } from "client/map/point";
 import { SelectedPoint } from ".";
 import { TooltipBindings as TooltipBindings } from "./tooltip";
 

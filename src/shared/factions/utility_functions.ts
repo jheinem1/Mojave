@@ -27,3 +27,5 @@ export function cleanGroupName(name: string) {
     const outStr = outArray.join("");
     return outStr.match("^%s*(%a+[%a%s]*%a+)%s*$")[0] as string | undefined ?? outStr.match("^%s*(%a+)%s*$")[0] as string | undefined ?? "Invalid Group Name!";
 }
+
+export const groupId = 4978642;

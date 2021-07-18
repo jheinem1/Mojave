@@ -1,7 +1,7 @@
 -- Compiled with roblox-ts v1.2.2
 local TS = require(game:GetService("ReplicatedStorage"):WaitForChild("rbxts_include"):WaitForChild("RuntimeLib"))
 local t = TS.import(script, TS.getModule(script, "@rbxts", "t").lib.ts).t
-local Point = TS.import(script, game:GetService("ReplicatedStorage"), "Shared", "map", "point").Point
+local Point = TS.import(script, script.Parent, "point").Point
 local isValidPointConstructor = t.children({
 	PointName = t.instanceIsA("StringValue"),
 	Position = t.children({

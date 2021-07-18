@@ -1,6 +1,8 @@
 -- Compiled with roblox-ts v1.2.2
 local TS = require(game:GetService("ReplicatedStorage"):WaitForChild("rbxts_include"):WaitForChild("RuntimeLib"))
 local Roact = TS.import(script, TS.getModule(script, "@rbxts", "roact").src)
+local Players = TS.import(script, TS.getModule(script, "@rbxts", "services")).Players
+local getClientFactionInfo = TS.import(script, script.Parent.Parent.Parent, "factions").getClientFactionInfo
 local MapScreen = TS.import(script, script.Parent, "screens", "map").MapScreen
 local TeamsScreen = TS.import(script, script.Parent, "screens", "teams").TeamsScreen
 local ProgressComponent
@@ -12,8 +14,33 @@ do
 			valueChange(newValue)
 			self:setState({})
 		end
-		self.screens = { TeamsScreen.new(0, props.currentScreen), MapScreen.new(1, props.currentScreen, self.props.finished) }
+		self.screens = { TeamsScreen.new(0, props.currentScreen), MapScreen.new(1, props.currentScreen, function(point)
+			return self:onSpawn(point)
+		end) }
 	end
+	ProgressComponent.onSpawn = TS.async(function(self, point)
+		local selectedTeamId = self.screens[1].selectedTeam
+		local _exp = Players.LocalPlayer
+		local _exp_1 = (TS.await(getClientFactionInfo()))
+		local _arg0 = function(faction)
+			return faction.groupId == selectedTeamId
+		end
+		-- ▼ ReadonlyArray.find ▼
+		local _result = nil
+		for _i, _v in ipairs(_exp_1) do
+			if _arg0(_v, _i - 1, _exp_1) == true then
+				_result = _v
+				break
+			end
+		end
+		-- ▲ ReadonlyArray.find ▲
+		local _condition = TS.await(_result)
+		if _condition == nil then
+			_condition = "Wastelanders"
+		end
+		print(tostring(_exp) .. " has selected to spawn as " .. tostring(_condition) .. " in " .. point.name)
+		self.props.finished:Fire()
+	end)
 	function ProgressComponent:render()
 		local items = { Roact.createElement("UIListLayout", {
 			FillDirection = Enum.FillDirection.Horizontal,

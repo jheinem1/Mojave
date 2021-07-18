@@ -1,5 +1,8 @@
 import ObjectEvent from "@rbxts/object-event";
-import Roact, { Element, setGlobalConfig } from "@rbxts/roact";
+import Roact, { } from "@rbxts/roact";
+import { Players } from "@rbxts/services";
+import { getClientFactionInfo } from "client/factions";
+import { Point } from "client/map/point";
 import { MapScreen } from "./screens/map";
 import { Screen } from "./screens/screen";
 import { TeamsScreen } from "./screens/teams";
@@ -10,7 +13,7 @@ interface ProgressProps {
 }
 
 export class ProgressComponent extends Roact.Component<ProgressProps, {}> {
-    screens: Screen[];
+    screens: [TeamsScreen, MapScreen];
     constructor(props: ProgressProps) {
         super(props);
         const valueChange = props.currentScreen[1];
@@ -20,8 +23,14 @@ export class ProgressComponent extends Roact.Component<ProgressProps, {}> {
         };
         this.screens = [
             new TeamsScreen(0, props.currentScreen),
-            new MapScreen(1, props.currentScreen, this.props.finished)
+            new MapScreen(1, props.currentScreen, point => this.onSpawn(point))
         ];
+
+    }
+    async onSpawn(point: Point) {
+        const selectedTeamId = this.screens[0].selectedTeam;
+        print(`${Players.LocalPlayer} has selected to spawn as ${await (await getClientFactionInfo()).find(faction => faction.groupId === selectedTeamId) ?? "Wastelanders"} in ${point.name}`);
+        this.props.finished.Fire();
     }
     render() {
         const items = [<uilistlayout

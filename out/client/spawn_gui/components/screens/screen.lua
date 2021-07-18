@@ -9,7 +9,6 @@ do
 	function Screen:constructor(position, currentScreen)
 		self.position = position
 		self.currentScreen = currentScreen
-		self.finished = ObjectEvent.new()
 		self.deselected = ObjectEvent.new()
 		self.selected = ObjectEvent.new()
 		self.startSelected = position == 0

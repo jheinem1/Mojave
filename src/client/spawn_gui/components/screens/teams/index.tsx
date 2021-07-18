@@ -1,8 +1,7 @@
 import ObjectEvent from "@rbxts/object-event";
 import Roact from "@rbxts/roact";
 import { Players, Workspace } from "@rbxts/services";
-import { getClientFactionInfo } from "shared/faction_manager";
-import { ClientFaction } from "shared/faction_manager/faction";
+import { ClientFaction, getClientFactionInfo } from "client/factions";
 import { Screen } from "../screen";
 import { AvatarViewportComponent } from "./avatar_viewport";
 import { TeamButtonComponent } from "./teambutton";
@@ -19,6 +18,7 @@ import { TeamButtonComponent } from "./teambutton";
 
 interface TeamsProps {
     currentScreen: LuaTuple<[Roact.Binding<number>, (newValue: number) => void]>;
+    selectedTeam: ObjectEvent<[number]>;
 }
 
 interface TeamsState {
@@ -33,7 +33,7 @@ class TeamsComponent extends Roact.Component<TeamsProps, TeamsState> {
         getClientFactionInfo().then(factionInfo => {
             this.setState({ factions: factionInfo });
             this.teamSelectedEvent.Connect(id => {
-                // print(`The client has selected to spawn as the ${id === -1 ? "Wastelanders" : factionInfo.find(faction => faction.groupId === id)?.name} (id:${id})`);
+                this.props.selectedTeam.Fire(id);
                 this.props.currentScreen[1](this.props.currentScreen[0].getValue() + 1);
             });
         });
@@ -85,9 +85,13 @@ class TeamsComponent extends Roact.Component<TeamsProps, TeamsState> {
 
 export class TeamsScreen extends Screen {
     name = "Teams";
+    selectedTeam = -1;
     getScreenComponent(): Roact.Element {
+        const selectedTeamEvent = new ObjectEvent<[number]>();
+        selectedTeamEvent.Connect(id => this.selectedTeam = id);
         return <TeamsComponent
             currentScreen={this.currentScreen}
+            selectedTeam={selectedTeamEvent}
         />;
     }
 }

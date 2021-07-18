@@ -5,7 +5,7 @@ local Roact = TS.import(script, TS.getModule(script, "@rbxts", "roact").src)
 local _services = TS.import(script, TS.getModule(script, "@rbxts", "services"))
 local Players = _services.Players
 local Workspace = _services.Workspace
-local getClientFactionInfo = TS.import(script, game:GetService("ReplicatedStorage"), "Shared", "faction_manager").getClientFactionInfo
+local getClientFactionInfo = TS.import(script, script.Parent.Parent.Parent.Parent, "factions").getClientFactionInfo
 local Screen = TS.import(script, script.Parent, "screen").Screen
 local AvatarViewportComponent = TS.import(script, script, "avatar_viewport").AvatarViewportComponent
 local TeamButtonComponent = TS.import(script, script, "teambutton").TeamButtonComponent
@@ -30,7 +30,7 @@ do
 				factions = factionInfo,
 			})
 			self.teamSelectedEvent:Connect(function(id)
-				-- print(`The client has selected to spawn as the ${id === -1 ? "Wastelanders" : factionInfo.find(faction => faction.groupId === id)?.name} (id:${id})`);
+				self.props.selectedTeam:Fire(id)
 				self.props.currentScreen[2](self.props.currentScreen[1]:getValue() + 1)
 			end)
 		end
@@ -132,10 +132,17 @@ do
 	function TeamsScreen:constructor(...)
 		super.constructor(self, ...)
 		self.name = "Teams"
+		self.selectedTeam = -1
 	end
 	function TeamsScreen:getScreenComponent()
+		local selectedTeamEvent = ObjectEvent.new()
+		selectedTeamEvent:Connect(function(id)
+			self.selectedTeam = id
+			return self.selectedTeam
+		end)
 		return Roact.createElement(TeamsComponent, {
 			currentScreen = self.currentScreen,
+			selectedTeam = selectedTeamEvent,
 		})
 	end
 end

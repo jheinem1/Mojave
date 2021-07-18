@@ -75,7 +75,10 @@ do
 			tooltipBindings = self.tooltipBindings,
 			event = {
 				onSpawn = function()
-					return print("player has selected to spawn at point " .. tostring(self.selectedPoint[1]:getValue()))
+					local point = self.selectedPoint[1]:getValue()
+					if point then
+						self.props.finished(point)
+					end
 				end,
 			},
 		})

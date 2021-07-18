@@ -4,7 +4,6 @@ import { ProgressItemComponent } from "./progress_item";
 
 export abstract class Screen {
     startSelected: boolean;
-    finished = new ObjectEvent<[]>();
     deselected = new ObjectEvent<[]>();
     selected = new ObjectEvent<[]>();
     abstract name: string;

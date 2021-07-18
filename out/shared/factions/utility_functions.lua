@@ -68,8 +68,10 @@ local function cleanGroupName(name)
 	end
 	return _condition
 end
+local groupId = 4978642
 return {
 	assignColor = assignColor,
 	generateShortName = generateShortName,
 	cleanGroupName = cleanGroupName,
+	groupId = groupId,
 }
