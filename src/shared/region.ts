@@ -23,22 +23,24 @@ abstract class Region {
  * Rectangular regions are a great way to define event-based areas using Roblox's own physics engine
  */
 export class BasePartRegion extends Region {
-    protected part: Part;
+    protected part: Part | undefined;
     protected rotatedRegion3: RotatedRegion3;
     constructor(part: BasePart) {
         super();
-        const newPart = new Instance("Part");
-        newPart.CFrame = part.CFrame;
-        newPart.Size = part.Size;
-        newPart.Shape = t.instanceIsA("Part")(part) ? part.Shape : Enum.PartType.Block;
-        newPart.Anchored = true;
-        newPart.Transparency = 1;
-        newPart.CanCollide = false;
-        newPart.CanTouch = true;
-        newPart.Parent = RunService.IsClient() ? Workspace : undefined;
-        newPart.Name = tostring(this);
-        this.part = newPart;
-        this.rotatedRegion3 = RotatedRegion3.FromPart(this.part);
+        if (RunService.IsClient()) {
+            const newPart = new Instance("Part");
+            newPart.CFrame = part.CFrame;
+            newPart.Size = part.Size;
+            newPart.Shape = t.instanceIsA("Part")(part) ? part.Shape : Enum.PartType.Block;
+            newPart.Anchored = true;
+            newPart.Transparency = 1;
+            newPart.CanCollide = false;
+            newPart.CanTouch = true;
+            newPart.Parent = RunService.IsClient() ? Workspace : undefined;
+            newPart.Name = tostring(this);
+            this.part = newPart;
+        }
+        this.rotatedRegion3 = RotatedRegion3.FromPart(part);
     }
     async enteredRegion(part: BasePart) {
         if (RunService.IsClient()) {

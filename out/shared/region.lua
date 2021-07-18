@@ -31,18 +31,20 @@ do
 	end
 	function BasePartRegion:constructor(part)
 		super.constructor(self)
-		local newPart = Instance.new("Part")
-		newPart.CFrame = part.CFrame
-		newPart.Size = part.Size
-		newPart.Shape = t.instanceIsA("Part")(part) and part.Shape or Enum.PartType.Block
-		newPart.Anchored = true
-		newPart.Transparency = 1
-		newPart.CanCollide = false
-		newPart.CanTouch = true
-		newPart.Parent = RunService:IsClient() and Workspace or nil
-		newPart.Name = tostring(self)
-		self.part = newPart
-		self.rotatedRegion3 = RotatedRegion3.FromPart(self.part)
+		if RunService:IsClient() then
+			local newPart = Instance.new("Part")
+			newPart.CFrame = part.CFrame
+			newPart.Size = part.Size
+			newPart.Shape = t.instanceIsA("Part")(part) and part.Shape or Enum.PartType.Block
+			newPart.Anchored = true
+			newPart.Transparency = 1
+			newPart.CanCollide = false
+			newPart.CanTouch = true
+			newPart.Parent = RunService:IsClient() and Workspace or nil
+			newPart.Name = tostring(self)
+			self.part = newPart
+		end
+		self.rotatedRegion3 = RotatedRegion3.FromPart(part)
 	end
 	BasePartRegion.enteredRegion = TS.async(function(self, part)
 		if RunService:IsClient() then
