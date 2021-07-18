@@ -1,7 +1,7 @@
 -- Compiled with roblox-ts v1.2.2
 local TS = require(game:GetService("ReplicatedStorage"):WaitForChild("rbxts_include"):WaitForChild("RuntimeLib"))
 -- const usedColors = new Array<number>();
-local getColor = TS.import(script, game:GetService("ReplicatedStorage"), "Shared", "faction_manager", "brick_colors").getColor
+local getColor = TS.import(script, game:GetService("ReplicatedStorage"), "Shared", "factions", "brick_colors").getColor
 -- * returns a random color
 local function assignColor(color)
 	return getColor(color)
