@@ -1,7 +1,8 @@
-import { Players, StarterGui } from "@rbxts/services";
+import { StarterGui } from "@rbxts/services";
 import { SpawnGui } from "./spawn_gui";
 import { HUD } from "./hud";
 import SpawnRemotes from "shared/spawn/remotes";
+import { Handler } from "shared/handler";
 
 const diedRemote = SpawnRemotes.Client.Get("Died");
 
@@ -26,5 +27,9 @@ async function onDied() {
     onLoad();
 }
 
-diedRemote.Connect(onDied);
-onLoad();
+export class GuiHandler extends Handler {
+    run() {
+        diedRemote.Connect(onDied);
+        onLoad();
+    }
+}

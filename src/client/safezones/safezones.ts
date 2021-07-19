@@ -1,5 +1,6 @@
 import { Players, ReplicatedStorage, Workspace } from "@rbxts/services";
 import { t } from "@rbxts/t";
+import { Handler } from "shared/handler";
 import { BasePartRegion, RegionUnion } from "shared/region";
 import Remotes from "shared/remotes";
 
@@ -29,24 +30,28 @@ function onCharacter(character: Model) {
     }
 }
 
-inSafezone.Connect((isInSafezone) => {
-    if (isInSafezone)
-        shielded = true;
-    else {
-        shielded = false;
-        const root = Players.LocalPlayer.Character?.WaitForChild("HumanoidRootPart", 5);
-        if (t.instanceIsA("Part")(root) && safezoneRegions.isInRegion(root)) {
-            wait(0.5);
-            shielded = true;
-            inSafezone.SendToServer(true);
-        } else if (t.instanceIsA("Part")(root)) {
-            const promise = safezoneRegions.enteredRegion(root);
-            promise.then(() => enteredRegion(root));
-            Players.LocalPlayer.CharacterRemoving.Connect(() => promise.cancel());
-        }
-    }
-});
+export class SafezonesHandler extends Handler {
+    run() {
+        inSafezone.Connect((isInSafezone) => {
+            if (isInSafezone)
+                shielded = true;
+            else {
+                shielded = false;
+                const root = Players.LocalPlayer.Character?.WaitForChild("HumanoidRootPart", 5);
+                if (t.instanceIsA("Part")(root) && safezoneRegions.isInRegion(root)) {
+                    wait(0.5);
+                    shielded = true;
+                    inSafezone.SendToServer(true);
+                } else if (t.instanceIsA("Part")(root)) {
+                    const promise = safezoneRegions.enteredRegion(root);
+                    promise.then(() => enteredRegion(root));
+                    Players.LocalPlayer.CharacterRemoving.Connect(() => promise.cancel());
+                }
+            }
+        });
 
-if (Players.LocalPlayer.Character)
-    onCharacter(Players.LocalPlayer.Character);
-Players.LocalPlayer.CharacterAdded.Connect(onCharacter);
+        if (Players.LocalPlayer.Character)
+            onCharacter(Players.LocalPlayer.Character);
+        Players.LocalPlayer.CharacterAdded.Connect(onCharacter);
+    }
+}
