@@ -1,6 +1,5 @@
-import ObjectEvent from "@rbxts/object-event";
 import Roact from "@rbxts/roact";
-import gameMap from "client/points";
+import gameMap from "client/points/points";
 import { Point } from "shared/map/point";
 import { Screen } from "../screen";
 import { MapPointComponent } from "./map_point";
@@ -34,7 +33,7 @@ class MapComponent extends Roact.Component<MapProps> {
             setTooltipSelected: setTooltipSelected
         };
         this.selectedPoint = Roact.createBinding(undefined) as SelectedPoint;
-        this.mapPoints = gameMap.points.map(point => <MapPointComponent
+        this.mapPoints = gameMap.points.map((point: Point) => <MapPointComponent
             point={point}
             size={gameMap.size}
             tooltipBindings={this.tooltipBindings}

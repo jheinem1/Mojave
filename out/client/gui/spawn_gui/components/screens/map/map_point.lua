@@ -5,7 +5,7 @@ local _services = TS.import(script, TS.getModule(script, "@rbxts", "services"))
 local Players = _services.Players
 local RunService = _services.RunService
 local UserInputService = _services.UserInputService
-local getFactions = TS.import(script, script.Parent.Parent.Parent.Parent.Parent, "factions").getFactions
+local getFactions = TS.import(script, script.Parent.Parent.Parent.Parent.Parent.Parent, "factions").getFactions
 local SpawnCooldownManager = TS.import(script, game:GetService("ReplicatedStorage"), "Shared", "spawn", "spawn_cooldown").default
 local MapPointComponent
 do

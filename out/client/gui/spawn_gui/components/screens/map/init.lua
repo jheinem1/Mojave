@@ -1,7 +1,7 @@
 -- Compiled with roblox-ts v1.2.2
 local TS = require(game:GetService("ReplicatedStorage"):WaitForChild("rbxts_include"):WaitForChild("RuntimeLib"))
 local Roact = TS.import(script, TS.getModule(script, "@rbxts", "roact").src)
-local gameMap = TS.import(script, script.Parent.Parent.Parent.Parent, "client_points_handler").default
+local gameMap = TS.import(script, script.Parent.Parent.Parent.Parent.Parent, "points", "points").default
 local Screen = TS.import(script, script.Parent, "screen").Screen
 local MapPointComponent = TS.import(script, script, "map_point").MapPointComponent
 local TooltipComponent = TS.import(script, script, "tooltip").TooltipComponent
