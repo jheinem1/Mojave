@@ -12,17 +12,24 @@ do
 		local self = setmetatable({}, Point)
 		return self:constructor(...) or self
 	end
-	function Point:constructor(position, name, canSpawn, safezone, capturePointStatus)
+	function Point:constructor(position, name, safezone, capturePointStatus, spawnPoints)
 		self.position = position
 		self.name = name
-		self.canSpawn = canSpawn
 		self.safezone = safezone
 		self.capturePointStatus = capturePointStatus
+		self.spawnPoints = spawnPoints
 		self.controllingFaction = -1
 		capturePointStatus.Changed:Connect(function(id)
 			self.controllingFaction = id
 			return self.controllingFaction
 		end)
+		local _result
+		if spawnPoints then
+			_result = #spawnPoints > 0
+		else
+			_result = false
+		end
+		self.canSpawn = _result
 	end
 	function Point:fromPoint(point, position, name, canSpawn, safezone, capturePointStats)
 		local _condition = position
@@ -33,19 +40,15 @@ do
 		if _condition_1 == nil then
 			_condition_1 = point.name
 		end
-		local _condition_2 = canSpawn
+		local _condition_2 = safezone
 		if _condition_2 == nil then
-			_condition_2 = point.canSpawn
+			_condition_2 = point.safezone
 		end
-		local _condition_3 = safezone
+		local _condition_3 = capturePointStats
 		if _condition_3 == nil then
-			_condition_3 = point.safezone
+			_condition_3 = point.capturePointStatus
 		end
-		local _condition_4 = capturePointStats
-		if _condition_4 == nil then
-			_condition_4 = point.capturePointStatus
-		end
-		return Point.new(_condition, _condition_1, _condition_2, _condition_3, _condition_4)
+		return Point.new(_condition, _condition_1, _condition_2, _condition_3)
 	end
 end
 return {

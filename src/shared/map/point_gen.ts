@@ -7,8 +7,8 @@ type PointConstructor = Instance & {
         X: NumberValue;
         Y: NumberValue;
     }
-    CanSpawn: BoolValue;
     Safezone: BoolValue;
+    Spawns?: Instance & { [spawn: string]: Vector3Value };
     CapturePointStatus: NumberValue;
 }
 const isValidPointConstructor = t.children({
@@ -17,21 +17,25 @@ const isValidPointConstructor = t.children({
         X: t.instanceIsA("NumberValue"),
         Y: t.instanceIsA("NumberValue")
     }),
-    CanSpawn: t.instanceIsA("BoolValue"),
     Safezone: t.instanceIsA("BoolValue")
 })
 const getValidPointConstructors = (pointConstructors: Instance[]) => pointConstructors.mapFiltered(
     pointConstructor => isValidPointConstructor(pointConstructor) ? <PointConstructor>pointConstructor : undefined
 );
+let cachedPoints: Array<Point> | undefined;
 
 /** generates an array of `Point` objects from an array of valid `PointConstructor` instances (see PointConsturctor type) */
-export function genPoints(pointConstructors: Instance[]) {
-    return getValidPointConstructors(pointConstructors).map((pointConstructor) => new Point(
-        new Vector2(pointConstructor.Position.X.Value, pointConstructor.Position.X.Value),
-        pointConstructor.PointName.Value,
-        pointConstructor.CanSpawn.Value,
-        pointConstructor.Safezone.Value,
-        pointConstructor.CapturePointStatus)
+export function genPoints(pointConstructors: Instance[], update?: boolean) {
+    return (cachedPoints && !update) ? cachedPoints : getValidPointConstructors(pointConstructors).map((pointConstructor) => {
+        const spawns = pointConstructor.FindFirstChild("Spawns")?.GetChildren().mapFiltered(instance => t.instanceIsA("Vector3Value")(instance) ? instance.Value : undefined);
+        return new Point(
+            new Vector2(pointConstructor.Position.X.Value, pointConstructor.Position.X.Value),
+            pointConstructor.PointName.Value,
+            pointConstructor.Safezone.Value,
+            pointConstructor.CapturePointStatus,
+            spawns
+        );
+    }
     );
 }
 

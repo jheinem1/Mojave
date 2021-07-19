@@ -6,9 +6,11 @@ export interface PointMetadata {
 
 /** a 2d point in the game- generally used for spawn locations */
 export class Point {
+    canSpawn: boolean;
     controllingFaction = -1;
-    constructor(public readonly position: Vector2, public readonly name: string, public readonly canSpawn: boolean, public readonly safezone: boolean, public readonly capturePointStatus: NumberValue) {
+    constructor(public readonly position: Vector2, public readonly name: string, public readonly safezone: boolean, public readonly capturePointStatus: NumberValue, public readonly spawnPoints?: Vector3[]) {
         capturePointStatus.Changed.Connect(id => this.controllingFaction = id);
+        this.canSpawn = spawnPoints ? spawnPoints.size() > 0 : false;
     }
     /**
      * Alternative constructor for creating a point using an existing point (makes all arguments optional)
@@ -17,7 +19,6 @@ export class Point {
         return new Point(
             position ?? point.position,
             name ?? point.name,
-            canSpawn ?? point.canSpawn,
             safezone ?? point.safezone,
             capturePointStats ?? point.capturePointStatus
         );
