@@ -2,6 +2,10 @@
 local TS = require(game:GetService("ReplicatedStorage"):WaitForChild("rbxts_include"):WaitForChild("RuntimeLib"))
 local FactionRemotes = TS.import(script, game:GetService("ReplicatedStorage"), "Shared", "factions", "faction_remotes").default
 local generateShortName = TS.import(script, game:GetService("ReplicatedStorage"), "Shared", "factions", "utility_functions").generateShortName
+--[[
+	*
+	* Stores information about a role in a client's faction
+]]
 local ClientRole
 do
 	ClientRole = setmetatable({}, {
@@ -23,6 +27,10 @@ do
 		return self.faction.clientRole == self
 	end
 end
+--[[
+	*
+	* Stores information on a faction and the client's role in a faction
+]]
 local ClientFaction
 do
 	ClientFaction = setmetatable({}, {
@@ -73,6 +81,12 @@ do
 	end
 end
 local clientFactionInfo
+--[[
+	*
+	* Gets a list of the factions a client is in asynchronously
+	* @param update whether or not the client's faction list should be updated (otherwise it returns a cached version)
+	* @returns a list of the client's factions
+]]
 local getClientFactionInfo = TS.async(function(update)
 	if update or not clientFactionInfo then
 		local clientData = FactionRemotes.Client:WaitFor("GetClientInfo"):andThen(function(remote)

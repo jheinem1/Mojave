@@ -1,6 +1,6 @@
 -- Compiled with roblox-ts v1.2.2
 local TS = require(game:GetService("ReplicatedStorage"):WaitForChild("rbxts_include"):WaitForChild("RuntimeLib"))
-local Point = TS.import(script, script, "point").Point
+local Point = TS.import(script, game:GetService("ReplicatedStorage"), "Shared", "map", "point").Point
 -- * used for holding all points in a game- generally for spawn locations
 local GameMap
 do
@@ -21,9 +21,10 @@ do
 		local _arg0 = bounds[1]
 		self.size = _exp - _arg0
 		local _arg0_1 = function(absPoint)
+			local _fn = Point
 			local _position = absPoint.position
 			local _arg0_2 = bounds[1]
-			return Point.new(_position - _arg0_2, absPoint.name, absPoint.canSpawn, absPoint.safezone)
+			return _fn:fromPoint(absPoint, _position - _arg0_2)
 		end
 		-- ▼ ReadonlyArray.map ▼
 		local _newValue = table.create(#points)

@@ -2,8 +2,8 @@
 local TS = require(game:GetService("ReplicatedStorage"):WaitForChild("rbxts_include"):WaitForChild("RuntimeLib"))
 local ReplicatedStorage = TS.import(script, TS.getModule(script, "@rbxts", "services")).ReplicatedStorage
 local t = TS.import(script, TS.getModule(script, "@rbxts", "t").lib.ts).t
-local GameMap = TS.import(script, script.Parent, "map").GameMap
-local _point_gen = TS.import(script, script.Parent, "map", "point_gen")
+local GameMap = TS.import(script, game:GetService("ReplicatedStorage"), "Shared", "map").GameMap
+local _point_gen = TS.import(script, game:GetService("ReplicatedStorage"), "Shared", "map", "point_gen")
 local genPoints = _point_gen.genPoints
 local mapBounds = _point_gen.mapBounds
 local location = ReplicatedStorage:WaitForChild("Points", 5)

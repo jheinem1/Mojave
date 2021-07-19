@@ -1,7 +1,7 @@
 -- Compiled with roblox-ts v1.2.2
 local TS = require(game:GetService("ReplicatedStorage"):WaitForChild("rbxts_include"):WaitForChild("RuntimeLib"))
 local t = TS.import(script, TS.getModule(script, "@rbxts", "t").lib.ts).t
-local Point = TS.import(script, script.Parent, "point").Point
+local Point = TS.import(script, game:GetService("ReplicatedStorage"), "Shared", "map", "point").Point
 local isValidPointConstructor = t.children({
 	PointName = t.instanceIsA("StringValue"),
 	Position = t.children({
@@ -32,7 +32,7 @@ end
 local function genPoints(pointConstructors)
 	local _exp = getValidPointConstructors(pointConstructors)
 	local _arg0 = function(pointConstructor)
-		return Point.new(Vector2.new(pointConstructor.Position.X.Value, pointConstructor.Position.X.Value), pointConstructor.PointName.Value, pointConstructor.CanSpawn.Value, pointConstructor.Safezone.Value)
+		return Point.new(Vector2.new(pointConstructor.Position.X.Value, pointConstructor.Position.X.Value), pointConstructor.PointName.Value, pointConstructor.CanSpawn.Value, pointConstructor.Safezone.Value, pointConstructor.CapturePointStatus)
 	end
 	-- ▼ ReadonlyArray.map ▼
 	local _newValue = table.create(#_exp)

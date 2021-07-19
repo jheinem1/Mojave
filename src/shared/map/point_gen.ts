@@ -9,6 +9,7 @@ type PointConstructor = Instance & {
     }
     CanSpawn: BoolValue;
     Safezone: BoolValue;
+    CapturePointStatus: NumberValue;
 }
 const isValidPointConstructor = t.children({
     PointName: t.instanceIsA("StringValue"),
@@ -29,7 +30,8 @@ export function genPoints(pointConstructors: Instance[]) {
         new Vector2(pointConstructor.Position.X.Value, pointConstructor.Position.X.Value),
         pointConstructor.PointName.Value,
         pointConstructor.CanSpawn.Value,
-        pointConstructor.Safezone.Value)
+        pointConstructor.Safezone.Value,
+        pointConstructor.CapturePointStatus)
     );
 }
 

@@ -71,7 +71,7 @@ export class Faction {
     }
 }
 
-/** gets a list of allied factions */
+/** Gets a list of allied factions */
 export function getFactions(update?: boolean) {
     if (update || !factions) {
         const newAllies = new Array<GroupInfo>();
@@ -94,7 +94,7 @@ export function getFactions(update?: boolean) {
 
 /**
  * Used for caching player group information on the server.
- * **ONLY ACCESSIBLE FROM THE SERVER**
+ * Generally only for internal use.
  */
 export function startCaching() {
     quitCaching();
@@ -132,6 +132,10 @@ export function startCaching() {
     factionRemote.SetCallback(player => clientInfo.get(player) ?? error(`Client info for player ${player} does not exist`));
 }
 
+/**
+ * Stops caching player information.
+ * Generally for internal use.
+ */
 export function quitCaching() {
     if (cachingConnections)
         cachingConnections.forEach(connection => connection.Disconnect());

@@ -123,7 +123,7 @@ do
 		return self.players[player]
 	end
 end
--- * gets a list of allied factions
+-- * Gets a list of allied factions
 local function getFactions(update)
 	if update or not factions then
 		local newAllies = {}
@@ -168,7 +168,7 @@ end
 --[[
 	*
 	* Used for caching player group information on the server.
-	* **ONLY ACCESSIBLE FROM THE SERVER**
+	* Generally only for internal use.
 ]]
 local quitCaching
 local function startCaching()
@@ -269,6 +269,11 @@ local function startCaching()
 		return _condition
 	end)
 end
+--[[
+	*
+	* Stops caching player information.
+	* Generally for internal use.
+]]
 function quitCaching()
 	if cachingConnections then
 		local _cachingConnections = cachingConnections

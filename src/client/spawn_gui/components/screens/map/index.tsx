@@ -1,7 +1,7 @@
 import ObjectEvent from "@rbxts/object-event";
 import Roact from "@rbxts/roact";
 import gameMap from "client/client_points_handler";
-import { Point } from "client/map/point";
+import { Point } from "shared/map/point";
 import { Screen } from "../screen";
 import { MapPointComponent } from "./map_point";
 import { TooltipBindings, TooltipComponent } from "./tooltip";
