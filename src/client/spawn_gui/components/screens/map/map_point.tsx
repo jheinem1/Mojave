@@ -1,7 +1,8 @@
 import Roact from "@rbxts/roact";
-import { RunService, UserInputService } from "@rbxts/services";
+import { Players, RunService, UserInputService } from "@rbxts/services";
 import { getFactions } from "client/factions";
 import { Point } from "shared/map/point";
+import SpawnCooldownManager from "shared/spawn/spawn_cooldown";
 import { SelectedPoint } from ".";
 import { TooltipBindings as TooltipBindings } from "./tooltip";
 
@@ -63,7 +64,8 @@ export class MapPointComponent extends Roact.Component<MapPointComponentProps> {
                     tooltipBindings.setTooltipPosition(mousePos);
                     tooltipBindings.setTooltipText(`NAME: ${point.name}\nSAFEZONE: ${point.safezone ? "YES" : "NO"}` +
                         `\nCAN SPAWN: ${point.canSpawn ? "YES" : "NO"}` +
-                        `\nCONTROLLING FACTION: ${controllingFaction}`);
+                        `\nCONTROLLING FACTION: ${controllingFaction}` +
+                        `\nCOOLDOWN: ${point.canSpawn && !point.safezone ? math.clamp(SpawnCooldownManager.getCooldownSecsRemaining(Players.LocalPlayer, point.name), 0, math.huge) : "NONE"}`);
                 }
                 if (!this.inBounds(newMousePos, button)) {
                     RunService.UnbindFromRenderStep("MapToolTip");
@@ -77,7 +79,7 @@ export class MapPointComponent extends Roact.Component<MapPointComponentProps> {
     }
     onClick() {
         const tooltipBindings = this.props.tooltipBindings;
-        if (!tooltipBindings.tooltipSelected.getValue() && this.props.point.canSpawn && tooltipBindings) {
+        if (!tooltipBindings.tooltipSelected.getValue() && this.props.point.canSpawn && tooltipBindings && SpawnCooldownManager.canSpawn(Players.LocalPlayer, this.props.point.name)) {
             this.props.selectedPoint[1](this.props.point)
             const mousePos = UserInputService.GetMouseLocation();
             tooltipBindings.setTooltipPosition(mousePos);

@@ -4,6 +4,7 @@ local Roact = TS.import(script, TS.getModule(script, "@rbxts", "roact").src)
 local Players = TS.import(script, TS.getModule(script, "@rbxts", "services")).Players
 local getClientFactionInfo = TS.import(script, script.Parent.Parent.Parent, "factions").getClientFactionInfo
 local SpawnRemotes = TS.import(script, game:GetService("ReplicatedStorage"), "Shared", "spawn", "remotes").default
+local SpawnCooldownManager = TS.import(script, game:GetService("ReplicatedStorage"), "Shared", "spawn", "spawn_cooldown").default
 local MapScreen = TS.import(script, script.Parent, "screens", "map").MapScreen
 local TeamsScreen = TS.import(script, script.Parent, "screens", "teams").TeamsScreen
 local ProgressComponent
@@ -50,6 +51,7 @@ do
 			local errorMsg = _param[2]
 			if success then
 				self.props.finished:Fire()
+				SpawnCooldownManager:logSpawn(Players.LocalPlayer, point.name)
 			else
 				warn(errorMsg)
 			end

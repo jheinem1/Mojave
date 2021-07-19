@@ -2,9 +2,11 @@
 local TS = require(game:GetService("ReplicatedStorage"):WaitForChild("rbxts_include"):WaitForChild("RuntimeLib"))
 local Roact = TS.import(script, TS.getModule(script, "@rbxts", "roact").src)
 local _services = TS.import(script, TS.getModule(script, "@rbxts", "services"))
+local Players = _services.Players
 local RunService = _services.RunService
 local UserInputService = _services.UserInputService
 local getFactions = TS.import(script, script.Parent.Parent.Parent.Parent.Parent, "factions").getFactions
+local SpawnCooldownManager = TS.import(script, game:GetService("ReplicatedStorage"), "Shared", "spawn", "spawn_cooldown").default
 local MapPointComponent
 do
 	MapPointComponent = Roact.Component:extend("MapPointComponent")
@@ -110,7 +112,7 @@ do
 				if newMousePos ~= mousePos and not tooltipBindings.tooltipSelected:getValue() then
 					mousePos = newMousePos
 					tooltipBindings.setTooltipPosition(mousePos)
-					tooltipBindings.setTooltipText("NAME: " .. point.name .. "\nSAFEZONE: " .. (point.safezone and "YES" or "NO") .. "\nCAN SPAWN: " .. (point.canSpawn and "YES" or "NO") .. "\nCONTROLLING FACTION: " .. controllingFaction)
+					tooltipBindings.setTooltipText("NAME: " .. point.name .. "\nSAFEZONE: " .. (point.safezone and "YES" or "NO") .. "\nCAN SPAWN: " .. (point.canSpawn and "YES" or "NO") .. "\nCONTROLLING FACTION: " .. controllingFaction .. "\nCOOLDOWN: " .. tostring(point.canSpawn and not point.safezone and math.clamp(SpawnCooldownManager:getCooldownSecsRemaining(Players.LocalPlayer, point.name), 0, math.huge) or "NONE"))
 				end
 				if not self:inBounds(newMousePos, button) then
 					RunService:UnbindFromRenderStep("MapToolTip")
@@ -125,7 +127,7 @@ do
 	end
 	function MapPointComponent:onClick()
 		local tooltipBindings = self.props.tooltipBindings
-		if not tooltipBindings.tooltipSelected:getValue() and self.props.point.canSpawn and tooltipBindings then
+		if not tooltipBindings.tooltipSelected:getValue() and self.props.point.canSpawn and tooltipBindings and SpawnCooldownManager:canSpawn(Players.LocalPlayer, self.props.point.name) then
 			self.props.selectedPoint[2](self.props.point)
 			local mousePos = UserInputService:GetMouseLocation()
 			tooltipBindings.setTooltipPosition(mousePos)

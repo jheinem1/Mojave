@@ -4,6 +4,7 @@ import { Players } from "@rbxts/services";
 import { getClientFactionInfo } from "client/factions";
 import { Point } from "shared/map/point";
 import SpawnRemotes from "shared/spawn/remotes";
+import SpawnCooldownManager from "shared/spawn/spawn_cooldown";
 import { MapScreen } from "./screens/map";
 import { Screen } from "./screens/screen";
 import { TeamsScreen } from "./screens/teams";
@@ -36,9 +37,10 @@ export class ProgressComponent extends Roact.Component<ProgressProps, {}> {
             pointName: point.name,
             faction: selectedTeamId
         }).then(([success, errorMsg]) => {
-            if (success)
+            if (success) {
                 this.props.finished.Fire();
-            else
+                SpawnCooldownManager.logSpawn(Players.LocalPlayer, point.name);
+            } else
                 warn(errorMsg);
         })
     }
