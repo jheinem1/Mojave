@@ -1,7 +1,7 @@
 import { AgeHandler } from "./age";
 import { FactionHandler } from "./factions";
 import { FactionGeneratorHandler } from "./faction_generator";
-import { SafezonesHandler } from "./safezones/safezones.server";
+import { SafezonesHandler } from "./safezones/safezones";
 import { SpawnHandler } from "./spawn";
 
 const ageHandler = new AgeHandler();

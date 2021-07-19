@@ -1,6 +1,17 @@
 -- Compiled with roblox-ts v1.2.2
 local TS = require(game:GetService("ReplicatedStorage"):WaitForChild("rbxts_include"):WaitForChild("RuntimeLib"))
 local AgeHandler = TS.import(script, game:GetService("ServerScriptService"), "Server", "age").AgeHandler
+local FactionHandler = TS.import(script, game:GetService("ServerScriptService"), "Server", "factions").FactionHandler
 local FactionGeneratorHandler = TS.import(script, game:GetService("ServerScriptService"), "Server", "faction_generator").FactionGeneratorHandler
+local SafezonesHandler = TS.import(script, game:GetService("ServerScriptService"), "Server", "safezones", "safezones").SafezonesHandler
+local SpawnHandler = TS.import(script, game:GetService("ServerScriptService"), "Server", "spawn").SpawnHandler
 local ageHandler = AgeHandler.new()
 local factionGeneratorHandler = FactionGeneratorHandler.new()
+local factionHandler = FactionHandler.new()
+local safezonesHandler = SafezonesHandler.new()
+local spawnHandler = SpawnHandler.new()
+ageHandler:run()
+factionGeneratorHandler:run()
+factionHandler:run()
+safezonesHandler:run()
+spawnHandler:run()
