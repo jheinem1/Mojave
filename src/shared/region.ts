@@ -23,22 +23,24 @@ abstract class Region {
  * Rectangular regions are a great way to define event-based areas using Roblox's own physics engine
  */
 export class BasePartRegion extends Region {
-    protected part: Part;
+    protected part: Part | undefined;
     protected rotatedRegion3: RotatedRegion3;
     constructor(part: BasePart) {
         super();
-        const newPart = new Instance("Part");
-        newPart.CFrame = part.CFrame;
-        newPart.Size = part.Size;
-        newPart.Shape = t.instanceIsA("Part")(part) ? part.Shape : Enum.PartType.Block;
-        newPart.Anchored = true;
-        newPart.Transparency = 1;
-        newPart.CanCollide = false;
-        newPart.CanTouch = true;
-        newPart.Parent = RunService.IsClient() ? Workspace : undefined;
-        newPart.Name = tostring(this);
-        this.part = newPart;
-        this.rotatedRegion3 = RotatedRegion3.FromPart(this.part);
+        if (RunService.IsClient()) {
+            const newPart = new Instance("Part");
+            newPart.CFrame = part.CFrame;
+            newPart.Size = part.Size;
+            newPart.Shape = t.instanceIsA("Part")(part) ? part.Shape : Enum.PartType.Block;
+            newPart.Anchored = true;
+            newPart.Transparency = 1;
+            newPart.CanCollide = false;
+            newPart.CanTouch = true;
+            newPart.Parent = RunService.IsClient() ? Workspace : undefined;
+            newPart.Name = tostring(this);
+            this.part = newPart;
+        }
+        this.rotatedRegion3 = RotatedRegion3.FromPart(part);
     }
     async enteredRegion(part: BasePart) {
         if (RunService.IsClient()) {
@@ -47,7 +49,7 @@ export class BasePartRegion extends Region {
                 inRegion = part.Touched.Wait()[0] === this.part;
         } else
             while (this.isInRegion(part))
-                RunService.Heartbeat.Wait();
+                wait(0.1);
 
     }
     async leftRegion(part: BasePart) {
@@ -57,7 +59,7 @@ export class BasePartRegion extends Region {
                 inRegion = !(part.TouchEnded.Wait()[0] === this.part);
         } else
             while (this.isInRegion(part))
-                RunService.Heartbeat.Wait();
+                wait(0.1);
     }
     isInRegion(part: BasePart) {
         return this.rotatedRegion3.CastPoint(part.Position);
@@ -77,11 +79,11 @@ export class SphereRegion extends Region {
     }
     async enteredRegion(part: BasePart) {
         while (!this.isInRegion(part))
-            RunService.Heartbeat.Wait();
+            wait(0.1);
     }
     async leftRegion(part: BasePart) {
         while (this.isInRegion(part))
-            RunService.Heartbeat.Wait();
+            wait(0.1);
     }
     isInRegion(part: BasePart) {
         return (part.Position.sub(this.center)).Magnitude <= this.radius;
@@ -109,7 +111,7 @@ export class RegionUnion {
      * @returns A promise that resolves when a player leaves a region
      */
     async leftRegion(part: BasePart) {
-        return Promise.all(this.regions.map(region => region.leftRegion(part)));
+        return Promise.race(this.isInRegions(part).map(region => region.leftRegion(part)));
     }
     /**
      * Checks if the player/character is inside all regions.

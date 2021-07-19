@@ -1,11 +1,10 @@
 -- Compiled with roblox-ts v1.2.2
-local usedColors = {}
---[[
-	* returns a random color
-	* NOT IMPLEMENTED
-]]
+local TS = require(game:GetService("ReplicatedStorage"):WaitForChild("rbxts_include"):WaitForChild("RuntimeLib"))
+-- const usedColors = new Array<number>();
+local getColor = TS.import(script, game:GetService("ReplicatedStorage"), "Shared", "faction_manager", "brick_colors").getColor
+-- * returns a random color
 local function assignColor(color)
-	return BrickColor.new(1)
+	return getColor(color)
 end
 -- * extracts the first letter of every word in a string
 local function generateShortName(name)
