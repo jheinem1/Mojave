@@ -1,6 +1,7 @@
 import { ReplicatedStorage } from "@rbxts/services";
 import { t } from "@rbxts/t";
 import Allies from "shared/allies";
+import { Handler } from "shared/handler";
 
 const location = ReplicatedStorage.FindFirstChild("FamilyList");
 assert(t.instanceOf("Folder")(location), "Expected folder in ReplicatedStorage named 'FamilyList'");
@@ -28,8 +29,12 @@ function generate() {
         generateFactionFolder(group).Parent = location;
 }
 
-const bindable = script.Parent?.FindFirstChild("onjoin")?.FindFirstChild("reloadteams")
-if (t.instanceIsA("BindableEvent")(bindable))
-    bindable.Event.Connect(generate);
+export class FactionGeneratorHandler extends Handler {
+    run() {
+        const bindable = script.Parent?.FindFirstChild("onjoin")?.FindFirstChild("reloadteams")
+        if (t.instanceIsA("BindableEvent")(bindable))
+            bindable.Event.Connect(generate);
 
-generate();
+        generate();
+    }
+}
