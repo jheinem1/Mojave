@@ -13,6 +13,6 @@ export interface RoleInfo {
     id: number;
 }
 
-export interface ClientInfo {
+export interface Factions {
     factions: ClientFactionInfo[];
 }

@@ -34,13 +34,12 @@ export class TooltipComponent extends Roact.Component<TooltipProps> {
             BackgroundColor3={Color3.fromRGB(126, 111, 42)}
             BorderColor3={Color3.fromRGB(255, 226, 86)}
             BorderSizePixel={2}
-            BorderMode={Enum.BorderMode.Inset}
             Position={tooltipBindings.tooltipPosition.map(cursor => {
                 const viewportSize = Workspace.CurrentCamera?.ViewportSize;
                 if (viewportSize) {
                     cursor = cursor.add(new Vector2(0, -36))
                     const size = this.size;
-                    const spawnButtonSizeY = this.tooltipBindings.tooltipSelected.getValue() ? 16 : 0;
+                    const spawnButtonSizeY = this.tooltipBindings.tooltipSelected.getValue() ? 20 : 0;
                     let position = new Vector2(cursor.X + 5, cursor.Y - size.Y - spawnButtonSizeY - 5);
                     if (position.X + size.X > viewportSize.X)
                         position = new Vector2(viewportSize.X - size.X, position.Y);
@@ -82,9 +81,8 @@ export class TooltipComponent extends Roact.Component<TooltipProps> {
                 BackgroundColor3={Color3.fromRGB(126, 111, 42)}
                 BorderColor3={Color3.fromRGB(255, 226, 86)}
                 BorderSizePixel={2}
-                BorderMode={Enum.BorderMode.Inset}
-                Position={new UDim2(0, 0, 1, 3)}
-                Size={new UDim2(1, 0, 0, 16)}
+                Position={new UDim2(0, 0, 1, 0)}
+                Size={new UDim2(1, 0, 0, 20)}
                 Visible={tooltipBindings.tooltipSelected}
             >
                 <textbutton

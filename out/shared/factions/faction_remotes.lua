@@ -2,7 +2,7 @@
 local TS = require(game:GetService("ReplicatedStorage"):WaitForChild("rbxts_include"):WaitForChild("RuntimeLib"))
 local Net = TS.import(script, TS.getModule(script, "@rbxts", "net").out)
 local FactionRemotes = Net.Definitions.Create({
-	GetClientInfo = Net.Definitions.ServerFunction(),
+	GetFactions = Net.Definitions.ServerFunction(),
 })
 local default = FactionRemotes
 return {

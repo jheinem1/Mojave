@@ -35,8 +35,7 @@ export function genPoints(pointConstructors: Instance[], update?: boolean) {
             pointConstructor.CapturePointStatus,
             spawns
         );
-    }
-    );
+    });
 }
 
 /** determines the bounds of a map from an array of `Point` objects and returns a tuple of the upper and lower bounds */

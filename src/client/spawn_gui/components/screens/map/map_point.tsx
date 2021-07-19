@@ -1,6 +1,6 @@
 import Roact from "@rbxts/roact";
 import { RunService, UserInputService } from "@rbxts/services";
-import { ClientFaction } from "client/factions";
+import { getFactions } from "client/factions";
 import { Point } from "shared/map/point";
 import { SelectedPoint } from ".";
 import { TooltipBindings as TooltipBindings } from "./tooltip";
@@ -10,16 +10,27 @@ interface MapPointComponentProps {
     size: Vector2;
     tooltipBindings: TooltipBindings;
     selectedPoint: SelectedPoint;
-    controlling?: Roact.Binding<ClientFaction>;
 }
 
 export class MapPointComponent extends Roact.Component<MapPointComponentProps> {
     position: UDim2;
     buttonRef = Roact.createRef<TextButton>();
+    controllingFaction: Roact.Binding<Color3>;
+    setControllingFaction: (color: Color3) => void;
+    factions = getFactions();
     constructor(props: MapPointComponentProps) {
         super(props);
         const relPosition = new Vector2(props.point.position.X / props.size.X, props.point.position.Y / props.size.Y);
         this.position = UDim2.fromScale(relPosition.X, relPosition.Y);
+        [this.controllingFaction, this.setControllingFaction] = Roact.createBinding(Color3.fromRGB(79, 79, 79));
+        this.factions.then(factions => {
+            const existingFaction = factions.find(faction => props.point.controllingFaction === faction.groupId);
+            if (existingFaction)
+                this.setControllingFaction(existingFaction.color.Color);
+            props.point.capturePointStatus.Changed.Connect(id =>
+                this.setControllingFaction(factions.find(faction => id === faction.groupId)?.color.Color ?? Color3.fromRGB(79, 79, 79))
+            );
+        })
     }
     inBounds(position: Vector2, button: GuiObject) {
         position = position.add(new Vector2(0, -36));
@@ -37,6 +48,13 @@ export class MapPointComponent extends Roact.Component<MapPointComponentProps> {
         const button = this.buttonRef.getValue();
         if (tooltipBindings && button) {
             const point = this.props.point;
+            let controllingFaction = "Loading...";
+            this.factions.then(factions => {
+                controllingFaction = factions.find(faction => this.props.point.controllingFaction === faction.groupId)?.shortName ?? "UNKNOWN";
+                tooltipBindings.setTooltipText(`NAME: ${point.name}\nSAFEZONE: ${point.safezone ? "YES" : "NO"}` +
+                    `\nCAN SPAWN: ${point.canSpawn ? "YES" : "NO"}` +
+                    `\nCONTROLLING FACTION: ${controllingFaction}`);
+            });
             let mousePos = UserInputService.GetMouseLocation();
             RunService.BindToRenderStep("MapToolTip", 1, () => {
                 const newMousePos = UserInputService.GetMouseLocation();
@@ -45,7 +63,7 @@ export class MapPointComponent extends Roact.Component<MapPointComponentProps> {
                     tooltipBindings.setTooltipPosition(mousePos);
                     tooltipBindings.setTooltipText(`NAME: ${point.name}\nSAFEZONE: ${point.safezone ? "YES" : "NO"}` +
                         `\nCAN SPAWN: ${point.canSpawn ? "YES" : "NO"}` +
-                        `\nCONTROLLING FACTION: ${this.props.controlling && this.props.controlling.getValue() ? this.props.controlling.getValue().shortName : "UNKNOWN"}`);
+                        `\nCONTROLLING FACTION: ${controllingFaction}`);
                 }
                 if (!this.inBounds(newMousePos, button)) {
                     RunService.UnbindFromRenderStep("MapToolTip");
@@ -53,6 +71,7 @@ export class MapPointComponent extends Roact.Component<MapPointComponentProps> {
                         tooltipBindings.setTooltip(false);
                 }
             });
+            wait();
             tooltipBindings.setTooltip(true);
         }
     }
@@ -60,13 +79,14 @@ export class MapPointComponent extends Roact.Component<MapPointComponentProps> {
         const tooltipBindings = this.props.tooltipBindings;
         if (!tooltipBindings.tooltipSelected.getValue() && this.props.point.canSpawn && tooltipBindings) {
             this.props.selectedPoint[1](this.props.point)
-            tooltipBindings.setTooltipSelected(true);
+            const mousePos = UserInputService.GetMouseLocation();
+            tooltipBindings.setTooltipPosition(mousePos);
             if (!tooltipBindings.tooltip.getValue()) {
                 tooltipBindings.setTooltip(true);
                 tooltipBindings.setTooltipText(``);
             }
-            const mousePos = UserInputService.GetMouseLocation();
-            tooltipBindings.setTooltipPosition(mousePos);
+            wait();
+            tooltipBindings.setTooltipSelected(true);
         } else if (tooltipBindings.tooltipSelected.getValue())
             tooltipBindings.setTooltipSelected(false);
     }
@@ -74,7 +94,7 @@ export class MapPointComponent extends Roact.Component<MapPointComponentProps> {
         const borderColor = this.props.point.safezone ? Color3.fromRGB(92, 168, 255) : Color3.fromRGB(255, 226, 86);
         return <textbutton
             Key="Destination"
-            BackgroundColor3={this.props.controlling ? this.props.controlling.map(faction => faction.color.Color) : new Color3(0.5, 0.5, 0.5)}
+            BackgroundColor3={this.controllingFaction}
             BorderColor3={borderColor}
             BorderSizePixel={5}
             BorderMode={Enum.BorderMode.Inset}

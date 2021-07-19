@@ -1,9 +1,10 @@
 import { Players, GroupService } from "@rbxts/services";
-import { ClientFactionInfo, ClientInfo, RoleInfo } from "shared/factions/faction_data_interfaces";
+import { ClientFactionInfo, RoleInfo } from "shared/factions/faction_data_interfaces";
 import FactionRemotes from "shared/factions/faction_remotes";
 import { assignColor, generateShortName, groupId, cleanGroupName } from "shared/factions/utility_functions";
 
-const clientInfo = new Map<Player, ClientInfo>();
+const clientInfo = new Array<ClientFactionInfo>();
+const clientSpecificInfo = new Map<Player, ClientFactionInfo[]>();
 let cachingConnections: Array<RBXScriptConnection>;
 let factions: Map<number, Faction>;
 
@@ -71,7 +72,9 @@ export class Faction {
     }
 }
 
-/** Gets a list of allied factions */
+/** Gets a list of allied factions
+ *  Also updates client factions
+ */
 export function getFactions(update?: boolean) {
     if (update || !factions) {
         const newAllies = new Array<GroupInfo>();
@@ -88,8 +91,41 @@ export function getFactions(update?: boolean) {
         }
         factions = new Map<number, Faction>();
         newAllies.forEach((group) => factions.set(group.Id, new Faction(group)));
+        getClientInfo(undefined, true);
     }
     return factions;
+}
+
+function getClientInfo(player?: Player, update?: boolean) {
+    if (update || !clientInfo) {
+        clientInfo.clear();
+        factions.forEach(faction => {
+            const roles = new Array<RoleInfo>();
+            faction.roles.forEach(role => roles.push({
+                name: role.name,
+                id: role.id,
+            }));
+            clientInfo.push({
+                name: faction.name,
+                groupId: faction.groupId,
+                roles: roles,
+                color: faction.color,
+                clientRole: -1
+            });
+        });
+    }
+    const existingInfo = player ? clientSpecificInfo.get(player) : undefined;
+    if (player && existingInfo && !update)
+        return existingInfo;
+    else if (player) {
+        const info = clientInfo.map(clientFaction => {
+            clientFaction.clientRole = player.GetRankInGroup(clientFaction.groupId);
+            return clientFaction;
+        });
+        clientSpecificInfo.set(player, info);
+        return info;
+    }
+    return clientInfo;
 }
 
 /**
@@ -99,37 +135,14 @@ export function getFactions(update?: boolean) {
 export function startCaching() {
     quitCaching();
     cachingConnections = new Array<RBXScriptConnection>();
-    const factionRemote = FactionRemotes.Server.Create("GetClientInfo");
+    const factionRemote = FactionRemotes.Server.Create("GetFactions");
     const factions = getFactions(true);
     cachingConnections.push(Players.PlayerAdded.Connect(player => factions.forEach(faction => {
         const role = faction.roles.get(player.GetRankInGroup(faction.groupId));
         if (role)
             faction.players.set(player, role);
     })));
-    const onPlayer = (player: Player) => factions.forEach(faction => {
-        const rank = player.GetRankInGroup(faction.groupId);
-        const role = faction.roles.get(rank);
-        if (role) {
-            faction.players.set(player, role);
-            if (!clientInfo.get(player))
-                clientInfo.set(player, { factions: new Array<ClientFactionInfo>() });
-            const roles = new Array<RoleInfo>();
-            faction.roles.forEach(role => roles.push({
-                name: role.name,
-                id: role.id,
-            }))
-            clientInfo.get(player)?.factions.push({
-                name: faction.name,
-                groupId: faction.groupId,
-                roles: roles,
-                color: faction.color,
-                clientRole: rank
-            });
-        }
-    });
-    Players.PlayerAdded.Connect(onPlayer);
-    Players.GetPlayers().forEach(onPlayer);
-    factionRemote.SetCallback(player => clientInfo.get(player) ?? error(`Client info for player ${player} does not exist`));
+    factionRemote.SetCallback(player => getClientInfo(player));
 }
 
 /**

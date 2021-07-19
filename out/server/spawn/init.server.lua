@@ -1,6 +1,8 @@
 -- Compiled with roblox-ts v1.2.2
 local TS = require(game:GetService("ReplicatedStorage"):WaitForChild("rbxts_include"):WaitForChild("RuntimeLib"))
 local _services = TS.import(script, TS.getModule(script, "@rbxts", "services"))
+local Debris = _services.Debris
+local Players = _services.Players
 local ReplicatedStorage = _services.ReplicatedStorage
 local Teams = _services.Teams
 local t = TS.import(script, TS.getModule(script, "@rbxts", "t").lib.ts).t
@@ -14,7 +16,18 @@ local _arg0 = t.instanceOf("Folder")(pointFolder)
 assert(_arg0, "Expected folder in the ReplicatedStorage named 'Points'")
 local points = genPoints(pointFolder:GetChildren())
 local random = Random.new()
-remote:SetCallback(function(client, spawnArgs)
+Players.CharacterAutoLoads = false
+Players.PlayerAdded:Connect(function(player)
+	player.CharacterAdded:Connect(function(character)
+		local _result = character:FindFirstChildWhichIsA("Humanoid")
+		if _result ~= nil then
+			_result = _result.Died:Connect(function()
+				Debris:AddItem(character, 5)
+			end)
+		end
+	end)
+end)
+remote:SetCallback(function(player, spawnArgs)
 	local _exp = getFactions()
 	local _faction = spawnArgs.faction
 	local faction = _exp[_faction]
@@ -52,15 +65,19 @@ remote:SetCallback(function(client, spawnArgs)
 	end
 	local _result_1 = faction
 	if _result_1 ~= nil then
-		_result_1 = _result_1:isInFaction(client)
+		_result_1 = _result_1:isInFaction(player)
 	end
-	if _result_1 then
-		return { false, "Unable to spawn as faction " .. faction.name .. "!" }
+	if not _result_1 then
+		local _result_2 = faction
+		if _result_2 ~= nil then
+			_result_2 = _result_2.name
+		end
+		return { false, "Unable to spawn as faction " .. tostring(_result_2) .. "!" }
 	end
-	if SpawnCooldownManager:canSpawn(client, point.name) then
-		return { false, "Spawn cooldown hasn't worn off yet! " .. tostring(SpawnCooldownManager:getCooldownSecsRemaining(client, point.name)) .. " seconds remaining." }
+	if not SpawnCooldownManager:canSpawn(player, point.name) and not point.safezone then
+		return { false, "Spawn cooldown hasn't worn off yet! " .. tostring(SpawnCooldownManager:getCooldownSecsRemaining(player, point.name)) .. " seconds remaining." }
 	end
-	local spawnLocation = point.spawnPoints[random:NextInteger(0, #point.spawnPoints) + 1]
+	local spawnLocation = point.spawnPoints[random:NextInteger(0, #point.spawnPoints - 1) + 1]
 	local _fn = Teams
 	local _result_2 = faction
 	if _result_2 ~= nil then
@@ -71,10 +88,12 @@ remote:SetCallback(function(client, spawnArgs)
 		_condition_1 = "Wastelanders"
 	end
 	local team = _fn:FindFirstChild(_condition_1)
-	SpawnCooldownManager:logSpawn(client, point.name)
-	client.Team = t.instanceIsA("Team")(team) and team or nil
-	client:LoadCharacter()
-	local character = { client.CharacterAdded:Wait() }
+	SpawnCooldownManager:logSpawn(player, point.name)
+	player.Team = t.instanceIsA("Team")(team) and team or nil
+	TS.Promise.new(function(resolve)
+		return resolve(player:LoadCharacter())
+	end)
+	local character = { player.CharacterAdded:Wait() }
 	character[1]:SetPrimaryPartCFrame(CFrame.new(spawnLocation))
-	return { true }
+	return { true, "" }
 end)

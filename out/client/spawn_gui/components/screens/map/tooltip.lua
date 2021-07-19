@@ -19,7 +19,6 @@ do
 				BackgroundColor3 = Color3.fromRGB(126, 111, 42),
 				BorderColor3 = Color3.fromRGB(255, 226, 86),
 				BorderSizePixel = 2,
-				BorderMode = Enum.BorderMode.Inset,
 				Position = tooltipBindings.tooltipPosition:map(function(cursor)
 					local _viewportSize = Workspace.CurrentCamera
 					if _viewportSize ~= nil then
@@ -30,7 +29,7 @@ do
 						local _vector2 = Vector2.new(0, -36)
 						cursor = cursor + _vector2
 						local size = self.size
-						local spawnButtonSizeY = self.tooltipBindings.tooltipSelected:getValue() and 16 or 0
+						local spawnButtonSizeY = self.tooltipBindings.tooltipSelected:getValue() and 20 or 0
 						local position = Vector2.new(cursor.X + 5, cursor.Y - size.Y - spawnButtonSizeY - 5)
 						if position.X + size.X > viewportSize.X then
 							position = Vector2.new(viewportSize.X - size.X, position.Y)
@@ -74,9 +73,8 @@ do
 					BackgroundColor3 = Color3.fromRGB(126, 111, 42),
 					BorderColor3 = Color3.fromRGB(255, 226, 86),
 					BorderSizePixel = 2,
-					BorderMode = Enum.BorderMode.Inset,
-					Position = UDim2.new(0, 0, 1, 3),
-					Size = UDim2.new(1, 0, 0, 16),
+					Position = UDim2.new(0, 0, 1, 0),
+					Size = UDim2.new(1, 0, 0, 20),
 					Visible = tooltipBindings.tooltipSelected,
 				}, {
 					SpawnButton = Roact.createElement("TextButton", {

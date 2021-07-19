@@ -1,4 +1,4 @@
-import { ClientFactionInfo, RoleInfo } from "shared/factions/faction_data_interfaces";
+import { ClientFactionInfo, Factions, RoleInfo } from "shared/factions/faction_data_interfaces";
 import FactionRemotes from "shared/factions/faction_remotes";
 import { generateShortName } from "shared/factions/utility_functions";
 
@@ -53,16 +53,27 @@ export class ClientFaction {
 }
 
 let clientFactionInfo: ClientFaction[] | undefined;
+let clientData: ClientFaction[] | undefined;
+
+async function getClientData() {
+    clientData = clientData ?? (await FactionRemotes.Client.WaitFor("GetFactions").andThen(remote => remote.CallServerAsync())).map(factionInfo => new ClientFaction(factionInfo));
+    return clientData;
+}
 
 /**
  * Gets a list of the factions a client is in asynchronously
  * @param update whether or not the client's faction list should be updated (otherwise it returns a cached version)
  * @returns a list of the client's factions
  */
-export async function getClientFactionInfo(update?: boolean) {
-    if (update || !clientFactionInfo) {
-        const clientData = FactionRemotes.Client.WaitFor("GetClientInfo").andThen(remote => remote.CallServerAsync());
-        clientFactionInfo = (await clientData).factions.map(factionInfo => new ClientFaction(factionInfo));
-    }
-    return clientFactionInfo
+export async function getClientFactionInfo() {
+    if (!clientFactionInfo)
+        clientFactionInfo = (await getClientData()).mapFiltered(faction => faction.clientRole ? faction : undefined);
+    return clientFactionInfo;
+}
+
+/**
+ * Gets the list of factions in a game
+ */
+export async function getFactions() {
+    return getClientData();
 }

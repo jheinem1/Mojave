@@ -4,13 +4,60 @@ local Roact = TS.import(script, TS.getModule(script, "@rbxts", "roact").src)
 local _services = TS.import(script, TS.getModule(script, "@rbxts", "services"))
 local RunService = _services.RunService
 local UserInputService = _services.UserInputService
+local getFactions = TS.import(script, script.Parent.Parent.Parent.Parent.Parent, "factions").getFactions
 local MapPointComponent
 do
 	MapPointComponent = Roact.Component:extend("MapPointComponent")
 	function MapPointComponent:init(props)
 		self.buttonRef = Roact.createRef()
+		self.factions = getFactions()
 		local relPosition = Vector2.new(props.point.position.X / props.size.X, props.point.position.Y / props.size.Y)
 		self.position = UDim2.fromScale(relPosition.X, relPosition.Y)
+		self.controllingFaction, self.setControllingFaction = Roact.createBinding(Color3.fromRGB(79, 79, 79))
+		local _factions = self.factions
+		local _arg0 = function(factions)
+			local _arg0_1 = function(faction)
+				return props.point.controllingFaction == faction.groupId
+			end
+			-- ▼ ReadonlyArray.find ▼
+			local _result = nil
+			for _i, _v in ipairs(factions) do
+				if _arg0_1(_v, _i - 1, factions) == true then
+					_result = _v
+					break
+				end
+			end
+			-- ▲ ReadonlyArray.find ▲
+			local existingFaction = _result
+			if existingFaction then
+				self.setControllingFaction(existingFaction.color.Color)
+			end
+			props.point.capturePointStatus.Changed:Connect(function(id)
+				local _fn = self
+				local _arg0_2 = function(faction)
+					return id == faction.groupId
+				end
+				-- ▼ ReadonlyArray.find ▼
+				local _result_1 = nil
+				for _i, _v in ipairs(factions) do
+					if _arg0_2(_v, _i - 1, factions) == true then
+						_result_1 = _v
+						break
+					end
+				end
+				-- ▲ ReadonlyArray.find ▲
+				local _result_2 = _result_1
+				if _result_2 ~= nil then
+					_result_2 = _result_2.color.Color
+				end
+				local _condition = _result_2
+				if _condition == nil then
+					_condition = Color3.fromRGB(79, 79, 79)
+				end
+				return _fn.setControllingFaction(_condition)
+			end)
+		end
+		_factions:andThen(_arg0)
 	end
 	function MapPointComponent:inBounds(position, button)
 		local _vector2 = Vector2.new(0, -36)
@@ -30,13 +77,40 @@ do
 		local button = self.buttonRef:getValue()
 		if tooltipBindings and button then
 			local point = self.props.point
+			local controllingFaction = "Loading..."
+			local _factions = self.factions
+			local _arg0 = function(factions)
+				local _arg0_1 = function(faction)
+					return self.props.point.controllingFaction == faction.groupId
+				end
+				-- ▼ ReadonlyArray.find ▼
+				local _result = nil
+				for _i, _v in ipairs(factions) do
+					if _arg0_1(_v, _i - 1, factions) == true then
+						_result = _v
+						break
+					end
+				end
+				-- ▲ ReadonlyArray.find ▲
+				local _result_1 = _result
+				if _result_1 ~= nil then
+					_result_1 = _result_1.shortName
+				end
+				local _condition = _result_1
+				if _condition == nil then
+					_condition = "UNKNOWN"
+				end
+				controllingFaction = _condition
+				tooltipBindings.setTooltipText("NAME: " .. point.name .. "\nSAFEZONE: " .. (point.safezone and "YES" or "NO") .. "\nCAN SPAWN: " .. (point.canSpawn and "YES" or "NO") .. "\nCONTROLLING FACTION: " .. controllingFaction)
+			end
+			_factions:andThen(_arg0)
 			local mousePos = UserInputService:GetMouseLocation()
 			RunService:BindToRenderStep("MapToolTip", 1, function()
 				local newMousePos = UserInputService:GetMouseLocation()
 				if newMousePos ~= mousePos and not tooltipBindings.tooltipSelected:getValue() then
 					mousePos = newMousePos
 					tooltipBindings.setTooltipPosition(mousePos)
-					tooltipBindings.setTooltipText("NAME: " .. point.name .. "\nSAFEZONE: " .. (point.safezone and "YES" or "NO") .. "\nCAN SPAWN: " .. (point.canSpawn and "YES" or "NO") .. "\nCONTROLLING FACTION: " .. (self.props.controlling and self.props.controlling:getValue() and self.props.controlling:getValue().shortName or "UNKNOWN"))
+					tooltipBindings.setTooltipText("NAME: " .. point.name .. "\nSAFEZONE: " .. (point.safezone and "YES" or "NO") .. "\nCAN SPAWN: " .. (point.canSpawn and "YES" or "NO") .. "\nCONTROLLING FACTION: " .. controllingFaction)
 				end
 				if not self:inBounds(newMousePos, button) then
 					RunService:UnbindFromRenderStep("MapToolTip")
@@ -45,6 +119,7 @@ do
 					end
 				end
 			end)
+			wait()
 			tooltipBindings.setTooltip(true)
 		end
 	end
@@ -52,13 +127,14 @@ do
 		local tooltipBindings = self.props.tooltipBindings
 		if not tooltipBindings.tooltipSelected:getValue() and self.props.point.canSpawn and tooltipBindings then
 			self.props.selectedPoint[2](self.props.point)
-			tooltipBindings.setTooltipSelected(true)
+			local mousePos = UserInputService:GetMouseLocation()
+			tooltipBindings.setTooltipPosition(mousePos)
 			if not tooltipBindings.tooltip:getValue() then
 				tooltipBindings.setTooltip(true)
 				tooltipBindings.setTooltipText("")
 			end
-			local mousePos = UserInputService:GetMouseLocation()
-			tooltipBindings.setTooltipPosition(mousePos)
+			wait()
+			tooltipBindings.setTooltipSelected(true)
 		elseif tooltipBindings.tooltipSelected:getValue() then
 			tooltipBindings.setTooltipSelected(false)
 		end
@@ -67,9 +143,7 @@ do
 		local borderColor = self.props.point.safezone and Color3.fromRGB(92, 168, 255) or Color3.fromRGB(255, 226, 86)
 		return Roact.createFragment({
 			Destination = Roact.createElement("TextButton", {
-				BackgroundColor3 = self.props.controlling and self.props.controlling:map(function(faction)
-					return faction.color.Color
-				end) or Color3.new(0.5, 0.5, 0.5),
+				BackgroundColor3 = self.controllingFaction,
 				BorderColor3 = borderColor,
 				BorderSizePixel = 5,
 				BorderMode = Enum.BorderMode.Inset,

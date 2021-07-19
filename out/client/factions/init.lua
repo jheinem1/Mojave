@@ -81,32 +81,63 @@ do
 	end
 end
 local clientFactionInfo
+local clientData
+local getClientData = TS.async(function()
+	local _condition = clientData
+	if _condition == nil then
+		local _exp = (TS.await(FactionRemotes.Client:WaitFor("GetFactions"):andThen(function(remote)
+			return remote:CallServerAsync()
+		end)))
+		local _arg0 = function(factionInfo)
+			return ClientFaction.new(factionInfo)
+		end
+		-- ▼ ReadonlyArray.map ▼
+		local _newValue = table.create(#_exp)
+		for _k, _v in ipairs(_exp) do
+			_newValue[_k] = _arg0(_v, _k - 1, _exp)
+		end
+		-- ▲ ReadonlyArray.map ▲
+		_condition = _newValue
+	end
+	clientData = _condition
+	return clientData
+end)
 --[[
 	*
 	* Gets a list of the factions a client is in asynchronously
 	* @param update whether or not the client's faction list should be updated (otherwise it returns a cached version)
 	* @returns a list of the client's factions
 ]]
-local getClientFactionInfo = TS.async(function(update)
-	if update or not clientFactionInfo then
-		local clientData = FactionRemotes.Client:WaitFor("GetClientInfo"):andThen(function(remote)
-			return remote:CallServerAsync()
-		end)
-		local _factions = (TS.await(clientData)).factions
-		local _arg0 = function(factionInfo)
-			return ClientFaction.new(factionInfo)
+local getClientFactionInfo = TS.async(function()
+	if not clientFactionInfo then
+		local _exp = (TS.await(getClientData()))
+		local _arg0 = function(faction)
+			return faction.clientRole and faction or nil
 		end
-		-- ▼ ReadonlyArray.map ▼
-		local _newValue = table.create(#_factions)
-		for _k, _v in ipairs(_factions) do
-			_newValue[_k] = _arg0(_v, _k - 1, _factions)
+		-- ▼ ReadonlyArray.mapFiltered ▼
+		local _newValue = {}
+		local _length = 0
+		for _k, _v in ipairs(_exp) do
+			local _result = _arg0(_v, _k - 1, _exp)
+			if _result ~= nil then
+				_length += 1
+				_newValue[_length] = _result
+			end
 		end
-		-- ▲ ReadonlyArray.map ▲
+		-- ▲ ReadonlyArray.mapFiltered ▲
 		clientFactionInfo = _newValue
 	end
 	return clientFactionInfo
 end)
+--[[
+	*
+	* Gets the list of factions in a game
+]]
+local getFactions = TS.async(function()
+	return getClientData()
+end)
 return {
 	getClientFactionInfo = getClientFactionInfo,
+	getFactions = getFactions,
 	ClientFaction = ClientFaction,
 }

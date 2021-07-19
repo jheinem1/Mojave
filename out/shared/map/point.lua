@@ -19,6 +19,7 @@ do
 		self.capturePointStatus = capturePointStatus
 		self.spawnPoints = spawnPoints
 		self.controllingFaction = -1
+		self.controllingFaction = capturePointStatus.Value
 		capturePointStatus.Changed:Connect(function(id)
 			self.controllingFaction = id
 			return self.controllingFaction
@@ -31,7 +32,7 @@ do
 		end
 		self.canSpawn = _result
 	end
-	function Point:fromPoint(point, position, name, canSpawn, safezone, capturePointStats)
+	function Point:fromPoint(point, position, name, safezone, capturePointStats, spawnPoints)
 		local _condition = position
 		if _condition == nil then
 			_condition = point.position
@@ -48,7 +49,11 @@ do
 		if _condition_3 == nil then
 			_condition_3 = point.capturePointStatus
 		end
-		return Point.new(_condition, _condition_1, _condition_2, _condition_3)
+		local _condition_4 = spawnPoints
+		if _condition_4 == nil then
+			_condition_4 = point.spawnPoints
+		end
+		return Point.new(_condition, _condition_1, _condition_2, _condition_3, _condition_4)
 	end
 end
 return {

@@ -10,6 +10,7 @@ local generateShortName = _utility_functions.generateShortName
 local groupId = _utility_functions.groupId
 local cleanGroupName = _utility_functions.cleanGroupName
 local clientInfo = {}
+local clientSpecificInfo = {}
 local cachingConnections
 local factions
 --[[
@@ -123,7 +124,11 @@ do
 		return self.players[player]
 	end
 end
--- * Gets a list of allied factions
+--[[
+	* Gets a list of allied factions
+	*  Also updates client factions
+]]
+local getClientInfo
 local function getFactions(update)
 	if update or not factions then
 		local newAllies = {}
@@ -162,8 +167,79 @@ local function getFactions(update)
 			_arg0(_v, _k - 1, newAllies)
 		end
 		-- ▲ ReadonlyArray.forEach ▲
+		getClientInfo(nil, true)
 	end
 	return factions
+end
+function getClientInfo(player, update)
+	if update or not clientInfo then
+		-- ▼ Array.clear ▼
+		table.clear(clientInfo)
+		-- ▲ Array.clear ▲
+		local _factions = factions
+		local _arg0 = function(faction)
+			local roles = {}
+			local _roles = faction.roles
+			local _arg0_1 = function(role)
+				local _arg0_2 = {
+					name = role.name,
+					id = role.id,
+				}
+				-- ▼ Array.push ▼
+				local _length = #roles
+				roles[_length + 1] = _arg0_2
+				-- ▲ Array.push ▲
+				return _length + 1
+			end
+			-- ▼ ReadonlyMap.forEach ▼
+			for _k, _v in pairs(_roles) do
+				_arg0_1(_v, _k, _roles)
+			end
+			-- ▲ ReadonlyMap.forEach ▲
+			local _arg0_2 = {
+				name = faction.name,
+				groupId = faction.groupId,
+				roles = roles,
+				color = faction.color,
+				clientRole = -1,
+			}
+			-- ▼ Array.push ▼
+			clientInfo[#clientInfo + 1] = _arg0_2
+			-- ▲ Array.push ▲
+		end
+		-- ▼ ReadonlyMap.forEach ▼
+		for _k, _v in pairs(_factions) do
+			_arg0(_v, _k, _factions)
+		end
+		-- ▲ ReadonlyMap.forEach ▲
+	end
+	local _result
+	if player then
+		_result = clientSpecificInfo[player]
+	else
+		_result = nil
+	end
+	local existingInfo = _result
+	if player and existingInfo and not update then
+		return existingInfo
+	elseif player then
+		local _arg0 = function(clientFaction)
+			clientFaction.clientRole = player:GetRankInGroup(clientFaction.groupId)
+			return clientFaction
+		end
+		-- ▼ ReadonlyArray.map ▼
+		local _newValue = table.create(#clientInfo)
+		for _k, _v in ipairs(clientInfo) do
+			_newValue[_k] = _arg0(_v, _k - 1, clientInfo)
+		end
+		-- ▲ ReadonlyArray.map ▲
+		local info = _newValue
+		-- ▼ Map.set ▼
+		clientSpecificInfo[player] = info
+		-- ▲ Map.set ▲
+		return info
+	end
+	return clientInfo
 end
 --[[
 	*
@@ -174,7 +250,7 @@ local quitCaching
 local function startCaching()
 	quitCaching()
 	cachingConnections = {}
-	local factionRemote = FactionRemotes.Server:Create("GetClientInfo")
+	local factionRemote = FactionRemotes.Server:Create("GetFactions")
 	local factions = getFactions(true)
 	local _cachingConnections = cachingConnections
 	local _arg0 = Players.PlayerAdded:Connect(function(player)
@@ -198,75 +274,8 @@ local function startCaching()
 	-- ▼ Array.push ▼
 	_cachingConnections[#_cachingConnections + 1] = _arg0
 	-- ▲ Array.push ▲
-	local onPlayer = function(player)
-		local _arg0_1 = function(faction)
-			local rank = player:GetRankInGroup(faction.groupId)
-			local role = faction.roles[rank]
-			if role then
-				-- ▼ Map.set ▼
-				faction.players[player] = role
-				-- ▲ Map.set ▲
-				if not clientInfo[player] then
-					-- ▼ Map.set ▼
-					clientInfo[player] = {
-						factions = {},
-					}
-					-- ▲ Map.set ▲
-				end
-				local roles = {}
-				local _roles = faction.roles
-				local _arg0_2 = function(role)
-					local _arg0_3 = {
-						name = role.name,
-						id = role.id,
-					}
-					-- ▼ Array.push ▼
-					local _length = #roles
-					roles[_length + 1] = _arg0_3
-					-- ▲ Array.push ▲
-					return _length + 1
-				end
-				-- ▼ ReadonlyMap.forEach ▼
-				for _k, _v in pairs(_roles) do
-					_arg0_2(_v, _k, _roles)
-				end
-				-- ▲ ReadonlyMap.forEach ▲
-				local _result = clientInfo[player]
-				if _result ~= nil then
-					local _factions = _result.factions
-					local _arg0_3 = {
-						name = faction.name,
-						groupId = faction.groupId,
-						roles = roles,
-						color = faction.color,
-						clientRole = rank,
-					}
-					-- ▼ Array.push ▼
-					_factions[#_factions + 1] = _arg0_3
-					-- ▲ Array.push ▲
-				end
-			end
-		end
-		-- ▼ ReadonlyMap.forEach ▼
-		for _k, _v in pairs(factions) do
-			_arg0_1(_v, _k, factions)
-		end
-		-- ▲ ReadonlyMap.forEach ▲
-		return nil
-	end
-	Players.PlayerAdded:Connect(onPlayer)
-	local _exp = Players:GetPlayers()
-	-- ▼ ReadonlyArray.forEach ▼
-	for _k, _v in ipairs(_exp) do
-		onPlayer(_v, _k - 1, _exp)
-	end
-	-- ▲ ReadonlyArray.forEach ▲
 	factionRemote:SetCallback(function(player)
-		local _condition = clientInfo[player]
-		if _condition == nil then
-			_condition = error("Client info for player " .. tostring(player) .. " does not exist")
-		end
-		return _condition
+		return getClientInfo(player)
 	end)
 end
 --[[

@@ -37,7 +37,7 @@ export class ProgressComponent extends Roact.Component<ProgressProps, {}> {
             faction: selectedTeamId
         }).then(([success, errorMsg]) => {
             if (success)
-                this.props.finished.Fire()
+                this.props.finished.Fire();
             else
                 warn(errorMsg);
         })
