@@ -3,6 +3,7 @@ import Roact, { } from "@rbxts/roact";
 import { Players } from "@rbxts/services";
 import { getClientFactionInfo } from "client/factions";
 import { Point } from "shared/map/point";
+import SpawnRemotes from "shared/spawn/remotes";
 import { MapScreen } from "./screens/map";
 import { Screen } from "./screens/screen";
 import { TeamsScreen } from "./screens/teams";
@@ -30,7 +31,16 @@ export class ProgressComponent extends Roact.Component<ProgressProps, {}> {
     async onSpawn(point: Point) {
         const selectedTeamId = this.screens[0].selectedTeam;
         print(`${Players.LocalPlayer} has selected to spawn as ${await (await getClientFactionInfo()).find(faction => faction.groupId === selectedTeamId) ?? "Wastelanders"} in ${point.name}`);
-        this.props.finished.Fire();
+        const remote = await SpawnRemotes.Client.Get("RequestSpawn");
+        remote.CallServerAsync({
+            pointName: point.name,
+            faction: selectedTeamId
+        }).then(([success, errorMsg]) => {
+            if (success)
+                this.props.finished.Fire()
+            else
+                warn(errorMsg);
+        })
     }
     render() {
         const items = [<uilistlayout
