@@ -8,7 +8,11 @@ const inSafezone = Remotes.Server.Create("InSafezone");
 const validSafezoneChildren = t.array(t.instanceIsA("BasePart"));
 const safezoneFolder = Workspace.FindFirstChild("Safezones") ?? ReplicatedStorage.FindFirstChild("Safezones");
 
+/**
+ * Responsible for managing safezones on the server
+ */
 export class SafezonesHandler extends Handler {
+    name = "Safezones";
     run() {
         assert(safezoneFolder, "Expected a folder named 'Safezones' in the workspace or ReplicatedStorage");
         const safezoneParts = safezoneFolder.GetChildren();

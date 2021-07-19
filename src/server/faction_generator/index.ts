@@ -29,7 +29,11 @@ function generate() {
         generateFactionFolder(group).Parent = location;
 }
 
+/**
+ * Generates factions for the (terrible) capture points script
+ */
 export class FactionGeneratorHandler extends Handler {
+    name = "Faction Generator";
     run() {
         const bindable = script.Parent?.FindFirstChild("onjoin")?.FindFirstChild("reloadteams")
         if (t.instanceIsA("BindableEvent")(bindable))

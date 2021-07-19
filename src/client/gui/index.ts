@@ -4,7 +4,7 @@ import { HUD } from "./hud";
 import SpawnRemotes from "shared/spawn/remotes";
 import { Handler } from "shared/handler";
 
-const diedRemote = SpawnRemotes.Client.Get("Died");
+const diedRemote = SpawnRemotes.Client.WaitFor("Died");
 
 async function onLoad() {
     try {

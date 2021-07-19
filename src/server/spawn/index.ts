@@ -14,7 +14,11 @@ assert(t.instanceOf("Folder")(pointFolder), "Expected folder in the ReplicatedSt
 const points = genPoints(pointFolder.GetChildren());
 const random = new Random();
 
+/**
+ * Works in conjunction with the Spawn Gui to spawn the player
+ */
 export class SpawnHandler extends Handler {
+    name = "Spawn";
     run() {
         Players.CharacterAutoLoads = false;
         Players.PlayerAdded.Connect(player => {

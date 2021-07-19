@@ -1,7 +1,11 @@
 import { Players } from "@rbxts/services";
 import { Handler } from "shared/handler";
 
+/**
+ * Kicks players who are less then 7 days old
+ */
 export class AgeHandler extends Handler {
+    name = "Age";
     run() {
         Players.PlayerAdded.Connect(player => {
             if (player.AccountAge < 7)
