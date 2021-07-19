@@ -4,7 +4,6 @@ import Allies from "shared/allies";
 import { Handler } from "shared/handler";
 
 const location = ReplicatedStorage.FindFirstChild("FamilyList");
-assert(t.instanceOf("Folder")(location), "Expected folder in ReplicatedStorage named 'FamilyList'");
 
 function generateFactionFolder(group: GroupInfo) {
     const folder = new Instance("Folder");
@@ -35,6 +34,7 @@ function generate() {
 export class FactionGeneratorHandler extends Handler {
     name = "Faction Generator";
     run() {
+        assert(t.instanceOf("Folder")(location), "Expected folder in ReplicatedStorage named 'FamilyList'");
         const bindable = script.Parent?.FindFirstChild("onjoin")?.FindFirstChild("reloadteams")
         if (t.instanceIsA("BindableEvent")(bindable))
             bindable.Event.Connect(generate);

@@ -5,8 +5,6 @@ local t = TS.import(script, TS.getModule(script, "@rbxts", "t").lib.ts).t
 local Allies = TS.import(script, game:GetService("ReplicatedStorage"), "Shared", "allies").default
 local Handler = TS.import(script, game:GetService("ReplicatedStorage"), "Shared", "handler").Handler
 local location = ReplicatedStorage:FindFirstChild("FamilyList")
-local _arg0 = t.instanceOf("Folder")(location)
-assert(_arg0, "Expected folder in ReplicatedStorage named 'FamilyList'")
 local function generateFactionFolder(group)
 	local folder = Instance.new("Folder")
 	folder.Name = group.Name
@@ -52,6 +50,8 @@ do
 		self.name = "Faction Generator"
 	end
 	function FactionGeneratorHandler:run()
+		local _arg0 = t.instanceOf("Folder")(location)
+		assert(_arg0, "Expected folder in ReplicatedStorage named 'FamilyList'")
 		local _bindable = script.Parent
 		if _bindable ~= nil then
 			_bindable = _bindable:FindFirstChild("onjoin")
