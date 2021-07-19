@@ -1,4 +1,4 @@
-import { Debris, Players, ReplicatedStorage, Teams } from "@rbxts/services";
+import { Debris, Players, ReplicatedStorage, RunService, Teams } from "@rbxts/services";
 import { t } from "@rbxts/t";
 import { getFactions } from "server/factions";
 import { genPoints } from "shared/map/point_gen";
@@ -29,16 +29,20 @@ remote.SetCallback((player, spawnArgs) => {
         return [false, `Cannot spawn at point ${point.name}!`];
     if (point.controllingFaction !== -1 && point.controllingFaction === faction?.groupId)
         return [false, `Spawn is controlled by enemy faction!`];
-    if (!faction?.isInFaction(player))
-        return [false, `Unable to spawn as faction ${faction?.name}!`];
+    if (faction && !faction.isInFaction(player))
+        return [false, `Unable to spawn as faction ${faction.name}!`];
     if (!SpawnCooldownManager.canSpawn(player, point.name) && !point.safezone)
         return [false, `Spawn cooldown hasn't worn off yet! ${SpawnCooldownManager.getCooldownSecsRemaining(player, point.name)} seconds remaining.`]
     const spawnLocation = point.spawnPoints[random.NextInteger(0, point.spawnPoints.size() - 1)];
     const team = Teams.FindFirstChild(faction?.name ?? "Wastelanders")
     SpawnCooldownManager.logSpawn(player, point.name);
     player.Team = t.instanceIsA("Team")(team) ? team : undefined;
-    new Promise(resolve => resolve(player.LoadCharacter()));
+    new Promise<void>(resolve => resolve(player.LoadCharacter()));
     const character = player.CharacterAdded.Wait();
-    character[0].SetPrimaryPartCFrame(new CFrame(spawnLocation));
+    new Promise<void>(resolve => {
+        RunService.Heartbeat.Wait();
+        (character[0].FindFirstChild("HumanoidRootPart") as Part).CFrame = new CFrame(spawnLocation);
+        resolve();
+    });
     return [true, ""];
 });

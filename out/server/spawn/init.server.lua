@@ -4,6 +4,7 @@ local _services = TS.import(script, TS.getModule(script, "@rbxts", "services"))
 local Debris = _services.Debris
 local Players = _services.Players
 local ReplicatedStorage = _services.ReplicatedStorage
+local RunService = _services.RunService
 local Teams = _services.Teams
 local t = TS.import(script, TS.getModule(script, "@rbxts", "t").lib.ts).t
 local getFactions = TS.import(script, game:GetService("ServerScriptService"), "Server", "factions").getFactions
@@ -63,27 +64,19 @@ remote:SetCallback(function(player, spawnArgs)
 	if _condition then
 		return { false, "Spawn is controlled by enemy faction!" }
 	end
-	local _result_1 = faction
-	if _result_1 ~= nil then
-		_result_1 = _result_1:isInFaction(player)
-	end
-	if not _result_1 then
-		local _result_2 = faction
-		if _result_2 ~= nil then
-			_result_2 = _result_2.name
-		end
-		return { false, "Unable to spawn as faction " .. tostring(_result_2) .. "!" }
+	if faction and not faction:isInFaction(player) then
+		return { false, "Unable to spawn as faction " .. faction.name .. "!" }
 	end
 	if not SpawnCooldownManager:canSpawn(player, point.name) and not point.safezone then
 		return { false, "Spawn cooldown hasn't worn off yet! " .. tostring(SpawnCooldownManager:getCooldownSecsRemaining(player, point.name)) .. " seconds remaining." }
 	end
 	local spawnLocation = point.spawnPoints[random:NextInteger(0, #point.spawnPoints - 1) + 1]
 	local _fn = Teams
-	local _result_2 = faction
-	if _result_2 ~= nil then
-		_result_2 = _result_2.name
+	local _result_1 = faction
+	if _result_1 ~= nil then
+		_result_1 = _result_1.name
 	end
-	local _condition_1 = _result_2
+	local _condition_1 = _result_1
 	if _condition_1 == nil then
 		_condition_1 = "Wastelanders"
 	end
@@ -94,6 +87,10 @@ remote:SetCallback(function(player, spawnArgs)
 		return resolve(player:LoadCharacter())
 	end)
 	local character = { player.CharacterAdded:Wait() }
-	character[1]:SetPrimaryPartCFrame(CFrame.new(spawnLocation))
+	TS.Promise.new(function(resolve)
+		RunService.Heartbeat:Wait();
+		(character[1]:FindFirstChild("HumanoidRootPart")).CFrame = CFrame.new(spawnLocation)
+		resolve()
+	end)
 	return { true, "" }
 end)

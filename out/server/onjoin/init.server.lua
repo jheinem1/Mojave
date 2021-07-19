@@ -13,7 +13,7 @@ function init()
 end
 
 function onJoin(player)
-    autoteam.assignTeam(player)
+    -- autoteam.assignTeam(player)
     nametag(player)
 end
 
