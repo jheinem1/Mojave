@@ -29,6 +29,10 @@ local function generate()
 		generateFactionFolder(group).Parent = location
 	end
 end
+--[[
+	*
+	* Generates factions for the (terrible) capture points script
+]]
 local FactionGeneratorHandler
 do
 	local super = Handler
@@ -45,6 +49,7 @@ do
 	end
 	function FactionGeneratorHandler:constructor(...)
 		super.constructor(self, ...)
+		self.name = "Faction Generator"
 	end
 	function FactionGeneratorHandler:run()
 		local _bindable = script.Parent

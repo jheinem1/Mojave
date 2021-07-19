@@ -1,4 +1,4 @@
-import { Handler } from "shared/handler";
+import { run } from "shared/handler";
 import { AgeHandler } from "./age";
 import { FactionsHandler } from "./factions";
 import { FactionGeneratorHandler } from "./faction_generator";
@@ -12,14 +12,6 @@ const factionHandler = new FactionsHandler();
 const safezonesHandler = new SafezonesHandler();
 const spawnHandler = new SpawnHandler();
 const legacyLuaHandler = new LegacyLuaHandler();
-
-async function run(handler: Handler) {
-    try {
-        handler.run();
-    } catch (error) {
-        warn(`Failed to load handler "${handler.name}" with error "${error}".`);
-    }
-}
 
 run(ageHandler);
 run(factionGeneratorHandler);

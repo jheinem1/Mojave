@@ -5,7 +5,7 @@ local SpawnGui = TS.import(script, script, "spawn_gui").SpawnGui
 local HUD = TS.import(script, script, "hud").HUD
 local SpawnRemotes = TS.import(script, game:GetService("ReplicatedStorage"), "Shared", "spawn", "remotes").default
 local Handler = TS.import(script, game:GetService("ReplicatedStorage"), "Shared", "handler").Handler
-local diedRemote = SpawnRemotes.Client:Get("Died")
+local diedRemote = SpawnRemotes.Client:WaitFor("Died")
 local onLoad = TS.async(function()
 	TS.try(function()
 		StarterGui:SetCoreGuiEnabled(Enum.CoreGuiType.All, false)
@@ -26,6 +26,10 @@ local onDied = TS.async(function()
 	wait(4)
 	onLoad()
 end)
+--[[
+	*
+	* Manages Roact Gui on the client
+]]
 local GuiHandler
 do
 	local super = Handler
@@ -42,10 +46,14 @@ do
 	end
 	function GuiHandler:constructor(...)
 		super.constructor(self, ...)
+		self.name = "GUI"
 	end
 	function GuiHandler:run()
-		diedRemote:Connect(onDied)
-		onLoad()
+		local _arg0 = function(remote)
+			remote:Connect(onDied)
+			onLoad()
+		end
+		diedRemote:andThen(_arg0)
 	end
 end
 return {

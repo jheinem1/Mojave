@@ -2,6 +2,10 @@
 local TS = require(game:GetService("ReplicatedStorage"):WaitForChild("rbxts_include"):WaitForChild("RuntimeLib"))
 local Players = TS.import(script, TS.getModule(script, "@rbxts", "services")).Players
 local Handler = TS.import(script, game:GetService("ReplicatedStorage"), "Shared", "handler").Handler
+--[[
+	*
+	* Kicks players who are less then 7 days old
+]]
 local AgeHandler
 do
 	local super = Handler
@@ -18,6 +22,7 @@ do
 	end
 	function AgeHandler:constructor(...)
 		super.constructor(self, ...)
+		self.name = "Age"
 	end
 	function AgeHandler:run()
 		Players.PlayerAdded:Connect(function(player)

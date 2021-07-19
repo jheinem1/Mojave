@@ -18,6 +18,10 @@ if _condition == nil then
 	_condition = ReplicatedStorage:FindFirstChild("Safezones")
 end
 local safezoneFolder = _condition
+--[[
+	*
+	* Responsible for managing safezones on the server
+]]
 local SafezonesHandler
 do
 	local super = Handler
@@ -34,6 +38,7 @@ do
 	end
 	function SafezonesHandler:constructor(...)
 		super.constructor(self, ...)
+		self.name = "Safezones"
 	end
 	function SafezonesHandler:run()
 		assert(safezoneFolder, "Expected a folder named 'Safezones' in the workspace or ReplicatedStorage")

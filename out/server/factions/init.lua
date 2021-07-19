@@ -4,24 +4,29 @@ local Handler = TS.import(script, game:GetService("ReplicatedStorage"), "Shared"
 local _faction = TS.import(script, game:GetService("ServerScriptService"), "Server", "factions", "faction")
 local quitCaching = _faction.quitCaching
 local startCaching = _faction.startCaching
-local FactionHandler
+--[[
+	*
+	* Caches faction information for client remotes and such
+]]
+local FactionsHandler
 do
 	local super = Handler
-	FactionHandler = setmetatable({}, {
+	FactionsHandler = setmetatable({}, {
 		__tostring = function()
-			return "FactionHandler"
+			return "FactionsHandler"
 		end,
 		__index = super,
 	})
-	FactionHandler.__index = FactionHandler
-	function FactionHandler.new(...)
-		local self = setmetatable({}, FactionHandler)
+	FactionsHandler.__index = FactionsHandler
+	function FactionsHandler.new(...)
+		local self = setmetatable({}, FactionsHandler)
 		return self:constructor(...) or self
 	end
-	function FactionHandler:constructor(...)
+	function FactionsHandler:constructor(...)
 		super.constructor(self, ...)
+		self.name = "Factions"
 	end
-	function FactionHandler:run()
+	function FactionsHandler:run()
 		startCaching()
 		game:BindToClose(function()
 			return quitCaching()
@@ -29,5 +34,5 @@ do
 	end
 end
 return {
-	FactionHandler = FactionHandler,
+	FactionsHandler = FactionsHandler,
 }

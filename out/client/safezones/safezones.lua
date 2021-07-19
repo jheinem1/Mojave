@@ -52,6 +52,10 @@ local function onCharacter(character)
 		end)
 	end
 end
+--[[
+	*
+	* Manages safezones on the client
+]]
 local SafezonesHandler
 do
 	local super = Handler
@@ -68,6 +72,7 @@ do
 	end
 	function SafezonesHandler:constructor(...)
 		super.constructor(self, ...)
+		self.name = "Safezones"
 	end
 	function SafezonesHandler:run()
 		inSafezone:Connect(function(isInSafezone)

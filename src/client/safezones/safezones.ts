@@ -30,7 +30,11 @@ function onCharacter(character: Model) {
     }
 }
 
+/**
+ * Manages safezones on the client
+ */
 export class SafezonesHandler extends Handler {
+    name = "Safezones";
     run() {
         inSafezone.Connect((isInSafezone) => {
             if (isInSafezone)

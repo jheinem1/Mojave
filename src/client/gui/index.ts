@@ -27,9 +27,15 @@ async function onDied() {
     onLoad();
 }
 
+/**
+ * Manages Roact Gui on the client
+ */
 export class GuiHandler extends Handler {
+    name = "GUI";
     run() {
-        diedRemote.Connect(onDied);
-        onLoad();
+        diedRemote.then(remote => {
+            remote.Connect(onDied);
+            onLoad();
+        })
     }
 }

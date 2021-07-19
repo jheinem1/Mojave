@@ -19,6 +19,10 @@ local _arg0 = t.instanceOf("Folder")(pointFolder)
 assert(_arg0, "Expected folder in the ReplicatedStorage named 'Points'")
 local points = genPoints(pointFolder:GetChildren())
 local random = Random.new()
+--[[
+	*
+	* Works in conjunction with the Spawn Gui to spawn the player
+]]
 local SpawnHandler
 do
 	local super = Handler
@@ -35,6 +39,7 @@ do
 	end
 	function SpawnHandler:constructor(...)
 		super.constructor(self, ...)
+		self.name = "Spawn"
 	end
 	function SpawnHandler:run()
 		Players.CharacterAutoLoads = false
