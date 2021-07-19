@@ -1,8 +1,11 @@
 import { Players, StarterGui } from "@rbxts/services";
 import { SpawnGui } from "./spawn_gui";
 import { HUD } from "./hud";
+import SpawnRemotes from "shared/spawn/remotes";
 
-function onLoad() {
+const diedRemote = SpawnRemotes.Client.Get("Died");
+
+async function onLoad() {
     try {
         StarterGui.SetCoreGuiEnabled(Enum.CoreGuiType.All, false);
         SpawnGui.mount();
@@ -15,7 +18,7 @@ function onLoad() {
     StarterGui.SetCoreGuiEnabled(Enum.CoreGuiType.Chat, false);
     HUD.mount();
 }
-function onDied() {
+async function onDied() {
     try {
         HUD.unmount();
     } catch (error) { }
@@ -23,6 +26,5 @@ function onDied() {
     onLoad();
 }
 
+diedRemote.Connect(onDied);
 onLoad();
-Players.LocalPlayer.Character?.FindFirstChildWhichIsA("Humanoid")?.Died.Connect(onDied);
-Players.LocalPlayer.CharacterAdded.Connect(character => character.FindFirstChildWhichIsA("Humanoid")?.Died.Connect(onDied));

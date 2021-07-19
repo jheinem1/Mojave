@@ -50,22 +50,24 @@ export class MapPointComponent extends Roact.Component<MapPointComponentProps> {
         if (tooltipBindings && button) {
             const point = this.props.point;
             let controllingFaction = "Loading...";
+            let tooltipText = "";
             this.factions.then(factions => {
                 controllingFaction = factions.find(faction => this.props.point.controllingFaction === faction.groupId)?.shortName ?? "UNKNOWN";
-                tooltipBindings.setTooltipText(`NAME: ${point.name}\nSAFEZONE: ${point.safezone ? "YES" : "NO"}` +
-                    `\nCAN SPAWN: ${point.canSpawn ? "YES" : "NO"}` +
-                    `\nCONTROLLING FACTION: ${controllingFaction}`);
             });
             let mousePos = UserInputService.GetMouseLocation();
             RunService.BindToRenderStep("MapToolTip", 1, () => {
                 const newMousePos = UserInputService.GetMouseLocation();
+                const newTooltipText = `NAME: ${point.name}\nSAFEZONE: ${point.safezone ? "YES" : "NO"}` +
+                    `\nCAN SPAWN: ${point.canSpawn && SpawnCooldownManager.canSpawn(Players.LocalPlayer, point.name) ? "YES" : "NO"}` +
+                    `\nCONTROLLING FACTION: ${controllingFaction}` +
+                    `\nCOOLDOWN: ${point.canSpawn && !point.safezone ? math.clamp(SpawnCooldownManager.getCooldownSecsRemaining(Players.LocalPlayer, point.name), 0, math.huge) : "NONE"}`;
+                if (newTooltipText !== tooltipText && !tooltipBindings.tooltipSelected.getValue()) {
+                    tooltipBindings.setTooltipText(newTooltipText);
+                    tooltipText = newTooltipText;
+                }
                 if (newMousePos !== mousePos && !tooltipBindings.tooltipSelected.getValue()) {
                     mousePos = newMousePos;
                     tooltipBindings.setTooltipPosition(mousePos);
-                    tooltipBindings.setTooltipText(`NAME: ${point.name}\nSAFEZONE: ${point.safezone ? "YES" : "NO"}` +
-                        `\nCAN SPAWN: ${point.canSpawn ? "YES" : "NO"}` +
-                        `\nCONTROLLING FACTION: ${controllingFaction}` +
-                        `\nCOOLDOWN: ${point.canSpawn && !point.safezone ? math.clamp(SpawnCooldownManager.getCooldownSecsRemaining(Players.LocalPlayer, point.name), 0, math.huge) : "NONE"}`);
                 }
                 if (!this.inBounds(newMousePos, button)) {
                     RunService.UnbindFromRenderStep("MapToolTip");
@@ -81,14 +83,13 @@ export class MapPointComponent extends Roact.Component<MapPointComponentProps> {
         const tooltipBindings = this.props.tooltipBindings;
         if (!tooltipBindings.tooltipSelected.getValue() && this.props.point.canSpawn && tooltipBindings && SpawnCooldownManager.canSpawn(Players.LocalPlayer, this.props.point.name)) {
             this.props.selectedPoint[1](this.props.point)
+            tooltipBindings.setTooltipSelected(true);
             const mousePos = UserInputService.GetMouseLocation();
-            tooltipBindings.setTooltipPosition(mousePos);
             if (!tooltipBindings.tooltip.getValue()) {
                 tooltipBindings.setTooltip(true);
                 tooltipBindings.setTooltipText(``);
             }
-            wait();
-            tooltipBindings.setTooltipSelected(true);
+            tooltipBindings.setTooltipPosition(mousePos);
         } else if (tooltipBindings.tooltipSelected.getValue())
             tooltipBindings.setTooltipSelected(false);
     }

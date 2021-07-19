@@ -80,6 +80,7 @@ do
 		if tooltipBindings and button then
 			local point = self.props.point
 			local controllingFaction = "Loading..."
+			local tooltipText = ""
 			local _factions = self.factions
 			local _arg0 = function(factions)
 				local _arg0_1 = function(faction)
@@ -103,16 +104,19 @@ do
 					_condition = "UNKNOWN"
 				end
 				controllingFaction = _condition
-				tooltipBindings.setTooltipText("NAME: " .. point.name .. "\nSAFEZONE: " .. (point.safezone and "YES" or "NO") .. "\nCAN SPAWN: " .. (point.canSpawn and "YES" or "NO") .. "\nCONTROLLING FACTION: " .. controllingFaction)
 			end
 			_factions:andThen(_arg0)
 			local mousePos = UserInputService:GetMouseLocation()
 			RunService:BindToRenderStep("MapToolTip", 1, function()
 				local newMousePos = UserInputService:GetMouseLocation()
+				local newTooltipText = "NAME: " .. point.name .. "\nSAFEZONE: " .. (point.safezone and "YES" or "NO") .. "\nCAN SPAWN: " .. (point.canSpawn and SpawnCooldownManager:canSpawn(Players.LocalPlayer, point.name) and "YES" or "NO") .. "\nCONTROLLING FACTION: " .. controllingFaction .. "\nCOOLDOWN: " .. tostring(point.canSpawn and not point.safezone and math.clamp(SpawnCooldownManager:getCooldownSecsRemaining(Players.LocalPlayer, point.name), 0, math.huge) or "NONE")
+				if newTooltipText ~= tooltipText and not tooltipBindings.tooltipSelected:getValue() then
+					tooltipBindings.setTooltipText(newTooltipText)
+					tooltipText = newTooltipText
+				end
 				if newMousePos ~= mousePos and not tooltipBindings.tooltipSelected:getValue() then
 					mousePos = newMousePos
 					tooltipBindings.setTooltipPosition(mousePos)
-					tooltipBindings.setTooltipText("NAME: " .. point.name .. "\nSAFEZONE: " .. (point.safezone and "YES" or "NO") .. "\nCAN SPAWN: " .. (point.canSpawn and "YES" or "NO") .. "\nCONTROLLING FACTION: " .. controllingFaction .. "\nCOOLDOWN: " .. tostring(point.canSpawn and not point.safezone and math.clamp(SpawnCooldownManager:getCooldownSecsRemaining(Players.LocalPlayer, point.name), 0, math.huge) or "NONE"))
 				end
 				if not self:inBounds(newMousePos, button) then
 					RunService:UnbindFromRenderStep("MapToolTip")
@@ -129,14 +133,13 @@ do
 		local tooltipBindings = self.props.tooltipBindings
 		if not tooltipBindings.tooltipSelected:getValue() and self.props.point.canSpawn and tooltipBindings and SpawnCooldownManager:canSpawn(Players.LocalPlayer, self.props.point.name) then
 			self.props.selectedPoint[2](self.props.point)
+			tooltipBindings.setTooltipSelected(true)
 			local mousePos = UserInputService:GetMouseLocation()
-			tooltipBindings.setTooltipPosition(mousePos)
 			if not tooltipBindings.tooltip:getValue() then
 				tooltipBindings.setTooltip(true)
 				tooltipBindings.setTooltipText("")
 			end
-			wait()
-			tooltipBindings.setTooltipSelected(true)
+			tooltipBindings.setTooltipPosition(mousePos)
 		elseif tooltipBindings.tooltipSelected:getValue() then
 			tooltipBindings.setTooltipSelected(false)
 		end

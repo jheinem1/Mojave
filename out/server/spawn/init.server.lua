@@ -11,7 +11,8 @@ local getFactions = TS.import(script, game:GetService("ServerScriptService"), "S
 local genPoints = TS.import(script, game:GetService("ReplicatedStorage"), "Shared", "map", "point_gen").genPoints
 local SpawnRemotes = TS.import(script, game:GetService("ReplicatedStorage"), "Shared", "spawn", "remotes").default
 local SpawnCooldownManager = TS.import(script, game:GetService("ReplicatedStorage"), "Shared", "spawn", "spawn_cooldown").default
-local remote = SpawnRemotes.Server:Create("RequestSpawn")
+local requestSpawnRemote = SpawnRemotes.Server:Create("RequestSpawn")
+local playerDiedRemote = SpawnRemotes.Server:Create("Died")
 local pointFolder = ReplicatedStorage:FindFirstChild("Points")
 local _arg0 = t.instanceOf("Folder")(pointFolder)
 assert(_arg0, "Expected folder in the ReplicatedStorage named 'Points'")
@@ -24,11 +25,12 @@ Players.PlayerAdded:Connect(function(player)
 		if _result ~= nil then
 			_result = _result.Died:Connect(function()
 				Debris:AddItem(character, 5)
+				playerDiedRemote:SendToPlayer(player)
 			end)
 		end
 	end)
 end)
-remote:SetCallback(function(player, spawnArgs)
+requestSpawnRemote:SetCallback(function(player, spawnArgs)
 	local _exp = getFactions()
 	local _faction = spawnArgs.faction
 	local faction = _exp[_faction]

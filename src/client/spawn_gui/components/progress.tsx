@@ -39,7 +39,8 @@ export class ProgressComponent extends Roact.Component<ProgressProps, {}> {
         }).then(([success, errorMsg]) => {
             if (success) {
                 this.props.finished.Fire();
-                SpawnCooldownManager.logSpawn(Players.LocalPlayer, point.name);
+                if (!point.safezone)
+                    SpawnCooldownManager.logSpawn(Players.LocalPlayer, point.name);
             } else
                 warn(errorMsg);
         })

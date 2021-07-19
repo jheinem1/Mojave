@@ -17,6 +17,7 @@ do
 					BackgroundColor3 = Color3.fromRGB(0, 0, 0),
 					BorderSizePixel = 0,
 					Size = UDim2.new(1, 0, 1, 0),
+					ZIndex = 2,
 				}, {
 					Title = Roact.createElement("TextLabel", {
 						BackgroundTransparency = 1,

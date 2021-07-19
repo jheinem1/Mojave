@@ -15,6 +15,7 @@ export class SpawnGuiComponent extends Roact.Component<SpawnGuiProps> {
                 BackgroundColor3={Color3.fromRGB(0, 0, 0)}
                 BorderSizePixel={0}
                 Size={new UDim2(1, 0, 1, 0)}
+                ZIndex={2}
             >
                 <textlabel
                     Key="Title"
