@@ -17,8 +17,14 @@ function onJoin(player)
     nametag(player)
 end
 
+function run()
+
 Players.PlayerAdded:Connect(onJoin)
 
 script.reloadteams.Event:Connect(init)
 
 init()
+
+end
+
+return { OnJoinHandler = { run = run } }

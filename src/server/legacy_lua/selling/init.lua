@@ -3,6 +3,7 @@
 local Players = game:GetService("Players")
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
 
+function run()
 Players.PlayerAdded:Connect(function(player)
     player.CharacterAdded:Connect(function()
         if ReplicatedStorage:FindFirstChild("ESell") then
@@ -13,3 +14,6 @@ Players.PlayerAdded:Connect(function(player)
         end
     end)
 end)
+end
+
+return { SellingHandler = { run = run } }
