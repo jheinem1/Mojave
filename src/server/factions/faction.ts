@@ -1,7 +1,9 @@
 import { Players, GroupService } from "@rbxts/services";
 import { ClientFactionInfo, RoleInfo } from "shared/factions/faction_data_interfaces";
 import FactionRemotes from "shared/factions/faction_remotes";
+import { hardCodedFactionData } from "shared/factions/hard_coded_data";
 import { assignColor, generateShortName, groupId, cleanGroupName } from "shared/factions/utility_functions";
+import { getPantsTemplate, getShirtTemplate } from "./load_clothing";
 
 const clientInfo = new Array<ClientFactionInfo>();
 const clientSpecificInfo = new Map<Player, ClientFactionInfo[]>();
@@ -27,7 +29,6 @@ export class Role {
  * Stores information on factions and provides speedy alternatives to existing player/groupservice methods
  */
 export class Faction {
-    /** Stores all players in the game that are a member of a certain faction */
     name: string;
     groupId: number;
     emblem: string;
@@ -44,9 +45,9 @@ export class Faction {
         this.emblem = groupInfo.EmblemUrl;
         groupInfo.Roles.map(roleInfo => new Role(roleInfo, this)).forEach(role => this.roles.set(role.id, role));
         this.color = assignColor(tostring(string.match(groupInfo.Description, `Color:%s*["']([%w ]*)["']`)[0]));
-        this.shortName = generateShortName(tostring(string.match(groupInfo.Description, `ShortName:%s*["']([%a]*)["']`)[0] ?? this.name));
-        this.uniformTop = tonumber(string.match(groupInfo.Description, `UniformTop:%s*["']([^"']*)["']`)[0]);
-        this.uniformBottom = tonumber(string.match(groupInfo.Description, `UniformBottom:%s*["']([^"']*)["']`)[0]);
+        this.shortName = hardCodedFactionData.get(this.groupId)?.shortName ?? generateShortName(tostring(string.match(groupInfo.Description, `ShortName:%s*["']([%a]*)["']`)[0] ?? this.name));
+        this.uniformTop = tonumber(string.match(groupInfo.Description, `UniformTop:%s*["']([^"']*)["']`)[0]) ?? hardCodedFactionData.get(this.groupId)?.uniformTop;
+        this.uniformBottom = tonumber(string.match(groupInfo.Description, `UniformBottom:%s*["']([^"']*)["']`)[0]) ?? hardCodedFactionData.get(this.groupId)?.uniformBottom;
         Players.PlayerAdded.Connect(player => this.onPlayer(player));
         Players.GetPlayers().forEach(player => this.onPlayer(player));
     }
@@ -110,6 +111,7 @@ function getClientInfo(player?: Player, update?: boolean) {
             }));
             clientInfo.push({
                 name: faction.name,
+                shortName: faction.shortName === generateShortName(faction.name) ? undefined : faction.shortName,
                 groupId: faction.groupId,
                 roles: roles,
                 color: faction.color,

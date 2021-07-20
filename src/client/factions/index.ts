@@ -36,7 +36,7 @@ export class ClientFaction {
     uniformBottom?: number;
     constructor(factionInfo: ClientFactionInfo) {
         this.name = factionInfo.name;
-        this.shortName = generateShortName(factionInfo.name);
+        this.shortName = factionInfo.shortName ?? generateShortName(factionInfo.name);
         this.groupId = factionInfo.groupId;
         this.roles = factionInfo.roles.map(roleInfo => new ClientRole(roleInfo, this));
         this.color = factionInfo.color;

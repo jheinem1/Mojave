@@ -45,7 +45,11 @@ do
 	end
 	function ClientFaction:constructor(factionInfo)
 		self.name = factionInfo.name
-		self.shortName = generateShortName(factionInfo.name)
+		local _condition = factionInfo.shortName
+		if _condition == nil then
+			_condition = generateShortName(factionInfo.name)
+		end
+		self.shortName = _condition
 		self.groupId = factionInfo.groupId
 		local _roles = factionInfo.roles
 		local _arg0 = function(roleInfo)

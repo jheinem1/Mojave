@@ -4,6 +4,7 @@ local _services = TS.import(script, TS.getModule(script, "@rbxts", "services"))
 local Players = _services.Players
 local GroupService = _services.GroupService
 local FactionRemotes = TS.import(script, game:GetService("ReplicatedStorage"), "Shared", "factions", "faction_remotes").default
+local hardCodedFactionData = TS.import(script, game:GetService("ReplicatedStorage"), "Shared", "factions", "hard_coded_data").hardCodedFactionData
 local _utility_functions = TS.import(script, game:GetService("ReplicatedStorage"), "Shared", "factions", "utility_functions")
 local assignColor = _utility_functions.assignColor
 local generateShortName = _utility_functions.generateShortName
@@ -85,13 +86,40 @@ do
 		end
 		-- ▲ ReadonlyArray.forEach ▲
 		self.color = assignColor(tostring((string.match(groupInfo.Description, [=[Color:%s*["']([%w ]*)["']]=]))))
-		local _condition = (string.match(groupInfo.Description, [=[ShortName:%s*["']([%a]*)["']]=]))
-		if _condition == nil then
-			_condition = self.name
+		local _groupId = self.groupId
+		local _result = hardCodedFactionData[_groupId]
+		if _result ~= nil then
+			_result = _result.shortName
 		end
-		self.shortName = generateShortName(tostring(_condition))
-		self.uniformTop = tonumber((string.match(groupInfo.Description, [=[UniformTop:%s*["']([^"']*)["']]=])))
-		self.uniformBottom = tonumber((string.match(groupInfo.Description, [=[UniformBottom:%s*["']([^"']*)["']]=])))
+		local _condition = _result
+		if _condition == nil then
+			local _condition_1 = (string.match(groupInfo.Description, [=[ShortName:%s*["']([%a]*)["']]=]))
+			if _condition_1 == nil then
+				_condition_1 = self.name
+			end
+			_condition = generateShortName(tostring(_condition_1))
+		end
+		self.shortName = _condition
+		local _condition_1 = tonumber((string.match(groupInfo.Description, [=[UniformTop:%s*["']([^"']*)["']]=])))
+		if _condition_1 == nil then
+			local _groupId_1 = self.groupId
+			local _result_1 = hardCodedFactionData[_groupId_1]
+			if _result_1 ~= nil then
+				_result_1 = _result_1.uniformTop
+			end
+			_condition_1 = _result_1
+		end
+		self.uniformTop = _condition_1
+		local _condition_2 = tonumber((string.match(groupInfo.Description, [=[UniformBottom:%s*["']([^"']*)["']]=])))
+		if _condition_2 == nil then
+			local _groupId_1 = self.groupId
+			local _result_1 = hardCodedFactionData[_groupId_1]
+			if _result_1 ~= nil then
+				_result_1 = _result_1.uniformBottom
+			end
+			_condition_2 = _result_1
+		end
+		self.uniformBottom = _condition_2
 		Players.PlayerAdded:Connect(function(player)
 			return self:onPlayer(player)
 		end)
@@ -197,15 +225,23 @@ function getClientInfo(player, update)
 				_arg0_1(_v, _k, _roles)
 			end
 			-- ▲ ReadonlyMap.forEach ▲
-			local _arg0_2 = {
+			local _ptr = {
 				name = faction.name,
-				groupId = faction.groupId,
-				roles = roles,
-				color = faction.color,
-				clientRole = -1,
 			}
+			local _left = "shortName"
+			local _result
+			if faction.shortName == generateShortName(faction.name) then
+				_result = nil
+			else
+				_result = faction.shortName
+			end
+			_ptr[_left] = _result
+			_ptr.groupId = faction.groupId
+			_ptr.roles = roles
+			_ptr.color = faction.color
+			_ptr.clientRole = -1
 			-- ▼ Array.push ▼
-			clientInfo[#clientInfo + 1] = _arg0_2
+			clientInfo[#clientInfo + 1] = _ptr
 			-- ▲ Array.push ▲
 		end
 		-- ▼ ReadonlyMap.forEach ▼

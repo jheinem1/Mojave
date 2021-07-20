@@ -1,5 +1,6 @@
 export interface ClientFactionInfo {
     name: string;
+    shortName?: string;
     groupId: number;
     roles: RoleInfo[];
     color: BrickColor;
