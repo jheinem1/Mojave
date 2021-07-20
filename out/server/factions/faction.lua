@@ -86,41 +86,50 @@ do
 			_arg0_1(_v, _k - 1, _newValue)
 		end
 		-- ▲ ReadonlyArray.forEach ▲
-		self.color = assignColor(tostring((string.match(groupInfo.Description, [=[Color:%s*["']([%w ]*)["']]=]))))
 		local _groupId = self.groupId
 		local _result = hardCodedFactionData[_groupId]
 		if _result ~= nil then
-			_result = _result.shortName
+			_result = _result.color
 		end
 		local _condition = _result
 		if _condition == nil then
-			local _condition_1 = (string.match(groupInfo.Description, [=[ShortName:%s*["']([%a]*)["']]=]))
-			if _condition_1 == nil then
-				_condition_1 = self.name
-			end
-			_condition = generateShortName(tostring(_condition_1))
+			_condition = assignColor(tostring((string.match(groupInfo.Description, [=[Color:%s*["']([%w ]*)["']]=]))))
 		end
-		self.shortName = _condition
-		local _condition_1 = tonumber((string.match(groupInfo.Description, [=[UniformTop:%s*["']([^"']*)["']]=])))
+		self.color = _condition
+		local _groupId_1 = self.groupId
+		local _result_1 = hardCodedFactionData[_groupId_1]
+		if _result_1 ~= nil then
+			_result_1 = _result_1.shortName
+		end
+		local _condition_1 = _result_1
 		if _condition_1 == nil then
-			local _groupId_1 = self.groupId
-			local _result_1 = hardCodedFactionData[_groupId_1]
-			if _result_1 ~= nil then
-				_result_1 = _result_1.uniformTop
+			local _condition_2 = (string.match(groupInfo.Description, [=[ShortName:%s*["']([%a]*)["']]=]))
+			if _condition_2 == nil then
+				_condition_2 = self.name
 			end
-			_condition_1 = _result_1
+			_condition_1 = generateShortName(tostring(_condition_2))
 		end
-		self.uniformTop = _condition_1
-		local _condition_2 = tonumber((string.match(groupInfo.Description, [=[UniformBottom:%s*["']([^"']*)["']]=])))
+		self.shortName = _condition_1
+		local _condition_2 = tonumber((string.match(groupInfo.Description, [=[UniformTop:%s*["']([^"']*)["']]=])))
 		if _condition_2 == nil then
-			local _groupId_1 = self.groupId
-			local _result_1 = hardCodedFactionData[_groupId_1]
-			if _result_1 ~= nil then
-				_result_1 = _result_1.uniformBottom
+			local _groupId_2 = self.groupId
+			local _result_2 = hardCodedFactionData[_groupId_2]
+			if _result_2 ~= nil then
+				_result_2 = _result_2.uniformTop
 			end
-			_condition_2 = _result_1
+			_condition_2 = _result_2
 		end
-		self.uniformBottom = _condition_2
+		self.uniformTop = _condition_2
+		local _condition_3 = tonumber((string.match(groupInfo.Description, [=[UniformBottom:%s*["']([^"']*)["']]=])))
+		if _condition_3 == nil then
+			local _groupId_2 = self.groupId
+			local _result_2 = hardCodedFactionData[_groupId_2]
+			if _result_2 ~= nil then
+				_result_2 = _result_2.uniformBottom
+			end
+			_condition_3 = _result_2
+		end
+		self.uniformBottom = _condition_3
 		Players.PlayerAdded:Connect(function(player)
 			return self:onPlayer(player)
 		end)
