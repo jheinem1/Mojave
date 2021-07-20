@@ -16,7 +16,7 @@ local onLoad = TS.async(function()
 		warn("Unable to load SpawnGui! Error: " .. tostring(error))
 	end)
 	StarterGui:SetCoreGuiEnabled(Enum.CoreGuiType.All, true)
-	StarterGui:SetCoreGuiEnabled(Enum.CoreGuiType.Chat, false)
+	-- StarterGui.SetCoreGuiEnabled(Enum.CoreGuiType.Chat, false);
 	HUD:mount()
 end)
 local onDied = TS.async(function()

@@ -16,7 +16,7 @@ async function onLoad() {
         warn(`Unable to load SpawnGui! Error: ${error}`);
     }
     StarterGui.SetCoreGuiEnabled(Enum.CoreGuiType.All, true);
-    StarterGui.SetCoreGuiEnabled(Enum.CoreGuiType.Chat, false);
+    // StarterGui.SetCoreGuiEnabled(Enum.CoreGuiType.Chat, false);
     HUD.mount();
 }
 async function onDied() {
