@@ -7,6 +7,5 @@ const location = ReplicatedStorage.WaitForChild("Points", 5);
 assert(t.instanceOf("Folder")(location), "Expected folder in the ReplicatedStorage named 'Points'");
 
 const points = genPoints(location.GetChildren())
-const bounds = mapBounds(points);
-const gameMap = new GameMap(points, bounds);
+const gameMap = new GameMap(points);
 export default gameMap;
