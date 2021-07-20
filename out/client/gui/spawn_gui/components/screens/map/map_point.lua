@@ -98,7 +98,7 @@ do
 				-- ▲ ReadonlyArray.find ▲
 				local _result_1 = _result
 				if _result_1 ~= nil then
-					_result_1 = _result_1.shortName
+					_result_1 = _result_1.name
 				end
 				local _condition = _result_1
 				if _condition == nil then

@@ -53,7 +53,7 @@ export class MapPointComponent extends Roact.Component<MapPointComponentProps> {
             let controllingFaction = "Loading...";
             let tooltipText = "";
             this.factions.then(factions => {
-                controllingFaction = factions.find(faction => this.props.point.controllingFaction === faction.groupId)?.shortName ?? "UNKNOWN";
+                controllingFaction = factions.find(faction => this.props.point.controllingFaction === faction.groupId)?.name ?? "UNKNOWN";
             });
             let mousePos = UserInputService.GetMouseLocation();
             RunService.BindToRenderStep("MapToolTip", 1, () => {
