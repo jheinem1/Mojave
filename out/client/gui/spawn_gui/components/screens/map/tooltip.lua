@@ -31,7 +31,7 @@ do
 						local size = self.size
 						local spawnButtonSizeY = self.tooltipBindings.tooltipSelected:getValue() and 20 or 0
 						local position = Vector2.new(cursor.X + 5, cursor.Y - size.Y - spawnButtonSizeY - 5)
-						if position.X + size.X > viewportSize.X then
+						if position.X + size.X + 2 > viewportSize.X then
 							position = Vector2.new(viewportSize.X - size.X, position.Y)
 						end
 						if position.Y < 0 then

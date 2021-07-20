@@ -41,7 +41,7 @@ export class TooltipComponent extends Roact.Component<TooltipProps> {
                     const size = this.size;
                     const spawnButtonSizeY = this.tooltipBindings.tooltipSelected.getValue() ? 20 : 0;
                     let position = new Vector2(cursor.X + 5, cursor.Y - size.Y - spawnButtonSizeY - 5);
-                    if (position.X + size.X > viewportSize.X)
+                    if (position.X + size.X + 2 > viewportSize.X)
                         position = new Vector2(viewportSize.X - size.X, position.Y);
                     if (position.Y < 0)
                         position = new Vector2(position.X, 0);
