@@ -16,7 +16,7 @@ export const hardCodedFactionData = new Map<number, factionData>([
         uniformBottom: 6994917017
     }],
     [4858065274, {
-        uniformTop: 4858065295,
+        uniformTop: 4858065274,
         uniformBottom: 4858068618
     }],
     [11203944, {
