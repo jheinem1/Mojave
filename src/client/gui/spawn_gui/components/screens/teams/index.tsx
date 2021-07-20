@@ -42,7 +42,8 @@ class TeamsComponent extends Roact.Component<TeamsProps, TeamsState> {
     render() {
         const teams = new Array<Roact.Element>();
         const numFactions = (this.state.factions?.size() ?? 0) + 1;
-        this.state.factions?.forEach(faction =>
+        this.state.factions?.forEach(faction => {
+            print(faction.name, faction.uniformTop, faction.uniformBottom)
             teams.push(<TeamButtonComponent
                 Name={faction.shortName}
                 Id={faction.groupId}
@@ -56,7 +57,7 @@ class TeamsComponent extends Roact.Component<TeamsProps, TeamsState> {
                 SelectedEvent={this.event}
                 SelectionFinishedEvent={this.teamSelectedEvent}
             />)
-        );
+        });
         return <frame
             Key="Teams"
             BackgroundColor3={Color3.fromRGB(255, 255, 255)}

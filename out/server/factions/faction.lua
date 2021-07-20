@@ -240,6 +240,8 @@ function getClientInfo(player, update)
 			_ptr.roles = roles
 			_ptr.color = faction.color
 			_ptr.clientRole = -1
+			_ptr.uniformTop = faction.uniformTop
+			_ptr.uniformBottom = faction.uniformBottom
 			-- ▼ Array.push ▼
 			clientInfo[#clientInfo + 1] = _ptr
 			-- ▲ Array.push ▲

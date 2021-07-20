@@ -56,6 +56,7 @@ do
 		local _result_1 = self.state.factions
 		if _result_1 ~= nil then
 			local _arg0 = function(faction)
+				print(faction.name, faction.uniformTop, faction.uniformBottom)
 				local _arg0_1 = Roact.createElement(TeamButtonComponent, {
 					Name = faction.shortName,
 					Id = faction.groupId,
@@ -70,10 +71,8 @@ do
 					SelectionFinishedEvent = self.teamSelectedEvent,
 				})
 				-- ▼ Array.push ▼
-				local _length = #teams
-				teams[_length + 1] = _arg0_1
+				teams[#teams + 1] = _arg0_1
 				-- ▲ Array.push ▲
-				return _length + 1
 			end
 			-- ▼ ReadonlyArray.forEach ▼
 			for _k, _v in ipairs(_result_1) do

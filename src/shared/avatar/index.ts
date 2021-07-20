@@ -27,28 +27,32 @@ export class Avatar {
     }
     static changeShirt<T extends Character>(character: T, newShirtId: number): T {
         const productInfo = MarketplaceService.GetProductInfo(newShirtId, Enum.InfoType.Asset);
-        assert(productInfo.AssetTypeId === Enum.AssetType.Image.Value, `Expected image, got "${Enum.AssetType.GetEnumItems().find(assetType => assetType.Value === productInfo.AssetTypeId)}" from '${newShirtId}'`);
-        const shirt = character.FindFirstChildWhichIsA("Shirt")
-        if (shirt)
-            shirt.ShirtTemplate = `rbxassetid://${newShirtId}`;
-        else {
-            const newShirt = new Instance("Shirt");
-            newShirt.ShirtTemplate = `rbxassetid://${newShirtId}`;
-            newShirt.Parent = character;
-        }
+        if (productInfo.AssetTypeId === Enum.AssetType.Image.Value) {
+            const shirt = character.FindFirstChildWhichIsA("Shirt")
+            if (shirt)
+                shirt.ShirtTemplate = `rbxassetid://${newShirtId}`;
+            else {
+                const newShirt = new Instance("Shirt");
+                newShirt.ShirtTemplate = `rbxassetid://${newShirtId}`;
+                newShirt.Parent = character;
+            }
+        } else
+            warn(`Expected image, got "${Enum.AssetType.GetEnumItems().find(assetType => assetType.Value === productInfo.AssetTypeId)}" from '${newShirtId}'`);
         return character;
     }
     static changePants<T extends Character>(character: T, newPantsId: number): T {
         const productInfo = MarketplaceService.GetProductInfo(newPantsId, Enum.InfoType.Asset);
-        assert(productInfo.AssetTypeId === Enum.AssetType.Image.Value, `Expected image, got "${Enum.AssetType.GetEnumItems().find(assetType => assetType.Value === productInfo.AssetTypeId)}" from '${newPantsId}'`);
-        const pants = character.FindFirstChildWhichIsA("Pants")
-        if (pants)
-            pants.PantsTemplate = `rbxassetid://${newPantsId}`;
-        else {
-            const newPants = new Instance("Pants");
-            newPants.PantsTemplate = `rbxassetid://${newPantsId}`;
-            newPants.Parent = character;
-        }
+        if (productInfo.AssetTypeId === Enum.AssetType.Image.Value) {
+            const pants = character.FindFirstChildWhichIsA("Pants")
+            if (pants)
+                pants.PantsTemplate = `rbxassetid://${newPantsId}`;
+            else {
+                const newPants = new Instance("Pants");
+                newPants.PantsTemplate = `rbxassetid://${newPantsId}`;
+                newPants.Parent = character;
+            }
+        } else
+            warn(`Expected image, got "${Enum.AssetType.GetEnumItems().find(assetType => assetType.Value === productInfo.AssetTypeId)}" from '${newPantsId}'`);
         return character;
     }
 }

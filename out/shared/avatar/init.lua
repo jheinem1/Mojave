@@ -44,57 +44,59 @@ do
 	end
 	function Avatar:changeShirt(character, newShirtId)
 		local productInfo = MarketplaceService:GetProductInfo(newShirtId, Enum.InfoType.Asset)
-		local _exp = productInfo.AssetTypeId == Enum.AssetType.Image.Value
-		local _exp_1 = Enum.AssetType:GetEnumItems()
-		local _arg0 = function(assetType)
-			return assetType.Value == productInfo.AssetTypeId
-		end
-		-- ▼ ReadonlyArray.find ▼
-		local _result = nil
-		for _i, _v in ipairs(_exp_1) do
-			if _arg0(_v, _i - 1, _exp_1) == true then
-				_result = _v
-				break
+		if productInfo.AssetTypeId == Enum.AssetType.Image.Value then
+			local shirt = character:FindFirstChildWhichIsA("Shirt")
+			if shirt then
+				shirt.ShirtTemplate = "rbxassetid://" .. tostring(newShirtId)
+			else
+				local newShirt = Instance.new("Shirt")
+				newShirt.ShirtTemplate = "rbxassetid://" .. tostring(newShirtId)
+				newShirt.Parent = character
 			end
-		end
-		-- ▲ ReadonlyArray.find ▲
-		local _arg1 = 'Expected image, got "' .. tostring(_result) .. [[" from ']] .. tostring(newShirtId) .. "'"
-		assert(_exp, _arg1)
-		local shirt = character:FindFirstChildWhichIsA("Shirt")
-		if shirt then
-			shirt.ShirtTemplate = "rbxassetid://" .. tostring(newShirtId)
 		else
-			local newShirt = Instance.new("Shirt")
-			newShirt.ShirtTemplate = "rbxassetid://" .. tostring(newShirtId)
-			newShirt.Parent = character
+			local _exp = Enum.AssetType:GetEnumItems()
+			local _arg0 = function(assetType)
+				return assetType.Value == productInfo.AssetTypeId
+			end
+			-- ▼ ReadonlyArray.find ▼
+			local _result = nil
+			for _i, _v in ipairs(_exp) do
+				if _arg0(_v, _i - 1, _exp) == true then
+					_result = _v
+					break
+				end
+			end
+			-- ▲ ReadonlyArray.find ▲
+			warn('Expected image, got "' .. tostring(_result) .. [[" from ']] .. tostring(newShirtId) .. "'")
 		end
 		return character
 	end
 	function Avatar:changePants(character, newPantsId)
 		local productInfo = MarketplaceService:GetProductInfo(newPantsId, Enum.InfoType.Asset)
-		local _exp = productInfo.AssetTypeId == Enum.AssetType.Image.Value
-		local _exp_1 = Enum.AssetType:GetEnumItems()
-		local _arg0 = function(assetType)
-			return assetType.Value == productInfo.AssetTypeId
-		end
-		-- ▼ ReadonlyArray.find ▼
-		local _result = nil
-		for _i, _v in ipairs(_exp_1) do
-			if _arg0(_v, _i - 1, _exp_1) == true then
-				_result = _v
-				break
+		if productInfo.AssetTypeId == Enum.AssetType.Image.Value then
+			local pants = character:FindFirstChildWhichIsA("Pants")
+			if pants then
+				pants.PantsTemplate = "rbxassetid://" .. tostring(newPantsId)
+			else
+				local newPants = Instance.new("Pants")
+				newPants.PantsTemplate = "rbxassetid://" .. tostring(newPantsId)
+				newPants.Parent = character
 			end
-		end
-		-- ▲ ReadonlyArray.find ▲
-		local _arg1 = 'Expected image, got "' .. tostring(_result) .. [[" from ']] .. tostring(newPantsId) .. "'"
-		assert(_exp, _arg1)
-		local pants = character:FindFirstChildWhichIsA("Pants")
-		if pants then
-			pants.PantsTemplate = "rbxassetid://" .. tostring(newPantsId)
 		else
-			local newPants = Instance.new("Pants")
-			newPants.PantsTemplate = "rbxassetid://" .. tostring(newPantsId)
-			newPants.Parent = character
+			local _exp = Enum.AssetType:GetEnumItems()
+			local _arg0 = function(assetType)
+				return assetType.Value == productInfo.AssetTypeId
+			end
+			-- ▼ ReadonlyArray.find ▼
+			local _result = nil
+			for _i, _v in ipairs(_exp) do
+				if _arg0(_v, _i - 1, _exp) == true then
+					_result = _v
+					break
+				end
+			end
+			-- ▲ ReadonlyArray.find ▲
+			warn('Expected image, got "' .. tostring(_result) .. [[" from ']] .. tostring(newPantsId) .. "'")
 		end
 		return character
 	end

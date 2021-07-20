@@ -31,7 +31,6 @@ export class ProgressComponent extends Roact.Component<ProgressProps, {}> {
     }
     async onSpawn(point: Point) {
         const selectedTeamId = this.screens[0].selectedTeam;
-        print(`${Players.LocalPlayer} has selected to spawn as ${await (await getClientFactionInfo()).find(faction => faction.groupId === selectedTeamId) ?? "Wastelanders"} in ${point.name}`);
         const remote = await SpawnRemotes.Client.Get("RequestSpawn");
         remote.CallServerAsync({
             pointName: point.name,

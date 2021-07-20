@@ -114,7 +114,9 @@ function getClientInfo(player?: Player, update?: boolean) {
                 groupId: faction.groupId,
                 roles: roles,
                 color: faction.color,
-                clientRole: -1
+                clientRole: -1,
+                uniformTop: faction.uniformTop,
+                uniformBottom: faction.uniformBottom
             });
         });
     }

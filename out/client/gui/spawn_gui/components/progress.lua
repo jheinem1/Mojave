@@ -2,7 +2,6 @@
 local TS = require(game:GetService("ReplicatedStorage"):WaitForChild("rbxts_include"):WaitForChild("RuntimeLib"))
 local Roact = TS.import(script, TS.getModule(script, "@rbxts", "roact").src)
 local Players = TS.import(script, TS.getModule(script, "@rbxts", "services")).Players
-local getClientFactionInfo = TS.import(script, script.Parent.Parent.Parent.Parent, "factions").getClientFactionInfo
 local SpawnRemotes = TS.import(script, game:GetService("ReplicatedStorage"), "Shared", "spawn", "remotes").default
 local SpawnCooldownManager = TS.import(script, game:GetService("ReplicatedStorage"), "Shared", "spawn", "spawn_cooldown").default
 local MapScreen = TS.import(script, script.Parent, "screens", "map").MapScreen
@@ -22,31 +21,12 @@ do
 	end
 	ProgressComponent.onSpawn = TS.async(function(self, point)
 		local selectedTeamId = self.screens[1].selectedTeam
-		local _exp = Players.LocalPlayer
-		local _exp_1 = (TS.await(getClientFactionInfo()))
-		local _arg0 = function(faction)
-			return faction.groupId == selectedTeamId
-		end
-		-- ▼ ReadonlyArray.find ▼
-		local _result = nil
-		for _i, _v in ipairs(_exp_1) do
-			if _arg0(_v, _i - 1, _exp_1) == true then
-				_result = _v
-				break
-			end
-		end
-		-- ▲ ReadonlyArray.find ▲
-		local _condition = TS.await(_result)
-		if _condition == nil then
-			_condition = "Wastelanders"
-		end
-		print(tostring(_exp) .. " has selected to spawn as " .. tostring(_condition) .. " in " .. point.name)
 		local remote = TS.await(SpawnRemotes.Client:Get("RequestSpawn"))
-		local _exp_2 = remote:CallServerAsync({
+		local _exp = remote:CallServerAsync({
 			pointName = point.name,
 			faction = selectedTeamId,
 		})
-		local _arg0_1 = function(_param)
+		local _arg0 = function(_param)
 			local success = _param[1]
 			local errorMsg = _param[2]
 			if success then
@@ -58,7 +38,7 @@ do
 				warn(errorMsg)
 			end
 		end
-		_exp_2:andThen(_arg0_1)
+		_exp:andThen(_arg0)
 	end)
 	function ProgressComponent:render()
 		local items = { Roact.createElement("UIListLayout", {
