@@ -1,5 +1,6 @@
 -- Compiled with roblox-ts v1.2.2
 local TS = require(game:GetService("ReplicatedStorage"):WaitForChild("rbxts_include"):WaitForChild("RuntimeLib"))
+local RunService = TS.import(script, TS.getModule(script, "@rbxts", "services")).RunService
 local FactionRemotes = TS.import(script, game:GetService("ReplicatedStorage"), "Shared", "factions", "faction_remotes").default
 local generateShortName = TS.import(script, game:GetService("ReplicatedStorage"), "Shared", "factions", "utility_functions").generateShortName
 --[[
@@ -24,7 +25,7 @@ do
 		self.faction = faction
 	end
 	function ClientRole:hasRole()
-		return self.faction.clientRole == self
+		return self.faction:getRole() == self
 	end
 end
 --[[
@@ -81,7 +82,7 @@ do
 		self.uniformBottom = factionInfo.uniformBottom
 	end
 	function ClientFaction:getRole()
-		return self.clientRole
+		return RunService:IsStudio() and self.roles[math.random(0, #self.roles) + 1] or self.clientRole
 	end
 end
 local clientFactionInfo

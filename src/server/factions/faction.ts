@@ -1,4 +1,4 @@
-import { Players, GroupService } from "@rbxts/services";
+import { Players, GroupService, RunService } from "@rbxts/services";
 import { ClientFactionInfo, RoleInfo } from "shared/factions/faction_data_interfaces";
 import FactionRemotes from "shared/factions/faction_remotes";
 import { hardCodedFactionData } from "shared/factions/hard_coded_data";
@@ -65,13 +65,13 @@ export class Faction {
     }
     /** Checks if a player is a member of a faction. */
     isInFaction(player: Player) {
-        return this.players.has(player);
+        return RunService.IsStudio() ? true : this.players.has(player);
     }
     /**
      * Gets the `Role` object corresponding to the player's role in the faction. Returns undefined/nil if player is not in faction.
      */
     getRole(player: Player) {
-        return this.players.get(player);
+        return RunService.IsStudio() ? next(this.roles) : this.players.get(player);
     }
 }
 

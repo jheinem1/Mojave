@@ -3,6 +3,7 @@ local TS = require(game:GetService("ReplicatedStorage"):WaitForChild("rbxts_incl
 local _services = TS.import(script, TS.getModule(script, "@rbxts", "services"))
 local Players = _services.Players
 local GroupService = _services.GroupService
+local RunService = _services.RunService
 local FactionRemotes = TS.import(script, game:GetService("ReplicatedStorage"), "Shared", "factions", "faction_remotes").default
 local hardCodedFactionData = TS.import(script, game:GetService("ReplicatedStorage"), "Shared", "factions", "hard_coded_data").hardCodedFactionData
 local _utility_functions = TS.import(script, game:GetService("ReplicatedStorage"), "Shared", "factions", "utility_functions")
@@ -147,10 +148,10 @@ do
 		return _roles[_arg0]
 	end
 	function Faction:isInFaction(player)
-		return self.players[player] ~= nil
+		return RunService:IsStudio() and true or self.players[player] ~= nil
 	end
 	function Faction:getRole(player)
-		return self.players[player]
+		return RunService:IsStudio() and { next(self.roles) } or self.players[player]
 	end
 end
 --[[

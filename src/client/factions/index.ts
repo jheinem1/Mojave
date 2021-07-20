@@ -1,3 +1,4 @@
+import { RunService } from "@rbxts/services";
 import { ClientFactionInfo, Factions, RoleInfo } from "shared/factions/faction_data_interfaces";
 import FactionRemotes from "shared/factions/faction_remotes";
 import { generateShortName } from "shared/factions/utility_functions";
@@ -18,7 +19,7 @@ class ClientRole {
      * Checks if a client has the given role (ClientRoles are assosciated with a faction)
      */
     hasRole() {
-        return this.faction.clientRole === this;
+        return this.faction.getRole() === this;
     }
 }
 
@@ -48,7 +49,7 @@ export class ClientFaction {
      * Gets the `ClientRole` of the client in the faction
      */
     getRole() {
-        return this.clientRole;
+        return RunService.IsStudio() ? this.roles[math.random(0, this.roles.size())] : this.clientRole;
     }
 }
 
