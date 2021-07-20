@@ -85,13 +85,13 @@ do
 		end
 		-- ▲ ReadonlyArray.forEach ▲
 		self.color = assignColor(tostring((string.match(groupInfo.Description, [=[Color:%s*["']([%w ]*)["']]=]))))
-		local _condition = (string.match(groupInfo.Description, [=[ShortName:%s*["']([%a ]*)["']]=]))
+		local _condition = (string.match(groupInfo.Description, [=[ShortName:%s*["']([%a]*)["']]=]))
 		if _condition == nil then
 			_condition = self.name
 		end
 		self.shortName = generateShortName(tostring(_condition))
-		self.uniformTop = tonumber((string.match(groupInfo.Description, [[UniformTop:%s*["']([%d]*)["']] .. "]")))
-		self.uniformBottom = tonumber((string.match(groupInfo.Description, [=[UniformBottom:%s*["']([%d]*)["']]=])))
+		self.uniformTop = tonumber((string.match(groupInfo.Description, [[UniformTop:%s*["']([^%s]*)["']] .. "]")))
+		self.uniformBottom = tonumber((string.match(groupInfo.Description, [=[UniformBottom:%s*["']([^"']*)["']]=])))
 		Players.PlayerAdded:Connect(function(player)
 			return self:onPlayer(player)
 		end)
