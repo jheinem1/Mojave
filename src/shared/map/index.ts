@@ -5,9 +5,9 @@ import { mapBounds } from "./point_gen";
 export class GameMap {
     public size: Vector2;
     constructor(public points: Point[]) {
-        points = points.map(absPoint => Point.fromPoint(absPoint, new Vector2(absPoint.position.Y, -absPoint.position.X)));
-        const [lower, upper] = mapBounds(this.points);
-        this.size = upper.sub(lower);
+        points = points.map(absPoint => Point.fromPoint(absPoint, new Vector2(absPoint.position.X, absPoint.position.Y)));
+        const [lower, upper] = mapBounds(points);
         this.points = points.map(absPoint => Point.fromPoint(absPoint, absPoint.position.sub(lower)));
+        this.size = upper.sub(lower);
     }
 }

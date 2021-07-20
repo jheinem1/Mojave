@@ -18,7 +18,7 @@ do
 	function GameMap:constructor(points)
 		self.points = points
 		local _arg0 = function(absPoint)
-			return Point:fromPoint(absPoint, Vector2.new(absPoint.position.Y, -absPoint.position.X))
+			return Point:fromPoint(absPoint, Vector2.new(absPoint.position.X, absPoint.position.Y))
 		end
 		-- ▼ ReadonlyArray.map ▼
 		local _newValue = table.create(#points)
@@ -27,10 +27,9 @@ do
 		end
 		-- ▲ ReadonlyArray.map ▲
 		points = _newValue
-		local _binding = mapBounds(self.points)
+		local _binding = mapBounds(points)
 		local lower = _binding[1]
 		local upper = _binding[2]
-		self.size = upper - lower
 		local _arg0_1 = function(absPoint)
 			return Point:fromPoint(absPoint, absPoint.position - lower)
 		end
@@ -41,6 +40,7 @@ do
 		end
 		-- ▲ ReadonlyArray.map ▲
 		self.points = _newValue_1
+		self.size = upper - lower
 	end
 end
 return {

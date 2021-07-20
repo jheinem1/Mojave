@@ -60,18 +60,27 @@ do
 		local _ptr_1 = {}
 		local _length = #_ptr_1
 		local _ptr_2 = {
-			BackgroundTransparency = 1,
-			Position = UDim2.new(0.1, 0, 0.1, 0),
-			Size = UDim2.new(0.8, 0, 0.8, 0),
+			BackgroundTransparency = 0,
+			Position = UDim2.new(1 / 3, 0, 0, 0),
+			Size = UDim2.new(1, 0, 1, 0),
 			BorderSizePixel = 0,
-			Image = "rbxassetid://7123919955",
+			SizeConstraint = Enum.SizeConstraint.RelativeYY,
+			BackgroundColor3 = Color3.fromRGB(74, 66, 56),
 		}
 		local _ptr_3 = {}
 		local _length_1 = #_ptr_3
+		local _ptr_4 = {
+			BackgroundTransparency = 1,
+			Position = UDim2.fromScale(0.1, 0.1),
+			Size = UDim2.fromScale(0.8, 0.8),
+		}
+		local _ptr_5 = {}
+		local _length_2 = #_ptr_5
 		for _k, _v in ipairs(self.mapPoints) do
-			_ptr_3[_length_1 + _k] = _v
+			_ptr_5[_length_2 + _k] = _v
 		end
-		_ptr_1.MapFrame = Roact.createElement("ImageLabel", _ptr_2, _ptr_3)
+		_ptr_3[_length_1 + 1] = Roact.createElement("Frame", _ptr_4, _ptr_5)
+		_ptr_1.MapFrame = Roact.createElement("Frame", _ptr_2, _ptr_3)
 		_ptr_1[_length + 1] = Roact.createElement(TooltipComponent, {
 			tooltipBindings = self.tooltipBindings,
 			event = {

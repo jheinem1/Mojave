@@ -155,7 +155,7 @@ do
 			Font = Enum.Font.SourceSans,
 		}
 		local _position = self.position
-		local _arg0 = UDim2.fromOffset(7.5, 7.5)
+		local _arg0 = UDim2.fromOffset(-7.5, -7.5)
 		_ptr.Position = _position + _arg0
 		_ptr.Size = UDim2.new(0, 15, 0, 15)
 		_ptr.Text = ""

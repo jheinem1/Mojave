@@ -103,7 +103,7 @@ export class MapPointComponent extends Roact.Component<MapPointComponentProps> {
             BorderSizePixel={3}
             BorderMode={Enum.BorderMode.Inset}
             Font={Enum.Font.SourceSans}
-            Position={this.position.add(UDim2.fromOffset(7.5, 7.5))}
+            Position={this.position.add(UDim2.fromOffset(-7.5, -7.5))}
             Size={new UDim2(0, 15, 0, 15)}
             Text={""}
             TextColor3={Color3.fromRGB(0, 0, 0)}

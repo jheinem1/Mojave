@@ -59,16 +59,25 @@ class MapComponent extends Roact.Component<MapProps> {
                 }
             }}
         >
-            <imagelabel
+            <frame
                 Key="MapFrame"
-                BackgroundTransparency={1}
-                Position={new UDim2(0.1, 0, 0.1, 0)}
-                Size={new UDim2(0.8, 0, 0.8, 0)}
+                BackgroundTransparency={0}
+                Position={new UDim2(1 / 3, 0, 0, 0)}
+                Size={new UDim2(1, 0, 1, 0)}
                 BorderSizePixel={0}
-                Image={"rbxassetid://7123919955"}
+                // Image={"rbxassetid://7124101311"}
+                // ScaleType={Enum.ScaleType.Fit}
+                SizeConstraint={Enum.SizeConstraint.RelativeYY}
+                BackgroundColor3={Color3.fromRGB(74, 66, 56)}
             >
-                {this.mapPoints}
-            </imagelabel>
+                <frame
+                    BackgroundTransparency={1}
+                    Position={UDim2.fromScale(0.1, 0.1)}
+                    Size={UDim2.fromScale(0.8, 0.8)}
+                >
+                    {this.mapPoints}
+                </frame>
+            </frame>
             <TooltipComponent
                 tooltipBindings={this.tooltipBindings}
                 event={{
