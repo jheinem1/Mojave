@@ -1,6 +1,7 @@
 import { Debris, Players, ReplicatedStorage, RunService, Teams } from "@rbxts/services";
 import { t } from "@rbxts/t";
 import { getFactions } from "server/factions/faction";
+import { getTeams } from "server/team_generator/generator_funcs";
 import { Avatar } from "shared/avatar";
 import { Character } from "shared/avatar/character_types";
 import { Handler } from "shared/handler";
@@ -45,7 +46,7 @@ export class SpawnHandler extends Handler {
             if (!SpawnCooldownManager.canSpawn(player, point.name) && !point.safezone)
                 return [false, `Spawn cooldown hasn't worn off yet! ${SpawnCooldownManager.getCooldownSecsRemaining(player, point.name)} seconds remaining.`]
             const spawnLocation = point.spawnPoints[random.NextInteger(0, point.spawnPoints.size() - 1)];
-            const team = faction?.team;
+            const team = faction ? getTeams().get(faction?.groupId) : getTeams().get(-1);
             SpawnCooldownManager.logSpawn(player, point.name);
             player.Team = t.instanceIsA("Team")(team) ? team : undefined;
             new Promise<void>(resolve => resolve(player.LoadCharacter()));

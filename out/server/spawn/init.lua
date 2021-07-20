@@ -7,6 +7,7 @@ local ReplicatedStorage = _services.ReplicatedStorage
 local RunService = _services.RunService
 local t = TS.import(script, TS.getModule(script, "@rbxts", "t").lib.ts).t
 local getFactions = TS.import(script, game:GetService("ServerScriptService"), "Server", "factions", "faction").getFactions
+local getTeams = TS.import(script, game:GetService("ServerScriptService"), "Server", "team_generator", "generator_funcs").getTeams
 local Avatar = TS.import(script, game:GetService("ReplicatedStorage"), "Shared", "avatar").Avatar
 local Handler = TS.import(script, game:GetService("ReplicatedStorage"), "Shared", "handler").Handler
 local genPoints = TS.import(script, game:GetService("ReplicatedStorage"), "Shared", "map", "point_gen").genPoints
@@ -97,11 +98,18 @@ do
 				return { false, "Spawn cooldown hasn't worn off yet! " .. tostring(SpawnCooldownManager:getCooldownSecsRemaining(player, point.name)) .. " seconds remaining." }
 			end
 			local spawnLocation = point.spawnPoints[random:NextInteger(0, #point.spawnPoints - 1) + 1]
-			local _team = faction
-			if _team ~= nil then
-				_team = _team.team
+			local _result_1
+			if faction then
+				local _exp_1 = getTeams()
+				local _result_2 = faction
+				if _result_2 ~= nil then
+					_result_2 = _result_2.groupId
+				end
+				_result_1 = _exp_1[_result_2]
+			else
+				_result_1 = getTeams()[-1]
 			end
-			local team = _team
+			local team = _result_1
 			SpawnCooldownManager:logSpawn(player, point.name)
 			player.Team = t.instanceIsA("Team")(team) and team or nil
 			TS.Promise.new(function(resolve)
