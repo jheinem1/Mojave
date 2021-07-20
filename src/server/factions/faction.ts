@@ -45,7 +45,7 @@ export class Faction {
         groupInfo.Roles.map(roleInfo => new Role(roleInfo, this)).forEach(role => this.roles.set(role.id, role));
         this.color = assignColor(tostring(string.match(groupInfo.Description, `Color:%s*["']([%w ]*)["']`)[0]));
         this.shortName = generateShortName(tostring(string.match(groupInfo.Description, `ShortName:%s*["']([%a]*)["']`)[0] ?? this.name));
-        this.uniformTop = tonumber(string.match(groupInfo.Description, `UniformTop:%s*["']([^%s]*)["'` + "]")[0]);
+        this.uniformTop = tonumber(string.match(groupInfo.Description, `UniformTop:%s*["']([^"']*)["']`)[0]);
         this.uniformBottom = tonumber(string.match(groupInfo.Description, `UniformBottom:%s*["']([^"']*)["']`)[0]);
         Players.PlayerAdded.Connect(player => this.onPlayer(player));
         Players.GetPlayers().forEach(player => this.onPlayer(player));

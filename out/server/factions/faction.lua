@@ -90,7 +90,7 @@ do
 			_condition = self.name
 		end
 		self.shortName = generateShortName(tostring(_condition))
-		self.uniformTop = tonumber((string.match(groupInfo.Description, [[UniformTop:%s*["']([^%s]*)["']] .. "]")))
+		self.uniformTop = tonumber((string.match(groupInfo.Description, [=[UniformTop:%s*["']([^"']*)["']]=])))
 		self.uniformBottom = tonumber((string.match(groupInfo.Description, [=[UniformBottom:%s*["']([^"']*)["']]=])))
 		Players.PlayerAdded:Connect(function(player)
 			return self:onPlayer(player)
