@@ -17,7 +17,6 @@ do
 			camera.CameraType = Enum.CameraType.Scriptable
 			camera.FieldOfView = 70
 			local character = self.avatarGenerator:loadCharacterR6()
-			print(self.props.shirtId, self.props.pantsId)
 			local _value = self.props.shirtId
 			if _value ~= 0 and _value == _value and _value then
 				Avatar:changeShirt(character, self.props.shirtId)

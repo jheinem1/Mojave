@@ -56,7 +56,6 @@ do
 		local _result_1 = self.state.factions
 		if _result_1 ~= nil then
 			local _arg0 = function(faction)
-				print(faction.name, faction.uniformTop, faction.uniformBottom)
 				local _arg0_1 = Roact.createElement(TeamButtonComponent, {
 					Name = faction.shortName,
 					Id = faction.groupId,

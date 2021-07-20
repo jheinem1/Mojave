@@ -4,6 +4,7 @@ import { getFactions } from "server/factions/faction";
 const teams = new Map<number, Team>();
 
 export function generateTeams() {
+    print("generating teams")
     Teams.ClearAllChildren();
     teams.clear();
 

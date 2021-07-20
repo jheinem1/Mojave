@@ -43,7 +43,6 @@ class TeamsComponent extends Roact.Component<TeamsProps, TeamsState> {
         const teams = new Array<Roact.Element>();
         const numFactions = (this.state.factions?.size() ?? 0) + 1;
         this.state.factions?.forEach(faction => {
-            print(faction.name, faction.uniformTop, faction.uniformBottom)
             teams.push(<TeamButtonComponent
                 Name={faction.shortName}
                 Id={faction.groupId}
