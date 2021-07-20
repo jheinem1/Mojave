@@ -1,22 +1,22 @@
 import { ReplicatedStorage } from "@rbxts/services";
 import { t } from "@rbxts/t";
-import Allies from "shared/allies";
+import { Faction, getFactions } from "server/factions/faction";
 import { Handler } from "shared/handler";
 
 const location = ReplicatedStorage.FindFirstChild("FamilyList");
 
-function generateFactionFolder(group: GroupInfo) {
+function generateFactionFolder(faction: Faction) {
     const folder = new Instance("Folder");
-    folder.Name = group.Name;
+    folder.Name = faction.name;
 
     const idValue = new Instance("NumberValue");
     idValue.Name = "GroupID";
-    idValue.Value = group.Id;
+    idValue.Value = faction.groupId;
     idValue.Parent = folder;
 
     const decal = new Instance("Decal");
     decal.Name = "Flag";
-    decal.Texture = group.EmblemUrl;
+    decal.Texture = faction.emblem;
     decal.Parent = folder;
 
     return folder;
@@ -24,8 +24,7 @@ function generateFactionFolder(group: GroupInfo) {
 
 function generate() {
     location?.ClearAllChildren();
-    for (const group of Allies.getAllies())
-        generateFactionFolder(group).Parent = location;
+    getFactions().forEach(faction => generateFactionFolder(faction).Parent = location);
 }
 
 /**
@@ -35,10 +34,9 @@ export class FactionGeneratorHandler extends Handler {
     name = "Faction Generator";
     run() {
         assert(t.instanceOf("Folder")(location), "Expected folder in ReplicatedStorage named 'FamilyList'");
-        const bindable = script.Parent?.FindFirstChild("onjoin")?.FindFirstChild("reloadteams")
-        if (t.instanceIsA("BindableEvent")(bindable))
-            bindable.Event.Connect(generate);
-
+        // const bindable = script.Parent?.FindFirstChild("onjoin")?.FindFirstChild("reloadteams")
+        // if (t.instanceIsA("BindableEvent")(bindable))
+        //     bindable.Event.Connect(generate);
         generate();
     }
 }

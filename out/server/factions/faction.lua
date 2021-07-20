@@ -60,6 +60,7 @@ do
 		self.roles = {}
 		self.name = groupInfo.Name
 		self.groupId = groupInfo.Id
+		self.emblem = groupInfo.EmblemUrl
 		local _roles = groupInfo.Roles
 		local _arg0 = function(roleInfo)
 			return Role.new(roleInfo, self)

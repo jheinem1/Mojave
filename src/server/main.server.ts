@@ -5,17 +5,20 @@ import { FactionGeneratorHandler } from "./faction_generator";
 import { LegacyLuaHandler } from "./legacy_lua";
 import { SafezonesHandler } from "./safezones/safezones";
 import { SpawnHandler } from "./spawn";
+import { TeamGeneratorHandler } from "./team_generator";
 
-const ageHandler = new AgeHandler();
-const factionGeneratorHandler = new FactionGeneratorHandler();
 const factionHandler = new FactionsHandler();
+const teamGeneratorHandler = new TeamGeneratorHandler();
+const factionGeneratorHandler = new FactionGeneratorHandler();
+const ageHandler = new AgeHandler();
 const safezonesHandler = new SafezonesHandler();
 const spawnHandler = new SpawnHandler();
 const legacyLuaHandler = new LegacyLuaHandler();
 
-run(ageHandler);
-run(factionGeneratorHandler);
 run(factionHandler);
+run(teamGeneratorHandler);
+run(factionGeneratorHandler);
+run(ageHandler);
 run(safezonesHandler);
 run(spawnHandler);
 run(legacyLuaHandler);

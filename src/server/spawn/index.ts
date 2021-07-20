@@ -5,7 +5,6 @@ import { Avatar } from "shared/avatar";
 import { Character } from "shared/avatar/character_types";
 import { Handler } from "shared/handler";
 import { genPoints } from "shared/map/point_gen";
-import Remotes from "shared/remotes";
 import SpawnRemotes from "shared/spawn/remotes";
 import SpawnCooldownManager from "shared/spawn/spawn_cooldown";
 
@@ -46,7 +45,7 @@ export class SpawnHandler extends Handler {
             if (!SpawnCooldownManager.canSpawn(player, point.name) && !point.safezone)
                 return [false, `Spawn cooldown hasn't worn off yet! ${SpawnCooldownManager.getCooldownSecsRemaining(player, point.name)} seconds remaining.`]
             const spawnLocation = point.spawnPoints[random.NextInteger(0, point.spawnPoints.size() - 1)];
-            const team = Teams.FindFirstChild(faction?.name ?? "Wastelanders")
+            const team = faction?.team;
             SpawnCooldownManager.logSpawn(player, point.name);
             player.Team = t.instanceIsA("Team")(team) ? team : undefined;
             new Promise<void>(resolve => resolve(player.LoadCharacter()));

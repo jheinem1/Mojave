@@ -2,19 +2,19 @@
 local TS = require(game:GetService("ReplicatedStorage"):WaitForChild("rbxts_include"):WaitForChild("RuntimeLib"))
 local ReplicatedStorage = TS.import(script, TS.getModule(script, "@rbxts", "services")).ReplicatedStorage
 local t = TS.import(script, TS.getModule(script, "@rbxts", "t").lib.ts).t
-local Allies = TS.import(script, game:GetService("ReplicatedStorage"), "Shared", "allies").default
+local getFactions = TS.import(script, game:GetService("ServerScriptService"), "Server", "factions", "faction").getFactions
 local Handler = TS.import(script, game:GetService("ReplicatedStorage"), "Shared", "handler").Handler
 local location = ReplicatedStorage:FindFirstChild("FamilyList")
-local function generateFactionFolder(group)
+local function generateFactionFolder(faction)
 	local folder = Instance.new("Folder")
-	folder.Name = group.Name
+	folder.Name = faction.name
 	local idValue = Instance.new("NumberValue")
 	idValue.Name = "GroupID"
-	idValue.Value = group.Id
+	idValue.Value = faction.groupId
 	idValue.Parent = folder
 	local decal = Instance.new("Decal")
 	decal.Name = "Flag"
-	decal.Texture = group.EmblemUrl
+	decal.Texture = faction.emblem
 	decal.Parent = folder
 	return folder
 end
@@ -23,9 +23,17 @@ local function generate()
 	if _result ~= nil then
 		_result:ClearAllChildren()
 	end
-	for _, group in ipairs(Allies:getAllies()) do
-		generateFactionFolder(group).Parent = location
+	local _exp = getFactions()
+	local _arg0 = function(faction)
+		local _exp_1 = generateFactionFolder(faction)
+		_exp_1.Parent = location
+		return _exp_1.Parent
 	end
+	-- ▼ ReadonlyMap.forEach ▼
+	for _k, _v in pairs(_exp) do
+		_arg0(_v, _k, _exp)
+	end
+	-- ▲ ReadonlyMap.forEach ▲
 end
 --[[
 	*
@@ -52,17 +60,9 @@ do
 	function FactionGeneratorHandler:run()
 		local _arg0 = t.instanceOf("Folder")(location)
 		assert(_arg0, "Expected folder in ReplicatedStorage named 'FamilyList'")
-		local _bindable = script.Parent
-		if _bindable ~= nil then
-			_bindable = _bindable:FindFirstChild("onjoin")
-			if _bindable ~= nil then
-				_bindable = _bindable:FindFirstChild("reloadteams")
-			end
-		end
-		local bindable = _bindable
-		if t.instanceIsA("BindableEvent")(bindable) then
-			bindable.Event:Connect(generate)
-		end
+		-- const bindable = script.Parent?.FindFirstChild("onjoin")?.FindFirstChild("reloadteams")
+		-- if (t.instanceIsA("BindableEvent")(bindable))
+		-- bindable.Event.Connect(generate);
 		generate()
 	end
 end

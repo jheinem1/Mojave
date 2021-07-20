@@ -1,4 +1,4 @@
-local usedColors = {}
+local usedColors = {[BrickColor.Gray().Number] = true}
 
 function getColor(choice: string | nil): BrickColor
     local color = choice and tonumber(choice) and BrickColor.new(tonumber(choice)) or BrickColor.new(choice)
@@ -9,6 +9,7 @@ function getColor(choice: string | nil): BrickColor
             if not usedColors[i] then
                 color = BrickColor.new(i)
                 if not usedColors[color.Number] then
+                    usedColors[color.Number] = true
                     return color
                 end
             end

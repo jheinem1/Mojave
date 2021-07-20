@@ -30,15 +30,18 @@ export class Faction {
     /** Stores all players in the game that are a member of a certain faction */
     name: string;
     groupId: number;
+    emblem: string;
     players = new Map<Player, Role>();
     roles = new Map<number, Role>();
     color: BrickColor;
     shortName: string;
     uniformTop?: number;
     uniformBottom?: number;
+    team?: Team;
     constructor(public groupInfo: GroupInfo) {
         this.name = groupInfo.Name;
         this.groupId = groupInfo.Id;
+        this.emblem = groupInfo.EmblemUrl;
         groupInfo.Roles.map(roleInfo => new Role(roleInfo, this)).forEach(role => this.roles.set(role.id, role));
         this.color = assignColor(tostring(string.match(groupInfo.Description, `Color:%s*["']([%w ]*)["']`)[0]));
         this.shortName = generateShortName(tostring(string.match(groupInfo.Description, `ShortName:%s*["']([%a ]*)["']`)[0] ?? this.name));
