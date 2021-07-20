@@ -4,7 +4,6 @@ local Teams = TS.import(script, TS.getModule(script, "@rbxts", "services")).Team
 local getFactions = TS.import(script, game:GetService("ServerScriptService"), "Server", "factions", "faction").getFactions
 local teams = {}
 local function generateTeams()
-	print("generating teams")
 	Teams:ClearAllChildren()
 	-- ▼ Map.clear ▼
 	table.clear(teams)

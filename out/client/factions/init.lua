@@ -115,22 +115,28 @@ end)
 ]]
 local getClientFactionInfo = TS.async(function()
 	if not clientFactionInfo then
-		local _exp = (TS.await(getClientData()))
-		local _arg0 = function(faction)
-			return faction.clientRole and faction or nil
-		end
-		-- ▼ ReadonlyArray.mapFiltered ▼
-		local _newValue = {}
-		local _length = 0
-		for _k, _v in ipairs(_exp) do
-			local _result = _arg0(_v, _k - 1, _exp)
-			if _result ~= nil then
-				_length += 1
-				_newValue[_length] = _result
+		local _result
+		if RunService:IsStudio() then
+			_result = (TS.await(getClientData()))
+		else
+			local _exp = (TS.await(getClientData()))
+			local _arg0 = function(faction)
+				return faction.clientRole and faction or nil
 			end
+			-- ▼ ReadonlyArray.mapFiltered ▼
+			local _newValue = {}
+			local _length = 0
+			for _k, _v in ipairs(_exp) do
+				local _result_1 = _arg0(_v, _k - 1, _exp)
+				if _result_1 ~= nil then
+					_length += 1
+					_newValue[_length] = _result_1
+				end
+			end
+			-- ▲ ReadonlyArray.mapFiltered ▲
+			_result = _newValue
 		end
-		-- ▲ ReadonlyArray.mapFiltered ▲
-		clientFactionInfo = _newValue
+		clientFactionInfo = _result
 	end
 	return clientFactionInfo
 end)

@@ -1,7 +1,7 @@
 import ObjectEvent from "@rbxts/object-event";
 import Roact from "@rbxts/roact";
-import { Players, Workspace } from "@rbxts/services";
-import { ClientFaction, getClientFactionInfo } from "client/factions";
+import { Players, RunService, Workspace } from "@rbxts/services";
+import { ClientFaction, getClientFactionInfo, getFactions } from "client/factions";
 import { Screen } from "../screen";
 import { AvatarViewportComponent } from "./avatar_viewport";
 import { TeamButtonComponent } from "./teambutton";

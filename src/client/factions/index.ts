@@ -68,7 +68,7 @@ async function getClientData() {
  */
 export async function getClientFactionInfo() {
     if (!clientFactionInfo)
-        clientFactionInfo = (await getClientData()).mapFiltered(faction => faction.clientRole ? faction : undefined);
+        clientFactionInfo = RunService.IsStudio() ? (await getClientData()) : (await getClientData()).mapFiltered(faction => faction.clientRole ? faction : undefined);
     return clientFactionInfo;
 }
 
