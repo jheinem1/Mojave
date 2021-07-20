@@ -1,4 +1,5 @@
 import Roact from "@rbxts/roact";
+import { Workspace } from "@rbxts/services";
 import gameMap from "client/points/points";
 import { Point } from "shared/map/point";
 import { Screen } from "../screen";
@@ -16,6 +17,8 @@ class MapComponent extends Roact.Component<MapProps> {
     mapPoints: Roact.Element[];
     tooltipBindings: TooltipBindings;
     selectedPoint: SelectedPoint;
+    imageref = Roact.createRef<ImageLabel>();
+    posBinding = Roact.createBinding(new UDim2());
     constructor(props: MapProps) {
         super(props);
         const [tooltip, setTooltip] = Roact.createBinding(false);
@@ -44,6 +47,20 @@ class MapComponent extends Roact.Component<MapProps> {
         this.tooltipBindings.setTooltip(false);
         this.tooltipBindings.setTooltipSelected(false);
     }
+    didMount() {
+        const ref = this.imageref.getValue();
+        const camera = Workspace.CurrentCamera;
+        if (ref && camera) {
+            this.posBinding[1](UDim2.fromOffset((camera.ViewportSize.X - ref.AbsoluteSize.X) / 2, 0));
+            let connection: RBXScriptConnection;
+            connection = camera.GetPropertyChangedSignal("ViewportSize").Connect(() => {
+                if (ref)
+                    this.posBinding[1](UDim2.fromOffset((camera.ViewportSize.X - ref.AbsoluteSize.X) / 2, 0));
+                else
+                    connection.Disconnect();
+            });
+        }
+    }
     render() {
         return <frame
             Key="Map"
@@ -62,7 +79,7 @@ class MapComponent extends Roact.Component<MapProps> {
             <imagelabel
                 Key="MapFrame"
                 BackgroundTransparency={0}
-                Position={new UDim2(0.25, 0, 0, 0)}
+                Position={this.posBinding[0]}
                 Size={new UDim2(1, 0, 1, 0)}
                 BorderSizePixel={3}
                 Image={"rbxassetid://7124206064"}
@@ -71,6 +88,7 @@ class MapComponent extends Roact.Component<MapProps> {
                 BackgroundColor3={Color3.fromRGB(143, 130, 31)}
                 BorderColor3={Color3.fromRGB(0, 0, 0)}
                 BorderMode={Enum.BorderMode.Inset}
+                Ref={this.imageref}
             >
                 <frame
                     BackgroundTransparency={1}

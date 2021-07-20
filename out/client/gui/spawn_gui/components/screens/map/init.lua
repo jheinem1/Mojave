@@ -1,6 +1,7 @@
 -- Compiled with roblox-ts v1.2.2
 local TS = require(game:GetService("ReplicatedStorage"):WaitForChild("rbxts_include"):WaitForChild("RuntimeLib"))
 local Roact = TS.import(script, TS.getModule(script, "@rbxts", "roact").src)
+local Workspace = TS.import(script, TS.getModule(script, "@rbxts", "services")).Workspace
 local gameMap = TS.import(script, script.Parent.Parent.Parent.Parent.Parent, "points", "points").default
 local Screen = TS.import(script, script.Parent, "screen").Screen
 local MapPointComponent = TS.import(script, script, "map_point").MapPointComponent
@@ -9,6 +10,8 @@ local MapComponent
 do
 	MapComponent = Roact.Component:extend("MapComponent")
 	function MapComponent:init(props)
+		self.imageref = Roact.createRef()
+		self.posBinding = { Roact.createBinding(UDim2.new()) }
 		local tooltip, setTooltip = Roact.createBinding(false)
 		local tooltipText, setTooltipText = Roact.createBinding("")
 		local tooltipPosition, setTooltipPosition = Roact.createBinding(Vector2.new())
@@ -45,6 +48,21 @@ do
 		self.tooltipBindings.setTooltip(false)
 		self.tooltipBindings.setTooltipSelected(false)
 	end
+	function MapComponent:didMount()
+		local ref = self.imageref:getValue()
+		local camera = Workspace.CurrentCamera
+		if ref and camera then
+			self.posBinding[2](UDim2.fromOffset((camera.ViewportSize.X - ref.AbsoluteSize.X) / 2, 0))
+			local connection
+			connection = camera:GetPropertyChangedSignal("ViewportSize"):Connect(function()
+				if ref then
+					self.posBinding[2](UDim2.fromOffset((camera.ViewportSize.X - ref.AbsoluteSize.X) / 2, 0))
+				else
+					connection:Disconnect()
+				end
+			end)
+		end
+	end
 	function MapComponent:render()
 		local _ptr = {
 			BackgroundColor3 = Color3.fromRGB(46, 46, 46),
@@ -61,7 +79,7 @@ do
 		local _length = #_ptr_1
 		local _ptr_2 = {
 			BackgroundTransparency = 0,
-			Position = UDim2.new(0.25, 0, 0, 0),
+			Position = self.posBinding[1],
 			Size = UDim2.new(1, 0, 1, 0),
 			BorderSizePixel = 3,
 			Image = "rbxassetid://7124206064",
@@ -69,6 +87,7 @@ do
 			BackgroundColor3 = Color3.fromRGB(143, 130, 31),
 			BorderColor3 = Color3.fromRGB(0, 0, 0),
 			BorderMode = Enum.BorderMode.Inset,
+			[Roact.Ref] = self.imageref,
 		}
 		local _ptr_3 = {}
 		local _length_1 = #_ptr_3
