@@ -128,6 +128,7 @@ export class MapPointComponent extends Roact.Component<MapPointComponentProps> {
                 TextXAlignment={Enum.TextXAlignment.Center}
                 Font={Enum.Font.SourceSansBold}
                 Text={generateShortName(this.props.point.name)}
+                Visible={this.props.point.canSpawn}
             />
         </textbutton>
     }

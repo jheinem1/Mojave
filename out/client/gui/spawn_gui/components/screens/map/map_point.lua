@@ -183,6 +183,7 @@ do
 					TextXAlignment = Enum.TextXAlignment.Center,
 					Font = Enum.Font.SourceSansBold,
 					Text = generateShortName(self.props.point.name),
+					Visible = self.props.point.canSpawn,
 				}),
 			}),
 		})
