@@ -17,7 +17,8 @@ const isValidPointConstructor = t.children({
         X: t.instanceIsA("NumberValue"),
         Y: t.instanceIsA("NumberValue")
     }),
-    Safezone: t.instanceIsA("BoolValue")
+    Safezone: t.instanceIsA("BoolValue"),
+    CapturePointStatus: t.instanceIsA("NumberValue")
 })
 const getValidPointConstructors = (pointConstructors: Instance[]) => pointConstructors.mapFiltered(
     pointConstructor => isValidPointConstructor(pointConstructor) ? <PointConstructor>pointConstructor : undefined

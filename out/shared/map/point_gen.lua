@@ -9,6 +9,7 @@ local isValidPointConstructor = t.children({
 		Y = t.instanceIsA("NumberValue"),
 	}),
 	Safezone = t.instanceIsA("BoolValue"),
+	CapturePointStatus = t.instanceIsA("NumberValue"),
 })
 local getValidPointConstructors = function(pointConstructors)
 	local _arg0 = function(pointConstructor)
