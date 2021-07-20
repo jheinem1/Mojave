@@ -30,7 +30,7 @@ export function genPoints(pointConstructors: Instance[], update?: boolean) {
     return (cachedPoints && !update) ? cachedPoints : getValidPointConstructors(pointConstructors).map((pointConstructor) => {
         const spawns = pointConstructor.FindFirstChild("Spawns")?.GetChildren().mapFiltered(instance => t.instanceIsA("Vector3Value")(instance) ? instance.Value : undefined);
         return new Point(
-            new Vector2(pointConstructor.Position.X.Value, pointConstructor.Position.X.Value),
+            new Vector2(pointConstructor.Position.X.Value, pointConstructor.Position.Y.Value),
             pointConstructor.PointName.Value,
             pointConstructor.Safezone.Value,
             pointConstructor.CapturePointStatus,

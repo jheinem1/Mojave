@@ -57,7 +57,7 @@ local function genPoints(pointConstructors, update)
 				_spawns = _newValue
 			end
 			local spawns = _spawns
-			return Point.new(Vector2.new(pointConstructor.Position.X.Value, pointConstructor.Position.X.Value), pointConstructor.PointName.Value, pointConstructor.Safezone.Value, pointConstructor.CapturePointStatus, spawns)
+			return Point.new(Vector2.new(pointConstructor.Position.X.Value, pointConstructor.Position.Y.Value), pointConstructor.PointName.Value, pointConstructor.Safezone.Value, pointConstructor.CapturePointStatus, spawns)
 		end
 		-- ▼ ReadonlyArray.map ▼
 		local _newValue = table.create(#_exp)
