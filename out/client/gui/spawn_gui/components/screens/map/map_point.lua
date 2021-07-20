@@ -147,27 +147,30 @@ do
 	end
 	function MapPointComponent:render()
 		local borderColor = self.props.point.safezone and Color3.fromRGB(92, 168, 255) or self.props.point.canSpawn and Color3.fromRGB(255, 226, 86) or Color3.fromRGB(150, 150, 150)
+		local _ptr = {
+			BackgroundColor3 = self.controllingFaction,
+			BorderColor3 = borderColor,
+			BorderSizePixel = 3,
+			BorderMode = Enum.BorderMode.Inset,
+			Font = Enum.Font.SourceSans,
+		}
+		local _position = self.position
+		local _arg0 = UDim2.fromOffset(7.5, 7.5)
+		_ptr.Position = _position + _arg0
+		_ptr.Size = UDim2.new(0, 15, 0, 15)
+		_ptr.Text = ""
+		_ptr.TextColor3 = Color3.fromRGB(0, 0, 0)
+		_ptr.TextSize = 10
+		_ptr.AutoButtonColor = false
+		_ptr[Roact.Event.MouseEnter] = function()
+			return self:onHover()
+		end
+		_ptr[Roact.Event.MouseButton1Click] = function()
+			return self:onClick()
+		end
+		_ptr[Roact.Ref] = self.buttonRef
 		return Roact.createFragment({
-			Destination = Roact.createElement("TextButton", {
-				BackgroundColor3 = self.controllingFaction,
-				BorderColor3 = borderColor,
-				BorderSizePixel = 5,
-				BorderMode = Enum.BorderMode.Inset,
-				Font = Enum.Font.SourceSans,
-				Position = self.position,
-				Size = UDim2.new(0, 30, 0, 30),
-				Text = "",
-				TextColor3 = Color3.fromRGB(0, 0, 0),
-				TextSize = 14,
-				AutoButtonColor = false,
-				[Roact.Event.MouseEnter] = function()
-					return self:onHover()
-				end,
-				[Roact.Event.MouseButton1Click] = function()
-					return self:onClick()
-				end,
-				[Roact.Ref] = self.buttonRef,
-			}, {
+			Destination = Roact.createElement("TextButton", _ptr, {
 				Title = Roact.createElement("TextLabel", {
 					Position = UDim2.new(0.5, -20, -1, 0),
 					Size = UDim2.new(0, 40, 1, 0),

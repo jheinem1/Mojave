@@ -51,6 +51,7 @@ class MapComponent extends Roact.Component<MapProps> {
             BorderSizePixel={0}
             Position={new UDim2(0, 0, 0, 36)}
             Size={new UDim2(1, 0, 1, -36)}
+            // SizeConstraint={Enum.SizeConstraint.RelativeYY}
             Event={{
                 InputEnded: (_frame, input) => {
                     if (input.UserInputType === Enum.UserInputType.MouseButton1)
@@ -58,15 +59,16 @@ class MapComponent extends Roact.Component<MapProps> {
                 }
             }}
         >
-            <frame
+            <imagelabel
                 Key="MapFrame"
                 BackgroundTransparency={1}
                 Position={new UDim2(0.1, 0, 0.1, 0)}
-                Size={new UDim2(0.8, -30, 0.8, -30)}
+                Size={new UDim2(0.8, 0, 0.8, 0)}
                 BorderSizePixel={0}
+                Image={"rbxassetid://7123919955"}
             >
                 {this.mapPoints}
-            </frame>
+            </imagelabel>
             <TooltipComponent
                 tooltipBindings={this.tooltipBindings}
                 event={{
