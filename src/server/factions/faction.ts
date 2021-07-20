@@ -3,7 +3,6 @@ import { ClientFactionInfo, RoleInfo } from "shared/factions/faction_data_interf
 import FactionRemotes from "shared/factions/faction_remotes";
 import { hardCodedFactionData } from "shared/factions/hard_coded_data";
 import { assignColor, generateShortName, groupId, cleanGroupName } from "shared/factions/utility_functions";
-import { getPantsTemplate, getShirtTemplate } from "./load_clothing";
 
 const clientInfo = new Array<ClientFactionInfo>();
 const clientSpecificInfo = new Map<Player, ClientFactionInfo[]>();
