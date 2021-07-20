@@ -6,6 +6,7 @@ local Players = _services.Players
 local RunService = _services.RunService
 local UserInputService = _services.UserInputService
 local getFactions = TS.import(script, script.Parent.Parent.Parent.Parent.Parent.Parent, "factions").getFactions
+local generateShortName = TS.import(script, game:GetService("ReplicatedStorage"), "Shared", "factions", "utility_functions").generateShortName
 local SpawnCooldownManager = TS.import(script, game:GetService("ReplicatedStorage"), "Shared", "spawn", "spawn_cooldown").default
 local MapPointComponent
 do
@@ -145,7 +146,7 @@ do
 		end
 	end
 	function MapPointComponent:render()
-		local borderColor = self.props.point.safezone and Color3.fromRGB(92, 168, 255) or Color3.fromRGB(255, 226, 86)
+		local borderColor = self.props.point.safezone and Color3.fromRGB(92, 168, 255) or self.props.point.canSpawn and Color3.fromRGB(255, 226, 86) or Color3.fromRGB(150, 150, 150)
 		return Roact.createFragment({
 			Destination = Roact.createElement("TextButton", {
 				BackgroundColor3 = self.controllingFaction,
@@ -178,7 +179,7 @@ do
 					TextYAlignment = Enum.TextYAlignment.Top,
 					TextXAlignment = Enum.TextXAlignment.Center,
 					Font = Enum.Font.SourceSansBold,
-					Text = self.props.point.name,
+					Text = generateShortName(self.props.point.name),
 				}),
 			}),
 		})

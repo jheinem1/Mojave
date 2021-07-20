@@ -1,6 +1,7 @@
 import Roact from "@rbxts/roact";
 import { Players, RunService, UserInputService } from "@rbxts/services";
 import { getFactions } from "client/factions";
+import { generateShortName } from "shared/factions/utility_functions";
 import { Point } from "shared/map/point";
 import SpawnCooldownManager from "shared/spawn/spawn_cooldown";
 import { SelectedPoint } from ".";
@@ -94,7 +95,7 @@ export class MapPointComponent extends Roact.Component<MapPointComponentProps> {
             tooltipBindings.setTooltipSelected(false);
     }
     render() {
-        const borderColor = this.props.point.safezone ? Color3.fromRGB(92, 168, 255) : Color3.fromRGB(255, 226, 86);
+        const borderColor = this.props.point.safezone ? Color3.fromRGB(92, 168, 255) : this.props.point.canSpawn ? Color3.fromRGB(255, 226, 86) : Color3.fromRGB(150, 150, 150);
         return <textbutton
             Key="Destination"
             BackgroundColor3={this.controllingFaction}
@@ -126,7 +127,7 @@ export class MapPointComponent extends Roact.Component<MapPointComponentProps> {
                 TextYAlignment={Enum.TextYAlignment.Top}
                 TextXAlignment={Enum.TextXAlignment.Center}
                 Font={Enum.Font.SourceSansBold}
-                Text={this.props.point.name}
+                Text={generateShortName(this.props.point.name)}
             />
         </textbutton>
     }
