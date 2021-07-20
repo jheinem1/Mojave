@@ -8,6 +8,7 @@ local RunService = _services.RunService
 local Teams = _services.Teams
 local t = TS.import(script, TS.getModule(script, "@rbxts", "t").lib.ts).t
 local getFactions = TS.import(script, game:GetService("ServerScriptService"), "Server", "factions", "faction").getFactions
+local Avatar = TS.import(script, game:GetService("ReplicatedStorage"), "Shared", "avatar").Avatar
 local Handler = TS.import(script, game:GetService("ReplicatedStorage"), "Shared", "handler").Handler
 local genPoints = TS.import(script, game:GetService("ReplicatedStorage"), "Shared", "map", "point_gen").genPoints
 local SpawnRemotes = TS.import(script, game:GetService("ReplicatedStorage"), "Shared", "spawn", "remotes").default
@@ -113,6 +114,17 @@ do
 				return resolve(player:LoadCharacter())
 			end)
 			local character = { player.CharacterAdded:Wait() }
+			local _condition_2 = faction
+			if _condition_2 then
+				_condition_2 = faction.uniformTop
+				if _condition_2 ~= 0 and _condition_2 == _condition_2 and _condition_2 then
+					_condition_2 = faction.uniformBottom
+				end
+			end
+			if _condition_2 ~= 0 and _condition_2 == _condition_2 and _condition_2 then
+				Avatar:changeShirt(character[1], faction.uniformTop)
+				Avatar:changePants(character[1], faction.uniformBottom)
+			end
 			TS.Promise.new(function(resolve)
 				RunService.Heartbeat:Wait();
 				(character[1]:FindFirstChild("HumanoidRootPart")).CFrame = CFrame.new(spawnLocation)

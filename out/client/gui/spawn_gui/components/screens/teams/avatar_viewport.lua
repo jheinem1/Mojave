@@ -19,11 +19,11 @@ do
 			local character = self.avatarGenerator:loadCharacterR6()
 			local _value = self.props.shirtId
 			if _value ~= 0 and _value == _value and _value then
-				self.avatarGenerator:changeShirt(character, self.props.shirtId)
+				Avatar:changeShirt(character, self.props.shirtId)
 			end
 			local _value_1 = self.props.pantsId
 			if _value_1 ~= 0 and _value_1 == _value_1 and _value_1 then
-				self.avatarGenerator:changePants(character, self.props.pantsId)
+				Avatar:changePants(character, self.props.pantsId)
 			end
 			camera.Parent = viewport
 			viewport.CurrentCamera = camera

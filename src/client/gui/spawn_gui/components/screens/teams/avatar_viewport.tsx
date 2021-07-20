@@ -24,9 +24,9 @@ export class AvatarViewportComponent extends Roact.Component<AvatarViewportProps
 
             const character = this.avatarGenerator.loadCharacterR6();
             if (this.props.shirtId)
-                this.avatarGenerator.changeShirt(character, this.props.shirtId);
+                Avatar.changeShirt(character, this.props.shirtId);
             if (this.props.pantsId)
-                this.avatarGenerator.changePants(character, this.props.pantsId);
+                Avatar.changePants(character, this.props.pantsId);
 
             camera.Parent = viewport;
             viewport.CurrentCamera = camera;

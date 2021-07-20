@@ -1,6 +1,8 @@
 import { Debris, Players, ReplicatedStorage, RunService, Teams } from "@rbxts/services";
 import { t } from "@rbxts/t";
 import { getFactions } from "server/factions/faction";
+import { Avatar } from "shared/avatar";
+import { Character } from "shared/avatar/character_types";
 import { Handler } from "shared/handler";
 import { genPoints } from "shared/map/point_gen";
 import Remotes from "shared/remotes";
@@ -48,7 +50,11 @@ export class SpawnHandler extends Handler {
             SpawnCooldownManager.logSpawn(player, point.name);
             player.Team = t.instanceIsA("Team")(team) ? team : undefined;
             new Promise<void>(resolve => resolve(player.LoadCharacter()));
-            const character = player.CharacterAdded.Wait();
+            const character = player.CharacterAdded.Wait() as LuaTuple<[character: Character]>;
+            if (faction && faction.uniformTop && faction.uniformBottom) {
+                Avatar.changeShirt(character[0], faction.uniformTop);
+                Avatar.changePants(character[0], faction.uniformBottom);
+            }
             new Promise<void>(resolve => {
                 RunService.Heartbeat.Wait();
                 (character[0].FindFirstChild("HumanoidRootPart") as Part).CFrame = new CFrame(spawnLocation);

@@ -25,7 +25,7 @@ export class Avatar {
         character.Parent = undefined;
         return character;
     }
-    changeShirt<T extends Character>(character: T, newShirtId: number): T {
+    static changeShirt<T extends Character>(character: T, newShirtId: number): T {
         const productInfo = MarketplaceService.GetProductInfo(newShirtId, Enum.InfoType.Asset);
         assert(productInfo.AssetTypeId === Enum.AssetType.Image.Value, `Expected image, got "${Enum.AssetType.GetEnumItems().find(assetType => assetType.Value === productInfo.AssetTypeId)}" from '${newShirtId}'`);
         const shirt = character.FindFirstChildWhichIsA("Shirt")
@@ -38,7 +38,7 @@ export class Avatar {
         }
         return character;
     }
-    changePants<T extends Character>(character: T, newPantsId: number): T {
+    static changePants<T extends Character>(character: T, newPantsId: number): T {
         const productInfo = MarketplaceService.GetProductInfo(newPantsId, Enum.InfoType.Asset);
         assert(productInfo.AssetTypeId === Enum.AssetType.Image.Value, `Expected image, got "${Enum.AssetType.GetEnumItems().find(assetType => assetType.Value === productInfo.AssetTypeId)}" from '${newPantsId}'`);
         const pants = character.FindFirstChildWhichIsA("Pants")
