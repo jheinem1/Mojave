@@ -5,7 +5,6 @@ local Debris = _services.Debris
 local Players = _services.Players
 local ReplicatedStorage = _services.ReplicatedStorage
 local RunService = _services.RunService
-local Teams = _services.Teams
 local t = TS.import(script, TS.getModule(script, "@rbxts", "t").lib.ts).t
 local getFactions = TS.import(script, game:GetService("ServerScriptService"), "Server", "factions", "faction").getFactions
 local Avatar = TS.import(script, game:GetService("ReplicatedStorage"), "Shared", "avatar").Avatar
@@ -98,30 +97,25 @@ do
 				return { false, "Spawn cooldown hasn't worn off yet! " .. tostring(SpawnCooldownManager:getCooldownSecsRemaining(player, point.name)) .. " seconds remaining." }
 			end
 			local spawnLocation = point.spawnPoints[random:NextInteger(0, #point.spawnPoints - 1) + 1]
-			local _fn = Teams
-			local _result_1 = faction
-			if _result_1 ~= nil then
-				_result_1 = _result_1.name
+			local _team = faction
+			if _team ~= nil then
+				_team = _team.team
 			end
-			local _condition_1 = _result_1
-			if _condition_1 == nil then
-				_condition_1 = "Wastelanders"
-			end
-			local team = _fn:FindFirstChild(_condition_1)
+			local team = _team
 			SpawnCooldownManager:logSpawn(player, point.name)
 			player.Team = t.instanceIsA("Team")(team) and team or nil
 			TS.Promise.new(function(resolve)
 				return resolve(player:LoadCharacter())
 			end)
 			local character = { player.CharacterAdded:Wait() }
-			local _condition_2 = faction
-			if _condition_2 then
-				_condition_2 = faction.uniformTop
-				if _condition_2 ~= 0 and _condition_2 == _condition_2 and _condition_2 then
-					_condition_2 = faction.uniformBottom
+			local _condition_1 = faction
+			if _condition_1 then
+				_condition_1 = faction.uniformTop
+				if _condition_1 ~= 0 and _condition_1 == _condition_1 and _condition_1 then
+					_condition_1 = faction.uniformBottom
 				end
 			end
-			if _condition_2 ~= 0 and _condition_2 == _condition_2 and _condition_2 then
+			if _condition_1 ~= 0 and _condition_1 == _condition_1 and _condition_1 then
 				Avatar:changeShirt(character[1], faction.uniformTop)
 				Avatar:changePants(character[1], faction.uniformBottom)
 			end
