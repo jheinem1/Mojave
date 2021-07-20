@@ -144,18 +144,47 @@ export type R6 = Character & {
     };
 }
 
+type KeysMatching<T, V> = { [K in keyof T]-?: T[K] extends V ? K : never }[keyof T];
+
+const R15Mesh = new Map<KeysMatching<R15, MeshPart>, string>([
+    ["LeftLowerArm", "http://www.roblox.com/asset/?id=532219991"],
+    ["LeftFoot", "http://www.roblox.com/asset/?id=532220012"],
+    ["RightHand", "http://www.roblox.com/asset/?id=532219997"],
+    ["RightLowerLeg", "http://www.roblox.com/asset/?id=532220027"],
+    ["LeftUpperLeg", "http://www.roblox.com/asset/?id=532220018"],
+    ["LeftLowerLeg", "http://www.roblox.com/asset/?id=532219995"],
+    ["LowerTorso", "http://www.roblox.com/asset/?id=532219994"],
+    ["UpperTorso", "http://www.roblox.com/asset/?id=532219993"],
+    ["LeftUpperArm", "http://www.roblox.com/asset/?id=532219996"],
+    ["RightLowerArm", "http://www.roblox.com/asset/?id=532219999"],
+    ["LeftHand", "http://www.roblox.com/asset/?id=532219986"],
+    ["RightUpperArm", "http://www.roblox.com/asset/?id=532220004"],
+    ["RightUpperLeg", "http://www.roblox.com/asset/?id=532220031"],
+    ["RightFoot", "http://www.roblox.com/asset/?id=532220020"],
+]);
+
+const R6Character = script.Parent?.FindFirstChild("models")?.FindFirstChild("R6") as R6 | undefined;
+const R15Character = script.Parent?.FindFirstChild("models")?.FindFirstChild("R15") as R15 | undefined;
+
+// if (R15Character)
+//     R15Mesh.forEach((meshId, key) => {
+//         if (meshId) {
+//             const mesh = new Instance("SpecialMesh");
+//             mesh.MeshId = meshId;
+//             mesh.Parent = R15Character[key];
+//         }
+//     });
+
 export function getR6(): R6 {
-    const character = script.Parent?.FindFirstChild("models")?.FindFirstChild("R6") as R6 | undefined;
-    if (character)
-        return character.Clone();
+    if (R6Character)
+        return R6Character.Clone();
     else
         throw "Rig not found!"
 }
 
 export function getR15(): R15 {
-    const character = script.Parent?.FindFirstChild("models")?.FindFirstChild("R15") as R15 | undefined;
-    if (character)
-        return character.Clone();
-    else
+    if (R15Character) {
+        return R15Character.Clone();
+    } else
         throw "Rig not found!"
 }
