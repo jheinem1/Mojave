@@ -1,8 +1,8 @@
 -- Compiled with roblox-ts v1.2.2
 local hardCodedFactionData = {
 	[2800507] = {
-		uniformTop = 3102602189,
-		uniformBottom = 3102618682,
+		uniformTop = 7108288630,
+		uniformBottom = 7108289590,
 		shortName = "NCR",
 	},
 	[8445132] = {
