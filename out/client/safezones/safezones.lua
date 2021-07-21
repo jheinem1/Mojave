@@ -22,7 +22,7 @@ local safezoneParts = safezoneFolder:GetChildren()
 local _arg0 = validSafezoneChildren(safezoneParts)
 assert(_arg0, "Expected children of 'Safezones' folder to be BaseParts")
 local _arg0_1 = function(safezonePart)
-	return BasePartRegion.new(safezonePart)
+	return BasePartRegion:fromPart(safezonePart)
 end
 -- ▼ ReadonlyArray.map ▼
 local _newValue = table.create(#safezoneParts)
@@ -85,7 +85,7 @@ do
 					_root = _root:WaitForChild("HumanoidRootPart", 5)
 				end
 				local root = _root
-				if t.instanceIsA("Part")(root) and safezoneRegions:isInRegion(root) then
+				if t.instanceIsA("Part")(root) and safezoneRegions:isInRegion(root.Position) then
 					wait(0.5)
 					shielded = true
 					inSafezone:SendToServer(true)

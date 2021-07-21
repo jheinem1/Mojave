@@ -17,13 +17,13 @@ export class SafezonesHandler extends Handler {
         assert(safezoneFolder, "Expected a folder named 'Safezones' in the workspace or ReplicatedStorage");
         const safezoneParts = safezoneFolder.GetChildren();
         assert(validSafezoneChildren(safezoneParts), "Expected children of 'Safezones' folder to be BaseParts");
-        const safezoneRegions = new RegionUnion(safezoneParts.map((safezonePart) => new BasePartRegion(safezonePart)));
+        const safezoneRegions = new RegionUnion(safezoneParts.map((safezonePart) => BasePartRegion.fromPart(safezonePart)));
         const shielded = new WeakMap<Model, ForceField>();
 
         safezoneFolder.Parent = ReplicatedStorage;
 
         function safezoneCheck(player: Player, character = player.Character) {
-            if (character?.PrimaryPart && safezoneRegions.isInRegion(character.PrimaryPart)) {
+            if (character?.PrimaryPart && safezoneRegions.isInRegion(character.PrimaryPart.Position)) {
                 const forceField = new Instance("ForceField");
                 forceField.Visible = false;
                 forceField.Name = "Safezone";

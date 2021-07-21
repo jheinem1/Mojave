@@ -29,49 +29,50 @@ do
 		local self = setmetatable({}, BasePartRegion)
 		return self:constructor(...) or self
 	end
-	function BasePartRegion:constructor(part)
+	function BasePartRegion:constructor(location, size, shape)
 		super.constructor(self)
-		if RunService:IsClient() then
-			local newPart = Instance.new("Part")
-			newPart.CFrame = part.CFrame
-			newPart.Size = part.Size
-			newPart.Shape = t.instanceIsA("Part")(part) and part.Shape or Enum.PartType.Block
-			newPart.Anchored = true
-			newPart.Transparency = 1
-			newPart.CanCollide = false
-			newPart.CanTouch = true
-			newPart.Parent = RunService:IsClient() and Workspace or nil
-			newPart.Name = tostring(self)
-			self.part = newPart
-		end
-		self.rotatedRegion3 = RotatedRegion3.FromPart(part)
+		local newPart = Instance.new("Part")
+		newPart.CFrame = location
+		newPart.Size = size
+		newPart.Shape = shape
+		newPart.Anchored = true
+		newPart.Transparency = 1
+		newPart.CanCollide = false
+		newPart.CanTouch = true
+		newPart.Parent = RunService:IsClient() and Workspace or nil
+		newPart.Name = tostring(self)
+		self.part = newPart
+		self.rotatedRegion3 = RotatedRegion3.FromPart(self.part)
+	end
+	function BasePartRegion:fromPart(part)
+		return self.new(part.CFrame, part.Size, t.instanceIsA("Part")(part) and part.Shape or Enum.PartType.Block)
 	end
 	BasePartRegion.enteredRegion = TS.async(function(self, part)
 		if RunService:IsClient() then
-			local inRegion = self:isInRegion(part)
+			local inRegion = self:isInRegion(part.Position)
 			while not inRegion do
 				inRegion = (part.Touched:Wait()) == self.part
 			end
 		else
-			while self:isInRegion(part) do
+			while self:isInRegion(part.Position) do
 				wait(0.1)
 			end
 		end
 	end)
 	BasePartRegion.leftRegion = TS.async(function(self, part)
 		if RunService:IsClient() then
-			local inRegion = self:isInRegion(part)
+			local inRegion = self:isInRegion(part.Position)
 			while inRegion do
 				inRegion = not ((part.TouchEnded:Wait()) == self.part)
 			end
 		else
-			while self:isInRegion(part) do
+			while self:isInRegion(part.Position) do
 				wait(0.1)
 			end
 		end
 	end)
-	function BasePartRegion:isInRegion(part)
-		return self.rotatedRegion3:CastPoint(part.Position)
+	function BasePartRegion:isInRegion(point)
+		return self.rotatedRegion3:CastPoint(point)
 	end
 end
 --[[
@@ -92,25 +93,27 @@ do
 		local self = setmetatable({}, SphereRegion)
 		return self:constructor(...) or self
 	end
-	function SphereRegion:constructor(sphere)
+	function SphereRegion:constructor(center, radius)
 		super.constructor(self)
-		self.center = sphere.Position
-		self.radius = math.min(sphere.Size.X, sphere.Size.Y, sphere.Size.Z)
+		self.center = center
+		self.radius = radius
+	end
+	function SphereRegion:fromPart(sphere)
+		return self.new(sphere.Position, math.min(sphere.Size.X, sphere.Size.Y, sphere.Size.Z) / 2)
 	end
 	SphereRegion.enteredRegion = TS.async(function(self, part)
-		while not self:isInRegion(part) do
+		while not self:isInRegion(part.Position) do
 			wait(0.1)
 		end
 	end)
 	SphereRegion.leftRegion = TS.async(function(self, part)
-		while self:isInRegion(part) do
+		while self:isInRegion(part.Position) do
 			wait(0.1)
 		end
 	end)
-	function SphereRegion:isInRegion(part)
-		local _position = part.Position
+	function SphereRegion:isInRegion(point)
 		local _center = self.center
-		return (_position - _center).Magnitude <= self.radius
+		return (point - _center).Magnitude <= self.radius
 	end
 	function SphereRegion:getDistance(part)
 		local _position = part.Position
@@ -153,7 +156,7 @@ do
 	end)
 	RegionUnion.leftRegion = TS.async(function(self, part)
 		local _fn = TS.Promise
-		local _exp = self:isInRegions(part)
+		local _exp = self:isInRegions(part.Position)
 		local _arg0 = function(region)
 			return region:leftRegion(part)
 		end
@@ -165,10 +168,10 @@ do
 		-- ▲ ReadonlyArray.map ▲
 		return _fn.race(_newValue)
 	end)
-	function RegionUnion:isInRegions(part)
+	function RegionUnion:isInRegions(point)
 		local _regions = self.regions
 		local _arg0 = function(region)
-			return region:isInRegion(part)
+			return region:isInRegion(point)
 		end
 		-- ▼ ReadonlyArray.filter ▼
 		local _newValue = {}
@@ -182,10 +185,10 @@ do
 		-- ▲ ReadonlyArray.filter ▲
 		return _newValue
 	end
-	function RegionUnion:isInRegion(part)
+	function RegionUnion:isInRegion(point)
 		local _regions = self.regions
 		local _arg0 = function(region)
-			return region:isInRegion(part)
+			return region:isInRegion(point)
 		end
 		-- ▼ ReadonlyArray.find ▼
 		local _result = nil

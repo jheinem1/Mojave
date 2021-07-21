@@ -15,7 +15,7 @@ abstract class Region {
      * Checks if the player/character is inside the region.
      * @returns True if the player is in the region, false if not
      */
-    abstract isInRegion(part: BasePart): boolean;
+    abstract isInRegion(point: Vector3): boolean;
 }
 
 
@@ -25,44 +25,45 @@ abstract class Region {
 export class BasePartRegion extends Region {
     protected part: Part | undefined;
     protected rotatedRegion3: RotatedRegion3;
-    constructor(part: BasePart) {
+    constructor(location: CFrame, size: Vector3, shape: Enum.PartType) {
         super();
-        if (RunService.IsClient()) {
-            const newPart = new Instance("Part");
-            newPart.CFrame = part.CFrame;
-            newPart.Size = part.Size;
-            newPart.Shape = t.instanceIsA("Part")(part) ? part.Shape : Enum.PartType.Block;
-            newPart.Anchored = true;
-            newPart.Transparency = 1;
-            newPart.CanCollide = false;
-            newPart.CanTouch = true;
-            newPart.Parent = RunService.IsClient() ? Workspace : undefined;
-            newPart.Name = tostring(this);
-            this.part = newPart;
-        }
-        this.rotatedRegion3 = RotatedRegion3.FromPart(part);
+        const newPart = new Instance("Part");
+        newPart.CFrame = location;
+        newPart.Size = size;
+        newPart.Shape = shape;
+        newPart.Anchored = true;
+        newPart.Transparency = 1;
+        newPart.CanCollide = false;
+        newPart.CanTouch = true;
+        newPart.Parent = RunService.IsClient() ? Workspace : undefined;
+        newPart.Name = tostring(this);
+        this.part = newPart;
+        this.rotatedRegion3 = RotatedRegion3.FromPart(this.part);
+    }
+    static fromPart(part: BasePart) {
+        return new this(part.CFrame, part.Size, t.instanceIsA("Part")(part) ? part.Shape : Enum.PartType.Block);
     }
     async enteredRegion(part: BasePart) {
         if (RunService.IsClient()) {
-            let inRegion = this.isInRegion(part);
+            let inRegion = this.isInRegion(part.Position);
             while (!inRegion)
                 inRegion = part.Touched.Wait()[0] === this.part;
         } else
-            while (this.isInRegion(part))
+            while (this.isInRegion(part.Position))
                 wait(0.1);
 
     }
     async leftRegion(part: BasePart) {
         if (RunService.IsClient()) {
-            let inRegion = this.isInRegion(part);
+            let inRegion = this.isInRegion(part.Position);
             while (inRegion)
                 inRegion = !(part.TouchEnded.Wait()[0] === this.part);
         } else
-            while (this.isInRegion(part))
+            while (this.isInRegion(part.Position))
                 wait(0.1);
     }
-    isInRegion(part: BasePart) {
-        return this.rotatedRegion3.CastPoint(part.Position);
+    isInRegion(point: Vector3) {
+        return this.rotatedRegion3.CastPoint(point);
     }
 }
 
@@ -70,23 +71,22 @@ export class BasePartRegion extends Region {
  * Spherical regions offer a much faster alternative to rectangular regions, as simple distance checks are much faster
  */
 export class SphereRegion extends Region {
-    protected center: Vector3;
-    protected radius: number;
-    constructor(sphere: Part) {
+    constructor(protected center: Vector3, protected radius: number) {
         super();
-        this.center = sphere.Position;
-        this.radius = math.min(sphere.Size.X, sphere.Size.Y, sphere.Size.Z);
+    }
+    static fromPart(sphere: Part) {
+        return new this(sphere.Position, math.min(sphere.Size.X, sphere.Size.Y, sphere.Size.Z) / 2);
     }
     async enteredRegion(part: BasePart) {
-        while (!this.isInRegion(part))
+        while (!this.isInRegion(part.Position))
             wait(0.1);
     }
     async leftRegion(part: BasePart) {
-        while (this.isInRegion(part))
+        while (this.isInRegion(part.Position))
             wait(0.1);
     }
-    isInRegion(part: BasePart) {
-        return (part.Position.sub(this.center)).Magnitude <= this.radius;
+    isInRegion(point: Vector3) {
+        return (point.sub(this.center)).Magnitude <= this.radius;
     }
     /**
      * @returns The character's distance from the center
@@ -111,20 +111,20 @@ export class RegionUnion {
      * @returns A promise that resolves when a player leaves a region
      */
     async leftRegion(part: BasePart) {
-        return Promise.race(this.isInRegions(part).map(region => region.leftRegion(part)));
+        return Promise.race(this.isInRegions(part.Position).map(region => region.leftRegion(part)));
     }
     /**
      * Checks if the player/character is inside all regions.
      * @returns An array of regions (if any) the player is in
      */
-    isInRegions(part: BasePart) {
-        return this.regions.filter(region => region.isInRegion(part));
+    isInRegions(point: Vector3) {
+        return this.regions.filter(region => region.isInRegion(point));
     }
     /**
      * Checks if the player/character is inside a single region.
      * @returns A region (if any) the player is in
      */
-    isInRegion(part: BasePart) {
-        return this.regions.find(region => region.isInRegion(part));
+    isInRegion(point: Vector3) {
+        return this.regions.find(region => region.isInRegion(point));
     }
 }

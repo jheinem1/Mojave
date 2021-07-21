@@ -10,7 +10,7 @@ const safezoneFolder = Workspace.FindFirstChild("Safezones") ?? ReplicatedStorag
 assert(safezoneFolder, "Expected a folder named 'Safezones' in the workspace or ReplicatedStorage");
 const safezoneParts = safezoneFolder.GetChildren();
 assert(validSafezoneChildren(safezoneParts), "Expected children of 'Safezones' folder to be BaseParts");
-const safezoneRegions = new RegionUnion(safezoneParts.map((safezonePart) => new BasePartRegion(safezonePart)));
+const safezoneRegions = new RegionUnion(safezoneParts.map((safezonePart) => BasePartRegion.fromPart(safezonePart)));
 let shielded = false;
 
 function enteredRegion(part: BasePart) {
@@ -42,7 +42,7 @@ export class SafezonesHandler extends Handler {
             else {
                 shielded = false;
                 const root = Players.LocalPlayer.Character?.WaitForChild("HumanoidRootPart", 5);
-                if (t.instanceIsA("Part")(root) && safezoneRegions.isInRegion(root)) {
+                if (t.instanceIsA("Part")(root) && safezoneRegions.isInRegion(root.Position)) {
                     wait(0.5);
                     shielded = true;
                     inSafezone.SendToServer(true);

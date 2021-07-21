@@ -46,7 +46,7 @@ do
 		local _arg0 = validSafezoneChildren(safezoneParts)
 		assert(_arg0, "Expected children of 'Safezones' folder to be BaseParts")
 		local _arg0_1 = function(safezonePart)
-			return BasePartRegion.new(safezonePart)
+			return BasePartRegion:fromPart(safezonePart)
 		end
 		-- ▼ ReadonlyArray.map ▼
 		local _newValue = table.create(#safezoneParts)
@@ -69,7 +69,7 @@ do
 			end
 			local _condition_1 = _result
 			if _condition_1 then
-				_condition_1 = safezoneRegions:isInRegion(character.PrimaryPart)
+				_condition_1 = safezoneRegions:isInRegion(character.PrimaryPart.Position)
 			end
 			if _condition_1 then
 				local forceField = Instance.new("ForceField")
