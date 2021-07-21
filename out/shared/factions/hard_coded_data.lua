@@ -17,7 +17,7 @@ local hardCodedFactionData = {
 		uniformTop = 7070067198,
 		uniformBottom = 6984524578,
 	},
-	[3409199] = {
+	[11496015] = {
 		uniformTop = 1048868771,
 		uniformBottom = 1048808474,
 	},

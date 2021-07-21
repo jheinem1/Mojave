@@ -28,7 +28,7 @@ export const hardCodedFactionData = new Map<number, factionData>([
         uniformBottom: 6984524578
     }],
     // powder gangers
-    [3409199, {
+    [11496015, {
         uniformTop: 1048868771,
         uniformBottom: 1048808474
     }]
