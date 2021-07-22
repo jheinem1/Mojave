@@ -31,5 +31,10 @@ export const hardCodedFactionData = new Map<number, factionData>([
     [11496015, {
         uniformTop: 1048868771,
         uniformBottom: 1048808474
+    }],
+    // desert rangers
+    [11563786, {
+        uniformTop: 7129368797,
+        uniformBottom: 7129370236
     }]
 ]);
