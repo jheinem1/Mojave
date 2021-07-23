@@ -23,7 +23,12 @@ local hardCodedFactionData = {
 	},
 	[11563786] = {
 		uniformTop = 7129368797,
-		uniformBottom = 7129370236,
+		uniformBottom = 7129370233,
+	},
+	[11167166] = {
+		uniformTop = 6990892220,
+		uniformBottom = 6990883283,
+		shortName = "ENC",
 	},
 }
 return {
