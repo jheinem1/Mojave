@@ -95,7 +95,7 @@ export class ActionPoints extends Roact.Component {
                         />
                     </frame>
                 </frame>
-                <frame
+                {/* <frame
                     Key="Bar"
                     BackgroundColor3={Color3.fromRGB(255, 170, 0)}
                     BorderSizePixel={0}
@@ -120,7 +120,7 @@ export class ActionPoints extends Roact.Component {
                             ZIndex={2}
                         />
                     </frame>
-                </frame>
+                </frame> */}
                 <frame
                     Key="Bar"
                     BackgroundColor3={Color3.fromRGB(255, 170, 0)}

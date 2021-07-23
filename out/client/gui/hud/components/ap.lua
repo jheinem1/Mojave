@@ -96,29 +96,6 @@ do
 					Bar = Roact.createElement("Frame", {
 						BackgroundColor3 = Color3.fromRGB(255, 170, 0),
 						BorderSizePixel = 0,
-						Position = UDim2.new(1, -2, 0, 0),
-						Size = UDim2.new(0, 2, 1, 0),
-						ZIndex = 4,
-					}, {
-						Bar = Roact.createElement("Frame", {
-							BackgroundColor3 = Color3.fromRGB(67, 67, 67),
-							BorderSizePixel = 0,
-							Position = UDim2.new(0, 1, 0, 1),
-							Size = UDim2.new(1, 0, 1, 0),
-							ZIndex = 2,
-						}, {
-							Bar = Roact.createElement("Frame", {
-								BackgroundColor3 = Color3.fromRGB(67, 67, 67),
-								BorderSizePixel = 0,
-								Position = UDim2.new(0, 1, 0, 1),
-								Size = UDim2.new(1, 0, 1, 0),
-								ZIndex = 2,
-							}),
-						}),
-					}),
-					Bar = Roact.createElement("Frame", {
-						BackgroundColor3 = Color3.fromRGB(255, 170, 0),
-						BorderSizePixel = 0,
 						Size = UDim2.new(0, 2, 1, 0),
 						ZIndex = 4,
 					}, {
