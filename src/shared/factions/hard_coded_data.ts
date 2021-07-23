@@ -39,7 +39,7 @@ export const hardCodedFactionData = new Map<number, factionData>([
     }],
     // enclave
     [11167166, {
-        uniformTop: 6990892220,
+        uniformTop: 6990843320,
         uniformBottom: 6990883283,
         shortName: "ENC"
     }]
