@@ -39,7 +39,7 @@ do
 		newPart.Transparency = 1
 		newPart.CanCollide = false
 		newPart.CanTouch = true
-		newPart.Parent = RunService:IsClient() and Workspace or nil
+		newPart.Parent = nil
 		newPart.Name = tostring(self)
 		self.part = newPart
 		self.rotatedRegion3 = RotatedRegion3.FromPart(self.part)
@@ -49,10 +49,12 @@ do
 	end
 	BasePartRegion.enteredRegion = TS.async(function(self, part)
 		if RunService:IsClient() then
+			self.part.Parent = Workspace
 			local inRegion = self:isInRegion(part.Position)
 			while not inRegion do
 				inRegion = (part.Touched:Wait()) == self.part
 			end
+			self.part.Parent = nil
 		else
 			while self:isInRegion(part.Position) do
 				wait(0.1)
@@ -61,10 +63,12 @@ do
 	end)
 	BasePartRegion.leftRegion = TS.async(function(self, part)
 		if RunService:IsClient() then
+			self.part.Parent = Workspace
 			local inRegion = self:isInRegion(part.Position)
 			while inRegion do
 				inRegion = not ((part.TouchEnded:Wait()) == self.part)
 			end
+			self.part.Parent = nil
 		else
 			while self:isInRegion(part.Position) do
 				wait(0.1)
