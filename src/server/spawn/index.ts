@@ -56,7 +56,8 @@ export class SpawnHandler extends Handler {
                 Avatar.changePants(character[0], faction.uniformBottom);
             }
             new Promise<void>(resolve => {
-                RunService.Heartbeat.Wait();
+                if (!character[0].Parent)
+                    character[0].AncestryChanged.Wait();
                 (character[0].FindFirstChild("HumanoidRootPart") as Part).CFrame = new CFrame(spawnLocation);
                 resolve();
             });
