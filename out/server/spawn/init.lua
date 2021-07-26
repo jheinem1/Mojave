@@ -4,7 +4,6 @@ local _services = TS.import(script, TS.getModule(script, "@rbxts", "services"))
 local Debris = _services.Debris
 local Players = _services.Players
 local ReplicatedStorage = _services.ReplicatedStorage
-local RunService = _services.RunService
 local t = TS.import(script, TS.getModule(script, "@rbxts", "t").lib.ts).t
 local getFactions = TS.import(script, game:GetService("ServerScriptService"), "Server", "factions", "faction").getFactions
 local getTeams = TS.import(script, game:GetService("ServerScriptService"), "Server", "team_generator", "generator_funcs").getTeams
@@ -128,7 +127,9 @@ do
 				Avatar:changePants(character[1], faction.uniformBottom)
 			end
 			TS.Promise.new(function(resolve)
-				RunService.Heartbeat:Wait();
+				if not character[1].Parent then
+					character[1].AncestryChanged:Wait()
+				end
 				(character[1]:FindFirstChild("HumanoidRootPart")).CFrame = CFrame.new(spawnLocation)
 				resolve()
 			end)
