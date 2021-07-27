@@ -128,7 +128,7 @@ do
 				if not character[1].Parent then
 					character[1].AncestryChanged:Wait()
 				end
-				(character[1]:FindFirstChild("HumanoidRootPart")).CFrame = CFrame.new(spawnLocation)
+				character[1]:MoveTo(spawnLocation)
 				resolve()
 			end)
 			return { true, "" }

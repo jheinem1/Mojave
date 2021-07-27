@@ -56,7 +56,7 @@ export class SpawnHandler extends Handler {
             new Promise<void>(resolve => {
                 if (!character[0].Parent)
                     character[0].AncestryChanged.Wait();
-                (character[0].FindFirstChild("HumanoidRootPart") as Part).CFrame = new CFrame(spawnLocation);
+                character[0].MoveTo(spawnLocation);
                 resolve();
             });
             return [true, ""];
