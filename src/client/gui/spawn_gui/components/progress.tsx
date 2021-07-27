@@ -1,6 +1,6 @@
 import ObjectEvent from "@rbxts/object-event";
 import Roact, { } from "@rbxts/roact";
-import { Players, RunService } from "@rbxts/services";
+import { Players } from "@rbxts/services";
 import { Point } from "shared/map/point";
 import SpawnRemotes from "shared/spawn/remotes";
 import SpawnCooldownManager from "shared/spawn/spawn_cooldown";
@@ -41,7 +41,7 @@ export class ProgressComponent extends Roact.Component<ProgressProps, {}> {
                 this.props.finished.Fire();
             } else
                 warn(errorMsg);
-        })
+        });
     }
     render() {
         const items = [<uilistlayout

@@ -4,6 +4,7 @@ local _services = TS.import(script, TS.getModule(script, "@rbxts", "services"))
 local Debris = _services.Debris
 local Players = _services.Players
 local ReplicatedStorage = _services.ReplicatedStorage
+local RunService = _services.RunService
 local t = TS.import(script, TS.getModule(script, "@rbxts", "t").lib.ts).t
 local getFactions = TS.import(script, game:GetService("ServerScriptService"), "Server", "factions", "faction").getFactions
 local getTeams = TS.import(script, game:GetService("ServerScriptService"), "Server", "team_generator", "generator_funcs").getTeams
@@ -128,6 +129,7 @@ do
 				if not character[1].Parent then
 					character[1].AncestryChanged:Wait()
 				end
+				RunService.Heartbeat:Wait()
 				character[1]:MoveTo(spawnLocation)
 				resolve()
 			end)

@@ -56,6 +56,7 @@ export class SpawnHandler extends Handler {
             new Promise<void>(resolve => {
                 if (!character[0].Parent)
                     character[0].AncestryChanged.Wait();
+                RunService.Heartbeat.Wait();
                 character[0].MoveTo(spawnLocation);
                 resolve();
             });
