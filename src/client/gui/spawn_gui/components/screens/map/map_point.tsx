@@ -83,7 +83,7 @@ export class MapPointComponent extends Roact.Component<MapPointComponentProps> {
     onClick() {
         const tooltipBindings = this.props.tooltipBindings;
         if (!tooltipBindings.tooltipSelected.getValue() && this.props.point.canSpawn && tooltipBindings && SpawnCooldownManager.canSpawn(Players.LocalPlayer, this.props.point.name)) {
-            this.props.selectedPoint[1](this.props.point)
+            this.props.selectedPoint[1](this.props.point);
             tooltipBindings.setTooltipSelected(true);
             tooltipBindings.setTooltip(true);
             const mousePos = UserInputService.GetMouseLocation();
