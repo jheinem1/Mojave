@@ -90,19 +90,22 @@ local clientData
 local getClientData = TS.async(function()
 	local _condition = clientData
 	if _condition == nil then
-		local _exp = (TS.await(FactionRemotes.Client:WaitFor("GetFactions"):andThen(function(remote)
+		local _result = (TS.await(FactionRemotes.Client:WaitFor("GetFactions"):andThen(function(remote)
 			return remote:CallServerAsync()
 		end)))
-		local _arg0 = function(factionInfo)
-			return ClientFaction.new(factionInfo)
+		if _result ~= nil then
+			local _arg0 = function(factionInfo)
+				return ClientFaction.new(factionInfo)
+			end
+			-- ▼ ReadonlyArray.map ▼
+			local _newValue = table.create(#_result)
+			for _k, _v in ipairs(_result) do
+				_newValue[_k] = _arg0(_v, _k - 1, _result)
+			end
+			-- ▲ ReadonlyArray.map ▲
+			_result = _newValue
 		end
-		-- ▼ ReadonlyArray.map ▼
-		local _newValue = table.create(#_exp)
-		for _k, _v in ipairs(_exp) do
-			_newValue[_k] = _arg0(_v, _k - 1, _exp)
-		end
-		-- ▲ ReadonlyArray.map ▲
-		_condition = _newValue
+		_condition = _result
 	end
 	clientData = _condition
 	return clientData
