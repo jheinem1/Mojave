@@ -114,6 +114,9 @@ do
 				if newTooltipText ~= tooltipText and not tooltipBindings.tooltipSelected:getValue() then
 					tooltipBindings.setTooltipText(newTooltipText)
 					tooltipText = newTooltipText
+					if not tooltipBindings.tooltip:getValue() then
+						tooltipBindings.setTooltip(true)
+					end
 				end
 				if newMousePos ~= mousePos and not tooltipBindings.tooltipSelected:getValue() then
 					mousePos = newMousePos
@@ -126,8 +129,6 @@ do
 					end
 				end
 			end)
-			wait()
-			tooltipBindings.setTooltip(true)
 		end
 	end
 	function MapPointComponent:onClick()
@@ -135,6 +136,7 @@ do
 		if not tooltipBindings.tooltipSelected:getValue() and self.props.point.canSpawn and tooltipBindings and SpawnCooldownManager:canSpawn(Players.LocalPlayer, self.props.point.name) then
 			self.props.selectedPoint[2](self.props.point)
 			tooltipBindings.setTooltipSelected(true)
+			tooltipBindings.setTooltip(true)
 			local mousePos = UserInputService:GetMouseLocation()
 			if not tooltipBindings.tooltip:getValue() then
 				tooltipBindings.setTooltip(true)

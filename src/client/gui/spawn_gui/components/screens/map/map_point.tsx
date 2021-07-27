@@ -65,6 +65,8 @@ export class MapPointComponent extends Roact.Component<MapPointComponentProps> {
                 if (newTooltipText !== tooltipText && !tooltipBindings.tooltipSelected.getValue()) {
                     tooltipBindings.setTooltipText(newTooltipText);
                     tooltipText = newTooltipText;
+                    if (!tooltipBindings.tooltip.getValue())
+                        tooltipBindings.setTooltip(true);
                 }
                 if (newMousePos !== mousePos && !tooltipBindings.tooltipSelected.getValue()) {
                     mousePos = newMousePos;
@@ -76,8 +78,6 @@ export class MapPointComponent extends Roact.Component<MapPointComponentProps> {
                         tooltipBindings.setTooltip(false);
                 }
             });
-            wait();
-            tooltipBindings.setTooltip(true);
         }
     }
     onClick() {
@@ -85,6 +85,7 @@ export class MapPointComponent extends Roact.Component<MapPointComponentProps> {
         if (!tooltipBindings.tooltipSelected.getValue() && this.props.point.canSpawn && tooltipBindings && SpawnCooldownManager.canSpawn(Players.LocalPlayer, this.props.point.name)) {
             this.props.selectedPoint[1](this.props.point)
             tooltipBindings.setTooltipSelected(true);
+            tooltipBindings.setTooltip(true);
             const mousePos = UserInputService.GetMouseLocation();
             if (!tooltipBindings.tooltip.getValue()) {
                 tooltipBindings.setTooltip(true);
