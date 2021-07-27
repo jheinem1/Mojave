@@ -126,7 +126,7 @@ do
 					end
 				end
 			end)
-			RunService.RenderStepped:Wait()
+			wait()
 			tooltipBindings.setTooltip(true)
 		end
 	end

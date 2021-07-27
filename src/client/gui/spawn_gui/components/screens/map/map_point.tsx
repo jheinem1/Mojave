@@ -76,7 +76,7 @@ export class MapPointComponent extends Roact.Component<MapPointComponentProps> {
                         tooltipBindings.setTooltip(false);
                 }
             });
-            RunService.RenderStepped.Wait();
+            wait();
             tooltipBindings.setTooltip(true);
         }
     }
