@@ -1,7 +1,7 @@
 import ObjectEvent from "@rbxts/object-event";
 import Roact from "@rbxts/roact";
-import { Players, RunService, Workspace } from "@rbxts/services";
-import { ClientFaction, getClientFactionInfo, getFactions } from "client/factions";
+import { Players, Workspace } from "@rbxts/services";
+import { ClientFaction, getClientFactionInfo } from "client/factions";
 import { Screen } from "../screen";
 import { AvatarViewportComponent } from "./avatar_viewport";
 import { TeamButtonComponent } from "./teambutton";
@@ -59,7 +59,7 @@ class TeamsComponent extends Roact.Component<TeamsProps, TeamsState> {
         });
         return <frame
             Key="Teams"
-            BackgroundColor3={Color3.fromRGB(255, 255, 255)}
+            BackgroundColor3={Color3.fromRGB(23, 23, 23)}
             BorderSizePixel={0}
             Position={new UDim2(0, 0, 0, 36)}
             Size={new UDim2(1, 0, 1, -36)}

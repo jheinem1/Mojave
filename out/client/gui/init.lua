@@ -1,11 +1,11 @@
 -- Compiled with roblox-ts v1.2.2
 local TS = require(game:GetService("ReplicatedStorage"):WaitForChild("rbxts_include"):WaitForChild("RuntimeLib"))
-local StarterGui = TS.import(script, TS.getModule(script, "@rbxts", "services")).StarterGui
+local _services = TS.import(script, TS.getModule(script, "@rbxts", "services"))
+local Players = _services.Players
+local StarterGui = _services.StarterGui
 local SpawnGui = TS.import(script, script, "spawn_gui").SpawnGui
 local HUD = TS.import(script, script, "hud").HUD
-local SpawnRemotes = TS.import(script, game:GetService("ReplicatedStorage"), "Shared", "spawn", "remotes").default
 local Handler = TS.import(script, game:GetService("ReplicatedStorage"), "Shared", "handler").Handler
-local diedRemote = SpawnRemotes.Client:WaitFor("Died")
 local onLoad = TS.async(function()
 	TS.try(function()
 		StarterGui:SetCoreGuiEnabled(Enum.CoreGuiType.All, false)
@@ -16,14 +16,8 @@ local onLoad = TS.async(function()
 		warn("Unable to load SpawnGui! Error: " .. tostring(error))
 	end)
 	StarterGui:SetCoreGuiEnabled(Enum.CoreGuiType.All, true)
-	-- StarterGui.SetCoreGuiEnabled(Enum.CoreGuiType.Chat, false);
-	HUD:mount()
 end)
 local onDied = TS.async(function()
-	TS.try(function()
-		HUD:unmount()
-	end, function(error) end)
-	wait(4)
 	onLoad()
 end)
 --[[
@@ -49,11 +43,15 @@ do
 		self.name = "GUI"
 	end
 	function GuiHandler:run()
-		local _arg0 = function(remote)
-			remote:Connect(onDied)
-			onLoad()
-		end
-		diedRemote:andThen(_arg0)
+		Players.LocalPlayer.CharacterAdded:Connect(function(character)
+			return character.AncestryChanged:Connect(function()
+				if not character.Parent then
+					onDied()
+				end
+			end)
+		end)
+		onLoad()
+		HUD:mount()
 	end
 end
 return {

@@ -80,7 +80,7 @@ do
 			-- ▲ ReadonlyArray.forEach ▲
 		end
 		local _ptr = {
-			BackgroundColor3 = Color3.fromRGB(255, 255, 255),
+			BackgroundColor3 = Color3.fromRGB(23, 23, 23),
 			BorderSizePixel = 0,
 			Position = UDim2.new(0, 0, 0, 36),
 			Size = UDim2.new(1, 0, 1, -36),

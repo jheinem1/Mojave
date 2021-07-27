@@ -30,10 +30,11 @@ do
 			local success = _param[1]
 			local errorMsg = _param[2]
 			if success then
-				self.props.finished:Fire()
 				if not point.safezone then
 					SpawnCooldownManager:logSpawn(Players.LocalPlayer, point.name)
 				end
+				wait(0.5)
+				self.props.finished:Fire()
 			else
 				warn(errorMsg)
 			end

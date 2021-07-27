@@ -13,7 +13,6 @@ local genPoints = TS.import(script, game:GetService("ReplicatedStorage"), "Share
 local SpawnRemotes = TS.import(script, game:GetService("ReplicatedStorage"), "Shared", "spawn", "remotes").default
 local SpawnCooldownManager = TS.import(script, game:GetService("ReplicatedStorage"), "Shared", "spawn", "spawn_cooldown").default
 local requestSpawnRemote = SpawnRemotes.Server:Create("RequestSpawn")
-local playerDiedRemote = SpawnRemotes.Server:Create("Died")
 local pointFolder = ReplicatedStorage:FindFirstChild("Points")
 local _arg0 = t.instanceOf("Folder")(pointFolder)
 assert(_arg0, "Expected folder in the ReplicatedStorage named 'Points'")
@@ -48,8 +47,7 @@ do
 				local _result = character:FindFirstChildWhichIsA("Humanoid")
 				if _result ~= nil then
 					_result = _result.Died:Connect(function()
-						Debris:AddItem(character, 5)
-						playerDiedRemote:SendToPlayer(player)
+						Debris:AddItem(character, 4)
 					end)
 				end
 			end)

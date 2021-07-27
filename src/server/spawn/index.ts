@@ -10,7 +10,6 @@ import SpawnRemotes from "shared/spawn/remotes";
 import SpawnCooldownManager from "shared/spawn/spawn_cooldown";
 
 const requestSpawnRemote = SpawnRemotes.Server.Create("RequestSpawn");
-const playerDiedRemote = SpawnRemotes.Server.Create("Died");
 const pointFolder = ReplicatedStorage.FindFirstChild("Points");
 assert(t.instanceOf("Folder")(pointFolder), "Expected folder in the ReplicatedStorage named 'Points'");
 const points = genPoints(pointFolder.GetChildren());
@@ -26,8 +25,7 @@ export class SpawnHandler extends Handler {
         Players.PlayerAdded.Connect(player => {
             player.CharacterAdded.Connect(character => {
                 character.FindFirstChildWhichIsA("Humanoid")?.Died.Connect(() => {
-                    Debris.AddItem(character, 5);
-                    playerDiedRemote.SendToPlayer(player);
+                    Debris.AddItem(character, 4);
                 });
             });
         });

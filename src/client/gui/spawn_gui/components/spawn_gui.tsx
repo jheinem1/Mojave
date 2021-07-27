@@ -9,13 +9,12 @@ interface SpawnGuiProps {
 
 export class SpawnGuiComponent extends Roact.Component<SpawnGuiProps> {
     render() {
-        return <screengui Key="StartMenu" IgnoreGuiInset={true} ZIndexBehavior={Enum.ZIndexBehavior.Sibling}>
+        return <screengui Key="StartMenu" IgnoreGuiInset={true} ZIndexBehavior={Enum.ZIndexBehavior.Sibling} DisplayOrder={2}>
             <frame
                 Key="Background"
                 BackgroundColor3={Color3.fromRGB(0, 0, 0)}
                 BorderSizePixel={0}
                 Size={new UDim2(1, 0, 1, 0)}
-                ZIndex={2}
             >
                 <textlabel
                     Key="Title"
