@@ -90,12 +90,15 @@ do
 		local _result = hardCodedFactionData[_groupId]
 		if _result ~= nil then
 			_result = _result.color
+			if _result ~= nil then
+				_result = _result.Name
+			end
 		end
 		local _condition = _result
 		if _condition == nil then
-			_condition = assignColor(tostring((string.match(groupInfo.Description, [=[Color:%s*["']([%w ]*)["']]=]))))
+			_condition = tostring((string.match(groupInfo.Description, [=[Color:%s*["']([%w ]*)["']]=])))
 		end
-		self.color = _condition
+		self.color = assignColor(_condition)
 		local _groupId_1 = self.groupId
 		local _result_1 = hardCodedFactionData[_groupId_1]
 		if _result_1 ~= nil then
