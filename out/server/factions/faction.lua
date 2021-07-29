@@ -196,6 +196,30 @@ local function getFactions(update)
 		end
 		factions = {}
 		local _arg0 = function(group)
+			local _value = (string.match(group.Description, [=[Color:%s*["']([%w ]*)["']]=]))
+			if _value ~= 0 and _value == _value and _value ~= "" and _value then
+				local _factions = factions
+				local _id = group.Id
+				local _faction = Faction.new(group)
+				-- ▼ Map.set ▼
+				_factions[_id] = _faction
+				-- ▲ Map.set ▲
+				return false
+			end
+			return true
+		end
+		-- ▼ ReadonlyArray.filter ▼
+		local _newValue = {}
+		local _length = 0
+		for _k, _v in ipairs(newAllies) do
+			if _arg0(_v, _k - 1, newAllies) == true then
+				_length += 1
+				_newValue[_length] = _v
+			end
+		end
+		-- ▲ ReadonlyArray.filter ▲
+		local noColor = _newValue
+		local _arg0_1 = function(group)
 			local _factions = factions
 			local _id = group.Id
 			local _faction = Faction.new(group)
@@ -205,8 +229,8 @@ local function getFactions(update)
 			return _factions
 		end
 		-- ▼ ReadonlyArray.forEach ▼
-		for _k, _v in ipairs(newAllies) do
-			_arg0(_v, _k - 1, newAllies)
+		for _k, _v in ipairs(noColor) do
+			_arg0_1(_v, _k - 1, noColor)
 		end
 		-- ▲ ReadonlyArray.forEach ▲
 		getClientInfo(nil, true)

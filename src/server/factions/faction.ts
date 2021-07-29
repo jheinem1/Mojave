@@ -93,7 +93,14 @@ export function getFactions(update?: boolean) {
                 allyPages.AdvanceToNextPageAsync();
         }
         factions = new Map<number, Faction>();
-        newAllies.forEach((group) => factions.set(group.Id, new Faction(group)));
+        const noColor = newAllies.filter(group => {
+            if (string.match(group.Description, `Color:%s*["']([%w ]*)["']`)[0]) {
+                factions.set(group.Id, new Faction(group));
+                return false;
+            }
+            return true;
+        });
+        noColor.forEach(group => factions.set(group.Id, new Faction(group)));
         getClientInfo(undefined, true);
     }
     return factions;
