@@ -1,1 +1,0 @@
-export function getColor(choice?: string): BrickColor;

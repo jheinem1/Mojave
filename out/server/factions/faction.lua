@@ -4,10 +4,10 @@ local _services = TS.import(script, TS.getModule(script, "@rbxts", "services"))
 local Players = _services.Players
 local GroupService = _services.GroupService
 local RunService = _services.RunService
+local t = TS.import(script, TS.getModule(script, "@rbxts", "t").lib.ts).t
 local FactionRemotes = TS.import(script, game:GetService("ReplicatedStorage"), "Shared", "factions", "faction_remotes").default
 local hardCodedFactionData = TS.import(script, game:GetService("ReplicatedStorage"), "Shared", "factions", "hard_coded_data").hardCodedFactionData
 local _utility_functions = TS.import(script, game:GetService("ReplicatedStorage"), "Shared", "factions", "utility_functions")
-local assignColor = _utility_functions.assignColor
 local generateShortName = _utility_functions.generateShortName
 local groupId = _utility_functions.groupId
 local cleanGroupName = _utility_functions.cleanGroupName
@@ -56,8 +56,9 @@ do
 		local self = setmetatable({}, Faction)
 		return self:constructor(...) or self
 	end
-	function Faction:constructor(groupInfo)
+	function Faction:constructor(groupInfo, color)
 		self.groupInfo = groupInfo
+		self.color = color
 		self.players = {}
 		self.roles = {}
 		self.name = groupInfo.Name
@@ -89,50 +90,37 @@ do
 		local _groupId = self.groupId
 		local _result = hardCodedFactionData[_groupId]
 		if _result ~= nil then
-			_result = _result.color
-			if _result ~= nil then
-				_result = _result.Name
-			end
+			_result = _result.shortName
 		end
 		local _condition = _result
 		if _condition == nil then
-			_condition = tostring((string.match(groupInfo.Description, [=[Color:%s*["']([%w ]*)["']]=])))
+			local _condition_1 = (string.match(groupInfo.Description, [=[ShortName:%s*["']([%a]*)["']]=]))
+			if _condition_1 == nil then
+				_condition_1 = self.name
+			end
+			_condition = generateShortName(tostring(_condition_1))
 		end
-		self.color = assignColor(_condition)
-		local _groupId_1 = self.groupId
-		local _result_1 = hardCodedFactionData[_groupId_1]
-		if _result_1 ~= nil then
-			_result_1 = _result_1.shortName
-		end
-		local _condition_1 = _result_1
+		self.shortName = _condition
+		local _condition_1 = tonumber((string.match(groupInfo.Description, [=[UniformTop:%s*["']([^"']*)["']]=])))
 		if _condition_1 == nil then
-			local _condition_2 = (string.match(groupInfo.Description, [=[ShortName:%s*["']([%a]*)["']]=]))
-			if _condition_2 == nil then
-				_condition_2 = self.name
+			local _groupId_1 = self.groupId
+			local _result_1 = hardCodedFactionData[_groupId_1]
+			if _result_1 ~= nil then
+				_result_1 = _result_1.uniformTop
 			end
-			_condition_1 = generateShortName(tostring(_condition_2))
+			_condition_1 = _result_1
 		end
-		self.shortName = _condition_1
-		local _condition_2 = tonumber((string.match(groupInfo.Description, [=[UniformTop:%s*["']([^"']*)["']]=])))
+		self.uniformTop = _condition_1
+		local _condition_2 = tonumber((string.match(groupInfo.Description, [=[UniformBottom:%s*["']([^"']*)["']]=])))
 		if _condition_2 == nil then
-			local _groupId_2 = self.groupId
-			local _result_2 = hardCodedFactionData[_groupId_2]
-			if _result_2 ~= nil then
-				_result_2 = _result_2.uniformTop
+			local _groupId_1 = self.groupId
+			local _result_1 = hardCodedFactionData[_groupId_1]
+			if _result_1 ~= nil then
+				_result_1 = _result_1.uniformBottom
 			end
-			_condition_2 = _result_2
+			_condition_2 = _result_1
 		end
-		self.uniformTop = _condition_2
-		local _condition_3 = tonumber((string.match(groupInfo.Description, [=[UniformBottom:%s*["']([^"']*)["']]=])))
-		if _condition_3 == nil then
-			local _groupId_2 = self.groupId
-			local _result_2 = hardCodedFactionData[_groupId_2]
-			if _result_2 ~= nil then
-				_result_2 = _result_2.uniformBottom
-			end
-			_condition_3 = _result_2
-		end
-		self.uniformBottom = _condition_3
+		self.uniformBottom = _condition_2
 		Players.PlayerAdded:Connect(function(player)
 			return self:onPlayer(player)
 		end)
@@ -195,14 +183,48 @@ local function getFactions(update)
 			end
 		end
 		factions = {}
+		local usedColors = {
+			[194] = true,
+		}
+		local getColor = function()
+			do
+				local i = 1
+				local _shouldIncrement = false
+				while true do
+					if _shouldIncrement then
+						i += 1
+					else
+						_shouldIncrement = true
+					end
+					if not (i <= 1032) then
+						break
+					end
+					local color = BrickColor.new(i)
+					local _number = color.Number
+					if not usedColors[_number] then
+						local _number_1 = color.Number
+						-- ▼ Map.set ▼
+						usedColors[_number_1] = true
+						-- ▲ Map.set ▲
+						return color
+					end
+				end
+			end
+			error("Out of colors!")
+		end
 		local _arg0 = function(group)
-			local _value = (string.match(group.Description, [=[Color:%s*["']([%w ]*)["']]=]))
-			if _value ~= 0 and _value == _value and _value ~= "" and _value then
+			local _id = group.Id
+			local _color = hardCodedFactionData[_id]
+			if _color ~= nil then
+				_color = _color.color
+			end
+			local color = _color
+			if color then
 				local _factions = factions
-				local _id = group.Id
-				local _faction = Faction.new(group)
+				local _id_1 = group.Id
+				local _faction = Faction.new(group, color)
 				-- ▼ Map.set ▼
-				_factions[_id] = _faction
+				_factions[_id_1] = _faction
 				-- ▲ Map.set ▲
 				return false
 			end
@@ -218,19 +240,59 @@ local function getFactions(update)
 			end
 		end
 		-- ▲ ReadonlyArray.filter ▲
-		local noColor = _newValue
 		local _arg0_1 = function(group)
+			local colorNameOrId = (string.match(group.Description, [=[Color:%s*["'“]([%w ]*)["'“]]=]))
+			local _value = t.string(colorNameOrId) and tonumber(colorNameOrId)
+			local color = _value ~= 0 and _value == _value and _value and BrickColor.new(tonumber(colorNameOrId)) or BrickColor.new(t.string(colorNameOrId) and colorNameOrId or "Medium stone grey")
+			local _number = color.Number
+			if not usedColors[_number] then
+				local _factions = factions
+				local _id = group.Id
+				local _faction = Faction.new(group, color)
+				-- ▼ Map.set ▼
+				_factions[_id] = _faction
+				-- ▲ Map.set ▲
+				local _id_1 = group.Id
+				local _result = hardCodedFactionData[_id_1]
+				if _result ~= nil then
+					_result = _result.color
+					if _result ~= nil then
+						_result = _result.Number
+					end
+				end
+				local _condition = _result
+				if _condition == nil then
+					_condition = color.Number
+				end
+				-- ▼ Map.set ▼
+				usedColors[_condition] = true
+				-- ▲ Map.set ▲
+				return false
+			end
+			return true
+		end
+		-- ▼ ReadonlyArray.filter ▼
+		local _newValue_1 = {}
+		local _length_1 = 0
+		for _k, _v in ipairs(_newValue) do
+			if _arg0_1(_v, _k - 1, _newValue) == true then
+				_length_1 += 1
+				_newValue_1[_length_1] = _v
+			end
+		end
+		-- ▲ ReadonlyArray.filter ▲
+		local _arg0_2 = function(group)
 			local _factions = factions
 			local _id = group.Id
-			local _faction = Faction.new(group)
+			local _faction = Faction.new(group, getColor())
 			-- ▼ Map.set ▼
 			_factions[_id] = _faction
 			-- ▲ Map.set ▲
 			return _factions
 		end
 		-- ▼ ReadonlyArray.forEach ▼
-		for _k, _v in ipairs(noColor) do
-			_arg0_1(_v, _k - 1, noColor)
+		for _k, _v in ipairs(_newValue_1) do
+			_arg0_2(_v, _k - 1, _newValue_1)
 		end
 		-- ▲ ReadonlyArray.forEach ▲
 		getClientInfo(nil, true)

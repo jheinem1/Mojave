@@ -1,11 +1,5 @@
 -- Compiled with roblox-ts v1.2.2
-local TS = require(game:GetService("ReplicatedStorage"):WaitForChild("rbxts_include"):WaitForChild("RuntimeLib"))
 -- const usedColors = new Array<number>();
-local getColor = TS.import(script, game:GetService("ReplicatedStorage"), "Shared", "factions", "brick_colors").getColor
--- * returns a random color
-local function assignColor(color)
-	return getColor(color)
-end
 -- * extracts the first letter of every word in a string
 local function generateShortName(name)
 	local words = string.split(name, " ")
@@ -69,7 +63,6 @@ local function cleanGroupName(name)
 end
 local groupId = 4978642
 return {
-	assignColor = assignColor,
 	generateShortName = generateShortName,
 	cleanGroupName = cleanGroupName,
 	groupId = groupId,

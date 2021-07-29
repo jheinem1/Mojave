@@ -1,8 +1,9 @@
 import { Players, GroupService, RunService } from "@rbxts/services";
+import { t } from "@rbxts/t";
 import { ClientFactionInfo, RoleInfo } from "shared/factions/faction_data_interfaces";
 import FactionRemotes from "shared/factions/faction_remotes";
 import { hardCodedFactionData } from "shared/factions/hard_coded_data";
-import { assignColor, generateShortName, groupId, cleanGroupName } from "shared/factions/utility_functions";
+import { generateShortName, groupId, cleanGroupName } from "shared/factions/utility_functions";
 
 const clientInfo = new Array<ClientFactionInfo>();
 const clientSpecificInfo = new Map<Player, ClientFactionInfo[]>();
@@ -33,17 +34,15 @@ export class Faction {
     emblem: string;
     players = new Map<Player, Role>();
     roles = new Map<number, Role>();
-    color: BrickColor;
     shortName: string;
     uniformTop?: number;
     uniformBottom?: number;
     team?: Team;
-    constructor(public groupInfo: GroupInfo) {
+    constructor(public groupInfo: GroupInfo, public color: BrickColor) {
         this.name = groupInfo.Name;
         this.groupId = groupInfo.Id;
         this.emblem = groupInfo.EmblemUrl;
         groupInfo.Roles.map(roleInfo => new Role(roleInfo, this)).forEach(role => this.roles.set(role.id, role));
-        this.color = assignColor(hardCodedFactionData.get(this.groupId)?.color?.Name ?? tostring(string.match(groupInfo.Description, `Color:%s*["']([%w ]*)["']`)[0]));
         this.shortName = hardCodedFactionData.get(this.groupId)?.shortName ?? generateShortName(tostring(string.match(groupInfo.Description, `ShortName:%s*["']([%a]*)["']`)[0] ?? this.name));
         this.uniformTop = tonumber(string.match(groupInfo.Description, `UniformTop:%s*["']([^"']*)["']`)[0]) ?? hardCodedFactionData.get(this.groupId)?.uniformTop;
         this.uniformBottom = tonumber(string.match(groupInfo.Description, `UniformBottom:%s*["']([^"']*)["']`)[0]) ?? hardCodedFactionData.get(this.groupId)?.uniformBottom;
@@ -93,14 +92,36 @@ export function getFactions(update?: boolean) {
                 allyPages.AdvanceToNextPageAsync();
         }
         factions = new Map<number, Faction>();
-        const noColor = newAllies.filter(group => {
-            if (string.match(group.Description, `Color:%s*["']([%w ]*)["']`)[0]) {
-                factions.set(group.Id, new Faction(group));
+        const usedColors = new Map<number, boolean>([[194, true]]);
+        const getColor = () => {
+            for (let i = 1; i <= 1032; i++) {
+                const color = new BrickColor(i);
+                if (!usedColors.get(color.Number)) {
+                    usedColors.set(color.Number, true);
+                    return color;
+                }
+            }
+            throw "Out of colors!";
+        }
+        newAllies.filter(group => {
+            const color = hardCodedFactionData.get(group.Id)?.color
+            if (color) {
+                factions.set(group.Id, new Faction(group, color));
                 return false;
             }
             return true;
-        });
-        noColor.forEach(group => factions.set(group.Id, new Faction(group)));
+        })
+            .filter(group => {
+                const colorNameOrId = string.match(group.Description, `Color:%s*["'“]([%w ]*)["'“]`)[0];
+                const color = t.string(colorNameOrId) && tonumber(colorNameOrId) ? new BrickColor(tonumber(colorNameOrId) as number) : new BrickColor(t.string(colorNameOrId) ? colorNameOrId as "Medium stone grey" : "Medium stone grey");
+                if (!usedColors.get(color.Number)) {
+                    factions.set(group.Id, new Faction(group, color));
+                    usedColors.set(hardCodedFactionData.get(group.Id)?.color?.Number ?? color.Number, true);
+                    return false;
+                }
+                return true;
+            })
+            .forEach(group => factions.set(group.Id, new Faction(group, getColor())));
         getClientInfo(undefined, true);
     }
     return factions;
